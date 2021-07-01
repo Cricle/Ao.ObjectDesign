@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFrameworks>net461;netcoreapp3.1</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.6" />
+    <PackageReference Include="System.Text.Json" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
+  </ItemGroup>
+
+</Project>

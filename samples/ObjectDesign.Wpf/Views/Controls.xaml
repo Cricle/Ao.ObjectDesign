@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/CornerDesign.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/LocationSize.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/Primitive.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/PenBrush.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/FontSetting.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/Enum.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

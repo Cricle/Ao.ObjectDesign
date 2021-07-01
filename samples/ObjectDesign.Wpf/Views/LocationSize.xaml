@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:loc="clr-namespace:ObjectDesign.Wpf.Views"
+                    xmlns:od="clr-namespace:Ao.ObjectDesign;assembly=Ao.ObjectDesign"
+                    xmlns:m="http://metro.mahapps.com/winfx/xaml/controls">
+    <DataTemplate x:Key="ObjectDesign.LocationSize"
+                  DataType="{x:Type od:PropertyProxy}">
+        <Grid DataContext="{Binding Instance}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.Resources>
+                <Thickness x:Key="BlockMargin">4,2</Thickness>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="T:"/>
+            <m:NumericUpDown Value="{Binding Top,Mode=TwoWay}" Grid.Column="1"/>
+            <TextBlock Text="W:" Grid.Column="2"/>
+            <m:NumericUpDown Value="{Binding Width,Mode=TwoWay}" Grid.Column="3"/>
+            <TextBlock Text="L:" Grid.Row="1"/>
+            <m:NumericUpDown Value="{Binding Left,Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="H:" Grid.Row="1" Grid.Column="2"/>
+            <m:NumericUpDown Value="{Binding Height,Mode=TwoWay}" Grid.Row="1" Grid.Column="3"/>
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>
