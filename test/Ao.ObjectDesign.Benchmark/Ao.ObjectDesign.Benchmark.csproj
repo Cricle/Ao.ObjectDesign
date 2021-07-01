@@ -10,6 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\samples\ObjectDesign.Wpf\ObjectDesign.Wpf.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
 

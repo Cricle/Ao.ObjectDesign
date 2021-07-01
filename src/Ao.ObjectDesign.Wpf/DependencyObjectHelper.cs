@@ -21,7 +21,8 @@ namespace Ao.ObjectDesign.Wpf
             Debug.Assert(typeof(DependencyObject).IsAssignableFrom(type));
 
             return TypeDescriptor.GetProperties(type, dependencyAttributes)
-                .OfType<PropertyDescriptor>();
+                .OfType<PropertyDescriptor>()
+                .Where(x => x.ComponentType == type);
         }
         public static IReadOnlyDictionary<string, DependencyPropertyDescriptor> GetDependencyPropertyDescriptors(Type type)
         {

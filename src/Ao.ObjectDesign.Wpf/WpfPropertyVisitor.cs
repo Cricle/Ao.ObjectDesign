@@ -38,12 +38,12 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (d == DeclaringInstance)
             {
-                RaisePropertyChanged(nameof(Value));
+                RaisePropertyChanged(selectedPropertyDescriptor.Name);
             }
         }
         protected virtual void RaisePropertyChanged(string name)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(DeclaringInstance, new PropertyChangedEventArgs(name));
         }
 
         public override object GetValue()
