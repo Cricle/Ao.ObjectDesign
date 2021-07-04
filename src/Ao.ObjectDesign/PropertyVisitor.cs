@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign
 {
-    public class PropertyVisitor : ObjectProxy, IPropertyVisitor
+    public class PropertyVisitor : ObjectProxy, IPropertyVisitor,INotifyPropertyChanged
     {
         private static readonly ConcurrentDictionary<Type, TypeConverter> typeConverterMap = new ConcurrentDictionary<Type, TypeConverter>();
 
@@ -47,6 +47,17 @@ namespace Ao.ObjectDesign
 
         public object DeclaringInstance { get; }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([CallerMemberName]string name=null)
+        {
+            RaisePropertyChanged(this, name);
+        }
+        protected virtual void RaisePropertyChanged(object instance,[CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(instance, new PropertyChangedEventArgs(name));
+        }
+
         public TypeConverter TypeConverter
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -83,6 +94,12 @@ namespace Ao.ObjectDesign
         {
             Debug.Assert(DeclaringInstance != null);
             PropertyInfo.SetValue(DeclaringInstance, ConvertValue(value));
+            RaiseValueChanged();
+        }
+        private static readonly PropertyChangedEventArgs valueCHangedEventArgs = new PropertyChangedEventArgs(nameof(Value));
+        protected void RaiseValueChanged()
+        {
+            PropertyChanged?.Invoke(this, valueCHangedEventArgs);
         }
     }
 }

@@ -8,26 +8,49 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    internal static class DependencyObjectHelper
+    public static class DependencyObjectHelper
     {
         private static readonly Attribute[] dependencyAttributes = new Attribute[] { new PropertyFilterAttribute(PropertyFilterOptions.All) };
 
         private static readonly ConcurrentDictionary<Type, Dictionary<string, DependencyPropertyDescriptor>> dependencyProperties =
             new ConcurrentDictionary<Type, Dictionary<string, DependencyPropertyDescriptor>>();
 
+        private static void ThrowIfTypeNotBaseOnDependencyObject(Type type)
+        {
+            if (!typeof(DependencyObject).IsAssignableFrom(type))
+            {
+                throw new InvalidCastException($"Type {type} can't case to DependencyObject");
+            }
+        }
         public static IEnumerable<PropertyDescriptor> GetPropertyDescriptors(Type type)
         {
-            Debug.Assert(type != null);
-            Debug.Assert(typeof(DependencyObject).IsAssignableFrom(type));
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+            ThrowIfTypeNotBaseOnDependencyObject(type);
 
-            return TypeDescriptor.GetProperties(type, dependencyAttributes)
+            var ret = Enumerable.Empty<PropertyDescriptor>();
+            var depObjType = typeof(DependencyObject);
+            var t = type;
+            while (t != depObjType)
+            {
+                var e = t;
+                ret = ret.Concat(TypeDescriptor.GetProperties(e, dependencyAttributes)
                 .OfType<PropertyDescriptor>()
-                .Where(x => x.ComponentType == type);
+                .Where(x => x.ComponentType == e));
+                t = t.BaseType;
+            }
+
+            return ret;
         }
         public static IReadOnlyDictionary<string, DependencyPropertyDescriptor> GetDependencyPropertyDescriptors(Type type)
         {
-            Debug.Assert(type != null);
-            Debug.Assert(typeof(DependencyObject).IsAssignableFrom(type));
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+            ThrowIfTypeNotBaseOnDependencyObject(type);
 
             return dependencyProperties.GetOrAdd(type,
                 x => GetPropertyDescriptors(type)
@@ -36,18 +59,28 @@ namespace Ao.ObjectDesign.Wpf
         }
         public static IEnumerable<DependencyProperty> GetDependencyProperties(Type type)
         {
-            Debug.Assert(type != null);
-            Debug.Assert(typeof(DependencyObject).IsAssignableFrom(type));
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+            ThrowIfTypeNotBaseOnDependencyObject(type);
 
             return GetDependencyPropertyDescriptors(type)
                 .Values.Select(x => x.DependencyProperty);
         }
         public static bool IsDependencyProperty(Type type, string name)
         {
-            Debug.Assert(type != null);
-            Debug.Assert(typeof(DependencyObject).IsAssignableFrom(type));
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
 
-            Debug.Assert(!string.IsNullOrEmpty(name));
+            if (string.IsNullOrEmpty(name))
+            {
+                throw new ArgumentException($"“{nameof(name)}”不能为 null 或空。", nameof(name));
+            }
+
+            ThrowIfTypeNotBaseOnDependencyObject(type);
 
             var descMap = GetDependencyPropertyDescriptors(type);
             return descMap.ContainsKey(name);

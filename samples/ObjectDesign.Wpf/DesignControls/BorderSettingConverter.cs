@@ -11,20 +11,20 @@ namespace ObjectDesign.Wpf.DesignControls
     public class BorderSettingConverter : IValueConverter
     {
         private FrameworkElement lightBorder;
-        private CornerDesign design;
+        private CornerRadiusDesigner design;
         private DottedLineAdorner adorner;
         private AdornerLayer layout;
 
-        public BorderSettingConverter(FrameworkElement lightBorder, CornerDesign design)
+        public BorderSettingConverter(FrameworkElement lightBorder, CornerRadiusDesigner design)
         {
             this.lightBorder = lightBorder;
             this.design = design;
             layout = AdornerLayer.GetAdornerLayer(lightBorder);
             adorner = new DottedLineAdorner(lightBorder);
-            adorner.SetBinding(DottedLineAdorner.StrokeWidthProperty, new Binding(nameof(CornerDesign.BorderWidth))
-            {
-                Source = design
-            });
+            //adorner.SetBinding(DottedLineAdorner.StrokeWidthProperty, new Binding(nameof(CornerDesign.BorderWidth))
+            //{
+            //    Source = design
+            //});
             //adorner.SetBinding(DottedLineAdorner.BrushProperty, new Binding(nameof(LightBorder.BorderBrush))
             //{
             //    Source = lightBorder
@@ -45,13 +45,13 @@ namespace ObjectDesign.Wpf.DesignControls
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var brush = new SolidColorBrush(design.BorderColor);
-            if (design.IsSolid)
-            {
-                layout.Remove(adorner);
-                return brush;
-            }
-            layout.Add(adorner);
+            //var brush = new SolidColorBrush(design.BorderColor);
+            //if (design.IsSolid)
+            //{
+            //    layout.Remove(adorner);
+            //    return brush;
+            //}
+            //layout.Add(adorner);
             return null;
         }
 

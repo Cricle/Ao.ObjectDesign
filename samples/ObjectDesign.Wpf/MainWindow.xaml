@@ -18,9 +18,9 @@
             </Border>
 
         </ScrollViewer>
-        <Canvas x:Name="Design" Grid.Row="1">
-            
-        </Canvas>
+        <Border x:Name="Design" Grid.Row="1">
+
+        </Border>
     </Grid>
 
 </m:MetroWindow>

@@ -15,7 +15,7 @@ namespace ObjectDesign.Wpf.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string str && FontSetting.InstalledFontFamilyMap.TryGetValue(str, out var f))
+            if (value is string str && FontFamilyDesigner.InstalledFontFamilyMap.TryGetValue(str, out var f))
             {
                 return f;
             }

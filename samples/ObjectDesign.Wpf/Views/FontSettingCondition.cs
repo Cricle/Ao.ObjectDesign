@@ -16,7 +16,8 @@ namespace ObjectDesign.Wpf.Views
 
         public bool CanBuild(WpfTemplateForViewBuildContext context)
         {
-            return context.PropertyProxy.Type == typeof(FontSetting);
+            return false;
+            //return context.PropertyProxy.Type == typeof(FontSetting);
         }
 
         public DataTemplate Create(WpfTemplateForViewBuildContext context)

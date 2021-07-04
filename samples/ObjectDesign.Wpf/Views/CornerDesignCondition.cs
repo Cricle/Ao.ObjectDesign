@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace ObjectDesign.Wpf.Views
 {
-    public class CornerDesignCondition : TemplateCondition<CornerDesign>
+    public class CornerDesignCondition : TemplateCondition<CornerRadiusDesigner>
     {
         protected override string GetResourceKey()
         {

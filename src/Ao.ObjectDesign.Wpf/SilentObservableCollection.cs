@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 
 namespace System.Collections.ObjectModel
@@ -10,7 +11,7 @@ namespace System.Collections.ObjectModel
     /// SilentObservableCollection is a ObservableCollection with some extensions.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SilentObservableCollection<T> : ObservableCollection<T>
+    public class SilentObservableCollection<T> : ObservableCollection<T>,ICollection<T>
     {
         public SilentObservableCollection()
         {
@@ -50,6 +51,18 @@ namespace System.Collections.ObjectModel
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(enumerable), startIndex));
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
+        }
+        public new void Clear()
+        {
+            var its = this.ToList();
+            Items.Clear();
+            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, its));
+            OnPropertyChanged(EventArgsCache.CountPropertyChanged);
+            OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
+        }
+        void ICollection<T>.Clear()
+        {
+            Clear();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         None,
         Solid,
         Liner,
-        Radial
+        Radial,
+        Image
     }
 }

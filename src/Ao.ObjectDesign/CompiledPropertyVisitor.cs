@@ -45,6 +45,7 @@ namespace Ao.ObjectDesign
                 throw new InvalidOperationException("The property can't set");
             }
             setter.Value(ConvertValue(value));
+            RaiseValueChanged();
         }
         protected delegate object MGetter();
         protected delegate void MSetter(object value);

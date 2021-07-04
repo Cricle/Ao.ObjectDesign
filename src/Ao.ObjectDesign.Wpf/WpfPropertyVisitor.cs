@@ -32,18 +32,12 @@ namespace Ao.ObjectDesign.Wpf
 
         public new DependencyObject DeclaringInstance { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private void OnPropertyChanged(object d, EventArgs e)
         {
             if (d == DeclaringInstance)
             {
-                RaisePropertyChanged(selectedPropertyDescriptor.Name);
+                RaisePropertyChanged(DeclaringInstance,selectedPropertyDescriptor.Name);
             }
-        }
-        protected virtual void RaisePropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(DeclaringInstance, new PropertyChangedEventArgs(name));
         }
 
         public override object GetValue()
@@ -64,6 +58,7 @@ namespace Ao.ObjectDesign.Wpf
             {
                 value = ConvertValue(value);
                 DeclaringInstance.SetValue(selectedPropertyDescriptor.DependencyProperty, value);
+                RaiseValueChanged();
             }
         }
         ~WpfPropertyVisitor()

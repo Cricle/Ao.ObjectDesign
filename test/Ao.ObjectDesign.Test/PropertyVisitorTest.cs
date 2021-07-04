@@ -75,7 +75,7 @@ namespace Ao.ObjectDesign.Test
             var convert1 = visitor.TypeConverter;
 
             Assert.IsNotNull(convert1);
-            Assert.IsInstanceOfType(convert1, typeof(ClassAgeTypeConvert));
+            Assert.IsInstanceOfType(convert1,typeof(ClassAgeTypeConvert));
 
             visitor = new PropertyVisitor(inst, ageProp);
 

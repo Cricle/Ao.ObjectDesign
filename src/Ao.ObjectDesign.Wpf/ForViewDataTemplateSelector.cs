@@ -32,20 +32,23 @@ namespace Ao.ObjectDesign.Wpf
         {
             return true;
         }
-
+        protected virtual WpfTemplateForViewBuildContext CreateContext(IPropertyProxy proxy)
+        {
+            return new WpfTemplateForViewBuildContext
+            {
+                Designer = ObjectDesigner,
+                ForViewBuilder = ForViewBuilder,
+                PropertyProxy = proxy,
+                BindingMode = BindingMode,
+                UpdateSourceTrigger = UpdateSourceTrigger,
+                UseCompiledVisitor = UseCompiledVisitor
+            };
+        }
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is IPropertyProxy proxy && PropertyNeedBuild(proxy, container))
             {
-                var ctx = new WpfTemplateForViewBuildContext
-                {
-                    Designer = ObjectDesigner,
-                    ForViewBuilder = ForViewBuilder,
-                    PropertyProxy = proxy,
-                    BindingMode = BindingMode,
-                    UpdateSourceTrigger = UpdateSourceTrigger,
-                    UseCompiledVisitor = UseCompiledVisitor
-                };
+                var ctx = CreateContext(proxy);
 
                 var v = ForViewBuilder.Build(ctx, ForceSelectBuild);
                 if (v != null)

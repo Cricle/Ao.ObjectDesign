@@ -10,7 +10,8 @@ namespace Ao.ObjectDesign.Wpf
 {
     public class NotifyableObject : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        [field: NonSerialized]
+        public virtual event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void RaisePropertyChanged([CallerMemberName]string name=null)
         {

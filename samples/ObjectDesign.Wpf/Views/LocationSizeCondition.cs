@@ -11,7 +11,7 @@ namespace ObjectDesign.Wpf.Views
 
         public bool CanBuild(WpfTemplateForViewBuildContext context)
         {
-            return context.PropertyProxy.Type == typeof(LocationSize);
+            return context.PropertyProxy.Type == typeof(SizeDesigner);
         }
 
         public DataTemplate Create(WpfTemplateForViewBuildContext context)

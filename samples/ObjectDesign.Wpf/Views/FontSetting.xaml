@@ -8,7 +8,7 @@
     <DataTemplate x:Key="ObjectDesign.FontSetting"
                   DataType="{x:Type od:PropertyProxy}">
         <StackPanel DataContext="{Binding Instance}">
-            <ComboBox ItemsSource="{x:Static loc:FontSetting.InstalledFontFamilies}"
+            <ComboBox ItemsSource="{x:Static loc:FontFamilyDesigner.InstalledFontFamilies}"
                       SelectedItem="{Binding FontName,Mode=TwoWay}"
                       FontFamily="{Binding FontFamily}">
                 <ComboBox.ItemTemplate>

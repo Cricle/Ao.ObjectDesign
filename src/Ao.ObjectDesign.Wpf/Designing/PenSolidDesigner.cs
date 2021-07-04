@@ -1,0 +1,62 @@
+﻿using Ao.ObjectDesign.Wpf.Annotations;
+using System.ComponentModel;
+using System.Windows.Media;
+
+namespace Ao.ObjectDesign.Wpf.Designing
+{
+    [DesignFor(typeof(SolidColorBrush))]
+    public class SolidColorBrushDesigner : NotifyableObject
+    {
+        private ColorDesigner color;
+
+        public virtual ColorDesigner Color
+        {
+            get => color;
+            set
+            {
+                if (color != null)
+                {
+                    color.PropertyChanged -= OnColorPropertyChanged;
+                }
+                if (value != null)
+                {
+                    value.PropertyChanged += OnColorPropertyChanged;
+                }
+                Set(ref color, value);
+                RaiseSolidColorBrushChanged();
+            }
+        }
+        private void OnColorPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaiseSolidColorBrushChanged();
+        }
+
+        [PlatformTargetProperty]
+        public virtual SolidColorBrush SolidColorBrush
+        {
+            get => new SolidColorBrush(color?.Color ?? Colors.Transparent);
+            set
+            {
+                if (value is null)
+                {
+                    color = null;
+                }
+                else
+                {
+                    if (color != null)
+                    {
+                        color.Color = value.Color;
+                    }
+                    else
+                    {
+                        Color = new ColorDesigner { Color = value.Color };
+                    }
+                }
+            }
+        }
+        protected void RaiseSolidColorBrushChanged()
+        {
+            RaisePropertyChanged(nameof(SolidColorBrush));
+        }
+    }
+}

@@ -1,36 +1,24 @@
 ﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Abstract.Annotations;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Conditions;
 using Ao.ObjectDesign.Wpf.Designing;
 using MahApps.Metro.Controls;
-using ObjectDesign.Wpf.DesignControls;
-using ObjectDesign.Wpf.Views;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Drawing.Text;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.Controls;
 using System.Windows.Shapes;
-using System.Xaml;
-using System.Windows.Media.Effects;
-using System.IO.Compression;
+using Ao.ObjectDesign.Wpf.Json;
+using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Newtonsoft.Json;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace ObjectDesign.Wpf
 {
@@ -39,40 +27,71 @@ namespace ObjectDesign.Wpf
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly MyControl c = new MyControl();
+        private CheckBoxSetting setting;
         public MainWindow()
         {
             InitializeComponent();
-           
-            var builder = new ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext>();
-            builder.Add(new LocationSizeCondition());
-            builder.Add(new CornerDesignCondition());
-            builder.Add(new PrimitiveCondition());
-            builder.Add(new PenBrushCondition());
-            builder.Add(new FontSettingCondition());
-            builder.Add(new EnumCondition());
-
-            var builderDet = new ForViewBuilder<FrameworkElement, WpfForViewBuildContext>();
-            builderDet.Add(new BooleanForViewCondition());
-            builderDet.Add(new EnumForViewCondition());
-            builderDet.Add(new ValueTypeForViewCondition());
-
-            var ob = ObjectDesigner.CreateDefaultProxy(this, this.GetType());
-            var prov = ob.GetPropertyProxies();
             
-            var lv = new ItemsControl();
-            var tmp = new ForViewDataTemplateSelector(builder, ObjectDesigner.Instance);
-            tmp.UseCompiledVisitor = true;
-            lv.ItemsSource = prov;
-            lv.ItemTemplateSelector = tmp;
-            DesignPlan.Child = lv;
-            
-            var border = new LightBorder { Width = 100, Height = 100, CornerRadius = new CornerRadius(10, 20, 30, 40) };
-            border.SetBinding(Canvas.LeftProperty, new Binding(nameof(LocationSize.Left)) { Source = c.Size, Mode = BindingMode.TwoWay });
-            border.SetBinding(Canvas.TopProperty, new Binding(nameof(LocationSize.Top)) { Source = c.Size, Mode = BindingMode.TwoWay });
-            border.MyControl = c;
-            Design.Children.Add(border);
+            var builder = new ForViewBuilder<FrameworkElement, WpfForViewBuildContext>();
 
+            var tb = new CheckBox { Content = "dsads" };
+            var brushDes = new BrushDesigner
+            {
+                SolidColorBrushDesigner = new SolidColorBrushDesigner
+                {
+                    Color = new ColorDesigner
+                    {
+                        Color = Colors.Blue
+                    }
+                }
+            };
+            setting = new CheckBoxSetting
+            {
+                Background = brushDes,
+                Foreground=brushDes,
+                Width = 400,
+                Height = 200,
+            };
+            var str = DesignJsonHelper.SerializeObject(setting);
+            setting = DesignJsonHelper.DeserializeObject<CheckBoxSetting>(str);
+            var drawing = DesignerManager.CreateBindings(setting, tb, BindingMode.TwoWay);
+            tb.SetBindings(drawing);
+
+
+            Design.Child = tb;
+            builder.AddWpfCondition();
+            var items = new ItemsControl();
+            var proxy = ObjectDesigner.CreateDefaultProxy(setting);
+            var props = proxy.GetPropertyProxies().ToArray();
+            foreach (var item in props)
+            {
+                var fe = builder.Build(new WpfForViewBuildContext
+                {
+                    BindingMode = BindingMode.TwoWay,
+                    Designer = ObjectDesigner.Instance,
+                    ForViewBuilder = builder,
+                    UseCompiledVisitor = true,
+                    PropertyProxy = item
+                });
+                if (fe != null)
+                {
+                    var grid = new Grid();
+                    grid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                         Width=GridLength.Auto
+                    });
+                    grid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                        Width = new GridLength(1, GridUnitType.Star)
+                    });
+                    Grid.SetColumn(fe,1);
+                    var tbx = new TextBlock { Text = item.PropertyInfo.Name};
+                    grid.Children.Add(tbx);
+                    grid.Children.Add(fe);
+                    items.Items.Add(grid);
+                }
+            }
+            DesignPlan.Child = items;
             KeyDown += MainWindow_KeyDown;
         }
 
@@ -80,19 +99,6 @@ namespace ObjectDesign.Wpf
         {
             if (e.Key == Key.E)
             {
-                var jstr = JsonSerializer.Serialize(c);
-                var desc = JsonSerializer.Deserialize<MyControl>(jstr, new JsonSerializerOptions
-                {
-                    IgnoreReadOnlyProperties = false
-                });
-
-                Design.Children.Clear();
-
-                var border = new LightBorder();
-                border.SetBinding(Canvas.LeftProperty, new Binding(nameof(LocationSize.Left)) { Source = desc.Size, Mode = BindingMode.OneWay });
-                border.SetBinding(Canvas.TopProperty, new Binding(nameof(LocationSize.Top)) { Source = desc.Size, Mode = BindingMode.OneWay });
-                border.MyControl = desc;
-                Design.Children.Add(border);
 
             }
         }
