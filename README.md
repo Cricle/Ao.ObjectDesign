@@ -16,7 +16,7 @@
 
 |Provider|Status|
 |:-:|:-|
-|Github||
+|Github|[![.NET](https://github.com/Cricle/Ao.ObjectDesign/actions/workflows/dotnet.yml/badge.svg?branch=master)](https://github.com/Cricle/Ao.ObjectDesign/actions/workflows/dotnet.yml)|
 |Azure Pipline|[![Build Status](https://hcricle.visualstudio.com/Ao.ObjectDesign/_apis/build/status/Ao.ObjectDesign?branchName=master)](https://hcricle.visualstudio.com/Ao.ObjectDesign/_build/latest?definitionId=10&branchName=master)|
 
 
