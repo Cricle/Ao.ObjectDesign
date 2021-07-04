@@ -13,14 +13,31 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto" MinWidth="200"/>
         </Grid.ColumnDefinitions>
-
-        <ListView x:Name="Providing" SelectionChanged="Providing_SelectionChanged">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding UIType}" ToolTip="{Binding ClrType}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="生成方式" VerticalAlignment="Center" ToolTip="表示生成配置UI的方式"/>
+                <ComboBox MinWidth="50" SelectionChanged="ComboBox_SelectionChanged" SelectedIndex="0">
+                    <ComboBoxItem Content="直接UI" Tag="{x:Static local:GenerateMode.Direct}" ToolTip="直接从分析结果生成UI"/>
+                    <ComboBoxItem Content="模板选择" Tag="{x:Static local:GenerateMode.DataTemplate}" ToolTip="根据模板选择生成UI"/>
+                </ComboBox>
+                <TextBlock Text="数据源" VerticalAlignment="Center" ToolTip="表示从提供分析的数据源"/>
+                <ComboBox MinWidth="50" SelectionChanged="ComboBox_SelectionChanged_1" SelectedIndex="0">
+                    <ComboBoxItem Content="从配置"  Tag="{x:Static local:DesignLevels.Setting}" ToolTip="分析代理配置"/>
+                    <ComboBoxItem Content="从UI" Tag="{x:Static local:DesignLevels.UI}" ToolTip="直接分析UI"/>
+                </ComboBox>
+            </StackPanel>
+            <ListView x:Name="Providing" Grid.Row="1" SelectionChanged="Providing_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding UIType}" ToolTip="{Binding ClrType}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
         <m:SplitView x:Name="Sv" Grid.Column="1">
         </m:SplitView>
         <ScrollViewer Grid.Column="2">

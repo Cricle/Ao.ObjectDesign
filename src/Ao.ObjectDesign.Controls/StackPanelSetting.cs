@@ -10,7 +10,7 @@ using System.Windows.Controls;
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(StackPanel))]
-    public class StackPanelSetting:PanelSetting,IMiddlewareDesigner<StackPanel>
+    public class StackPanelSetting : PanelSetting, IMiddlewareDesigner<StackPanel>
     {
         private bool canVerticallyScroll;
         private bool canHorizontallyScroll;

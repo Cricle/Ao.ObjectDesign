@@ -25,6 +25,16 @@ using System.Xaml;
 
 namespace ObjectDesign.Wpf
 {
+    public enum DesignLevels
+    {
+        UI,
+        Setting,
+    }
+    public enum GenerateMode
+    {
+        Direct,
+        DataTemplate
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -92,6 +102,10 @@ namespace ObjectDesign.Wpf
             }
         }
         private object currentObject;
+        
+        private DesignLevels level = DesignLevels.Setting;
+        private GenerateMode mode= GenerateMode.Direct;
+
         private void Providing_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignableItem item)
@@ -113,46 +127,75 @@ namespace ObjectDesign.Wpf
                 }
                 currentObject = obj;
                 var designs = new List<FrameworkElement>();
-                var proxy = objectDesigner.CreateProxy(obj, obj.GetType());
-                //var props = proxy.GetPropertyProxies()
-                //    .Where(x => dtbuilder.Any(y => y.CanBuild(forViewDataTemplateSelector.CreateContext(x))));
-                //if (Design.ItemTemplateSelector is null)
-                //{
-                //    Design.ItemTemplateSelector = forViewDataTemplateSelector;
-                //}
-                //Design.ItemsSource = props;
-
-                var props = proxy.GetPropertyProxies();
-                foreach (var prop in props)
+                IObjectProxy proxy = null;
+                if (level == DesignLevels.Setting)
                 {
-                    var uix = builder.Build(new WpfForViewBuildContext
-                    {
-                        BindingMode = BindingMode.TwoWay,
-                        Designer = ObjectDesigner.Instance,
-                        ForViewBuilder = builder,
-                        UseCompiledVisitor = true,
-                        PropertyProxy = prop
-                    });
-                    if (uix != null)
-                    {
-                        var grid = new Grid();
-                        grid.ColumnDefinitions.Add(new ColumnDefinition
-                        {
-                            Width = GridLength.Auto
-                        });
-                        grid.ColumnDefinitions.Add(new ColumnDefinition
-                        {
-                            Width = new GridLength(1, GridUnitType.Star)
-                        });
-                        Grid.SetColumn(uix, 1);
-                        var tbx = new TextBlock { Text = prop.PropertyInfo.Name };
-                        grid.Children.Add(tbx);
-                        grid.Children.Add(uix);
-                        designs.Add(grid);
-                    }
+                    proxy = objectDesigner.CreateProxy(obj, obj.GetType());
                 }
-                Design.ItemsSource = designs;
-                Sv.Content = (UIElement)ui;
+                else if (level == DesignLevels.UI)
+                {
+                    proxy = objectDesigner.CreateProxy(ui, ui.GetType());
+                }
+                if (mode == GenerateMode.DataTemplate)
+                {
+                    var props = proxy.GetPropertyProxies()
+                        .Where(x => dtbuilder.Any(y => y.CanBuild(forViewDataTemplateSelector.CreateContext(x))));
+                    if (Design.ItemTemplateSelector is null)
+                    {
+                        Design.ItemTemplateSelector = forViewDataTemplateSelector;
+                    }
+                    Design.ItemsSource = props;
+                }
+                else
+                {
+                    var props = proxy.GetPropertyProxies();
+                    foreach (var prop in props)
+                    {
+                        var uix = builder.Build(new WpfForViewBuildContext
+                        {
+                            BindingMode = BindingMode.TwoWay,
+                            Designer = ObjectDesigner.Instance,
+                            ForViewBuilder = builder,
+                            UseCompiledVisitor = true,
+                            PropertyProxy = prop
+                        });
+                        if (uix != null)
+                        {
+                            var grid = new Grid();
+                            grid.ColumnDefinitions.Add(new ColumnDefinition
+                            {
+                                Width = GridLength.Auto
+                            });
+                            grid.ColumnDefinitions.Add(new ColumnDefinition
+                            {
+                                Width = new GridLength(1, GridUnitType.Star)
+                            });
+                            Grid.SetColumn(uix, 1);
+                            var tbx = new TextBlock { Text = prop.PropertyInfo.Name };
+                            grid.Children.Add(tbx);
+                            grid.Children.Add(uix);
+                            designs.Add(grid);
+                        }
+                    }
+                    Design.ItemsSource = designs;
+                    Sv.Content = (UIElement)ui;
+                }
+            }
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems!=null&&e.AddedItems.Count!=0&&e.AddedItems[0] is ComboBoxItem item&&item.Tag is GenerateMode mode)
+            {
+                this.mode= mode;
+            }
+        }
+
+        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is ComboBoxItem item && item.Tag is DesignLevels level)
+            {
+                this.level = level;
             }
         }
     }

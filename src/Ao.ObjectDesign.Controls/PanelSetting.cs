@@ -13,7 +13,6 @@ namespace Ao.ObjectDesign.Controls
     [MappingFor(typeof(Panel))]
     public class PanelSetting : FrameworkElementSetting,IMiddlewareDesigner<Panel>
     {
-        private bool isItemsHost;
         private BrushDesigner background;
 
         public virtual BrushDesigner Background
@@ -21,15 +20,9 @@ namespace Ao.ObjectDesign.Controls
             get => background;
             set => Set(ref background, value);
         }
-        public virtual bool IsItemsHost
-        {
-            get => isItemsHost;
-            set => Set(ref isItemsHost, value);
-        }
         public override void SetDefault()
         {
             base.SetDefault();
-            IsItemsHost = false;
             Background = new BrushDesigner();
         }
         public void Apply(Panel value)
@@ -41,7 +34,6 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                IsItemsHost = value.IsItemsHost;
                 Background = new  BrushDesigner{Brush= value.Background };
 
             }
@@ -52,7 +44,6 @@ namespace Ao.ObjectDesign.Controls
             if (value!=null)
             {
                 WriteTo((FrameworkElement)value);
-                value.IsItemsHost = isItemsHost;
                 value.Background = background?.Brush;
             }
         }
