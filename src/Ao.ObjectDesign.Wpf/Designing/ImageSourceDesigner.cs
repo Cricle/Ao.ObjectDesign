@@ -81,6 +81,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
+                if (Uri is null)
+                {
+                    return null;
+                }
                 var bitmap = new BitmapImage();
                 bitmap.CacheOption = cacheOption;
                 bitmap.CreateOptions = createOptions;

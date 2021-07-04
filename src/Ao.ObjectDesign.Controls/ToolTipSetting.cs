@@ -70,7 +70,7 @@ namespace Ao.ObjectDesign.Controls
             IsOpen = false;
             StaysOpen = false;
             Placement = PlacementMode.Mouse;
-            PlacementRectangle = default;
+            PlacementRectangle = new RectDesigner();
             HorizontalOffset = 0;
             VerticalOffset = 0;
             HasDropShadow = false;

@@ -112,19 +112,19 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            FontStyle = null;
-            FontStretch = null;
+            FontStyle = new FontStyleDesigner();
+            FontStretch = new FontStretchSetting();
             FontSize = SystemFonts.MessageFontSize;
-            FontFamily = null;
-            Foreground = null;
-            Background = null;
-            BorderThickness = null;
+            FontFamily = new FontFamilyDesigner();
+            Foreground = new BrushDesigner();
+            Background = new BrushDesigner();
+            BorderThickness = new ThicknessDesigner();
             IsTabStop = true;
             VerticalContentAlignment = VerticalAlignment.Top;
             TabIndex = int.MaxValue;
-            Padding = null;
-            FontWeight = null;
-            BorderBrush = null;
+            Padding = new ThicknessDesigner();
+            FontWeight =new FontWeightDesigner();
+            BorderBrush = new BrushDesigner();
             HorizontalContentAlignment = HorizontalAlignment.Left;
         }
         public void Apply(Control value)

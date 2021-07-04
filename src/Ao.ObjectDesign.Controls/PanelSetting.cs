@@ -30,7 +30,7 @@ namespace Ao.ObjectDesign.Controls
         {
             base.SetDefault();
             IsItemsHost = false;
-            Background = null;
+            Background = new BrushDesigner();
         }
         public void Apply(Panel value)
         {

@@ -159,12 +159,12 @@ namespace Ao.ObjectDesign.Controls
             Tag = Name = null;
             UseLayoutRounding = false;
             FlowDirection = FlowDirection.LeftToRight;
-            Margin = null;
+            Margin = new ThicknessDesigner();
             VerticalAlignment = VerticalAlignment.Stretch;
             HorizontalAlignment = HorizontalAlignment.Stretch;
             ToolTip = null;
             ForceCursor = false;
-            Cursor = null;
+            Cursor = new CursorDesigner();
         }
 
         public void Apply(FrameworkElement value)

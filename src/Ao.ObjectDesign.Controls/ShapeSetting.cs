@@ -94,11 +94,11 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            Stroke = null;
+            Stroke = new BrushDesigner();
             StrokeEndLineCap =
                 StrokeStartLineCap = PenLineCap.Flat;
             StrokeThickness = 1;
-            Fill = null;
+            Fill = new BrushDesigner();
             StrokeDashOffset = 0;
             Stretch = Stretch.None;
             StrokeMiterLimit = 0;

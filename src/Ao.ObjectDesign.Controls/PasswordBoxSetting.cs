@@ -58,9 +58,9 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            CaretBrush = null;
+            CaretBrush = new BrushDesigner();
             SelectionOpacity = 0.4;
-            SelectionBrush = null;
+            SelectionBrush = new BrushDesigner();
             MaxLength = 0;
             PasswordChar = '●';
             IsInactiveSelectionHighlightEnabled = false;

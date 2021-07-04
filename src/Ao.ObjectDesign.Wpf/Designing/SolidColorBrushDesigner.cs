@@ -7,6 +7,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(SolidColorBrush))]
     public class SolidColorBrushDesigner : NotifyableObject
     {
+        public SolidColorBrushDesigner()
+        {
+            Color = new ColorDesigner();
+        }
         private ColorDesigner color;
 
         public virtual ColorDesigner Color

@@ -19,6 +19,10 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         public FrameworkElement Create(WpfForViewBuildContext context)
         {
             var view = CreateView(context);
+            if (view is null)
+            {
+                return null;
+            }
             view.IsEnabled = context.PropertyProxy.PropertyInfo.CanWrite;
             if (context.PropertyProxy.DeclaringInstance is DependencyObject &&
                 DependencyObjectHelper.IsDependencyProperty(context.PropertyProxy.DeclaringInstance.GetType(), context.PropertyProxy.PropertyInfo.Name))

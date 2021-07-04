@@ -14,20 +14,15 @@ namespace Ao.ObjectDesign.Controls
     [MappingFor(typeof(UIElement))]
     public class UIElementSetting : NotifyableObject, IMiddlewareDesigner<UIElement>
     {
-        public UIElementSetting()
-        {
-            SetDefault();
-        }
-
         private string uid;
         private Visibility visibility;
         private bool clipToBounds;
         private bool snapsToDevicePixels;
-        private bool isEnabled ;
-        private bool isHitTestVisible ;
-        private bool isManipulationEnabled ;
-        private bool focusable ;
-        private double opacity ;
+        private bool isEnabled;
+        private bool isHitTestVisible;
+        private bool isManipulationEnabled;
+        private bool focusable;
+        private double opacity;
         private string tag;
         private bool allowDrop;
         private BrushDesigner opacityMask;
@@ -161,8 +156,8 @@ namespace Ao.ObjectDesign.Controls
             Focusable = false;
             AllowDrop = false;
             Opacity = 1;
-            OpacityMask = null;
-            RenderTransformOrigin = default;
+            OpacityMask = new BrushDesigner();
+            RenderTransformOrigin = new PointDesigner();
         }
 
         public virtual void WriteTo(UIElement value)

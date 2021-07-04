@@ -1,22 +1,35 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System;
+using System.Collections.Generic;
+using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Json
 {
     public static class DesignJsonHelper
     {
-        private static readonly IgnoreContractResolver ignoreContractResolver;
         private static readonly JsonSerializerSettings settings;
 
         static DesignJsonHelper()
         {
-            ignoreContractResolver = new IgnoreContractResolver();
-            settings = new JsonSerializerSettings();
+            settings = CreateSerializeSettings();
+        }
+        public static JsonSerializerSettings CreateSerializeSettings()
+        {
+            var settings = new JsonSerializerSettings();
+            SetSerializeSettings(settings);
+            return settings;
+        }
+        public static void SetSerializeSettings(JsonSerializerSettings settings)
+        {
+            var resolver= new IgnoreContractResolver();
             foreach (var item in DesigningHelpers.KnowDesigningTypes)
             {
-                ignoreContractResolver.IgnoreTypes.Add(item);
+                resolver.IgnoreTypes.Add(item);
             }
-            settings.ContractResolver = ignoreContractResolver;
+            resolver.IgnoreTypes.Add(typeof(IEnumerable<GradientStop>));
+            settings.ContractResolver = resolver;
         }
         public static string SerializeObject<T>(T obj)
         {
@@ -25,6 +38,10 @@ namespace Ao.ObjectDesign.Wpf.Json
         public static T DeserializeObject<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value, settings);
+        }
+        public static object DeserializeObject(string value,Type type)
+        {
+            return JsonConvert.DeserializeObject(value, type, settings);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            Source = null;
+            Source = new ImageSourceDesigner();
             StretchDirection = StretchDirection.Both;
             Stretch = Stretch.Uniform;
         }

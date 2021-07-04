@@ -11,6 +11,13 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(Brush))]
     public class BrushDesigner : NotifyableObject
     {
+        public BrushDesigner()
+        {
+            SolidColorBrushDesigner = new SolidColorBrushDesigner();
+            LinearGradientBrushDesigner = new LinearGradientBrushDesigner();
+            RadialGradientBrushDesigner = new RadialGradientBrushDesigner();
+            ImageBrushDesigner = new ImageBrushDesigner();
+        }
         private PenBrushTypes type;
 
         private SolidColorBrushDesigner solidColorBrushDesigner;
@@ -26,7 +33,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 if (value != radialGradientBrushDesigner)
                 {
                     CoreSetRadialGradientBrushDesigner(value);
-                    Type = PenBrushTypes.Radial;
                 }
             }
         }
@@ -52,7 +58,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 if (value != linearGradientBrushDesigner)
                 {
                     CoreSetLinearGradientBrushDesigner(value);
-                    Type = PenBrushTypes.Liner;
                 }
             }
         }
@@ -77,7 +82,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 if (value != solidColorBrushDesigner)
                 {
                     CoreSetSolidColorBrushDesigner(value);
-                    Type = PenBrushTypes.Solid;
                 }
             }
         }

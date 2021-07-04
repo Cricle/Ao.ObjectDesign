@@ -6,21 +6,28 @@
         xmlns:local="clr-namespace:ObjectDesign.Wpf"
         xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="500">
+        Title="MainWindow" Height="650" Width="1200">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <ScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
 
-            <Border x:Name="DesignPlan" BorderThickness="3">
-            </Border>
+        <ListView x:Name="Providing" SelectionChanged="Providing_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding UIType}" ToolTip="{Binding ClrType}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <m:SplitView x:Name="Sv" Grid.Column="1">
+        </m:SplitView>
+        <ScrollViewer Grid.Column="2">
+            <ItemsControl x:Name="Design">
 
+            </ItemsControl>
         </ScrollViewer>
-        <Border x:Name="Design" Grid.Row="1">
-
-        </Border>
     </Grid>
 
 </m:MetroWindow>

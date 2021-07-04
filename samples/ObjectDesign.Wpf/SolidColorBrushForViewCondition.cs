@@ -13,6 +13,7 @@ using System.Windows.Data;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using System.Globalization;
+using Ao.ObjectDesign.Controls;
 
 namespace ObjectDesign.Wpf
 {

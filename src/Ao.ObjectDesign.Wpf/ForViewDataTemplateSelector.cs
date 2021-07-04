@@ -32,7 +32,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             return true;
         }
-        protected virtual WpfTemplateForViewBuildContext CreateContext(IPropertyProxy proxy)
+        public virtual WpfTemplateForViewBuildContext CreateContext(IPropertyProxy proxy)
         {
             return new WpfTemplateForViewBuildContext
             {
@@ -56,7 +56,7 @@ namespace Ao.ObjectDesign.Wpf
                     return v;
                 }
             }
-            return base.SelectTemplate(item, container);
+            return null;
         }
     }
 }

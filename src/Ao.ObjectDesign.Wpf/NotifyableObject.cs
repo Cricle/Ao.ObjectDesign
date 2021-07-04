@@ -13,13 +13,14 @@ namespace Ao.ObjectDesign.Wpf
         [field: NonSerialized]
         public virtual event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName]string name=null)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected virtual void RaisePropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-        protected virtual void Set<T>(ref T prop,T value,[CallerMemberName] string name = null)
+        protected virtual void Set<T>(ref T prop, T value, [CallerMemberName] string name = null)
         {
-            if (!EqualityComparer<T>.Default.Equals(prop,value))
+            if (!EqualityComparer<T>.Default.Equals(prop, value))
             {
                 prop = value;
                 RaisePropertyChanged(name);

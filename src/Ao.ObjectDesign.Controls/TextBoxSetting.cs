@@ -113,7 +113,7 @@ namespace Ao.ObjectDesign.Controls
             CaretIndex = 0;
             SelectionLength = 0;
             SelectionStart = 0;
-            TextDecorations = null;
+            TextDecorations = new TextDecorationCollectionDesigner();
             SelectedText = null;
             TextWrapping = TextWrapping.NoWrap;
         }

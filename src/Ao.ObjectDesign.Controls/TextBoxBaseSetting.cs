@@ -115,9 +115,9 @@ namespace Ao.ObjectDesign.Controls
             IsUndoEnabled = true;
             UndoLimit = 1;
             AutoWordSelection = false;
-            SelectionBrush = null;
+            SelectionBrush = new BrushDesigner();
             IsReadOnly = false;
-            CaretBrush = null;
+            CaretBrush = new BrushDesigner();
             IsInactiveSelectionHighlightEnabled = false;
         }
 

@@ -6,26 +6,29 @@
                     xmlns:conv="clr-namespace:ObjectDesign.Wpf.Converters">
     <conv:PenBrushTypeBoolConverter x:Key="PenBrushTypeBoolConverter"/>
     <conv:PenBrushTypeVisibilityConverter x:Key="PenBrushTypeVisibilityConverter"/>
+    <conv:PropertyProxyNameConverter x:Key="PropertyProxyNameConverter"/>
     <DataTemplate x:Key="ObjectDesign.Brush"
                   DataType="{x:Type od:PropertyProxy}">
-        <Grid DataContext="{Binding Instance}">
+        <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Converter={StaticResource PropertyProxyNameConverter}}"/>
+            <StackPanel DataContext="{Binding Instance}" Grid.Row="1" Orientation="Horizontal">
                 <ToggleButton IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.None},Converter={StaticResource PenBrushTypeBoolConverter},Mode=TwoWay}">无</ToggleButton>
                 <ToggleButton IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Solid},Converter={StaticResource PenBrushTypeBoolConverter},Mode=TwoWay}">纯色</ToggleButton>
                 <ToggleButton IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Liner},Converter={StaticResource PenBrushTypeBoolConverter},Mode=TwoWay}">线性</ToggleButton>
                 <ToggleButton IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Radial},Converter={StaticResource PenBrushTypeBoolConverter},Mode=TwoWay}">原点</ToggleButton>
             </StackPanel>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2" DataContext="{Binding Instance}">
                 <Border Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.None},Converter={StaticResource PenBrushTypeVisibilityConverter}}">
                     <TextBlock>没有画刷</TextBlock>
                 </Border>
                 <Border Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Solid},Converter={StaticResource PenBrushTypeVisibilityConverter}}">
-                    <m:ColorPicker DataContext="{Binding SolidSetting}"
-                                   SelectedColor="{Binding Color,Mode=TwoWay}"/>
+                    <m:ColorPicker DataContext="{Binding SolidColorBrushDesigner}"
+                                   SelectedColor="{Binding Color.Color,Mode=TwoWay}"/>
                 </Border>
                 <Border Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Liner},Converter={StaticResource PenBrushTypeVisibilityConverter}}">
 

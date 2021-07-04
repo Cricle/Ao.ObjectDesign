@@ -42,7 +42,7 @@ namespace Ao.ObjectDesign.Controls
 
         public virtual bool IsSelectionRangeEnabled
         {
-            get => IsSelectionRangeEnabled;
+            get => isSelectionRangeEnabled;
             set => Set(ref isSelectionRangeEnabled, value);
         }
 

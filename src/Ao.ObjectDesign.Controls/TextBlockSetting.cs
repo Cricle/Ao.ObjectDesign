@@ -134,23 +134,23 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            FontWeight = null;
-            FontStyle = null;
-            FontFamily = null;
+            FontWeight = new FontWeightDesigner();
+            FontStyle = new FontStyleDesigner();
+            FontFamily = new FontFamilyDesigner();
             Text = null;
-            FontStretch = null;
+            FontStretch = new FontStretchSetting();
             BaselineOffset = double.NaN;
             FontSize = SystemFonts.MessageFontSize;
             TextWrapping = TextWrapping.NoWrap;
-            Background = null;
-            TextDecorations = null;
+            Background =new BrushDesigner();
+            TextDecorations = new TextDecorationCollectionDesigner();
             LineHeight = double.NaN;
             LineStackingStrategy = LineStackingStrategy.MaxHeight;
-            Padding = null;
+            Padding = new ThicknessDesigner();
             TextAlignment = TextAlignment.Left;
             TextTrimming = TextTrimming.None;
             IsHyphenationEnabled = false;
-            Foreground = null;
+            Foreground = new BrushDesigner();
 
 
         }

@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Wpf.Designing;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,43 +23,57 @@ namespace Ao.ObjectDesign.Controls
         public virtual BrushDesigner Background
         {
             get => background;
-            set => Set(ref background, value);
+            set
+            {
+                Set(ref background, value);
+            }
         }
 
         public virtual BrushDesigner BorderBrush
         {
             get => borderBrush;
-            set => Set(ref borderBrush, value);
+            set
+            {
+                Set(ref borderBrush, value);
+            }
         }
 
 
         public virtual CornerRadiusDesigner CornerRadius
         {
             get => cornerRadius;
-            set => Set(ref cornerRadius, value);
+            set
+            {
+                Set(ref cornerRadius, value);
+            }
         }
 
         public virtual ThicknessDesigner Padding
         {
             get => padding;
-            set => Set(ref padding, value);
+            set
+            {
+                Set(ref padding, value);
+            }
         }
-
 
         public virtual ThicknessDesigner BorderThicknes
         {
             get => borderThicknes;
-            set => Set(ref borderThicknes, value);
+            set
+            {
+                Set(ref borderThicknes, value);
+            }
         }
 
         public override void SetDefault()
         {
             base.SetDefault();
-            Background = null;
-            BorderBrush = null;
-            CornerRadius = null;
-            Padding = null;
-            BorderThicknes = null;
+            Background = new BrushDesigner();
+            BorderBrush = new BrushDesigner();
+            CornerRadius = new CornerRadiusDesigner();
+            Padding = new ThicknessDesigner();
+            BorderThicknes = new ThicknessDesigner();
         }
 
         public void Apply(Border value)

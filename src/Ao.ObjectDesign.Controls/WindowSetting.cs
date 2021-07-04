@@ -6,16 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Window))]
-    public class WindowSetting : ControlSetting
+    public class WindowSetting : ControlSetting,IMiddlewareDesigner<Window>
     {
         private bool showInTaskbar;
         private WindowStartupLocation windowStartupLocation;
         private double top;
-        private bool sizeToContent;
+        private SizeToContent sizeToContent;
         private bool allowsTransparency;
         private double left;
         private ImageSourceDesigner icon;
@@ -80,7 +81,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref allowsTransparency, value);
         }
 
-        public virtual bool SizeToContent
+        public virtual SizeToContent SizeToContent
         {
             get => sizeToContent;
             set => Set(ref sizeToContent, value);
@@ -102,6 +103,68 @@ namespace Ao.ObjectDesign.Controls
         {
             get => showInTaskbar;
             set => Set(ref showInTaskbar, value);
+        }
+        public override void SetDefault()
+        {
+            base.SetDefault();
+            ShowInTaskbar = true;
+            WindowStartupLocation = WindowStartupLocation.Manual;
+            Top = double.NaN;
+            SizeToContent = SizeToContent.Manual;
+            AllowsTransparency = false;
+            Left = double.NaN;
+            Icon = new ImageSourceDesigner();
+            WindowStyle = WindowStyle.SingleBorderWindow;
+            WindowState = WindowState.Normal;
+            ResizeMode = ResizeMode.CanResize;
+            Topmost = false;
+            ShowActivated = true;
+            Title = null;
+        }
+        public void Apply(Window value)
+        {
+            if (value is null)
+            {
+                SetDefault();
+            }
+            else
+            {
+                Apply((Control)value);
+                ShowInTaskbar = value.ShowInTaskbar;
+                WindowStartupLocation = value.WindowStartupLocation;
+                Top = value.Top;
+                SizeToContent = value.SizeToContent;
+                AllowsTransparency = value.AllowsTransparency;
+                Left = value.Left;
+                Icon = new ImageSourceDesigner { ImageSource= value.Icon};
+                WindowStyle = value.WindowStyle;
+                WindowState = value.WindowState;
+                ResizeMode = value.ResizeMode;
+                Topmost = value.Topmost;
+                ShowActivated = value.ShowActivated;
+                Title = value.Title;
+            }
+        }
+
+        public void WriteTo(Window value)
+        {
+            if (value != null)
+            {
+                WriteTo((Control)value);
+                value.ShowInTaskbar = showInTaskbar;
+                value.WindowStartupLocation = windowStartupLocation;
+                value.Top = top;
+                value.SizeToContent = sizeToContent;
+                value.AllowsTransparency = allowsTransparency;
+                value.Left = left;
+                value.Icon = icon?.ImageSource;
+                value.WindowStyle = windowStyle;
+                value.WindowState = windowState;
+                value.ResizeMode = resizeMode;
+                value.Topmost = topmost;
+                value.ShowActivated = showActivated;
+                value.Title = title;
+            }
         }
     }
 }

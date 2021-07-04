@@ -31,7 +31,7 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            Points = null;
+            Points = new PointCollectionDesigner();
             FillRule = FillRule.EvenOdd;
         }
 
