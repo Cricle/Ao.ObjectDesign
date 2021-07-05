@@ -13,14 +13,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(Cursor))]
     public class CursorDesigner : NotifyableObject
     {
-        public static IReadOnlyDictionary<string, Cursor> cursorMap;
-        public static IReadOnlyDictionary<Cursor,string> cursorRevMap;
+        public static readonly IReadOnlyDictionary<string, Cursor> CursorMap;
+        public static readonly IReadOnlyDictionary<Cursor, string> CursorRevMap;
 
         static CursorDesigner()
         {
             var cursorType = typeof(Cursors).GetProperties(BindingFlags.Static | BindingFlags.Public);
-            cursorMap = cursorType.ToDictionary(x => x.Name, x => (Cursor)x.GetValue(null));
-            cursorRevMap = cursorMap.ToDictionary(x => x.Value, x => x.Key);
+            CursorMap = cursorType.ToDictionary(x => x.Name, x => (Cursor)x.GetValue(null));
+            CursorRevMap = CursorMap.ToDictionary(x => x.Value, x => x.Key);
         }
 
         private string name;
@@ -74,13 +74,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get
             {
                 cursor?.Dispose();
+                cursor = null;
                 if (CursorType == CursorTypes.None)
                 {
                     return null;
                 }
                 else if (CursorType == CursorTypes.SystemCursorName)
                 {
-                    if (!string.IsNullOrEmpty(name) && cursorMap.TryGetValue(name, out var cur))
+                    if (!string.IsNullOrEmpty(name) && CursorMap.TryGetValue(name, out var cur))
                     {
                         return cur;
                     }
@@ -110,14 +111,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     CursorType = CursorTypes.None;
                 }
-                else if (cursorRevMap.TryGetValue(value,out var v))
+                else if (CursorRevMap.TryGetValue(value,out var v))
                 {
                     Name = v;
                     CursorType = CursorTypes.SystemCursorName;
                 }
                 else
                 {
-                    throw new NotSupportedException("Not support not set null or system cursor!");
+                    throw new NotSupportedException("Do not support not set null or system cursor!");
                 }
             }
         }

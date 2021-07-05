@@ -12,7 +12,7 @@ using System.Windows.Controls.Primitives;
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(ButtonBase))]
-    public abstract class ButtonBaseSetting : ControlSetting,IMiddlewareDesigner<ButtonBase>
+    public abstract class ButtonBaseSetting : ControlSetting, IMiddlewareDesigner<ButtonBase>
     {
         private ClickMode clickMode;
 
@@ -42,7 +42,7 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(ButtonBase value)
         {
-            if (value!=null)
+            if (value != null)
             {
                 WriteTo((FrameworkElement)value);
                 value.ClickMode = clickMode;

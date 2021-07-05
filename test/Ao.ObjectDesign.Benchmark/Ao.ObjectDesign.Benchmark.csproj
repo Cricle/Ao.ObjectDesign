@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net5.0;net461</TargetFrameworks>
+    <TargetFrameworks>net5.0-windows;net461</TargetFrameworks>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\samples\ObjectDesign.Wpf\ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Controls\Ao.ObjectDesign.Controls.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
 

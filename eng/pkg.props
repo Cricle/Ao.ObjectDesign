@@ -1,12 +1,13 @@
 <Project>
-    <PropertyGroup>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <Version>0.1.0</Version>
-        <Authors>Cricle</Authors>
-        <PackageProjectUrl>https://github.com/Cricle/Ao.ObjectDesign</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/Cricle/Ao.ObjectDesign</RepositoryUrl>
-    </PropertyGroup>
-    <PropertyGroup Condition="'$(Configuration)'=='Release'">
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    </PropertyGroup>
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>0.1.0</Version>
+    <Authors>Cricle</Authors>
+    <PackageProjectUrl>https://github.com/Cricle/Ao.ObjectDesign</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Cricle/Ao.ObjectDesign</RepositoryUrl>
+    <Description>An object designer, you can use it to design any object ,or generate ui to provide design interface.</Description>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
 </Project>

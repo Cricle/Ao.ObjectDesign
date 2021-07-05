@@ -19,6 +19,7 @@ namespace Ao.ObjectDesign.Wpf
             }
 
             this.set = new HashSet<T>(set);
+            this.set.TrimExcess();
         }
 
         public int Count => set.Count;

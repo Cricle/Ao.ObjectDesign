@@ -37,8 +37,8 @@ namespace Ao.ObjectDesign.Wpf
             {
                 var e = t;
                 ret = ret.Concat(TypeDescriptor.GetProperties(e, dependencyAttributes)
-                .OfType<PropertyDescriptor>()
-                .Where(x => x.ComponentType == e));
+                    .OfType<PropertyDescriptor>()
+                    .Where(x => x.ComponentType == e));
                 t = t.BaseType;
             }
 

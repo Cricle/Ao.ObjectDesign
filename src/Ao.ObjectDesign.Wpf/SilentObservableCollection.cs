@@ -11,7 +11,7 @@ namespace System.Collections.ObjectModel
     /// SilentObservableCollection is a ObservableCollection with some extensions.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SilentObservableCollection<T> : ObservableCollection<T>,ICollection<T>
+    public class SilentObservableCollection<T> : ObservableCollection<T>, ICollection<T>
     {
         public SilentObservableCollection()
         {
@@ -46,23 +46,42 @@ namespace System.Collections.ObjectModel
             int startIndex = Count;
 
             foreach (var item in enumerable)
+            {
                 Items.Add(item);
+            }
 
             OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(enumerable), startIndex));
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
         }
-        public new void Clear()
+        public void BatchRemove()
         {
-            var its = this.ToList();
-            Items.Clear();
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, its));
-            OnPropertyChanged(EventArgsCache.CountPropertyChanged);
-            OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
+            CheckReentrancy();
+
+            if (Count != 0)
+            {
+                var its = this.ToList();
+                Items.Clear();
+                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, its, -1));
+                OnPropertyChanged(EventArgsCache.CountPropertyChanged);
+                OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
+            }
         }
-        void ICollection<T>.Clear()
+        private void Reset(Func<IList<T>> v)
         {
-            Clear();
+            var ds = v();
+            for (int i = 0; i < ds.Count; i++)
+            {
+                this[i] = ds[i];
+            }
+        }
+        public void Sort<TProperty>(Func<T, TProperty> order)
+        {
+            Reset(() => this.OrderBy(order).ToList());
+        }
+        public void SortDescending<TProperty>(Func<T, TProperty> order)
+        {
+            Reset(() => this.OrderByDescending(order).ToList());
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         {
             return context.PropertyProxy.Type.IsPrimitive ||
                 context.PropertyProxy.Type == typeof(string) ||
-                context.PropertyProxy.Type.IsGenericType && context.PropertyProxy.Type.GetGenericTypeDefinition() == typeof(Nullable<>);
+                (context.PropertyProxy.Type.IsGenericType && context.PropertyProxy.Type.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
         protected override FrameworkElement CreateView(WpfForViewBuildContext context)
         {

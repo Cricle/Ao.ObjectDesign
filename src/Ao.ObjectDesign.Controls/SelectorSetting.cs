@@ -11,7 +11,7 @@ using System.Windows.Controls.Primitives;
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Selector))]
-    public class SelectorSetting:ItemsControlSetting,IMiddlewareDesigner<Selector>
+    public abstract class SelectorSetting:ItemsControlSetting,IMiddlewareDesigner<Selector>
     {
         private int selectedIndex;
         private bool? isSynchronizedWithCurrentItem;

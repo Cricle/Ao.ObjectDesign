@@ -22,6 +22,9 @@ using System.Linq;
 using Ao.ObjectDesign.Wpf.Annotations;
 using ObjectDesign.Wpf.Views;
 using System.Xaml;
+using ObjectDesign.Wpf.Controls;
+using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace ObjectDesign.Wpf
 {
@@ -40,33 +43,25 @@ namespace ObjectDesign.Wpf
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        class DesignableItem
+        private static readonly HashSet<Type> ignoreTypes = new HashSet<Type>
         {
-            public Type ClrType { get; set; }
-
-            public Type UIType { get; set; }
-        }
+            typeof(Window),typeof(ToolTip)
+        };
         private ForViewBuilder<FrameworkElement, WpfForViewBuildContext> builder;
         private ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext> dtbuilder;
         private ForViewDataTemplateSelector forViewDataTemplateSelector;
         private IObjectDesigner objectDesigner;
-        private DesignableItem[] settingTypes;
+        private List<DesignMapping> settingTypes;
         private void Init()
         {
             builder = new ForViewBuilder<FrameworkElement, WpfForViewBuildContext>();
             builder.AddWpfCondition();
             builder.Add(new DateTimeBrushForViewCondition());
             objectDesigner = ObjectDesigner.Instance;
-            settingTypes = typeof(BorderSetting).Assembly.GetExportedTypes()
-                .Where(x => typeof(NotifyableObject).IsAssignableFrom(x))
-                .Select(x => new DesignableItem
-                {
-                    ClrType = x,
-                    UIType = x.GetCustomAttribute<MappingForAttribute>()?.Type
-                })
-                .Where(x => x.UIType != null && !x.UIType.IsAbstract)
-                .ToArray();
-
+            settingTypes = KnowControlTypes.SettingTypes
+                .Where(x => !x.ClrType.IsAbstract && !x.UIType.IsAbstract && !ignoreTypes.Contains(x.UIType))
+                .ToList();
+            settingTypes.Add(new DesignMapping(typeof(MoveIdSetting), typeof(MoveId)));
             dtbuilder = new ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext>();
             dtbuilder.Add(new CornerDesignCondition());
             dtbuilder.Add(new EnumCondition());
@@ -87,8 +82,7 @@ namespace ObjectDesign.Wpf
 
             Init();
             Providing.ItemsSource = settingTypes;
-
-            //DesignPlan.Child = items;
+            Design.ItemsSource = designs;
             KeyDown += MainWindow_KeyDown;
         }
 
@@ -102,21 +96,28 @@ namespace ObjectDesign.Wpf
             }
         }
         private object currentObject;
-        
+        private Dictionary<Type, object> uics = new Dictionary<Type, object>();
         private DesignLevels level = DesignLevels.Setting;
-        private GenerateMode mode= GenerateMode.Direct;
-
+        private GenerateMode mode = GenerateMode.Direct;
+        private SilentObservableCollection<object> designs = new SilentObservableCollection<object>();
         private void Providing_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignableItem item)
+            if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignMapping item)
             {
-                var obj = Activator.CreateInstance(item.ClrType);
-                var ui = (DependencyObject)Activator.CreateInstance(item.UIType);
-                if (obj is FrameworkElementSetting fes)
+                var bg = Stopwatch.GetTimestamp();
+                object obj = null;
+                designs.Clear();
+                if (!uics.TryGetValue(item.ClrType, out obj))
                 {
-                    fes.SetDefault();
+                    obj = Activator.CreateInstance(item.ClrType);
+                    if (obj is UIElementSetting uis)
+                    {
+                        uis.SetDefault();
+                    }
+                    uics.Add(item.ClrType, obj);
                 }
-                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay);
+                var ui = (DependencyObject)Activator.CreateInstance(item.UIType);
+                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.OneWay);
                 if (ui is FrameworkElement fe)
                 {
                     fe.SetBindings(drawing);
@@ -126,7 +127,6 @@ namespace ObjectDesign.Wpf
                     fce.SetBindings(drawing);
                 }
                 currentObject = obj;
-                var designs = new List<FrameworkElement>();
                 IObjectProxy proxy = null;
                 if (level == DesignLevels.Setting)
                 {
@@ -144,7 +144,11 @@ namespace ObjectDesign.Wpf
                     {
                         Design.ItemTemplateSelector = forViewDataTemplateSelector;
                     }
-                    Design.ItemsSource = props;
+                    foreach (var item in props)
+                    {
+                        designs.Add(item);
+                    }
+                    //Design.ItemsSource = props;
                 }
                 else
                 {
@@ -177,17 +181,19 @@ namespace ObjectDesign.Wpf
                             designs.Add(grid);
                         }
                     }
-                    Design.ItemsSource = designs;
-                    Sv.Content = (UIElement)ui;
+                    //Design.ItemsSource = designs;
                 }
+                Sv.Child = (UIElement)ui;
+                var ed = Stopwatch.GetTimestamp();
+                Title = $"Generate ui use {new TimeSpan(ed - bg)}";
             }
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.AddedItems!=null&&e.AddedItems.Count!=0&&e.AddedItems[0] is ComboBoxItem item&&item.Tag is GenerateMode mode)
+            if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is ComboBoxItem item && item.Tag is GenerateMode mode)
             {
-                this.mode= mode;
+                this.mode = mode;
             }
         }
 

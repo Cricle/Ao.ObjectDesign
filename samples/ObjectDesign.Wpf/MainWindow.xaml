@@ -38,8 +38,14 @@
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <m:SplitView x:Name="Sv" Grid.Column="1">
-        </m:SplitView>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border x:Name="Sv" Grid.Row="1">
+            </Border>
+        </Grid>
         <ScrollViewer Grid.Column="2">
             <ItemsControl x:Name="Design">
 

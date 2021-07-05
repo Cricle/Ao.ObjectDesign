@@ -7,5 +7,6 @@
         <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/PenBrush.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/FontSetting.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Views/Enum.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Wpf;component/Controls/MoveId.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

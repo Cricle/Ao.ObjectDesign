@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
@@ -37,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 if (string.IsNullOrEmpty(fontName))
                 {
-                    return null;
+                    return new FontFamily();
                 }
                 return new FontFamily(fontName);
             }

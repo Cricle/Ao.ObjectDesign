@@ -35,6 +35,10 @@ namespace Ao.ObjectDesign.Wpf.Json
         {
             return JsonConvert.SerializeObject(obj, settings);
         }
+        public static string SerializeObject(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, settings);
+        }
         public static T DeserializeObject<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value, settings);

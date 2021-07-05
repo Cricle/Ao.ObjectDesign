@@ -13,10 +13,10 @@ namespace Ao.ObjectDesign.Controls
     public class PasswordBoxSetting : ControlSetting, IMiddlewareDesigner<PasswordBox>
     {
         private BrushDesigner caretBrush;
-        private double selectionOpacity = 1;
+        private double selectionOpacity;
         private BrushDesigner selectionBrush;
-        private int maxLength = 1;
-        private char passwordChar = '*';
+        private int maxLength ;
+        private char passwordChar;
         private bool isInactiveSelectionHighlightEnabled;
 
         public virtual bool IsInactiveSelectionHighlightEnabled

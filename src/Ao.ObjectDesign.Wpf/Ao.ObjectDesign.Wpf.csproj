@@ -2,7 +2,7 @@
   <Import Project="..\..\eng\pkg.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>net452;net461;</TargetFrameworks>
+    <TargetFrameworks>net452;net461;net5.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   
@@ -10,5 +10,7 @@
     <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
-
+  <ItemGroup Condition="'$(TargetFramework)'=='net5.0-windows'">
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
 </Project>
