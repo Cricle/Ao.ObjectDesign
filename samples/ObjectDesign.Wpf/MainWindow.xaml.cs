@@ -144,9 +144,9 @@ namespace ObjectDesign.Wpf
                     {
                         Design.ItemTemplateSelector = forViewDataTemplateSelector;
                     }
-                    foreach (var item in props)
+                    foreach (var prop in props)
                     {
-                        designs.Add(item);
+                        designs.Add(prop);
                     }
                     //Design.ItemsSource = props;
                 }

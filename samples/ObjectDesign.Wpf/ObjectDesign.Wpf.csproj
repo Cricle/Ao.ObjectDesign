@@ -18,7 +18,7 @@
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
-  <ItemGroup Condition="'$(UsingNetFramework)' == 'true'">
+  <ItemGroup Condition="'$(UsingNetFramework)' == 'true' and '$(TargetFramework)'!='net5.0-windows'">
     <PackageReference Include="Microsoft.DotNet.Framework.NativeImageCompiler" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -26,9 +26,9 @@ namespace Ao.ObjectDesign.Controls
         private FontStyleDesigner fontStyle;
         private FontWeightDesigner fontWeight;
         private FontFamilyDesigner fontFamily;
-        private FontStretchSetting fontStretch;
+        private FontStretchDesigner fontStretch;
 
-        public virtual FontStretchSetting FontStretch
+        public virtual FontStretchDesigner FontStretch
         {
             get => fontStretch;
             set => Set(ref fontStretch, value);
@@ -113,7 +113,7 @@ namespace Ao.ObjectDesign.Controls
         {
             base.SetDefault();
             FontStyle = new FontStyleDesigner();
-            FontStretch = new FontStretchSetting();
+            FontStretch = new FontStretchDesigner();
             FontSize = SystemFonts.MessageFontSize;
             FontFamily = new FontFamilyDesigner();
             Foreground = new BrushDesigner();
@@ -138,7 +138,7 @@ namespace Ao.ObjectDesign.Controls
                 Apply((FrameworkElement)value);
                 FontStyle = new FontStyleDesigner { FontStyle = value.FontStyle};
                 FontSize = value.FontSize;
-                FontStretch =new FontStretchSetting { FontStretch = value.FontStretch };
+                FontStretch =new FontStretchDesigner { FontStretch = value.FontStretch };
                 FontFamily = new FontFamilyDesigner { FontFamily= value.FontFamily };
                 Foreground = new BrushDesigner { Brush= value.Foreground};
                 Background =new BrushDesigner { Brush = value.Background};

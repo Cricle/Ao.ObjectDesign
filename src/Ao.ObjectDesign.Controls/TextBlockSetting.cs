@@ -28,7 +28,7 @@ namespace Ao.ObjectDesign.Controls
         private TextTrimming textTrimming;
         private bool isHyphenationEnabled;
         private BrushDesigner foreground;
-        private FontStretchSetting fontStretch;
+        private FontStretchDesigner fontStretch;
         private TextDecorationCollectionDesigner textDecorations;
 
         public virtual TextDecorationCollectionDesigner TextDecorations
@@ -37,7 +37,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref textDecorations, value);
         }
 
-        public virtual FontStretchSetting FontStretch
+        public virtual FontStretchDesigner FontStretch
         {
             get => fontStretch;
             set => Set(ref fontStretch, value);
@@ -138,7 +138,7 @@ namespace Ao.ObjectDesign.Controls
             FontStyle = new FontStyleDesigner();
             FontFamily = new FontFamilyDesigner();
             Text = null;
-            FontStretch = new FontStretchSetting();
+            FontStretch = new FontStretchDesigner();
             BaselineOffset = double.NaN;
             FontSize = SystemFonts.MessageFontSize;
             TextWrapping = TextWrapping.NoWrap;
@@ -168,7 +168,7 @@ namespace Ao.ObjectDesign.Controls
                 FontStyle = new FontStyleDesigner { FontStyle=value.FontStyle};
                 FontFamily = new FontFamilyDesigner { FontFamily=value.FontFamily};
                 Text = value.Text;
-                FontStretch = new FontStretchSetting { FontStretch=value.FontStretch};
+                FontStretch = new FontStretchDesigner { FontStretch=value.FontStretch};
                 BaselineOffset = value.BaselineOffset;
                 FontSize = value.FontSize;
                 TextWrapping = value.TextWrapping;

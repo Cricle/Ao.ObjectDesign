@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Annotations
 {
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property| AttributeTargets.Class)]
     public sealed class UnfoldMappingAttribute : Attribute
     {
     }

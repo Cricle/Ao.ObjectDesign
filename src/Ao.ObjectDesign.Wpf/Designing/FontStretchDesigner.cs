@@ -9,7 +9,7 @@ using System.Windows;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(FontStretch))]
-    public class FontStretchSetting : NotifyableObject
+    public class FontStretchDesigner : NotifyableObject
     {
         public static readonly IReadOnlyDictionary<FontStretchTypes, FontStretch> fontStretchMap = new Dictionary<FontStretchTypes, FontStretch>
         {
