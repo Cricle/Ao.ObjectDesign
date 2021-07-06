@@ -42,7 +42,7 @@ namespace ObjectDesign.Wpf
         {
             if (typeof(Brush).IsAssignableFrom(context.PropertyProxy.Type))
             {
-                return context.GetPropertyVisitor().Value is SolidColorBrush brush;
+                return context.PropertyVisitor.Value is SolidColorBrush;
             }
             return false;
         }

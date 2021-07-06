@@ -1,4 +1,6 @@
 ﻿using Ao.ObjectDesign.ForView;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
 
@@ -6,7 +8,7 @@ namespace Ao.ObjectDesign.Wpf
 {
     public abstract class WpfForViewBuildContextBase : IForViewBuildContext
     {
-        public bool UseCompiledVisitor { get; set; }
+        public bool UseNotifyVisitor { get; set; } = true;
 
         public IObjectDesigner Designer { get; set; }
 
@@ -16,17 +18,33 @@ namespace Ao.ObjectDesign.Wpf
 
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
 
-        public IPropertyVisitor GetPropertyVisitor()
+        private IPropertyVisitor propertyVisitor;
+
+        public IPropertyVisitor PropertyVisitor
+        {
+            get
+            {
+                if (propertyVisitor is null)
+                {
+                    propertyVisitor = GetPropertyVisitor();
+                }
+                return propertyVisitor;
+            }
+        }
+
+        public bool IsPropertyVisitorCreated => propertyVisitor != null;
+
+        protected virtual IPropertyVisitor GetPropertyVisitor()
         {
             if (PropertyProxy.DeclaringInstance is DependencyObject @do)
             {
                 return new WpfPropertyVisitor(@do, PropertyProxy.PropertyInfo);
             }
-            if (UseCompiledVisitor)
+            if (UseNotifyVisitor)
             {
-                return new CompiledPropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
+                return new NotifyCompiledPropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
             }
-            return new PropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
+            return new CompiledPropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
         }
     }
 }

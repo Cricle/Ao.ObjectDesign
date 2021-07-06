@@ -73,7 +73,7 @@ namespace ObjectDesign.Wpf
             forViewDataTemplateSelector = new ForViewDataTemplateSelector(dtbuilder, objectDesigner)
             {
                 BindingMode = BindingMode.TwoWay,
-                UseCompiledVisitor = true
+                UseNotifyVisitor = true,
             };
         }
         public MainWindow()
@@ -94,9 +94,19 @@ namespace ObjectDesign.Wpf
                 var str = DesignJsonHelper.SerializeObject(currentObject);
                 var obj = DesignJsonHelper.DeserializeObject(str, t);
             }
+            if (e.Key== Key.Z)
+            {
+                sequencer.Undo();
+            }
+            if (e.Key == Key.V)
+            {
+                sequencer.Redo();
+            }
         }
-        private object currentObject;
-        private Dictionary<Type, object> uics = new Dictionary<Type, object>();
+        private CompiledSequencer sequencer =new CompiledSequencer();
+        private INotifyPropertyChangeTo currentObject;
+        private List<INotifyPropertyChangeTo> attackeds=new List<INotifyPropertyChangeTo>();
+        private Dictionary<Type, INotifyPropertyChangeTo> uics = new Dictionary<Type, INotifyPropertyChangeTo>();
         private DesignLevels level = DesignLevels.Setting;
         private GenerateMode mode = GenerateMode.Direct;
         private SilentObservableCollection<object> designs = new SilentObservableCollection<object>();
@@ -105,11 +115,17 @@ namespace ObjectDesign.Wpf
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignMapping item)
             {
                 var bg = Stopwatch.GetTimestamp();
-                object obj = null;
+                INotifyPropertyChangeTo obj = null;
                 designs.Clear();
+                foreach (var at in attackeds)
+                {
+                    sequencer.Stripped(at);
+                }
+                attackeds.Clear();
+                sequencer.CleanAllRecords();
                 if (!uics.TryGetValue(item.ClrType, out obj))
                 {
-                    obj = Activator.CreateInstance(item.ClrType);
+                    obj = (INotifyPropertyChangeTo)Activator.CreateInstance(item.ClrType);
                     if (obj is UIElementSetting uis)
                     {
                         uis.SetDefault();
@@ -117,7 +133,7 @@ namespace ObjectDesign.Wpf
                     uics.Add(item.ClrType, obj);
                 }
                 var ui = (DependencyObject)Activator.CreateInstance(item.UIType);
-                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.OneWay);
+                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay);
                 if (ui is FrameworkElement fe)
                 {
                     fe.SetBindings(drawing);
@@ -127,6 +143,7 @@ namespace ObjectDesign.Wpf
                     fce.SetBindings(drawing);
                 }
                 currentObject = obj;
+                attackeds.Clear();
                 IObjectProxy proxy = null;
                 if (level == DesignLevels.Setting)
                 {
@@ -155,14 +172,19 @@ namespace ObjectDesign.Wpf
                     var props = proxy.GetPropertyProxies();
                     foreach (var prop in props)
                     {
-                        var uix = builder.Build(new WpfForViewBuildContext
+                        var ctx = new WpfForViewBuildContext
                         {
                             BindingMode = BindingMode.TwoWay,
                             Designer = ObjectDesigner.Instance,
                             ForViewBuilder = builder,
-                            UseCompiledVisitor = true,
                             PropertyProxy = prop
-                        });
+                        };
+                        var uix = builder.Build(ctx);
+                        if (ctx.IsPropertyVisitorCreated && ctx.PropertyVisitor is INotifyPropertyChangeTo notifyer)
+                        {
+                            attackeds.Add(notifyer);
+                            sequencer.Attack(notifyer);
+                        }
                         if (uix != null)
                         {
                             var grid = new Grid();

@@ -40,7 +40,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             }
             else
             {
-                var visitor = context.GetPropertyVisitor();
+                var visitor = context.PropertyVisitor;
                 var binding = new Binding(nameof(PropertyVisitor.Value))
                 {
                     Source = visitor,

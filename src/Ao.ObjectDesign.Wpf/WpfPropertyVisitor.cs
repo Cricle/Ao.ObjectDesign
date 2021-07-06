@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public class WpfPropertyVisitor : PropertyVisitor, INotifyPropertyChanged, IDisposable
+    public class WpfPropertyVisitor : PropertyVisitor, INotifyPropertyChanged, IDisposable,INotifyPropertyChangeTo
     {
         public WpfPropertyVisitor(DependencyObject declaringInstance, PropertyInfo propertyInfo)
             : base(declaringInstance, propertyInfo)
@@ -32,6 +33,12 @@ namespace Ao.ObjectDesign.Wpf
 
         public new DependencyObject DeclaringInstance { get; }
 
+        public event PropertyChangeToEventHandler PropertyChangeTo;
+
+        protected void RaisePropertyChangeTo(object from,object to,[CallerMemberName]string name=null)
+        {
+            PropertyChangeTo?.Invoke(this, new PropertyChangeToEventArgs(name, from, to));
+        }
         private void OnPropertyChanged(object d, EventArgs e)
         {
             if (d == DeclaringInstance)
@@ -56,9 +63,11 @@ namespace Ao.ObjectDesign.Wpf
             }
             else
             {
+                var origin = GetValue();
                 value = ConvertValue(value);
                 DeclaringInstance.SetValue(selectedPropertyDescriptor.DependencyProperty, value);
                 RaiseValueChanged();
+                RaisePropertyChangeTo(origin, value, nameof(Value));
             }
         }
         ~WpfPropertyVisitor()

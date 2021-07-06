@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.Wpf
 
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
 
-        public bool UseCompiledVisitor { get; set; }
+        public bool UseNotifyVisitor { get; set; }
 
         public bool ForceSelectBuild { get; set; }
 
@@ -41,7 +41,7 @@ namespace Ao.ObjectDesign.Wpf
                 PropertyProxy = proxy,
                 BindingMode = BindingMode,
                 UpdateSourceTrigger = UpdateSourceTrigger,
-                UseCompiledVisitor = UseCompiledVisitor
+                UseNotifyVisitor= UseNotifyVisitor
             };
         }
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
@@ -49,7 +49,6 @@ namespace Ao.ObjectDesign.Wpf
             if (item is IPropertyProxy proxy && PropertyNeedBuild(proxy, container))
             {
                 var ctx = CreateContext(proxy);
-
                 var v = ForViewBuilder.Build(ctx, ForceSelectBuild);
                 if (v != null)
                 {

@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign
         }
         private readonly Lazy<MGetter> getter;
         private readonly Lazy<MSetter> setter;
-
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private MSetter CreateSetter() => BuildSetter(PropertyInfo.DeclaringType, PropertyInfo);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
