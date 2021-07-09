@@ -131,7 +131,7 @@ namespace Ao.ObjectDesign.Wpf
                 Undos.Push(detail);
             }
         }
-        protected override void OnStripped(INotifyPropertyChangeTo notifyPropertyChangeTo)
+        protected override void OnStrip(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
             notifyPropertyChangeTo.PropertyChangeTo -= OnNotifyPropertyChangingPropertyChanging;
         }

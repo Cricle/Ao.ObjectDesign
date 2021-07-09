@@ -33,7 +33,7 @@ namespace Ao.ObjectDesign.Wpf
 #if NET5_0
             return HashCode.Combine(ClrType,UIType);
 #else
-            return ClrType.GetHashCode() + UIType.GetHashCode();
+            return ClrType.GetHashCode() ^ UIType.GetHashCode();
 #endif
         }
         public override bool Equals(object obj)

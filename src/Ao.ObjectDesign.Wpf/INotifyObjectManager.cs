@@ -12,6 +12,6 @@
 
         bool Attack(INotifyPropertyChangeTo notifyPropertyChangeTo);
 
-        void Stripped(INotifyPropertyChangeTo notifyPropertyChangeTo);
+        void Strip(INotifyPropertyChangeTo notifyPropertyChangeTo);
     }
 }

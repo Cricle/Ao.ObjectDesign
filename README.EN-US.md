@@ -1,9 +1,9 @@
 <div align='center' >
-<h1>对象设计器</h1>
+<h1>ObjectDesign</h1>
 </div>
 
 <div align='center' >
-	<h5>自动化对象设计</h5>
+	<h5>Auto generate object proxy visitor</h5>
 </div>
 
 <div align='center'>
@@ -13,12 +13,11 @@
 
 </div>
 
-# 语言
+# Language
 
 [简体中文](README.md) [English](README.EN-US.md)
 
-
-# 构建状态
+# Build Status
 
 |Provider|Status|
 |:-:|:-|
@@ -26,40 +25,40 @@
 |Azure Pipline|[![Build Status](https://hcricle.visualstudio.com/Ao.ObjectDesign/_apis/build/status/Ao.ObjectDesign?branchName=master)](https://hcricle.visualstudio.com/Ao.ObjectDesign/_build/latest?definitionId=10&branchName=master)|
 
 
-# 这是什么 
+# What is this 
 
-这提供了一种动态代理对象技术，并且提供了另一种方式去访问对象，所以能使用此方式去生成设计UI提供给用户去设计
+It provider a way to dynamic proxy object, and then you can visitor them at anywhere, such as geneate design ui, to provide use design.
 
-# 如何使用
+# How to use
 
-## 代理对象
+## Proxy object
 
 ```csharp
 
-//生成代理对象
+//To generate object proxy.
 var proxy=ObjectDesigner.Instance.CreateProxy(obj,obj.GetType());
-//获取当前代理层的代理属性集合
+//Get this layout property proxies
 var propProxies=proxy.GetPropertyProxies()
 
 ```
 
-示例可见 `ObjectDesignRW`
+To see sample `ObjectDesignRW`
 
-## 生成WPF设计UI
+## Generate wpf design ui
 
-你能使用类型`ForViewBuilder<TView, TContext>`, 工程`Ao.ObjectDesign.Wpf` 提供了直接生成UI的方式和使用`DataTemplateSelector`通过代理对象生成ui的方式。
+You can use type `ForViewBuilder<TView, TContext>`, the project `Ao.ObjectDesign.Wpf` support direct generate ui and `DataTemplateSelector` way to create ui by proxy data.
 
-工程 `Ao.ObjectDesign.Wpf`提供了很多wpf的组件设计器，例如`Point`, `Rect`, `Thickness`...
+The project `Ao.ObjectDesign.Wpf` support manay wpf component designer, such as `Point`, `Rect`, `Thickness`...
 
-工程`Ao.ObjectDesign.Controls`提供了几乎全部的wpf基础控件，例如`Button`, `CheckBox`, `TextBox`...
+The project `Ao.ObjectDesign.Controls` support any wpf controls settings, such as `Button`, `CheckBox`, `TextBox`...
 
-如果你不想让设计器覆盖所以属性并生成，你可以制作自己独有的设计器。
+If you do not want make all properties proxy and generate ui, you can design yourself type.
 
-让一个你想保存/加载设计结果，你可以使用工程`Ao.ObjectDesign.Wpf.Json`
+If you want save/load the settings, you can use project `Ao.ObjectDesign.Wpf.Json`.
 
-示例可见`ObjectDesign.Wpf`
+To see sample `ObjectDesign.Wpf`
 
-## 下一步
+## Next
 
-- [ ] 添加更多的单元测试
-- [ ] 提供步骤记录器，提供顺序器
+- [ ] Add more unit tests
+- [ ] Add step recorder, add sequencer

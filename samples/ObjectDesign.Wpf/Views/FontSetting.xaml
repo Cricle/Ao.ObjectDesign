@@ -3,8 +3,7 @@
                     xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:loc="clr-namespace:Ao.ObjectDesign.Wpf.Designing;assembly=Ao.ObjectDesign.Wpf"
                     xmlns:od="clr-namespace:Ao.ObjectDesign;assembly=Ao.ObjectDesign"
-                    xmlns:conv="clr-namespace:ObjectDesign.Wpf.Converters">
-    <conv:StringFontFamilyConverter x:Key="StringFontFamilyConverter"/>
+                    xmlns:conv="https://github.com/Cricle/Ao.ObjectDesign/Converters">
     <DataTemplate x:Key="ObjectDesign.FontSetting"
                   DataType="{x:Type od:PropertyProxy}">
         <StackPanel DataContext="{Binding Instance}">
@@ -13,7 +12,7 @@
                       FontFamily="{Binding FontFamily}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Source}" FontFamily="{Binding Source,Converter={StaticResource StringFontFamilyConverter}}"/>
+                        <TextBlock Text="{Binding Source}" FontFamily="{Binding Source,Converter={x:Static conv:StringFontFamilyConverter.Instance}}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

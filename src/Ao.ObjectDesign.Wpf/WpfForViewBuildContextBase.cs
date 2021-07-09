@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.ForView;
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -27,12 +28,15 @@ namespace Ao.ObjectDesign.Wpf
                 if (propertyVisitor is null)
                 {
                     propertyVisitor = GetPropertyVisitor();
+                    PropertyVisitorCreated?.Invoke(this, EventArgs.Empty);
                 }
                 return propertyVisitor;
             }
         }
 
         public bool IsPropertyVisitorCreated => propertyVisitor != null;
+
+        public event EventHandler PropertyVisitorCreated;
 
         protected virtual IPropertyVisitor GetPropertyVisitor()
         {

@@ -105,7 +105,7 @@ namespace ObjectDesign.Wpf
         }
         private CompiledSequencer sequencer =new CompiledSequencer();
         private INotifyPropertyChangeTo currentObject;
-        private List<INotifyPropertyChangeTo> attackeds=new List<INotifyPropertyChangeTo>();
+        private IDisposable disposable;
         private Dictionary<Type, INotifyPropertyChangeTo> uics = new Dictionary<Type, INotifyPropertyChangeTo>();
         private DesignLevels level = DesignLevels.Setting;
         private GenerateMode mode = GenerateMode.Direct;
@@ -117,16 +117,14 @@ namespace ObjectDesign.Wpf
                 var bg = Stopwatch.GetTimestamp();
                 INotifyPropertyChangeTo obj = null;
                 designs.Clear();
-                foreach (var at in attackeds)
-                {
-                    sequencer.Stripped(at);
-                }
-                attackeds.Clear();
+                disposable?.Dispose();
+                disposable = null;
+                sequencer.StripAll();
                 sequencer.CleanAllRecords();
                 if (!uics.TryGetValue(item.ClrType, out obj))
                 {
                     obj = (INotifyPropertyChangeTo)Activator.CreateInstance(item.ClrType);
-                    if (obj is UIElementSetting uis)
+                    if (obj is IDefaulted uis)
                     {
                         uis.SetDefault();
                     }
@@ -143,7 +141,6 @@ namespace ObjectDesign.Wpf
                     fce.SetBindings(drawing);
                 }
                 currentObject = obj;
-                attackeds.Clear();
                 IObjectProxy proxy = null;
                 if (level == DesignLevels.Setting)
                 {
@@ -155,36 +152,40 @@ namespace ObjectDesign.Wpf
                 }
                 if (mode == GenerateMode.DataTemplate)
                 {
-                    var props = proxy.GetPropertyProxies()
-                        .Where(x => dtbuilder.Any(y => y.CanBuild(forViewDataTemplateSelector.CreateContext(x))));
+                    var ctxs = NotifySubscriber.Lookup(proxy).Select(x => new WpfTemplateForViewBuildContext
+                    {
+                        Designer = ObjectDesigner.Instance,
+                        ForViewBuilder = dtbuilder,
+                        PropertyProxy = x,
+                        BindingMode = BindingMode.TwoWay,
+                        UpdateSourceTrigger = UpdateSourceTrigger.Default,
+                        UseNotifyVisitor = true
+                    }).Where(x => dtbuilder.Any(y => y.CanBuild(x))).ToArray();
+                    disposable = NotifySubscriber.Subscribe(ctxs, sequencer);
                     if (Design.ItemTemplateSelector is null)
                     {
                         Design.ItemTemplateSelector = forViewDataTemplateSelector;
                     }
-                    foreach (var prop in props)
+                    foreach (var prop in ctxs.Where(x => x.PropertyProxy.DeclaringInstance == proxy.Instance))
                     {
                         designs.Add(prop);
                     }
-                    //Design.ItemsSource = props;
                 }
                 else
                 {
                     var props = proxy.GetPropertyProxies();
-                    foreach (var prop in props)
+                    var ctxs = props.Select(x => new WpfForViewBuildContext
                     {
-                        var ctx = new WpfForViewBuildContext
-                        {
-                            BindingMode = BindingMode.TwoWay,
-                            Designer = ObjectDesigner.Instance,
-                            ForViewBuilder = builder,
-                            PropertyProxy = prop
-                        };
+                        BindingMode = BindingMode.TwoWay,
+                        Designer = ObjectDesigner.Instance,
+                        ForViewBuilder = builder,
+                        UpdateSourceTrigger = UpdateSourceTrigger.Default,
+                        PropertyProxy = x
+                    }).ToArray();
+                    disposable = NotifySubscriber.Subscribe(ctxs, sequencer);
+                    foreach (var ctx in ctxs)
+                    {
                         var uix = builder.Build(ctx);
-                        if (ctx.IsPropertyVisitorCreated && ctx.PropertyVisitor is INotifyPropertyChangeTo notifyer)
-                        {
-                            attackeds.Add(notifyer);
-                            sequencer.Attack(notifyer);
-                        }
                         if (uix != null)
                         {
                             var grid = new Grid();
@@ -197,7 +198,7 @@ namespace ObjectDesign.Wpf
                                 Width = new GridLength(1, GridUnitType.Star)
                             });
                             Grid.SetColumn(uix, 1);
-                            var tbx = new TextBlock { Text = prop.PropertyInfo.Name };
+                            var tbx = new TextBlock { Text = ctx.PropertyProxy.PropertyInfo.Name };
                             grid.Children.Add(tbx);
                             grid.Children.Add(uix);
                             designs.Add(grid);

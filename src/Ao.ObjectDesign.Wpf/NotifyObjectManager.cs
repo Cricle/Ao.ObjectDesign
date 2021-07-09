@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -39,14 +40,14 @@ namespace Ao.ObjectDesign.Wpf
         {
         }
 
-        public void Stripped(INotifyPropertyChangeTo notifyPropertyChangeTo)
+        public void Strip(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
             if (listenings.Remove(notifyPropertyChangeTo))
             {
-                OnStripped(notifyPropertyChangeTo);
+                OnStrip(notifyPropertyChangeTo);
             }
         }
-        protected virtual void OnStripped(INotifyPropertyChangeTo notifyPropertyChangeTo)
+        protected virtual void OnStrip(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
         }
 

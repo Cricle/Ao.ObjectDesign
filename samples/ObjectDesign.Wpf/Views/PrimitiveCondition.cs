@@ -27,6 +27,11 @@ namespace ObjectDesign.Wpf.Views
             {
                 selectKey = "ObjectDesign.Primitive";
             }
+            else if (context.PropertyProxy.Type==typeof(bool)||
+                context.PropertyProxy.Type==typeof(bool?))
+            {
+                selectKey = "ObjectDesign.Boolean";
+            }
             return (DataTemplate)Application.Current.FindResource(selectKey);
         }
     }

@@ -28,27 +28,15 @@ namespace Ao.ObjectDesign.Wpf
 
         public bool ForceSelectBuild { get; set; }
 
-        protected virtual bool PropertyNeedBuild(IPropertyProxy proxy,DependencyObject dependency)
+        protected virtual bool PropertyNeedBuild(WpfTemplateForViewBuildContext context)
         {
             return true;
         }
-        public virtual WpfTemplateForViewBuildContext CreateContext(IPropertyProxy proxy)
-        {
-            return new WpfTemplateForViewBuildContext
-            {
-                Designer = ObjectDesigner,
-                ForViewBuilder = ForViewBuilder,
-                PropertyProxy = proxy,
-                BindingMode = BindingMode,
-                UpdateSourceTrigger = UpdateSourceTrigger,
-                UseNotifyVisitor= UseNotifyVisitor
-            };
-        }
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is IPropertyProxy proxy && PropertyNeedBuild(proxy, container))
+            if (item is WpfTemplateForViewBuildContext ctx &&
+                PropertyNeedBuild(ctx))
             {
-                var ctx = CreateContext(proxy);
                 var v = ForViewBuilder.Build(ctx, ForceSelectBuild);
                 if (v != null)
                 {

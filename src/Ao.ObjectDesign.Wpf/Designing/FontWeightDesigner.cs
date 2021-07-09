@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -8,7 +9,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(FontWeight))]
     public class FontWeightDesigner : NotifyableObject
     {
-        private static readonly IReadOnlyDictionary<PenFontWeights, FontWeight> fontWeightMap = new Dictionary<PenFontWeights, FontWeight>
+        public static readonly IReadOnlyDictionary<PenFontWeights, FontWeight> fontWeightMap = new Dictionary<PenFontWeights, FontWeight>
         {
             [PenFontWeights.Black] = FontWeights.Black,
             [PenFontWeights.Bold] = FontWeights.Bold,
@@ -27,6 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             [PenFontWeights.UltraBold] = FontWeights.UltraBold,
             [PenFontWeights.UltraLight] = FontWeights.UltraLight,
         };
+        public static readonly IReadOnlyList<PenFontWeights> KnowPenFontWeights = Enum.GetValues(typeof(PenFontWeights)).OfType<PenFontWeights>().ToArray();
 
         private static PenFontWeights GetFontWeight(FontWeight fontWeight)
         {
