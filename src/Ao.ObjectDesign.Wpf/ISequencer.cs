@@ -2,8 +2,8 @@
 {
     public interface ISequencer
     {
-        CommandWays<ModifyDetail> Undos { get; }
+        ICommandWays<IModifyDetail> Undos { get; }
 
-        CommandWays<ModifyDetail> Redos { get; }
+        ICommandWays<IModifyDetail> Redos { get; }
     }
 }

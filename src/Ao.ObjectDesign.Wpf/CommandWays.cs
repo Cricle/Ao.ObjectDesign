@@ -7,11 +7,13 @@ using System.Linq;
 namespace Ao.ObjectDesign.Wpf
 {
     [DebuggerDisplay("Count={Count}")]
-    public class CommandWays<T> : IEnumerable<T>
+    public class CommandWays<T> : IEnumerable<T>, ICommandWays<T>
     {
+        public const int DefaultMaxSize = 100;
+
         private readonly LinkedList<T> ways = new LinkedList<T>();
 
-        private int maxSize = 20;
+        private int maxSize = DefaultMaxSize;
 
         public int MaxSize
         {
@@ -82,71 +84,102 @@ namespace Ao.ObjectDesign.Wpf
         {
             return GetEnumerator();
         }
-
-        public void Push(T item,bool notify=true)
+        public virtual void Push(T item)
         {
-            var size = ways.Count;
-            ways.AddLast(item);
+            Push(item, true);
+        }
+        public virtual void Push(T item, bool notify)
+        {
+            if (maxSize == 0)
+            {
+                return;
+            }
+            if (ways.Count >= maxSize)
+            {
+                var val = ways.Last.Value;
+                ways.RemoveLast();
+                if (notify)
+                {
+                    WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(new T[] { val }, CommandWaysOperatorTypes.Remove));
+                }
+            }
+            ways.AddFirst(item);
             if (notify)
             {
                 WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(new T[] { item }, CommandWaysOperatorTypes.Add));
             }
-            if (size >= maxSize)
-            {
-                Pop();
-            }
         }
-
-        public void PushRange(IEnumerable<T> items, bool notify = true)
+        public virtual void PushRange(IEnumerable<T> items)
         {
+            PushRange(items, true);
+        }
+        public virtual void PushRange(IEnumerable<T> items, bool notify)
+        {
+            if (maxSize==0)
+            {
+                return;
+            }
             var arr = items.ToList();
-            foreach (var item in arr)
-            {
-                ways.AddLast(item);
-            }
-            if (notify)
-            {
-                WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(arr, CommandWaysOperatorTypes.Add));
-            }
             var popCount = ways.Count + arr.Count - MaxSize;
-            if (popCount>0)
+            if (popCount > 0)
             {
                 var sub = new T[popCount];
-                for (int i = 0; i < popCount; i++)
+                for (var i = 0; i < popCount; i++)
                 {
-                    sub[i] = ways.First.Value;
-                    ways.RemoveFirst();
+                    sub[i] = ways.Last.Value;
+                    ways.RemoveLast();
                 }
                 if (notify)
                 {
                     WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(sub, CommandWaysOperatorTypes.Remove));
                 }
             }
-        }
-
-
-        public void Clear(bool notify = true)
-        {
-            var coll = ways.ToList();
-            ways.Clear();
+            foreach (var item in arr)
+            {
+                ways.AddFirst(item);
+            }
             if (notify)
             {
-                WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(coll, CommandWaysOperatorTypes.Clear));
+                WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(arr, CommandWaysOperatorTypes.Add));
             }
         }
 
-        public bool Contains(T item)
+        public virtual void Clear()
+        {
+            Clear(true);
+        }
+        public virtual void Clear(bool notify)
+        {
+            if (ways.Count != 0)
+            {
+                var coll = ways.ToList();
+                ways.Clear();
+                if (notify)
+                {
+                    WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(coll, CommandWaysOperatorTypes.Clear));
+                }
+            }
+        }
+
+        public virtual bool Contains(T item)
         {
             return ways.Contains(item);
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public virtual void CopyTo(T[] array, int arrayIndex)
         {
             ways.CopyTo(array, arrayIndex);
         }
-
-        public T Pop(bool notify=true)
+        public virtual T Pop()
         {
+            return Pop(true);
+        }
+        public virtual T Pop(bool notify)
+        {
+            if (ways.Count == 0)
+            {
+                return default;
+            }
             var last = ways.First;
             if (last != null)
             {

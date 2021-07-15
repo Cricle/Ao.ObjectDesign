@@ -25,7 +25,6 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (PropertyChanged != null)
             {
-
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(name));
             }
         }

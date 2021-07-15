@@ -17,7 +17,7 @@ namespace ObjectDesign.Wpf.Views
 
         public bool CanBuild(WpfTemplateForViewBuildContext context)
         {
-            return context.PropertyProxy.Type==typeof(BrushDesigner);
+            return context.PropertyProxy.Type == typeof(BrushDesigner);
         }
 
         public DataTemplate Create(WpfTemplateForViewBuildContext context)

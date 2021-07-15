@@ -4,6 +4,13 @@
                     xmlns:conv="https://github.com/Cricle/Ao.ObjectDesign/Converters"
                     xmlns:w="clr-namespace:Ao.ObjectDesign.Wpf;assembly=Ao.ObjectDesign.Wpf"
                     xmlns:od="clr-namespace:Ao.ObjectDesign;assembly=Ao.ObjectDesign">
+    <Style x:Key="Descript.TextBlock"
+           TargetType="TextBlock"
+           BasedOn="{StaticResource MahApps.Styles.TextBlock}">
+        <Setter Property="Background" Value="CadetBlue"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0,0,4,0"/>
+    </Style>
     <DataTemplate x:Key="ObjectDesign.Primitive"
                   DataType="{x:Type w:WpfTemplateForViewBuildContext}">
         <Grid>
@@ -11,7 +18,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding PropertyProxy.PropertyInfo.Name}"/>
+            <TextBlock Style="{DynamicResource Descript.TextBlock}" Text="{Binding PropertyProxy.PropertyInfo.Name}"/>
             <TextBox DataContext="{Binding PropertyVisitor}" 
                      Text="{Binding Value,Mode=TwoWay,Converter={x:Static conv:PrimitiveConverter.Instance}}"
                      Grid.Column="1"/>
@@ -24,7 +31,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding PropertyProxy.PropertyInfo.Name}"/>
+            <TextBlock Style="{DynamicResource Descript.TextBlock}" Text="{Binding PropertyProxy.PropertyInfo.Name}"/>
             <m:NumericUpDown DataContext="{Binding PropertyVisitor}" 
                              Value="{Binding Value,Mode=TwoWay,Converter={x:Static conv:PrimitiveConverter.Instance}}"
                              Interval="0.5"
@@ -38,7 +45,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding PropertyProxy.PropertyInfo.Name}"/>
+            <TextBlock Style="{DynamicResource Descript.TextBlock}" Text="{Binding PropertyProxy.PropertyInfo.Name}"/>
             <CheckBox DataContext="{Binding PropertyVisitor}" 
                              IsChecked="{Binding Value,Mode=TwoWay,Converter={x:Static conv:PrimitiveConverter.Instance}}"
                              Grid.Column="1"/>

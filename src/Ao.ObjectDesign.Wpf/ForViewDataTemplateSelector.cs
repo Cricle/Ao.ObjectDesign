@@ -14,13 +14,16 @@ namespace Ao.ObjectDesign.Wpf
         {
             ForViewBuilder = forViewBuilder ?? throw new ArgumentNullException(nameof(forViewBuilder));
             ObjectDesigner = objectDesigner ?? throw new ArgumentNullException(nameof(objectDesigner));
+
+            BindingMode = BindingMode.TwoWay;
+            UseNotifyVisitor = true;
         }
 
         public IForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext> ForViewBuilder { get; }
 
         public IObjectDesigner ObjectDesigner { get; }
 
-        public BindingMode BindingMode { get; set; } = BindingMode.TwoWay;
+        public BindingMode BindingMode { get; set; }
 
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
 

@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign.Controls
         private BrushDesigner caretBrush;
         private double selectionOpacity;
         private BrushDesigner selectionBrush;
-        private int maxLength ;
+        private int maxLength;
         private char passwordChar;
         private bool isInactiveSelectionHighlightEnabled;
 

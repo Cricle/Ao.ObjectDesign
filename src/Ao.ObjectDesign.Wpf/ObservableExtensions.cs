@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -18,6 +19,8 @@ namespace Ao.ObjectDesign.Wpf
 
             public SubscribeObject(INotifyPropertyChanged notify, PropertyChangedEventHandler handler)
             {
+                Debug.Assert(notify != null);
+                Debug.Assert(handler != null);
                 this.notify = notify;
                 this.handler = handler;
             }

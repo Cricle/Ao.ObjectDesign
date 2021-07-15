@@ -6,62 +6,31 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    [DebuggerDisplay("Undos = {Undos.Count}, Redos = {Redos.Count}")]
+    [DebuggerDisplay("Undos = {Undos.Count}, Redos = {Redos.Count}, ListeningCount = {ListeningCount}")]
     public class Sequencer : NotifyObjectManager, ISequencer
     {
-        [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-        readonly struct IgnoreIdentity : IEquatable<IgnoreIdentity>
+        public Sequencer()
         {
-            public readonly object Instance;
-
-            public readonly string PropertyName;
-
-            public IgnoreIdentity(object instance, string propertyName)
-            {
-                Instance = instance;
-                PropertyName = propertyName;
-            }
-
-            public bool Equals(IgnoreIdentity other)
-            {
-                return Instance == other.Instance &&
-                    PropertyName == other.PropertyName;
-            }
-            public override bool Equals(object obj)
-            {
-                if (obj is IgnoreIdentity identity)
-                {
-                    return Equals(identity);
-                }
-                return false;
-            }
-            public override string ToString()
-            {
-                return $"{{{Instance}, {PropertyName}}}";
-            }
-
-            public override int GetHashCode()
-            {
-                return Instance.GetHashCode() ^ PropertyName.GetHashCode();
-            }
-
-            private string GetDebuggerDisplay()
-            {
-                return ToString();
-            }
+            Undos = CreateCommandWays();
+            Redos = CreateCommandWays();
         }
-        public CommandWays<ModifyDetail> Undos { get; } = new CommandWays<ModifyDetail>();
+        public ICommandWays<IModifyDetail> Undos { get; }
 
-        public CommandWays<ModifyDetail> Redos { get; } = new CommandWays<ModifyDetail>();
+        public ICommandWays<IModifyDetail> Redos { get; }
 
         private readonly HashSet<IgnoreIdentity> ignores = new HashSet<IgnoreIdentity>();
 
-        protected virtual void OnReset(ModifyDetail detail)
+        protected virtual ICommandWays<IModifyDetail> CreateCommandWays()
+        {
+            return new CommandWays<IModifyDetail>();
+        }
+
+        protected virtual void OnReset(IModifyDetail detail)
         {
             var prop = detail.Instance.GetType().GetProperty(detail.PropertyName);
             prop.SetValue(detail.Instance, detail.From);
         }
-        private void ResetValue(ModifyDetail detail)
+        private void ResetValue(IModifyDetail detail)
         {
             var identity = new IgnoreIdentity(detail.Instance, detail.PropertyName);
             try
@@ -80,14 +49,14 @@ namespace Ao.ObjectDesign.Wpf
         }
         public void CleanAllRecords()
         {
-            Undos.Clear();
-            Redos.Clear();
+            Undos.Clear(true);
+            Redos.Clear(true);
         }
         public virtual void Undo(bool pushRedo)
         {
             if (Undos.Count != 0)
             {
-                var l = Undos.Pop();
+                var l = Undos.Pop(true);
                 Debug.Assert(l != null);
                 ResetValue(l);
                 if (pushRedo)
@@ -105,7 +74,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (Redos.Count != 0)
             {
-                var l = Redos.Pop();
+                var l = Redos.Pop(true);
                 Debug.Assert(l != null);
                 ResetValue(l);
                 if (pushUndo)
@@ -128,7 +97,7 @@ namespace Ao.ObjectDesign.Wpf
             if (!ignores.Contains(identity))
             {
                 var detail = new ModifyDetail(sender, e.PropertyName, e.From, e.To);
-                Undos.Push(detail);
+                Undos.Push(detail, true);
             }
         }
         protected override void OnStrip(INotifyPropertyChangeTo notifyPropertyChangeTo)

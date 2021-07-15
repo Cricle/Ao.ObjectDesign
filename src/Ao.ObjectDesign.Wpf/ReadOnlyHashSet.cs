@@ -9,8 +9,19 @@ namespace Ao.ObjectDesign.Wpf
 {
     public class ReadOnlyHashSet<T> : IReadOnlyHashSet<T>, IReadOnlyCollection<T>
     {
+        public static readonly ReadOnlyHashSet<T> Empty = new ReadOnlyHashSet<T>(Enumerable.Empty<T>());
+        
         private readonly HashSet<T> set;
 
+        public ReadOnlyHashSet(IEnumerable<T> set)
+        {
+            if (set is null)
+            {
+                throw new ArgumentNullException(nameof(set));
+            }
+
+            this.set = new HashSet<T>(set);
+        }
         public ReadOnlyHashSet(HashSet<T> set)
         {
             if (set is null)
@@ -19,7 +30,6 @@ namespace Ao.ObjectDesign.Wpf
             }
 
             this.set = new HashSet<T>(set);
-            this.set.TrimExcess();
         }
 
         public int Count => set.Count;

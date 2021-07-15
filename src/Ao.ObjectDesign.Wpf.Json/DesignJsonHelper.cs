@@ -23,7 +23,7 @@ namespace Ao.ObjectDesign.Wpf.Json
         }
         public static void SetSerializeSettings(JsonSerializerSettings settings)
         {
-            var resolver= new IgnoreContractResolver();
+            var resolver = new IgnoreContractResolver();
             foreach (var item in DesigningHelpers.KnowDesigningTypes)
             {
                 resolver.IgnoreTypes.Add(item);
@@ -43,7 +43,7 @@ namespace Ao.ObjectDesign.Wpf.Json
         {
             return JsonConvert.DeserializeObject<T>(value, settings);
         }
-        public static object DeserializeObject(string value,Type type)
+        public static object DeserializeObject(string value, Type type)
         {
             return JsonConvert.DeserializeObject(value, type, settings);
         }

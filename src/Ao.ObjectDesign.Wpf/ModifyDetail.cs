@@ -1,8 +1,8 @@
 ﻿namespace Ao.ObjectDesign.Wpf
 {
-    public class ModifyDetail
+    public class ModifyDetail : IModifyDetail
     {
-        public ModifyDetail(object instance, string propertyName,object from, object to)
+        public ModifyDetail(object instance, string propertyName, object from, object to)
         {
             Instance = instance;
             PropertyName = propertyName;

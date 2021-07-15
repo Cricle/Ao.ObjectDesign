@@ -54,7 +54,7 @@ namespace System.Collections.ObjectModel
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
         }
-        public void BatchRemove()
+        public void BatchClear()
         {
             CheckReentrancy();
 

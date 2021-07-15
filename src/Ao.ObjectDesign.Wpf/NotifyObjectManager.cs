@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Ao.ObjectDesign.Wpf
@@ -13,6 +14,11 @@ namespace Ao.ObjectDesign.Wpf
 
         public bool IsAttacked(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
+            if (notifyPropertyChangeTo is null)
+            {
+                throw new ArgumentNullException(nameof(notifyPropertyChangeTo));
+            }
+
             return listenings.Contains(notifyPropertyChangeTo);
         }
         public void ClearNotifyer()
@@ -28,6 +34,11 @@ namespace Ao.ObjectDesign.Wpf
 
         public bool Attack(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
+            if (notifyPropertyChangeTo is null)
+            {
+                throw new ArgumentNullException(nameof(notifyPropertyChangeTo));
+            }
+
             if (listenings.Add(notifyPropertyChangeTo))
             {
                 OnAttack(notifyPropertyChangeTo);
@@ -42,6 +53,11 @@ namespace Ao.ObjectDesign.Wpf
 
         public void Strip(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
+            if (notifyPropertyChangeTo is null)
+            {
+                throw new ArgumentNullException(nameof(notifyPropertyChangeTo));
+            }
+
             if (listenings.Remove(notifyPropertyChangeTo))
             {
                 OnStrip(notifyPropertyChangeTo);

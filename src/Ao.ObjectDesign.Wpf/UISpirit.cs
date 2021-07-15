@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public class UISpirit<TView, TContext>
+    public class UISpirit<TView, TContext> : IUISpirit<TView, TContext>
     {
         public UISpirit(TView view, TContext context)
         {

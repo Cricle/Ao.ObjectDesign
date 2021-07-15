@@ -13,6 +13,11 @@ namespace Ao.ObjectDesign.Wpf
     {
         public static void AddWpfCondition(this IForViewBuilder<FrameworkElement, WpfForViewBuildContext> builder)
         {
+            if (builder is null)
+            {
+                throw new ArgumentNullException(nameof(builder));
+            }
+
             builder.Add(new BooleanForViewCondition());
             builder.Add(new ValueTypeForViewCondition());
             builder.Add(new EnumForViewCondition());

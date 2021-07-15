@@ -10,8 +10,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
 {
     public static class DesigningHelpers
     {
-        private static Type[] knowDesigningTypes;
-        public static IReadOnlyCollection<Type> KnowDesigningTypes
+        private static IReadOnlyHashSet<Type> knowDesigningTypes;
+        public static IReadOnlyHashSet<Type> KnowDesigningTypes
         {
             get
             {
@@ -22,18 +22,18 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 return knowDesigningTypes;
             }
         }
-        public static Type[] GetDesigningTypes(Assembly assembly)
+        public static IReadOnlyHashSet<Type> GetDesigningTypes(Assembly assembly)
         {
             if (assembly is null)
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            return assembly.GetExportedTypes()
+            var types= assembly.GetExportedTypes()
                 .Select(x => x.GetCustomAttribute<DesignForAttribute>())
                 .Where(x => x != null)
-                .Select(x => x.Type)
-                .ToArray();
+                .Select(x => x.Type);
+            return new ReadOnlyHashSet<Type>(types);
         }
     }
 }

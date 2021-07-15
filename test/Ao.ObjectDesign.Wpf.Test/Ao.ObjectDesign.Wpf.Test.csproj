@@ -19,4 +19,9 @@
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Converters\" />
+    <Folder Include="Conditions\" />
+  </ItemGroup>
+
 </Project>

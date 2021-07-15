@@ -26,9 +26,10 @@ namespace Ao.ObjectDesign.Wpf.Test
                 wasy.Push(i);
             }
             Assert.AreEqual(count, wasy.Count);
-            for (int i = 0; i < count; i++)
+            for (int i = count; i >0 ; i--)
             {
-                Assert.AreEqual(i, wasy.Pop());
+                var val = wasy.Pop();
+                Assert.AreEqual(i-1, val);
             }
         }
         [TestMethod]
@@ -38,24 +39,18 @@ namespace Ao.ObjectDesign.Wpf.Test
             wasy.MaxSize = 0;
 
             var idx = 0;
-            var sender = new object[2];
-            var args = new CommandWaysOperatorEventArgs<int>[2];
+            object sender = null;
+            CommandWaysOperatorEventArgs<int> args = null;
             wasy.WayChanged += (o, e) =>
             {
-                sender[idx] = o;
-                args[idx] = e;
+                sender = o;
+                args = e;
                 idx++;
             };
             wasy.Push(1);
-
-            Assert.AreEqual(wasy, sender[0]);
-            Assert.AreEqual(CommandWaysOperatorTypes.Add, args[0].Type);
-            Assert.AreEqual(1, args[0].Items.Single());
-
-            Assert.AreEqual(wasy, sender[1]);
-            Assert.AreEqual(CommandWaysOperatorTypes.Remove, args[1].Type);
-            Assert.AreEqual(1, args[1].Items.Single());
-
+            Assert.IsNull(sender);
+            Assert.IsNull(args);
+            Assert.AreEqual(0, idx);
             Assert.AreEqual(0, wasy.Count);
         }
         [TestMethod]
@@ -82,15 +77,15 @@ namespace Ao.ObjectDesign.Wpf.Test
             };
             wasy.Push(-1);
             Assert.AreEqual(wasy, sender[0]);
-            Assert.AreEqual(CommandWaysOperatorTypes.Add, args[0].Type);
-            Assert.AreEqual(-1, args[0].Items.Single());
+            Assert.AreEqual(CommandWaysOperatorTypes.Remove, args[0].Type);
+            Assert.AreEqual(0, args[0].Items.Single());
             Assert.AreEqual(wasy, sender[1]);
-            Assert.AreEqual(CommandWaysOperatorTypes.Remove, args[1].Type);
-            Assert.AreEqual(0, args[1].Items.Single());
+            Assert.AreEqual(CommandWaysOperatorTypes.Add, args[1].Type);
+            Assert.AreEqual(-1, args[1].Items.Single());
 
             Assert.AreEqual(size, wasy.Count);
-            Assert.AreEqual(1, wasy.First);
-            Assert.AreEqual(-1, wasy.Last);
+            Assert.AreEqual(-1, wasy.First);
+            Assert.AreEqual(1, wasy.Last);
         }
         [TestMethod]
         public void ResizeWhenStoreBound_MustRemoveRange()

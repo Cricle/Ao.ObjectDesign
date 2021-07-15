@@ -14,6 +14,8 @@ namespace Ao.ObjectDesign.Wpf.Data
 {
     public class BindingDrawing
     {
+        private readonly static Type TypeDependencyObject = typeof(DependencyObject);
+
         public BindingDrawing(Type clrType)
             : this(clrType, null)
         {
@@ -33,7 +35,7 @@ namespace Ao.ObjectDesign.Wpf.Data
             return Analysis(ClrType, DependencyObjectType, null);
         }
 
-        private IEnumerable<IBindingDrawingItem> Analysis(Type clrType,Type dependencyObjectType,string basePath)
+        private IEnumerable<IBindingDrawingItem> Analysis(Type clrType, Type dependencyObjectType, string basePath)
         {
             var mapFor = clrType.GetCustomAttribute<MappingForAttribute>()?.Type ?? dependencyObjectType;
             if (mapFor is null)
@@ -50,20 +52,17 @@ namespace Ao.ObjectDesign.Wpf.Data
                 {
                     var innerType = item.PropertyType;
                     var innerDp = innerType.GetCustomAttribute<DesignForAttribute>();
-                    if (innerDp is null)
+                    if (innerDp != null)
                     {
-                        continue;
-                    }
-                    var mFor = item.GetCustomAttribute<BindForAttribute>();
-                    var dpType = mFor?.DependencyObjectType ?? innerDp.Type;
-                    if (!typeof(DependencyObject).IsAssignableFrom(dpType))
-                    {
-                        continue;
-                    }
-                    var m = Analysis(innerType, dpType, item.Name);
-                    foreach (var innerItem in m)
-                    {
-                        yield return innerItem;
+                        var mFor = item.GetCustomAttribute<BindForAttribute>();
+                        var dpType = mFor?.DependencyObjectType ?? innerDp.Type;
+                        if (TypeDependencyObject.IsAssignableFrom(dpType))
+                        {
+                            foreach (var innerItem in Analysis(innerType, dpType, item.Name))
+                            {
+                                yield return innerItem;
+                            }
+                        }
                     }
                 }
                 yield return MakeItem(clrType, dependencyObjectType, item, dep, basePath);
@@ -82,7 +81,7 @@ namespace Ao.ObjectDesign.Wpf.Data
             var path = info.Name;
             if (!string.IsNullOrEmpty(basePath))
             {
-                path = basePath + "." + path;
+                path = string.Concat(basePath, ".", path);
             }
             var item = new BindingDrawingItem
             {
@@ -111,11 +110,11 @@ namespace Ao.ObjectDesign.Wpf.Data
                     return item;
                 }
                 var targetProperty = info.PropertyType.GetProperties().FirstOrDefault(x => x.GetCustomAttribute<PlatformTargetPropertyAttribute>() != null);
-                if (targetProperty == null)
+                if (targetProperty is null)
                 {
                     return item;
                 }
-                item.Path = info.Name + "." + targetProperty.Name;
+                item.Path = string.Concat(info.Name, ".", targetProperty.Name);
                 if (d != map)
                 {
                     map = DependencyObjectHelper.GetDependencyPropertyDescriptors(designFor.Type);
@@ -131,15 +130,9 @@ namespace Ao.ObjectDesign.Wpf.Data
         }
         protected virtual bool CanMap(PropertyInfo info)
         {
-            if (!info.CanWrite || !info.CanRead)
-            {
-                return false;
-            }
-            if (info.GetCustomAttribute<NotMappingPropertyAttribute>() != null)
-            {
-                return false;
-            }
-            return true;
+            return info.CanWrite &&
+                info.CanRead &&
+                info.GetCustomAttribute<NotMappingPropertyAttribute>() == null;
         }
     }
 }

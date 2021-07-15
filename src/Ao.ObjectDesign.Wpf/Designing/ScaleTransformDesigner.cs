@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
+using System;
 using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
@@ -9,6 +10,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double centerY;
         private double scaleX;
         private double scaleY;
+
         [PlatformTargetProperty]
         public virtual ScaleTransform ScaleTransform
         {

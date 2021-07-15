@@ -7,6 +7,7 @@ namespace Ao.ObjectDesign.Wpf
     public static class TypeHelper
     {
         internal static readonly Type NullableType = typeof(Nullable<>);
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNullable(Type type)
         {
@@ -22,6 +23,7 @@ namespace Ao.ObjectDesign.Wpf
             }
             return null;
         }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ChangeType(object value,Type type)
         {
             if (TryChangeType(value,type,out var ex,out var res))
@@ -34,6 +36,10 @@ namespace Ao.ObjectDesign.Wpf
         {
             ex = null;
             result = null;
+            if (value is null)
+            {
+                return false;
+            }
             if (IsConvertableType(type))
             {
                 try

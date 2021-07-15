@@ -16,7 +16,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Converter={StaticResource PropertyProxyNameConverter}}"/>
+            <TextBlock Style="{DynamicResource Descript.TextBlock}" Text="{Binding PropertyProxy,Converter={StaticResource PropertyProxyNameConverter}}"/>
             <StackPanel DataContext="{Binding PropertyVisitor}" Grid.Row="1" Orientation="Horizontal">
                 <ToggleButton DataContext="{Binding Value}" 
                               IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.None},Converter={StaticResource PenBrushTypeBoolConverter},Mode=TwoWay}">无</ToggleButton>

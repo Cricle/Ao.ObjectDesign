@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.Wpf.Annotations
     {
         public MappingForAttribute(Type type)
         {
-            Type = type;
+            Type = type ?? throw new ArgumentNullException(nameof(type));
         }
 
         public Type Type { get; }

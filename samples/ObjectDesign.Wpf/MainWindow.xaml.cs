@@ -25,6 +25,8 @@ using System.Xaml;
 using ObjectDesign.Wpf.Controls;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.IO;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace ObjectDesign.Wpf
 {
@@ -61,7 +63,7 @@ namespace ObjectDesign.Wpf
             settingTypes = KnowControlTypes.SettingTypes
                 .Where(x => !x.ClrType.IsAbstract && !x.UIType.IsAbstract && !ignoreTypes.Contains(x.UIType))
                 .ToList();
-            settingTypes.Add(new DesignMapping(typeof(MoveIdSetting), typeof(MoveId)));
+            settingTypes.Add(DesignMapping.FromMapping(typeof(MoveIdSetting)));
             dtbuilder = new ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext>();
             dtbuilder.Add(new CornerDesignCondition());
             dtbuilder.Add(new EnumCondition());
@@ -70,11 +72,7 @@ namespace ObjectDesign.Wpf
             dtbuilder.Add(new PenBrushCondition());
             dtbuilder.Add(new PrimitiveCondition());
 
-            forViewDataTemplateSelector = new ForViewDataTemplateSelector(dtbuilder, objectDesigner)
-            {
-                BindingMode = BindingMode.TwoWay,
-                UseNotifyVisitor = true,
-            };
+            forViewDataTemplateSelector = new ForViewDataTemplateSelector(dtbuilder, objectDesigner);
         }
         public MainWindow()
         {
@@ -88,19 +86,23 @@ namespace ObjectDesign.Wpf
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.E)
+            if ((Keyboard.Modifiers & ModifierKeys.Control) != 0)
             {
-                var t = currentObject.GetType();
-                var str = DesignJsonHelper.SerializeObject(currentObject);
-                var obj = DesignJsonHelper.DeserializeObject(str, t);
-            }
-            if (e.Key== Key.Z)
-            {
-                sequencer.Undo();
-            }
-            if (e.Key == Key.V)
-            {
-                sequencer.Redo();
+                if (e.Key == Key.Z)
+                {
+                    sequencer.Undo();
+                }
+                else if (e.Key == Key.V)
+                {
+                    sequencer.Redo();
+                }
+                else if (e.Key== Key.S)
+                {
+                    var t = currentObject.GetType();
+                    var str = DesignJsonHelper.SerializeObject(currentObject);
+                    File.WriteAllText(t.Name + ".json", str);
+                    this.ShowMessageAsync(string.Empty, "保存成功");
+                }
             }
         }
         private CompiledSequencer sequencer =new CompiledSequencer();
@@ -123,10 +125,20 @@ namespace ObjectDesign.Wpf
                 sequencer.CleanAllRecords();
                 if (!uics.TryGetValue(item.ClrType, out obj))
                 {
-                    obj = (INotifyPropertyChangeTo)Activator.CreateInstance(item.ClrType);
-                    if (obj is IDefaulted uis)
+                    var t = item.ClrType;
+                    var fn = t.Name + ".json";
+                    if (File.Exists(fn))
                     {
-                        uis.SetDefault();
+                        var str = File.ReadAllText(fn);
+                        obj = (INotifyPropertyChangeTo)DesignJsonHelper.DeserializeObject(str, t);
+                    }
+                    else
+                    {
+                        obj = (INotifyPropertyChangeTo)Activator.CreateInstance(item.ClrType);
+                        if (obj is IDefaulted uis)
+                        {
+                            uis.SetDefault();
+                        }
                     }
                     uics.Add(item.ClrType, obj);
                 }
@@ -139,6 +151,10 @@ namespace ObjectDesign.Wpf
                 else if (ui is FrameworkContentElement fce)
                 {
                     fce.SetBindings(drawing);
+                }
+                if (ui is CheckBox cb)
+                {
+                    cb.Content = "hewoiuguidasvfbsa";
                 }
                 currentObject = obj;
                 IObjectProxy proxy = null;
@@ -173,36 +189,27 @@ namespace ObjectDesign.Wpf
                 }
                 else
                 {
+                    var uig = new UIGenerator(builder);
                     var props = proxy.GetPropertyProxies();
-                    var ctxs = props.Select(x => new WpfForViewBuildContext
-                    {
-                        BindingMode = BindingMode.TwoWay,
-                        Designer = ObjectDesigner.Instance,
-                        ForViewBuilder = builder,
-                        UpdateSourceTrigger = UpdateSourceTrigger.Default,
-                        PropertyProxy = x
-                    }).ToArray();
-                    disposable = NotifySubscriber.Subscribe(ctxs, sequencer);
+                    var ds = uig.Generate(props);
+                    var ctxs = ds.Where(x => x.View != null);
+                    disposable = NotifySubscriber.Subscribe(ctxs.Select(x=>x.Context), sequencer);
                     foreach (var ctx in ctxs)
                     {
-                        var uix = builder.Build(ctx);
-                        if (uix != null)
+                        var grid = new Grid();
+                        grid.ColumnDefinitions.Add(new ColumnDefinition
                         {
-                            var grid = new Grid();
-                            grid.ColumnDefinitions.Add(new ColumnDefinition
-                            {
-                                Width = GridLength.Auto
-                            });
-                            grid.ColumnDefinitions.Add(new ColumnDefinition
-                            {
-                                Width = new GridLength(1, GridUnitType.Star)
-                            });
-                            Grid.SetColumn(uix, 1);
-                            var tbx = new TextBlock { Text = ctx.PropertyProxy.PropertyInfo.Name };
-                            grid.Children.Add(tbx);
-                            grid.Children.Add(uix);
-                            designs.Add(grid);
-                        }
+                            Width = GridLength.Auto
+                        });
+                        grid.ColumnDefinitions.Add(new ColumnDefinition
+                        {
+                            Width = new GridLength(1, GridUnitType.Star)
+                        });
+                        Grid.SetColumn(ctx.View, 1);
+                        var tbx = new TextBlock { Text = ctx.Context.PropertyProxy.PropertyInfo.Name };
+                        grid.Children.Add(tbx);
+                        grid.Children.Add(ctx.View);
+                        designs.Add(grid);
                     }
                     //Design.ItemsSource = designs;
                 }

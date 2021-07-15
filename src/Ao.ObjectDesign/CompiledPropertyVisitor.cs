@@ -8,6 +8,14 @@ namespace Ao.ObjectDesign
 {
     public class CompiledPropertyVisitor : PropertyVisitor
     {
+        protected delegate object MGetter();
+        protected delegate void MSetter(object value);
+
+        private static readonly Type ObjectType = typeof(object);
+        private static readonly Type[] GetterArgTypes = new Type[] { ObjectType };
+        private static readonly Type[] SetterArgTypes = new Type[] { ObjectType, ObjectType };
+        private static readonly MethodAttributes methodAttributes = MethodAttributes.Public | MethodAttributes.Static;
+
         public CompiledPropertyVisitor(object declaringInstance, PropertyInfo propertyInfo)
             : base(declaringInstance, propertyInfo)
         {
@@ -22,7 +30,7 @@ namespace Ao.ObjectDesign
         }
         private readonly Lazy<MGetter> getter;
         private readonly Lazy<MSetter> setter;
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private MSetter CreateSetter() => BuildSetter(PropertyInfo.DeclaringType, PropertyInfo);
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -47,13 +55,20 @@ namespace Ao.ObjectDesign
             setter.Value(ConvertValue(value));
             RaiseValueChanged();
         }
-        protected delegate object MGetter();
-        protected delegate void MSetter(object value);
-        private static readonly Type ObjectType = typeof(object);
-        private static readonly Type[] GetterArgTypes = new Type[] { ObjectType };
-        private static readonly Type[] SetterArgTypes = new Type[] { ObjectType , ObjectType };
-        private static readonly MethodAttributes methodAttributes = MethodAttributes.Public | MethodAttributes.Static;
         private MGetter BuildGetter(Type type, PropertyInfo info)
+        {
+            var dn = CreateObjectGetter(type, info);
+            return (MGetter)dn.CreateDelegate(typeof(MGetter), DeclaringInstance);
+        }
+
+        private MSetter BuildSetter(Type type, PropertyInfo info)
+        {
+            var dn = CreateObjectSetter(type, info);
+            return (MSetter)dn.CreateDelegate(typeof(MSetter), DeclaringInstance);
+        }
+
+
+        public static DynamicMethod CreateObjectGetter(Type type, PropertyInfo info)
         {
             var name = string.Concat("proxyget", type.Name, info.Name);
             var dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
@@ -67,16 +82,16 @@ namespace Ao.ObjectDesign
             }
             else
             {
-                ilg.Emit(OpCodes.Castclass,ObjectType);
+                ilg.Emit(OpCodes.Castclass, ObjectType);
             }
             ilg.Emit(OpCodes.Ret);
-            return (MGetter)dn.CreateDelegate(typeof(MGetter), DeclaringInstance);
+            return dn;
         }
-        private MSetter BuildSetter(Type type, PropertyInfo info)
+        public static DynamicMethod CreateObjectSetter(Type type, PropertyInfo info)
         {
             var name = string.Concat("proxyset", type.Name, info.Name);
             var dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
-                typeof(void), SetterArgTypes, type, true);
+                null, SetterArgTypes, type, true);
             var ilg = dn.GetILGenerator();
             ilg.Emit(OpCodes.Ldarg_0);
             ilg.Emit(OpCodes.Ldarg_1);
@@ -90,7 +105,8 @@ namespace Ao.ObjectDesign
             }
             ilg.Emit(OpCodes.Callvirt, info.SetMethod);
             ilg.Emit(OpCodes.Ret);
-            return (MSetter)dn.CreateDelegate(typeof(MSetter),DeclaringInstance);
+            return dn;
         }
+
     }
 }

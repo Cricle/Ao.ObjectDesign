@@ -10,26 +10,51 @@ namespace Ao.ObjectDesign.Wpf
 {
     public static class ObjectLookup
     {
-        public static IEnumerable<INotifyPropertyChangeTo> LookupNotifyableChangeTo(IObjectProxy proxy,bool skipSelf)
+        public static IEnumerable<INotifyPropertyChangeTo> LookupNotifyableChangeTo(IObjectProxy proxy, bool skipSelf)
         {
+            if (proxy is null)
+            {
+                throw new ArgumentNullException(nameof(proxy));
+            }
+
             return Lookup(proxy,
                 NotifyableChangeToCanStepInCondition,
                 NotifyableChangeToValueFactory, skipSelf);
         }
         private static bool NotifyableChangeToCanStepInCondition(IPropertyProxy proxy)
         {
+            if (proxy is null)
+            {
+                throw new ArgumentNullException(nameof(proxy));
+            }
+
             return proxy.Type.GetInterface(typeof(INotifyPropertyChangeTo).FullName) != null;
         }
-        private static INotifyPropertyChangeTo NotifyableChangeToValueFactory(IPropertyProxy proxy,IPropertyVisitor visitor)
+        private static INotifyPropertyChangeTo NotifyableChangeToValueFactory(IPropertyProxy proxy, IPropertyVisitor visitor)
         {
-            return visitor as INotifyPropertyChangeTo; 
+            return visitor as INotifyPropertyChangeTo;
         }
         public static IEnumerable<T> Lookup<T>(IObjectProxy proxy,
-            Func<IPropertyProxy,bool> canStepInCondition, 
-            Func<IPropertyProxy,IPropertyVisitor, T> valueFetcher,
+            Func<IPropertyProxy, bool> canStepInCondition,
+            Func<IPropertyProxy, IPropertyVisitor, T> valueFetcher,
             bool skipSelf)
             where T : class
         {
+            if (proxy is null)
+            {
+                throw new ArgumentNullException(nameof(proxy));
+            }
+
+            if (canStepInCondition is null)
+            {
+                throw new ArgumentNullException(nameof(canStepInCondition));
+            }
+
+            if (valueFetcher is null)
+            {
+                throw new ArgumentNullException(nameof(valueFetcher));
+            }
+
             var objs = new List<IObjectProxy> { proxy };
 
             while (objs.Count != 0)

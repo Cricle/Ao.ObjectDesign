@@ -97,6 +97,7 @@ namespace Ao.ObjectDesign
             RaiseValueChanged();
         }
         private static readonly PropertyChangedEventArgs valueCHangedEventArgs = new PropertyChangedEventArgs(nameof(Value));
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaiseValueChanged()
         {
             PropertyChanged?.Invoke(this, valueCHangedEventArgs);

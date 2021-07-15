@@ -17,7 +17,7 @@ namespace ObjectDesign.Wpf.Views
         {
             return context.PropertyProxy.Type.IsPrimitive ||
                 context.PropertyProxy.Type == typeof(string) ||
-                context.PropertyProxy.Type.IsGenericType && context.PropertyProxy.Type.GetGenericTypeDefinition() == typeof(Nullable<>);
+                (context.PropertyProxy.Type.IsGenericType && context.PropertyProxy.Type.GetGenericTypeDefinition() == typeof(Nullable<>));
         }
 
         public DataTemplate Create(WpfTemplateForViewBuildContext context)
@@ -27,8 +27,8 @@ namespace ObjectDesign.Wpf.Views
             {
                 selectKey = "ObjectDesign.Primitive";
             }
-            else if (context.PropertyProxy.Type==typeof(bool)||
-                context.PropertyProxy.Type==typeof(bool?))
+            else if (context.PropertyProxy.Type == typeof(bool) ||
+                context.PropertyProxy.Type == typeof(bool?))
             {
                 selectKey = "ObjectDesign.Boolean";
             }

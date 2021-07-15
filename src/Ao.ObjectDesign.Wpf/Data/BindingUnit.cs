@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Data;
 
@@ -12,12 +13,17 @@ namespace Ao.ObjectDesign.Wpf.Data
 
         public BindingUnit(Binding binding, DependencyProperty dependencyProperty)
         {
-            Binding = binding;
-            DependencyProperty = dependencyProperty;
+            Binding = binding ?? throw new ArgumentNullException(nameof(binding));
+            DependencyProperty = dependencyProperty ?? throw new ArgumentNullException(nameof(dependencyProperty));
         }
+
         public override int GetHashCode()
         {
-            return Binding.GetHashCode() + DependencyProperty.GetHashCode();
+            if (Binding is null || DependencyProperty is null)
+            {
+                return 0;
+            }
+            return Binding.GetHashCode() ^ DependencyProperty.GetHashCode();
         }
         public override bool Equals(object obj)
         {
@@ -30,8 +36,12 @@ namespace Ao.ObjectDesign.Wpf.Data
 
         public bool Equals(BindingUnit other)
         {
-            return other.DependencyProperty == DependencyProperty&&
-                other.Binding==Binding;
+            return other.DependencyProperty == DependencyProperty &&
+                other.Binding == Binding;
+        }
+        public BindingUnit TransferProperty(DependencyProperty prop)
+        {
+            return new BindingUnit(Binding, prop);
         }
     }
 }

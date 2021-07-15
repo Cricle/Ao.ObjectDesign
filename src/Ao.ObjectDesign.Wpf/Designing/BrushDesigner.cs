@@ -8,6 +8,7 @@ using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
 {
+    [UnfoldMapping]
     [DesignFor(typeof(Brush))]
     public class BrushDesigner : NotifyableObject
     {

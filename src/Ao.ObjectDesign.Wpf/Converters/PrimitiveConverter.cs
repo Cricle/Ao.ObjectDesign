@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign.Wpf.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType.IsInstanceOfType(value))
+            if ( value is null||targetType.IsInstanceOfType(value))
             {
                 return value;
             }
@@ -25,7 +25,7 @@ namespace Ao.ObjectDesign.Wpf.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (targetType.IsInstanceOfType(value))
+            if (value is null||targetType.IsInstanceOfType(value))
             {
                 return value;
             }

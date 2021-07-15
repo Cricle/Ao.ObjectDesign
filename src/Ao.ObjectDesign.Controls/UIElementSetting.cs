@@ -143,7 +143,6 @@ namespace Ao.ObjectDesign.Controls
                 }
             }
         }
-
         public virtual void SetDefault()
         {
             Uid = null;
@@ -177,6 +176,11 @@ namespace Ao.ObjectDesign.Controls
                 value.OpacityMask = opacityMask?.Brush;
                 value.RenderTransformOrigin = renderTransformOrigin?.Point ?? default;
             }
+        }
+
+        public void WriteTo(UIElementSetting value)
+        {
+            throw new NotImplementedException();
         }
     }
 }
