@@ -18,18 +18,17 @@ namespace Ao.ObjectDesign.Wpf.Json
         public static JsonSerializerSettings CreateSerializeSettings()
         {
             var settings = new JsonSerializerSettings();
-            SetSerializeSettings(settings);
+            settings.ContractResolver= CreateIgnoresContractResolver();
             return settings;
         }
-        public static void SetSerializeSettings(JsonSerializerSettings settings)
+        public static IgnoreContractResolver CreateIgnoresContractResolver()
         {
             var resolver = new IgnoreContractResolver();
             foreach (var item in DesigningHelpers.KnowDesigningTypes)
             {
                 resolver.IgnoreTypes.Add(item);
             }
-            resolver.IgnoreTypes.Add(typeof(IEnumerable<GradientStop>));
-            settings.ContractResolver = resolver;
+            return resolver;
         }
         public static string SerializeObject<T>(T obj)
         {

@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(ImageSource))]
     public class ImageSourceDesigner : NotifyableObject
     {
-        private Uri uri;
+        private string uri;
         private int? decodePixelHeight;
         private int? decodePixelWidth;
         private BitmapCacheOption cacheOption = BitmapCacheOption.OnLoad;
@@ -67,7 +67,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        public virtual Uri Uri
+        public virtual string Uri
         {
             get => uri;
             set
@@ -98,7 +98,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
                 bitmap.UriCachePolicy = new RequestCachePolicy(requestCacheLevel);
                 bitmap.BeginInit();
-                bitmap.UriSource = uri;
+                bitmap.UriSource = new Uri(uri);
                 bitmap.EndInit();
                 return bitmap;
             }
@@ -114,7 +114,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
                 else
                 {
-                    Uri = img.UriSource;
+                    Uri = img.UriSource.AbsoluteUri;
                     DecodePixelHeight = img.DecodePixelHeight;
                     DecodePixelWidth = img.DecodePixelWidth;
                     CacheOption = img.CacheOption;

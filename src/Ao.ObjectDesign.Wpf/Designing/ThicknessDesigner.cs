@@ -38,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseThicknessChanged();
             }
         }
-        public double Right
+        public virtual double Right
         {
             get => right;
             set

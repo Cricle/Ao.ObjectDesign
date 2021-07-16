@@ -115,7 +115,7 @@ namespace Ao.ObjectDesign.Wpf
         }
         public virtual void PushRange(IEnumerable<T> items, bool notify)
         {
-            if (maxSize==0)
+            if (maxSize == 0)
             {
                 return;
             }

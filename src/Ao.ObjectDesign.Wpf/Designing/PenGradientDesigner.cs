@@ -8,7 +8,7 @@ using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
 {
-    [DesignFor(typeof(GradientBrush))]
+    [DesignFor(typeof(IEnumerable<GradientStop>))]
     public abstract class GradientBrushDesigner : NotifyableObject, IMiddlewareDesigner<GradientBrush>
     {
         protected static readonly IReadOnlyHashSet<string> IncludePropertyNames = new ReadOnlyHashSet<string>(new HashSet<string>
@@ -20,10 +20,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
         });
         private const string PenGradientStopsChangedName = nameof(PenGradientStops) + "." + "Items";
 
-        public GradientBrushDesigner()
+        protected GradientBrushDesigner()
         {
-            SetDefault();
-            PenGradientStops.CollectionChanged += OnPenGradientStopsCollectionChanged;
         }
 
         private void OnPenGradientStopsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -56,6 +54,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private BrushMappingMode mappingMode = BrushMappingMode.RelativeToBoundingBox;
         private GradientSpreadMethod spreadMethod = GradientSpreadMethod.Pad;
         private double opacity = 1;
+        private SilentObservableCollection<GradientStopDesigner> penGradientStops;
 
         public virtual double Opacity
         {
@@ -81,10 +80,36 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set => Set(ref colorInterpolationMode, value);
         }
 
-        public virtual SilentObservableCollection<GradientStopDesigner> PenGradientStops { get; } = new SilentObservableCollection<GradientStopDesigner>();
+        public virtual SilentObservableCollection<GradientStopDesigner> PenGradientStops
+        {
+            get => penGradientStops;
+            set
+            {
+                if (penGradientStops!=null)
+                {
+                    penGradientStops.CollectionChanged -= OnPenGradientStopsCollectionChanged;
+                }
+                if (value!=null)
+                {
+                    value.CollectionChanged -= OnPenGradientStopsCollectionChanged;
+                }
+                Set(ref penGradientStops, value);
+            }
+        }
 
         [PlatformTargetProperty]
-        public virtual IEnumerable<GradientStop> GradientStops => PenGradientStops.Select(x => x.GradientStop);
+        public virtual IEnumerable<GradientStop> GradientStops
+        {
+            get
+            {
+                var stops = penGradientStops;
+                if (stops is null)
+                {
+                    return Enumerable.Empty<GradientStop>();
+                }
+                return PenGradientStops.Select(x => x.GradientStop);
+            }
+        }
 
         public virtual void SetDefault()
         {
@@ -92,7 +117,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             MappingMode = BrushMappingMode.RelativeToBoundingBox;
             Opacity = 1;
             SpreadMethod = GradientSpreadMethod.Pad;
-            PenGradientStops.Clear();
+            PenGradientStops = new SilentObservableCollection<GradientStopDesigner>();
         }
 
         public virtual void WriteTo(GradientBrush brush)
@@ -125,7 +150,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 SpreadMethod = brush.SpreadMethod;
                 if (brush.GradientStops != null && brush.GradientStops.Count != 0)
                 {
-                    PenGradientStops.AddRange(brush.GradientStops.Select(x => new GradientStopDesigner(x.Color, x.Offset)));
+                    PenGradientStops = new SilentObservableCollection<GradientStopDesigner>(brush.GradientStops.Select(x => new GradientStopDesigner(x.Color, x.Offset)));
                 }
             }
         }

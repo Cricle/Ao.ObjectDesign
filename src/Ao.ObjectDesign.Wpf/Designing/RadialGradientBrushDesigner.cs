@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
@@ -66,7 +67,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRadialGradientBrushChange();
             }
         }
-
 
         [PlatformTargetProperty]
         public virtual RadialGradientBrush RadialGradientBrush

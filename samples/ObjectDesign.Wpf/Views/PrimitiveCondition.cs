@@ -6,9 +6,24 @@ using System.Threading.Tasks;
 using System.Windows;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Designing;
 
 namespace ObjectDesign.Wpf.Views
 {
+    public class FontFamilyCondition : IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>
+    {
+        public int Order { get; set; }
+
+        public bool CanBuild(WpfTemplateForViewBuildContext context)
+        {
+            return context.PropertyProxy.Type == typeof(FontFamilyDesigner);
+        }
+
+        public DataTemplate Create(WpfTemplateForViewBuildContext context)
+        {
+            return (DataTemplate)Application.Current.FindResource("ObjectDesign.FontFamily");
+        }
+    }
     public class PrimitiveCondition : IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>
     {
         public int Order { get; set; }

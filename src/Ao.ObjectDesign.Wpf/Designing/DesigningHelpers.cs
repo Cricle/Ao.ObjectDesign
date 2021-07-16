@@ -11,6 +11,18 @@ namespace Ao.ObjectDesign.Wpf.Designing
     public static class DesigningHelpers
     {
         private static IReadOnlyHashSet<Type> knowDesigningTypes;
+        private static IReadOnlyHashSet<PropertyIdentity> knowDesigningPropertyIdentities;
+        public static IReadOnlyHashSet<PropertyIdentity> KnowDesigningPropertyIdentities
+        {
+            get
+            {
+                if (knowDesigningPropertyIdentities is null)
+                {
+                    knowDesigningPropertyIdentities = GetDesigningPropertyIdentities(typeof(DesigningHelpers).Assembly);
+                }
+                return knowDesigningPropertyIdentities;
+            }
+        }
         public static IReadOnlyHashSet<Type> KnowDesigningTypes
         {
             get
@@ -22,6 +34,31 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 return knowDesigningTypes;
             }
         }
+        public static IReadOnlyHashSet<PropertyIdentity> GetDesigningPropertyIdentities(Assembly assembly)
+        {
+            if (assembly is null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+
+            var types = assembly.GetExportedTypes()
+                .Select(x =>
+                {
+                    var attr = x.GetCustomAttribute<DesignForAttribute>();
+                    if (attr is null)
+                    {
+                        return null;
+                    }
+                    var prop = x.GetProperties().Where(y => y.PropertyType == attr.Type).FirstOrDefault();
+                    if (prop is null)
+                    {
+                        return null;
+                    }
+                    return new PropertyIdentity(x, prop.Name);
+                })
+                .Where(x => x != null);
+            return new ReadOnlyHashSet<PropertyIdentity>(types);
+        }
         public static IReadOnlyHashSet<Type> GetDesigningTypes(Assembly assembly)
         {
             if (assembly is null)
@@ -29,7 +66,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            var types= assembly.GetExportedTypes()
+            var types = assembly.GetExportedTypes()
                 .Select(x => x.GetCustomAttribute<DesignForAttribute>())
                 .Where(x => x != null)
                 .Select(x => x.Type);

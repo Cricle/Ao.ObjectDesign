@@ -57,7 +57,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         [PlatformTargetProperty]
         public virtual Color Color
         {
-            get => Color.FromArgb(a, r, g, b);
+            get => new Color { A = a, R = r, G = g, B = b };
             set
             {
                 A = value.A;

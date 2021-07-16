@@ -27,9 +27,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             ViewportPropertyName,
             ViewboxPropertyName
         });
-        public TileBrushDesigner()
+        protected TileBrushDesigner()
         {
-            SetDefault();
         }
         private TileMode tileMode;
         private Stretch stretch;

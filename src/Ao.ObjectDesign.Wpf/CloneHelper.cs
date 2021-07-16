@@ -1,24 +1,41 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public static class CloneHelper
+    public static class ReflectionHelper
     {
         private static readonly string IListTypeName = typeof(IList).FullName;
         private static readonly Type StringType = typeof(string);
+
         public static object Create(Type type)
         {
             var creator = CompiledPropertyInfo.GetCreator(type);
             var obj = creator();
             return obj;
+        }
+        public static object GetValue(object instance, PropertyInfo propertyInfo)
+        {
+            var identity = new PropertyIdentity(propertyInfo.DeclaringType, propertyInfo.Name);
+            return GetValue(instance, identity);
+        }
+        public static object GetValue(object instance, PropertyIdentity identity)
+        {
+            var getter = CompiledPropertyInfo.GetGetter(identity);
+            return getter(instance);
+        }
+        public static void SetValue(object instance, object value, PropertyInfo propertyInfo)
+        {
+            var identity = new PropertyIdentity(propertyInfo.DeclaringType, propertyInfo.Name);
+            SetValue(instance, value, identity);
+        }
+        public static void SetValue(object instance,object value, PropertyIdentity identity)
+        {
+            var setter = CompiledPropertyInfo.GetSetter(identity);
+            setter(instance, value);
         }
         public static T Clone<T>(T source)
         {

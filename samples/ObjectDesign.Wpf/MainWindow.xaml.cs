@@ -27,6 +27,13 @@ using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.IO;
 using MahApps.Metro.Controls.Dialogs;
+using System.Xml.Serialization;
+using Ao.ObjectDesign.Wpf.Xml;
+using Newtonsoft.Json.Bson;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.TypeInspectors;
+using YamlDotNet.Core;
+using Ao.ObjectDesign.Wpf.Yaml;
 
 namespace ObjectDesign.Wpf
 {
@@ -71,6 +78,7 @@ namespace ObjectDesign.Wpf
             dtbuilder.Add(new LocationSizeCondition());
             dtbuilder.Add(new PenBrushCondition());
             dtbuilder.Add(new PrimitiveCondition());
+            dtbuilder.Add(new FontFamilyCondition());
 
             forViewDataTemplateSelector = new ForViewDataTemplateSelector(dtbuilder, objectDesigner);
         }
@@ -101,7 +109,48 @@ namespace ObjectDesign.Wpf
                     var t = currentObject.GetType();
                     var str = DesignJsonHelper.SerializeObject(currentObject);
                     File.WriteAllText(t.Name + ".json", str);
-                    this.ShowMessageAsync(string.Empty, "保存成功");
+                    this.ShowMessageAsync(string.Empty, "保存为json成功");
+                }
+                else if (e.Key== Key.T)
+                {
+                    var t = currentObject.GetType();
+                    using (var fs = File.Open(t.Name + ".bson", FileMode.Create))
+                    using (var writer = new BsonDataWriter(fs))
+                    {
+                        var serializer = new JsonSerializer();
+                        var setting= DesignJsonHelper.CreateSerializeSettings();
+                        serializer.ContractResolver = setting.ContractResolver;
+                        serializer.Serialize(writer, currentObject);
+                    }
+                    using (var fs=File.Open(t.Name + ".bson", FileMode.Open))
+                        using(var reader=new BsonDataReader(fs))
+                    {
+                        var serializer = new JsonSerializer();
+                        var setting = DesignJsonHelper.CreateSerializeSettings();
+                        serializer.ContractResolver = setting.ContractResolver;
+                        var obj=serializer.Deserialize(reader, t);
+                    }
+                    this.ShowMessageAsync(string.Empty, "保存为bson成功");
+                }
+                else if (e.Key== Key.P)
+                {
+                    if (currentObject is ButtonSetting bs)
+                    {
+                        bs.BorderBrush.RadialGradientBrushDesigner.PenGradientStops.Add(new GradientStopDesigner());
+                    }
+                    var t = currentObject.GetType();
+                    var str = DeisgnYamlSerializer.Serialize(currentObject);
+                    File.WriteAllText(t.Name + ".yaml", str);
+
+                    var xa = DeisgnYamlSerializer.Deserializer(str, t);
+                    this.ShowMessageAsync(string.Empty, "保存为yaml成功");
+                }
+                else if (e.Key== Key.K)
+                {
+                    var t = currentObject.GetType();
+                    var s = DeisgnXmlSerializer.Serialize(currentObject);
+                    File.WriteAllText(t.Name + ".xml", s);
+                    this.ShowMessageAsync(string.Empty, "保存为xml成功");
                 }
             }
         }
@@ -143,7 +192,7 @@ namespace ObjectDesign.Wpf
                     uics.Add(item.ClrType, obj);
                 }
                 var ui = (DependencyObject)Activator.CreateInstance(item.UIType);
-                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay);
+                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay, UpdateSourceTrigger.Default);
                 if (ui is FrameworkElement fe)
                 {
                     fe.SetBindings(drawing);

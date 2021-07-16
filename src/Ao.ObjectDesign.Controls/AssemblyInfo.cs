@@ -3,4 +3,4 @@ using System.Windows.Markup;
 
 [assembly:InternalsVisibleTo("Ao.ObjectDesign.Controls.Tests")]
 
-[assembly: XmlnsDefinition("https://github.com/Cricle/Ao.ObjectDesign/Controls", "Ao.ObjectDesign.Controls")]
+[assembly: XmlnsDefinition("https://github.com/Cricle/Ao.ObjectDesign.Wpf/Controls", "Ao.ObjectDesign.Controls")]

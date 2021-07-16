@@ -4,10 +4,11 @@ namespace Ao.ObjectDesign.Test
 {
     class Student
     {
+        private string str;
         public string this[string str]
         {
             get => str;
-            set { }
+            set { this.str = value; }
         }
         public string Name { get; set; }
 

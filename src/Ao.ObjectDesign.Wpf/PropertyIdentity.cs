@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    internal class PropertyIdentity : IEquatable<PropertyIdentity>
+    public class PropertyIdentity : IEquatable<PropertyIdentity>
     {
         public PropertyIdentity(Type type, string propertyName)
         {

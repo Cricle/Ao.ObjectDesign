@@ -10,11 +10,15 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Controls\Ao.ObjectDesign.Controls.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Xml\Ao.ObjectDesign.Wpf.Xml.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
