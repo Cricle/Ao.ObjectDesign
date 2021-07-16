@@ -1,16 +1,11 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls.Primitives;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(ToggleButton))]
-    public class ToggleButtonSetting : ButtonBaseSetting,IMiddlewareDesigner<ToggleButton>
+    public class ToggleButtonSetting : ButtonBaseSetting, IMiddlewareDesigner<ToggleButton>
     {
         private bool isThreeState;
         private bool? isChecked;
@@ -48,7 +43,7 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(ToggleButton value)
         {
-            if (value!=null)
+            if (value != null)
             {
                 WriteTo((ButtonBase)value);
                 value.IsChecked = isChecked;

@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -25,7 +23,7 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GivenClassProxy_MustProxied()
         {
-            var proxy = ObjectDesigner.Instance.CreateProxy(new Student(), typeof(Student));
+            IObjectProxy proxy = ObjectDesigner.Instance.CreateProxy(new Student(), typeof(Student));
             Assert.IsNotNull(proxy);
 
             proxy = ObjectDesigner.CreateDefaultProxy(new Student(), typeof(Student));

@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -30,7 +26,7 @@ namespace Ao.ObjectDesign.Wpf.Test
         [DataRow(false)]
         public void Subject_Notify(bool expression)
         {
-            var stu = new Student();
+            Student stu = new Student();
             object inst = null;
             IDisposable dis = null;
             if (expression)

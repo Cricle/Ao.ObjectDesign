@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
-using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -30,12 +29,12 @@ namespace Ao.ObjectDesign.Wpf
             }
             ThrowIfTypeNotBaseOnDependencyObject(type);
 
-            var ret = Enumerable.Empty<PropertyDescriptor>();
-            var depObjType = typeof(DependencyObject);
-            var t = type;
+            IEnumerable<PropertyDescriptor> ret = Enumerable.Empty<PropertyDescriptor>();
+            Type depObjType = typeof(DependencyObject);
+            Type t = type;
             while (t != depObjType)
             {
-                var e = t;
+                Type e = t;
                 ret = ret.Concat(TypeDescriptor.GetProperties(e, dependencyAttributes)
                     .OfType<PropertyDescriptor>()
                     .Where(x => x.ComponentType == e));
@@ -82,7 +81,7 @@ namespace Ao.ObjectDesign.Wpf
 
             ThrowIfTypeNotBaseOnDependencyObject(type);
 
-            var descMap = GetDependencyPropertyDescriptors(type);
+            IReadOnlyDictionary<string, DependencyPropertyDescriptor> descMap = GetDependencyPropertyDescriptors(type);
             return descMap.ContainsKey(name);
         }
     }

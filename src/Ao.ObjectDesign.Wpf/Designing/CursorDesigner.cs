@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -18,7 +16,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         static CursorDesigner()
         {
-            var cursorType = typeof(Cursors).GetProperties(BindingFlags.Static | BindingFlags.Public);
+            PropertyInfo[] cursorType = typeof(Cursors).GetProperties(BindingFlags.Static | BindingFlags.Public);
             CursorMap = cursorType.ToDictionary(x => x.Name, x => (Cursor)x.GetValue(null));
             CursorRevMap = CursorMap.ToDictionary(x => x.Value, x => x.Key);
         }
@@ -81,7 +79,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
                 else if (CursorType == CursorTypes.SystemCursorName)
                 {
-                    if (!string.IsNullOrEmpty(name) && CursorMap.TryGetValue(name, out var cur))
+                    if (!string.IsNullOrEmpty(name) && CursorMap.TryGetValue(name, out Cursor cur))
                     {
                         return cur;
                     }
@@ -111,7 +109,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     CursorType = CursorTypes.None;
                 }
-                else if (CursorRevMap.TryGetValue(value,out var v))
+                else if (CursorRevMap.TryGetValue(value, out string v))
                 {
                     Name = v;
                     CursorType = CursorTypes.SystemCursorName;

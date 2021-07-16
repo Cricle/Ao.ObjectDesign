@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Ao.ObjectDesign.ForView;
+﻿using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Designing;
+using System;
+using System.Windows;
 
 namespace ObjectDesign.Wpf.Views
 {
@@ -37,7 +33,7 @@ namespace ObjectDesign.Wpf.Views
 
         public DataTemplate Create(WpfTemplateForViewBuildContext context)
         {
-            var selectKey = "ObjectDesign.Number";
+            string selectKey = "ObjectDesign.Number";
             if (context.PropertyProxy.Type == typeof(string))
             {
                 selectKey = "ObjectDesign.Primitive";

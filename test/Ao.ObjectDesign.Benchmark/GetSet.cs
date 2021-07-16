@@ -10,8 +10,8 @@ namespace Ao.ObjectDesign.Benchmark
 
         public GetSet()
         {
-            var inst = new Student { Name = "hewahdoas" };
-            var prop = inst.GetType().GetProperty(nameof(Student.Name));
+            Student inst = new Student { Name = "hewahdoas" };
+            System.Reflection.PropertyInfo prop = inst.GetType().GetProperty(nameof(Student.Name));
             visitor = new PropertyVisitor(inst, prop);
             compiledVisitor = new CompiledPropertyVisitor(inst, prop);
 

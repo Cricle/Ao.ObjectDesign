@@ -1,9 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System;
-using System.Collections.Generic;
-using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Json
 {
@@ -17,14 +14,16 @@ namespace Ao.ObjectDesign.Wpf.Json
         }
         public static JsonSerializerSettings CreateSerializeSettings()
         {
-            var settings = new JsonSerializerSettings();
-            settings.ContractResolver= CreateIgnoresContractResolver();
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                ContractResolver = CreateIgnoresContractResolver()
+            };
             return settings;
         }
         public static IgnoreContractResolver CreateIgnoresContractResolver()
         {
-            var resolver = new IgnoreContractResolver();
-            foreach (var item in DesigningHelpers.KnowDesigningTypes)
+            IgnoreContractResolver resolver = new IgnoreContractResolver();
+            foreach (Type item in DesigningHelpers.KnowDesigningTypes)
             {
                 resolver.IgnoreTypes.Add(item);
             }

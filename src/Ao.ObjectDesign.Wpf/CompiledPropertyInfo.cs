@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign.Wpf
 
         private static readonly ConcurrentDictionary<PropertyIdentity, PropertyGetter> propertyGetters =
             new ConcurrentDictionary<PropertyIdentity, PropertyGetter>(PropertyIdentityComparer.Instance);
-        
+
         private static readonly ConcurrentDictionary<Type, TypeCreator> typeCreators =
             new ConcurrentDictionary<Type, TypeCreator>();
 
@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             return typeCreators.GetOrAdd(type, t =>
             {
-                var construct = type.GetConstructor(Type.EmptyTypes);
+                System.Reflection.ConstructorInfo construct = type.GetConstructor(Type.EmptyTypes);
                 if (construct is null)
                 {
                     throw new NotSupportedException($"Type {type.FullName} can't build, it has not empty argument constructor");
@@ -34,8 +34,8 @@ namespace Ao.ObjectDesign.Wpf
         {
             return propertySetters.GetOrAdd(identity, x =>
             {
-                var propertInfo = x.Type.GetProperty(x.PropertyName);
-                var dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
+                System.Reflection.PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
+                System.Reflection.Emit.DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
                 return (PropertySetter)dn.CreateDelegate(typeof(PropertySetter));
             });
         }
@@ -43,8 +43,8 @@ namespace Ao.ObjectDesign.Wpf
         {
             return propertyGetters.GetOrAdd(identity, x =>
             {
-                var propertInfo = x.Type.GetProperty(x.PropertyName);
-                var dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
+                System.Reflection.PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
+                System.Reflection.Emit.DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
                 return (PropertyGetter)dn.CreateDelegate(typeof(PropertyGetter));
             });
         }

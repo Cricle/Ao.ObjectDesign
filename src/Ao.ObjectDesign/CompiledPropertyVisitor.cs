@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace Ao.ObjectDesign
 {
@@ -57,23 +56,23 @@ namespace Ao.ObjectDesign
         }
         private MGetter BuildGetter(Type type, PropertyInfo info)
         {
-            var dn = CreateObjectGetter(type, info);
+            DynamicMethod dn = CreateObjectGetter(type, info);
             return (MGetter)dn.CreateDelegate(typeof(MGetter), DeclaringInstance);
         }
 
         private MSetter BuildSetter(Type type, PropertyInfo info)
         {
-            var dn = CreateObjectSetter(type, info);
+            DynamicMethod dn = CreateObjectSetter(type, info);
             return (MSetter)dn.CreateDelegate(typeof(MSetter), DeclaringInstance);
         }
 
 
         public static DynamicMethod CreateObjectGetter(Type type, PropertyInfo info)
         {
-            var name = string.Concat("proxyget", type.Name, info.Name);
-            var dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
+            string name = string.Concat("proxyget", type.Name, info.Name);
+            DynamicMethod dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
                 ObjectType, GetterArgTypes, type, true);
-            var ilg = dn.GetILGenerator();
+            ILGenerator ilg = dn.GetILGenerator();
             ilg.Emit(OpCodes.Ldarg_0);
             ilg.Emit(OpCodes.Callvirt, info.GetMethod);
             if (info.PropertyType.IsValueType)
@@ -89,10 +88,10 @@ namespace Ao.ObjectDesign
         }
         public static DynamicMethod CreateObjectSetter(Type type, PropertyInfo info)
         {
-            var name = string.Concat("proxyset", type.Name, info.Name);
-            var dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
+            string name = string.Concat("proxyset", type.Name, info.Name);
+            DynamicMethod dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
                 null, SetterArgTypes, type, true);
-            var ilg = dn.GetILGenerator();
+            ILGenerator ilg = dn.GetILGenerator();
             ilg.Emit(OpCodes.Ldarg_0);
             ilg.Emit(OpCodes.Ldarg_1);
             if (info.PropertyType.IsValueType)

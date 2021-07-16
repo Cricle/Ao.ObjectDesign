@@ -1,9 +1,4 @@
 ﻿using Ao.ObjectDesign.ForView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Conditions
@@ -23,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         protected abstract string GetResourceKey();
         public virtual DataTemplate Create(WpfTemplateForViewBuildContext context)
         {
-            var key = GetResourceKey();
+            string key = GetResourceKey();
             return (DataTemplate)Application.Current.FindResource(key);
         }
     }

@@ -2,8 +2,6 @@
 using Ao.ObjectDesign.ForView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ao.ObjectDesign.Test.ForView
 {
@@ -55,11 +53,11 @@ namespace Ao.ObjectDesign.Test.ForView
         [TestMethod]
         public void SelectFromAttribute()
         {
-            var builder = new ForViewBuilder<int?, ForViewBuildContext>();
-            var inst = new SelectFromAttrObj();
-            var prop = inst.GetType().GetProperty(nameof(SelectFromAttrObj.Name));
-            var propProxy = new PropertyProxy(inst, prop);
-            var i = builder.Build(new ForViewBuildContext(propProxy),false);
+            ForViewBuilder<int?, ForViewBuildContext> builder = new ForViewBuilder<int?, ForViewBuildContext>();
+            SelectFromAttrObj inst = new SelectFromAttrObj();
+            System.Reflection.PropertyInfo prop = inst.GetType().GetProperty(nameof(SelectFromAttrObj.Name));
+            PropertyProxy propProxy = new PropertyProxy(inst, prop);
+            int? i = builder.Build(new ForViewBuildContext(propProxy), false);
             Assert.IsNull(i);
             i = builder.Build(new ForViewBuildContext(propProxy), true);
             Assert.AreEqual(123, i.Value);
@@ -69,23 +67,25 @@ namespace Ao.ObjectDesign.Test.ForView
         [TestMethod]
         public void Build()
         {
-            var builder = new ForViewBuilder<int?, ForViewBuildContext>();
-            builder.Add(new ValueCondition
+            ForViewBuilder<int?, ForViewBuildContext> builder = new ForViewBuilder<int?, ForViewBuildContext>
             {
-                CanBuildFun = a => a.PropertyProxy.PropertyInfo.Name == nameof(Student.Name),
-                CreateFunc = a => 1
-            });
-            builder.Add(new ValueCondition
-            {
-                CanBuildFun = a => a.PropertyProxy.PropertyInfo.Name == nameof(Student.Age),
-                CreateFunc = a => 2
-            });
-            var inst = new Student();
+                new ValueCondition
+                {
+                    CanBuildFun = a => a.PropertyProxy.PropertyInfo.Name == nameof(Student.Name),
+                    CreateFunc = a => 1
+                },
+                new ValueCondition
+                {
+                    CanBuildFun = a => a.PropertyProxy.PropertyInfo.Name == nameof(Student.Age),
+                    CreateFunc = a => 2
+                }
+            };
+            Student inst = new Student();
 
-            var prop = inst.GetType().GetProperty(nameof(Student.Name));
-            var propProxy = new PropertyProxy(inst, prop);
-            var ctx = new ForViewBuildContext(propProxy);
-            var val = ForViewBuilderExtensions.Build(builder, ctx);
+            System.Reflection.PropertyInfo prop = inst.GetType().GetProperty(nameof(Student.Name));
+            PropertyProxy propProxy = new PropertyProxy(inst, prop);
+            ForViewBuildContext ctx = new ForViewBuildContext(propProxy);
+            int? val = ForViewBuilderExtensions.Build(builder, ctx);
             Assert.AreEqual(1, val.Value);
 
             prop = inst.GetType().GetProperty(nameof(Student.Age));

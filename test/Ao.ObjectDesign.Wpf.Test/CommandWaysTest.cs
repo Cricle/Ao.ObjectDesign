@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -19,26 +15,30 @@ namespace Ao.ObjectDesign.Wpf.Test
         [DataRow(10)]
         public void GivenAnyValueBound_Pop_MustAsDequene(int count)
         {
-            var wasy = new CommandWays<int>();
-            wasy.MaxSize = 10;
+            CommandWays<int> wasy = new CommandWays<int>
+            {
+                MaxSize = 10
+            };
             for (int i = 0; i < count; i++)
             {
                 wasy.Push(i);
             }
             Assert.AreEqual(count, wasy.Count);
-            for (int i = count; i >0 ; i--)
+            for (int i = count; i > 0; i--)
             {
-                var val = wasy.Pop();
-                Assert.AreEqual(i-1, val);
+                int val = wasy.Pop();
+                Assert.AreEqual(i - 1, val);
             }
         }
         [TestMethod]
         public void GivenZeroMaxSize_AddOne_MustNotStore()
         {
-            var wasy = new CommandWays<int>();
-            wasy.MaxSize = 0;
+            CommandWays<int> wasy = new CommandWays<int>
+            {
+                MaxSize = 0
+            };
 
-            var idx = 0;
+            int idx = 0;
             object sender = null;
             CommandWaysOperatorEventArgs<int> args = null;
             wasy.WayChanged += (o, e) =>
@@ -60,15 +60,17 @@ namespace Ao.ObjectDesign.Wpf.Test
         [DataRow(30)]
         public void GivenAnyValueBound_AddOne_MustResize(int size)
         {
-            var wasy = new CommandWays<int>();
-            wasy.MaxSize = size;
+            CommandWays<int> wasy = new CommandWays<int>
+            {
+                MaxSize = size
+            };
             for (int i = 0; i < size; i++)
             {
                 wasy.Push(i);
             }
-            var idx = 0;
-            var sender = new object[2];
-            var args = new CommandWaysOperatorEventArgs<int>[2];
+            int idx = 0;
+            object[] sender = new object[2];
+            CommandWaysOperatorEventArgs<int>[] args = new CommandWaysOperatorEventArgs<int>[2];
             wasy.WayChanged += (o, e) =>
             {
                 sender[idx] = o;
@@ -90,8 +92,10 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void ResizeWhenStoreBound_MustRemoveRange()
         {
-            var wasy = new CommandWays<int>();
-            wasy.MaxSize = 10;
+            CommandWays<int> wasy = new CommandWays<int>
+            {
+                MaxSize = 10
+            };
             for (int i = 0; i < wasy.MaxSize; i++)
             {
                 wasy.Push(i);

@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -13,7 +10,7 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void GivenNullCall_MustThrownException()
         {
-            var mgr = new NotifyObjectManager();
+            NotifyObjectManager mgr = new NotifyObjectManager();
 
             Assert.ThrowsException<ArgumentNullException>(() => mgr.Attack(null));
             Assert.ThrowsException<ArgumentNullException>(() => mgr.Strip(null));
@@ -22,11 +19,11 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Attack_ListenMustContainsThem()
         {
-            var mgr = new NotifyObjectManager();
+            NotifyObjectManager mgr = new NotifyObjectManager();
 
-            var obj1 = new NotifyableObject();
-            var obj2 = new NotifyableObject();
-            var obj3 = new NotifyableObject();
+            NotifyableObject obj1 = new NotifyableObject();
+            NotifyableObject obj2 = new NotifyableObject();
+            NotifyableObject obj3 = new NotifyableObject();
 
             Assert.IsTrue(mgr.Attack(obj1));
             Assert.IsTrue(mgr.Attack(obj2));
@@ -41,9 +38,9 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void GivenTwiceSameAttack_SecondMustFalse()
         {
-            var mgr = new NotifyObjectManager();
+            NotifyObjectManager mgr = new NotifyObjectManager();
 
-            var obj1 = new NotifyableObject();
+            NotifyableObject obj1 = new NotifyableObject();
             Assert.IsTrue(mgr.Attack(obj1));
             Assert.IsFalse(mgr.Attack(obj1));
 
@@ -52,9 +49,9 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Attack_Strip_MustNotListned()
         {
-            var mgr = new NotifyObjectManager();
+            NotifyObjectManager mgr = new NotifyObjectManager();
 
-            var obj1 = new NotifyableObject();
+            NotifyableObject obj1 = new NotifyableObject();
             mgr.Attack(obj1);
 
             mgr.Strip(obj1);
@@ -64,9 +61,9 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Attack_IsAttack_MustReturnObjectIsAttacked()
         {
-            var mgr = new NotifyObjectManager();
+            NotifyObjectManager mgr = new NotifyObjectManager();
 
-            var obj1 = new NotifyableObject();
+            NotifyableObject obj1 = new NotifyableObject();
             mgr.Attack(obj1);
             Assert.IsTrue(mgr.IsAttacked(obj1));
             mgr.Strip(obj1);
@@ -75,9 +72,9 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Attack_Clear_AllMustStrip()
         {
-            var mgr = new NotifyObjectManager();
+            NotifyObjectManager mgr = new NotifyObjectManager();
 
-            var obj1 = new NotifyableObject();
+            NotifyableObject obj1 = new NotifyableObject();
             mgr.Attack(obj1);
 
             mgr.ClearNotifyer();

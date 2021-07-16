@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 if (installedFontFamilies is null)
                 {
-                    using (var coll = new InstalledFontCollection())
+                    using (InstalledFontCollection coll = new InstalledFontCollection())
                     {
                         installedFontFamilies = coll.Families
                             .Select(x => new FontFamily(x.Name))

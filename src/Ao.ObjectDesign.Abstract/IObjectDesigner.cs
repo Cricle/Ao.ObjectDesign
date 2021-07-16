@@ -4,6 +4,6 @@ namespace Ao.ObjectDesign
 {
     public interface IObjectDesigner
     {
-        IObjectProxy CreateProxy(object instance,Type type);
+        IObjectProxy CreateProxy(object instance, Type type);
     }
 }

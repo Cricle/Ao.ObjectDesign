@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,12 +11,14 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         [TestMethod]
         public void SetFromWpfValue()
         {
-            var design = new ColumnDefinitionDesigner();
-            design.ColumnDefinition = new ColumnDefinition
+            ColumnDefinitionDesigner design = new ColumnDefinitionDesigner
             {
-                Width = new GridLength(4, GridUnitType.Star),
-                MaxWidth = 10,
-                MinWidth = 1
+                ColumnDefinition = new ColumnDefinition
+                {
+                    Width = new GridLength(4, GridUnitType.Star),
+                    MaxWidth = 10,
+                    MinWidth = 1
+                }
             };
 
             Assert.AreEqual(10d, design.MaxWidth);
@@ -33,12 +30,14 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         [TestMethod]
         public void MakeWpfValue()
         {
-            var design = new ColumnDefinitionDesigner();
-            design.MaxWidth = 10;
-            design.MinWidth = 1;
-            design.GridLengthSetting = new GridLengthDesigner { Type = GridUnitType.Star, Value = 4 };
+            ColumnDefinitionDesigner design = new ColumnDefinitionDesigner
+            {
+                MaxWidth = 10,
+                MinWidth = 1,
+                GridLengthSetting = new GridLengthDesigner { Type = GridUnitType.Star, Value = 4 }
+            };
 
-            var val = design.ColumnDefinition;
+            ColumnDefinition val = design.ColumnDefinition;
 
             Assert.AreEqual(10d, val.MaxWidth);
             Assert.AreEqual(1d, val.MinWidth);

@@ -1,11 +1,5 @@
-﻿using Ao.ObjectDesign.ForView;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -21,7 +15,7 @@ namespace Ao.ObjectDesign.Wpf
                 PropertyProxyValueFetch,
                 false);
         }
-        private static IPropertyProxy PropertyProxyValueFetch(IPropertyProxy proxy,IPropertyVisitor visitor)
+        private static IPropertyProxy PropertyProxyValueFetch(IPropertyProxy proxy, IPropertyVisitor visitor)
         {
             return proxy;
         }
@@ -29,10 +23,10 @@ namespace Ao.ObjectDesign.Wpf
         {
             return proxy.Type.GetInterface(INotifyPropertyChangeToTypeName) != null;
         }
-        public static IDisposable Subscribe(IEnumerable<WpfForViewBuildContextBase> ctxs,INotifyObjectManager mgr)
+        public static IDisposable Subscribe(IEnumerable<WpfForViewBuildContextBase> ctxs, INotifyObjectManager mgr)
         {
-            var cb = new SubscribeCallback { Disposed = EmptyAction };
-            foreach (var item in ctxs)
+            SubscribeCallback cb = new SubscribeCallback { Disposed = EmptyAction };
+            foreach (WpfForViewBuildContextBase item in ctxs)
             {
                 item.PropertyVisitorCreated += handler;
                 cb.Disposed += () =>

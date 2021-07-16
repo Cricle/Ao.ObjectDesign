@@ -1,17 +1,12 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Panel))]
-    public class PanelSetting : FrameworkElementSetting,IMiddlewareDesigner<Panel>
+    public class PanelSetting : FrameworkElementSetting, IMiddlewareDesigner<Panel>
     {
         private BrushDesigner background;
 
@@ -34,14 +29,14 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                Background = new  BrushDesigner{Brush= value.Background };
+                Background = new BrushDesigner { Brush = value.Background };
 
             }
         }
 
         public void WriteTo(Panel value)
         {
-            if (value!=null)
+            if (value != null)
             {
                 WriteTo((FrameworkElement)value);
                 value.Background = background?.Brush;

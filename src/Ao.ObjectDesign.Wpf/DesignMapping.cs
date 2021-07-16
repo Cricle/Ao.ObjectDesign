@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -33,7 +29,7 @@ namespace Ao.ObjectDesign.Wpf
         public override int GetHashCode()
         {
 #if NET5_0
-            return HashCode.Combine(ClrType,UIType);
+            return HashCode.Combine(ClrType, UIType);
 #else
             return ClrType.GetHashCode() ^ UIType.GetHashCode();
 #endif
@@ -49,7 +45,7 @@ namespace Ao.ObjectDesign.Wpf
 
         public static DesignMapping FromMapping(Type type)
         {
-            var forAttribute = type.GetCustomAttribute<MappingForAttribute>();
+            MappingForAttribute forAttribute = type.GetCustomAttribute<MappingForAttribute>();
             if (forAttribute is null)
             {
                 throw new ArgumentException($"Type {type.FullName} not tag MappingForAttribute");

@@ -1,16 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
     [TestClass]
     public class NotifyableObjectTest
     {
-        class StudentObject:NotifyableObject
+        class StudentObject : NotifyableObject
         {
             private string name;
 
@@ -23,8 +18,10 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void SetValue_EventMustRaised()
         {
-            var obj = new StudentObject();
-            obj.Name = "ooo";
+            StudentObject obj = new StudentObject
+            {
+                Name = "ooo"
+            };
             object o1 = null;
             string p1 = null;
             obj.PropertyChanging += (o, e) =>

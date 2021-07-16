@@ -1,17 +1,12 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(TextBox))]
-    public class TextBoxSetting : TextBoxBaseSetting,IMiddlewareDesigner<TextBox>
+    public class TextBoxSetting : TextBoxBaseSetting, IMiddlewareDesigner<TextBox>
     {
         private int minLines;
         private int maxLines;
@@ -63,7 +58,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref caretIndex, value);
         }
 
-        public  virtual TextAlignment TextAlignment
+        public virtual TextAlignment TextAlignment
         {
             get => textAlignment;
             set => Set(ref textAlignment, value);
@@ -136,7 +131,7 @@ namespace Ao.ObjectDesign.Controls
                 CaretIndex = value.CaretIndex;
                 SelectionLength = value.SelectionLength;
                 SelectionStart = value.SelectionStart;
-                TextDecorations =new TextDecorationCollectionDesigner { TextDecorationCollection=value.TextDecorations};
+                TextDecorations = new TextDecorationCollectionDesigner { TextDecorationCollection = value.TextDecorations };
                 SelectedText = value.SelectedText;
                 TextWrapping = value.TextWrapping;
             }

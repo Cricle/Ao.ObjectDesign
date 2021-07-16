@@ -1,10 +1,6 @@
-﻿using Ao.ObjectDesign.ForView;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -55,16 +51,16 @@ namespace Ao.ObjectDesign.Wpf
                 throw new ArgumentNullException(nameof(valueFetcher));
             }
 
-            var objs = new List<IObjectProxy> { proxy };
+            List<IObjectProxy> objs = new List<IObjectProxy> { proxy };
 
             while (objs.Count != 0)
             {
-                var props = objs.SelectMany(x => x.GetPropertyProxies());
-                var nexts = new List<IObjectProxy>();
-                foreach (var item in props)
+                IEnumerable<IPropertyProxy> props = objs.SelectMany(x => x.GetPropertyProxies());
+                List<IObjectProxy> nexts = new List<IObjectProxy>();
+                foreach (IPropertyProxy item in props)
                 {
-                    var visitor = item.CreateVisitor();
-                    var ret = valueFetcher(item, visitor);
+                    PropertyVisitor visitor = item.CreateVisitor();
+                    T ret = valueFetcher(item, visitor);
                     if (ret != null)
                     {
                         if (!skipSelf || objs.Count != 1 || objs[0] != proxy)
@@ -74,10 +70,10 @@ namespace Ao.ObjectDesign.Wpf
                     }
                     if (item.Type.IsClass && ret != null && canStepInCondition(item))
                     {
-                        var val = visitor.Value;
+                        object val = visitor.Value;
                         if (val != null)
                         {
-                            var propObjProxy = new ObjectProxy(val, val.GetType());
+                            ObjectProxy propObjProxy = new ObjectProxy(val, val.GetType());
                             nexts.Add(propObjProxy);
                         }
                     }

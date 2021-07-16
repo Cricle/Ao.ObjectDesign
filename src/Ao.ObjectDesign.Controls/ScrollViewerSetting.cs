@@ -1,21 +1,15 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(ScrollViewer))]
-    public class ScrollViewerSetting : ControlSetting,IMiddlewareDesigner<ScrollViewer>
+    public class ScrollViewerSetting : ControlSetting, IMiddlewareDesigner<ScrollViewer>
     {
         private bool canContentScroll;
-        private ScrollBarVisibility horizontalScrollBarVisibility= ScrollBarVisibility.Hidden;
-        private ScrollBarVisibility verticalScrollBarVisibility= ScrollBarVisibility.Visible;
+        private ScrollBarVisibility horizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
+        private ScrollBarVisibility verticalScrollBarVisibility = ScrollBarVisibility.Visible;
         private double panningDeceleration = 1 / 96d;
         private bool isDeferredScrollingEnabled;
         private PanningMode panningMode;

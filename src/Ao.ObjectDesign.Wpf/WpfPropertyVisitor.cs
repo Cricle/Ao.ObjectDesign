@@ -1,23 +1,18 @@
-﻿using Ao.ObjectDesign.Wpf.Conditions;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public class WpfPropertyVisitor : PropertyVisitor, INotifyPropertyChanged, IDisposable,INotifyPropertyChangeTo
+    public class WpfPropertyVisitor : PropertyVisitor, INotifyPropertyChanged, IDisposable, INotifyPropertyChangeTo
     {
         public WpfPropertyVisitor(DependencyObject declaringInstance, PropertyInfo propertyInfo)
             : base(declaringInstance, propertyInfo)
         {
             if (DependencyObjectHelper.GetDependencyPropertyDescriptors(declaringInstance.GetType())
-                .TryGetValue(propertyInfo.Name, out var dpd))
+                .TryGetValue(propertyInfo.Name, out DependencyPropertyDescriptor dpd))
             {
                 selectedPropertyDescriptor = dpd;
             }
@@ -35,7 +30,7 @@ namespace Ao.ObjectDesign.Wpf
 
         public event PropertyChangeToEventHandler PropertyChangeTo;
 
-        protected void RaisePropertyChangeTo(object from,object to,[CallerMemberName]string name=null)
+        protected void RaisePropertyChangeTo(object from, object to, [CallerMemberName] string name = null)
         {
             PropertyChangeTo?.Invoke(this, new PropertyChangeToEventArgs(name, from, to));
         }
@@ -43,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (d == DeclaringInstance)
             {
-                RaisePropertyChanged(DeclaringInstance,selectedPropertyDescriptor.Name);
+                RaisePropertyChanged(DeclaringInstance, selectedPropertyDescriptor.Name);
             }
         }
 
@@ -63,7 +58,7 @@ namespace Ao.ObjectDesign.Wpf
             }
             else
             {
-                var origin = GetValue();
+                object origin = GetValue();
                 value = ConvertValue(value);
                 DeclaringInstance.SetValue(selectedPropertyDescriptor.DependencyProperty, value);
                 RaiseValueChanged();

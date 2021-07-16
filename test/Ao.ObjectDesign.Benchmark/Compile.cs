@@ -16,13 +16,13 @@ namespace Ao.ObjectDesign.Benchmark
         [Benchmark(Baseline = true)]
         public void Normal()
         {
-            var v = new PropertyVisitor(student, prop);
+            PropertyVisitor v = new PropertyVisitor(student, prop);
             _ = v.Value;
         }
         [Benchmark]
         public void Compiled()
         {
-            var v = new CompiledPropertyVisitor(student, prop);
+            CompiledPropertyVisitor v = new CompiledPropertyVisitor(student, prop);
             _ = v.Value;
         }
     }

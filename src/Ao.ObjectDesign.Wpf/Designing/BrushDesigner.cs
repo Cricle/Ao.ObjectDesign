@@ -1,9 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -138,7 +134,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
-                var t = type;
+                PenBrushTypes t = type;
                 if (t == PenBrushTypes.Solid)
                 {
                     return SolidColorBrushDesigner?.SolidColorBrush;

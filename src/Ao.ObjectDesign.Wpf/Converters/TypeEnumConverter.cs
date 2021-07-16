@@ -1,11 +1,7 @@
-﻿using Ao.ObjectDesign;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf.Converters
@@ -20,7 +16,7 @@ namespace Ao.ObjectDesign.Wpf.Converters
             if (value is Type t)
             {
                 Array values;
-                if (enumCaches.TryGetValue(t, out var enumValuesRef))
+                if (enumCaches.TryGetValue(t, out WeakReference<Array> enumValuesRef))
                 {
                     if (!enumValuesRef.TryGetTarget(out values))
                     {

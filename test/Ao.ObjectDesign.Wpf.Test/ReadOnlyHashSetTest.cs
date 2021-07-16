@@ -3,8 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -41,9 +39,9 @@ namespace Ao.ObjectDesign.Wpf.Test
         [DataRow(new int[] { 1, 2, 3, 4, 5 }, true)]
         public void GivenArrayInit_MustContainsThem(int[] datas, bool useHashSet)
         {
-            var set = CreateReadOnlyHashSet(datas, useHashSet);
+            ReadOnlyHashSet<int> set = CreateReadOnlyHashSet(datas, useHashSet);
             Assert.AreEqual(datas.Length, set.Count);
-            foreach (var item in datas)
+            foreach (int item in datas)
             {
                 Assert.IsTrue(set.Contains(item), $"Fail to contains {item}");
             }
@@ -59,18 +57,18 @@ namespace Ao.ObjectDesign.Wpf.Test
         [DataRow(new int[] { 1, 2, 3, 4, 5 }, true)]
         public void GivenArrayInit_GetEnumerable_MustGorEnumerater(int[] datas, bool useHashSet)
         {
-            var set = CreateReadOnlyHashSet(datas, useHashSet);
-            var enu = set.GetEnumerator();
+            ReadOnlyHashSet<int> set = CreateReadOnlyHashSet(datas, useHashSet);
+            IEnumerator<int> enu = set.GetEnumerator();
             while (enu.MoveNext())
             {
-                var exists = datas.Contains(enu.Current);
+                bool exists = datas.Contains(enu.Current);
                 Assert.IsTrue(exists, $"Fail to contains {enu.Current}");
             }
 
-            var nenu = ((IEnumerable)set).GetEnumerator();
+            IEnumerator nenu = ((IEnumerable)set).GetEnumerator();
             while (nenu.MoveNext())
             {
-                var exists = datas.Contains((int)nenu.Current);
+                bool exists = datas.Contains((int)nenu.Current);
                 Assert.IsTrue(exists, $"Fail to contains {enu.Current}");
             }
         }

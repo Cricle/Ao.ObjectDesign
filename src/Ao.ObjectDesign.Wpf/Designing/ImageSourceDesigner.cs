@@ -1,11 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Cache;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -85,9 +80,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     return null;
                 }
-                var bitmap = new BitmapImage();
-                bitmap.CacheOption = cacheOption;
-                bitmap.CreateOptions = createOptions;
+                BitmapImage bitmap = new BitmapImage
+                {
+                    CacheOption = cacheOption,
+                    CreateOptions = createOptions
+                };
                 if (decodePixelHeight != null)
                 {
                     bitmap.DecodePixelHeight = decodePixelHeight.Value;

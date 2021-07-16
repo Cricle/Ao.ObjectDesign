@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Ao.ObjectDesign
+﻿namespace Ao.ObjectDesign
 {
     public interface IPropertyProxy : IPropertyDeclare
     {

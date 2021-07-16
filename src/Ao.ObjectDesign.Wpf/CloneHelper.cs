@@ -13,28 +13,28 @@ namespace Ao.ObjectDesign.Wpf
 
         public static object Create(Type type)
         {
-            var creator = CompiledPropertyInfo.GetCreator(type);
-            var obj = creator();
+            TypeCreator creator = CompiledPropertyInfo.GetCreator(type);
+            object obj = creator();
             return obj;
         }
         public static object GetValue(object instance, PropertyInfo propertyInfo)
         {
-            var identity = new PropertyIdentity(propertyInfo.DeclaringType, propertyInfo.Name);
+            PropertyIdentity identity = new PropertyIdentity(propertyInfo.DeclaringType, propertyInfo.Name);
             return GetValue(instance, identity);
         }
         public static object GetValue(object instance, PropertyIdentity identity)
         {
-            var getter = CompiledPropertyInfo.GetGetter(identity);
+            PropertyGetter getter = CompiledPropertyInfo.GetGetter(identity);
             return getter(instance);
         }
         public static void SetValue(object instance, object value, PropertyInfo propertyInfo)
         {
-            var identity = new PropertyIdentity(propertyInfo.DeclaringType, propertyInfo.Name);
+            PropertyIdentity identity = new PropertyIdentity(propertyInfo.DeclaringType, propertyInfo.Name);
             SetValue(instance, value, identity);
         }
-        public static void SetValue(object instance,object value, PropertyIdentity identity)
+        public static void SetValue(object instance, object value, PropertyIdentity identity)
         {
-            var setter = CompiledPropertyInfo.GetSetter(identity);
+            PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
             setter(instance, value);
         }
         public static T Clone<T>(T source)
@@ -59,13 +59,13 @@ namespace Ao.ObjectDesign.Wpf
         }
         public static object Clone(Type destType, object source, IReadOnlyHashSet<Type> ignoreTypes)
         {
-            var instance = Create(destType);
+            object instance = Create(destType);
             Clone(instance, source, ignoreTypes);
             return instance;
         }
         public static void Clone(object dest, object source)
         {
-            Clone(dest, source,ReadOnlyHashSet<Type>.Empty);
+            Clone(dest, source, ReadOnlyHashSet<Type>.Empty);
         }
         public static void CloneIgnoreDesigners(object dest, object source)
         {
@@ -73,22 +73,22 @@ namespace Ao.ObjectDesign.Wpf
         }
         public static void Clone(object dest, object source, IReadOnlyHashSet<Type> ignoreTypes)
         {
-            var destType = dest.GetType();
-            var sourceType = source.GetType();
+            Type destType = dest.GetType();
+            Type sourceType = source.GetType();
             if (destType != sourceType)
             {
                 throw new InvalidOperationException("Dest and source type must equals!");
             }
-            var props = destType.GetProperties()
+            System.Collections.Generic.IEnumerable<PropertyInfo> props = destType.GetProperties()
                 .Where(x => !ignoreTypes.Contains(x.PropertyType));
-            foreach (var item in props)
+            foreach (PropertyInfo item in props)
             {
                 if (item.CanWrite)
                 {
-                    var identity = new PropertyIdentity(destType, item.Name);
-                    var getter = CompiledPropertyInfo.GetGetter(identity);
-                    var setter = CompiledPropertyInfo.GetSetter(identity);
-                    var sourceValue = getter(source);
+                    PropertyIdentity identity = new PropertyIdentity(destType, item.Name);
+                    PropertyGetter getter = CompiledPropertyInfo.GetGetter(identity);
+                    PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
+                    object sourceValue = getter(source);
                     if (sourceValue is null)
                     {
                         continue;
@@ -98,17 +98,17 @@ namespace Ao.ObjectDesign.Wpf
                     {
                         if (item.PropertyType.GetInterface(IListTypeName) != null)
                         {
-                            var itemValue = Create(item.PropertyType);
-                            var enu = (IList)sourceValue;
-                            var destEnu = (IList)itemValue;
-                            foreach (var e in enu)
+                            object itemValue = Create(item.PropertyType);
+                            IList enu = (IList)sourceValue;
+                            IList destEnu = (IList)itemValue;
+                            foreach (object e in enu)
                             {
                                 destEnu.Add(e);
                             }
                         }
                         else
                         {
-                            var itemValue = Create(item.PropertyType);
+                            object itemValue = Create(item.PropertyType);
                             Clone(itemValue, sourceValue, ignoreTypes);
                             setter(dest, itemValue);
                         }

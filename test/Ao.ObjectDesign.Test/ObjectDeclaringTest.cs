@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -18,8 +16,8 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GivenTypeInit_TypeMustEqualInput()
         {
-            var t = GetType();
-            var delcar = new ObjectDeclaring(t);
+            Type t = GetType();
+            ObjectDeclaring delcar = new ObjectDeclaring(t);
             Assert.AreEqual(t, delcar.Type);
         }
         struct MyStruct
@@ -33,15 +31,15 @@ namespace Ao.ObjectDesign.Test
         [DataRow(typeof(long?))]
         public void GivenNoClass_MustGotNohtingPropertyDeclare(Type type)
         {
-            var c = new ObjectDeclaring(type);
+            ObjectDeclaring c = new ObjectDeclaring(type);
             Assert.IsFalse(c.GetPropertyDeclares().Any());
         }
-        
+
         [TestMethod]
         public void GivenClass_GetPropertyProxy()
         {
-            var c = new ObjectDeclaring(typeof(Student));
-            var q = c.GetPropertyDeclares().ToArray();
+            ObjectDeclaring c = new ObjectDeclaring(typeof(Student));
+            IPropertyDeclare[] q = c.GetPropertyDeclares().ToArray();
             Assert.AreEqual(2, q.Length);
             Assert.IsTrue(q.Any(x => x.PropertyInfo.Name == nameof(Student.Name)));
             Assert.IsTrue(q.Any(x => x.PropertyInfo.Name == nameof(Student.Age)));
@@ -52,11 +50,11 @@ namespace Ao.ObjectDesign.Test
         {
             Assert.ThrowsException<ArgumentNullException>(() => new NullObjectDeclaring().Throw());
         }
-        class NullObjectDeclaring:ObjectDeclaring
+        class NullObjectDeclaring : ObjectDeclaring
         {
             public void Throw()
             {
-                AsProperties((Func<PropertyInfo,int>)null).ToArray();
+                AsProperties((Func<PropertyInfo, int>)null).ToArray();
             }
         }
     }

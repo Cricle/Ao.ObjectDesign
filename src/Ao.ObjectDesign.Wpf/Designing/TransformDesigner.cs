@@ -55,7 +55,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     return null;
                 }
-                var transformGroup = new TransformGroup();
+                TransformGroup transformGroup = new TransformGroup();
                 if ((transformType & TransformTypes.Rotate) != 0 &&
                     rotateTransform != null)
                 {
@@ -112,8 +112,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     }
                     if (value is TransformGroup group)
                     {
-                        var type = TransformTypes.None;
-                        foreach (var item in group.Children)
+                        TransformTypes type = TransformTypes.None;
+                        foreach (Transform item in group.Children)
                         {
                             type |= FindSet(item);
                         }

@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
@@ -16,16 +11,17 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         [TestMethod]
         public void SetForWpfValue()
         {
-            var design = new DropShadowEffectDesigner();
-
-            design.DropShadowEffect = new DropShadowEffect
+            DropShadowEffectDesigner design = new DropShadowEffectDesigner
             {
-                BlurRadius = 1,
-                Color = Colors.White,
-                Direction = 2,
-                Opacity = 3,
-                RenderingBias = RenderingBias.Performance,
-                ShadowDepth = 4
+                DropShadowEffect = new DropShadowEffect
+                {
+                    BlurRadius = 1,
+                    Color = Colors.White,
+                    Direction = 2,
+                    Opacity = 3,
+                    RenderingBias = RenderingBias.Performance,
+                    ShadowDepth = 4
+                }
             };
 
             Assert.AreEqual(1d, design.BlurRadius);
@@ -39,15 +35,17 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         [TestMethod]
         public void MakeWpfValue()
         {
-            var design = new DropShadowEffectDesigner();
-            design.BlurRadius = 1;
-            design.Color = new ColorDesigner { Color= Colors.White };
-            design.Direction = 2;
-            design.Opacity = 3;
-            design.RenderingBias = RenderingBias.Performance;
-            design.ShadowDepth = 4;
+            DropShadowEffectDesigner design = new DropShadowEffectDesigner
+            {
+                BlurRadius = 1,
+                Color = new ColorDesigner { Color = Colors.White },
+                Direction = 2,
+                Opacity = 3,
+                RenderingBias = RenderingBias.Performance,
+                ShadowDepth = 4
+            };
 
-            var val = design.DropShadowEffect;
+            DropShadowEffect val = design.DropShadowEffect;
 
             Assert.AreEqual(1d, val.BlurRadius);
             Assert.AreEqual(Colors.White, val.Color);

@@ -1,7 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -11,8 +8,8 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GivenPropertyInfo_PropertyMustEqualInput()
         {
-            var propinfo = typeof(Student).GetProperties()[0];
-            var dec = new PropertyDeclare(propinfo);
+            System.Reflection.PropertyInfo propinfo = typeof(Student).GetProperties()[0];
+            PropertyDeclare dec = new PropertyDeclare(propinfo);
             Assert.AreEqual(propinfo, dec.PropertyInfo);
         }
     }

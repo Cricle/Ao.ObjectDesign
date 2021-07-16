@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -13,11 +8,11 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void GivenValueInit_PropertyMustEqualInput()
         {
-            var instance = new object();
-            var propertyName = "name";
-            var from = new object();
-            var to = new object();
-            var detail = new ModifyDetail(instance, propertyName, from, to);
+            object instance = new object();
+            string propertyName = "name";
+            object from = new object();
+            object to = new object();
+            ModifyDetail detail = new ModifyDetail(instance, propertyName, from, to);
 
             Assert.AreEqual(instance, detail.Instance);
             Assert.AreEqual(propertyName, detail.PropertyName);
@@ -27,12 +22,12 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Reverse_MustCopied_FromAndToExchanged()
         {
-            var instance = new object();
-            var propertyName = "name";
-            var from = new object();
-            var to = new object();
-            var detail = new ModifyDetail(instance, propertyName, from, to);
-            var revDetail = detail.Reverse();
+            object instance = new object();
+            string propertyName = "name";
+            object from = new object();
+            object to = new object();
+            ModifyDetail detail = new ModifyDetail(instance, propertyName, from, to);
+            ModifyDetail revDetail = detail.Reverse();
 
             Assert.AreNotEqual(detail, revDetail);
             Assert.AreEqual(detail.From, revDetail.To);

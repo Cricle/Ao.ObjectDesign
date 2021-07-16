@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -13,12 +9,12 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GetSetValue()
         {
-            var student = new Student();
-            var prop = student.GetType().GetProperty(nameof(Student.Name));
-            var c = new CompiledPropertyVisitor(student, prop);
+            Student student = new Student();
+            System.Reflection.PropertyInfo prop = student.GetType().GetProperty(nameof(Student.Name));
+            CompiledPropertyVisitor c = new CompiledPropertyVisitor(student, prop);
             c.SetValue("aaa");
             Assert.AreEqual("aaa", student.Name);
-            var val = c.GetValue();
+            object val = c.GetValue();
             Assert.AreEqual("aaa", val);
 
             val = c.Value;
@@ -31,17 +27,17 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GetSetPrimaryValue()
         {
-            var student = new ReadOnlyStudent();
-            var prop = student.GetType().GetProperty(nameof(ReadOnlyStudent.Age));
-            var c = new CompiledPropertyVisitor(student, prop);
+            ReadOnlyStudent student = new ReadOnlyStudent();
+            System.Reflection.PropertyInfo prop = student.GetType().GetProperty(nameof(ReadOnlyStudent.Age));
+            CompiledPropertyVisitor c = new CompiledPropertyVisitor(student, prop);
             c.SetValue(333d);
             Assert.AreEqual(333d, student.Age);
-            var val = c.GetValue();
+            object val = c.GetValue();
             Assert.AreEqual(333d, val);
 
             val = c.Value;
             Assert.AreEqual(333d, val);
-            c.Value =444d;
+            c.Value = 444d;
             Assert.AreEqual(444d, student.Age);
             c.SetValue(555d);
             Assert.AreEqual(555d, student.Age);
@@ -58,10 +54,10 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void ReadOnlyProperty_GetMustGotValue_SetThrowException()
         {
-            var student = new ReadOnlyStudent();
-            var prop = student.GetType().GetProperty(nameof(ReadOnlyStudent.Name));
-            var c = new CompiledPropertyVisitor(student, prop);
-            var val = c.GetValue();
+            ReadOnlyStudent student = new ReadOnlyStudent();
+            System.Reflection.PropertyInfo prop = student.GetType().GetProperty(nameof(ReadOnlyStudent.Name));
+            CompiledPropertyVisitor c = new CompiledPropertyVisitor(student, prop);
+            object val = c.GetValue();
             Assert.AreEqual("aaa", val);
             Assert.ThrowsException<InvalidOperationException>(() => c.SetValue("111"));
         }

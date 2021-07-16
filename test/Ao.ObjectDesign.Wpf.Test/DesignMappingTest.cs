@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -13,16 +9,16 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
-            var type = typeof(object);
+            Type type = typeof(object);
             Assert.ThrowsException<ArgumentNullException>(() => new DesignMapping(type, null));
             Assert.ThrowsException<ArgumentNullException>(() => new DesignMapping(null, type));
         }
         [TestMethod]
         public void GivenValueInit_PropertyValueMustEqualInput()
         {
-            var t1 = typeof(object);
-            var t2 = typeof(int);
-            var mapping = new DesignMapping(t1, t2);
+            Type t1 = typeof(object);
+            Type t2 = typeof(int);
+            DesignMapping mapping = new DesignMapping(t1, t2);
             Assert.AreEqual(t1, mapping.ClrType);
             Assert.AreEqual(t2, mapping.UIType);
 
@@ -31,11 +27,11 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void EqualsAndGetHashCode()
         {
-            var t1 = typeof(object);
-            var t2 = typeof(int);
-            var mapping1 = new DesignMapping(t1, t2);
-            var mapping2 = new DesignMapping(t1, t2);
-            var mapping3 = new DesignMapping(t2, typeof(double));
+            Type t1 = typeof(object);
+            Type t2 = typeof(int);
+            DesignMapping mapping1 = new DesignMapping(t1, t2);
+            DesignMapping mapping2 = new DesignMapping(t1, t2);
+            DesignMapping mapping3 = new DesignMapping(t2, typeof(double));
 
             Assert.IsTrue(mapping1.Equals(mapping2));
             Assert.IsTrue(mapping1.Equals((object)mapping2));

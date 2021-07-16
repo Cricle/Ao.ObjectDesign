@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System;
 using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {

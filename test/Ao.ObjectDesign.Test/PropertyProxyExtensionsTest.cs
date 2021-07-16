@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -18,10 +14,10 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void CreateVisitor_MustGotVisitor()
         {
-            var inst = new Student();
-            var prop = inst.GetType().GetProperties()[0];
-            var propProxy = new PropertyProxy(inst,prop);
-            var visitor = PropertyProxyExtensions.CreateVisitor(propProxy);
+            Student inst = new Student();
+            System.Reflection.PropertyInfo prop = inst.GetType().GetProperties()[0];
+            PropertyProxy propProxy = new PropertyProxy(inst, prop);
+            PropertyVisitor visitor = PropertyProxyExtensions.CreateVisitor(propProxy);
             Assert.IsNotNull(visitor);
         }
     }

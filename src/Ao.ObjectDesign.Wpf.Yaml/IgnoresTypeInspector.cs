@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.TypeInspectors;
 
 namespace Ao.ObjectDesign.Wpf.Yaml
 {
-    public class IgnoresTypeInspector: TypeInspectorSkeleton
+    public class IgnoresTypeInspector : TypeInspectorSkeleton
     {
         private readonly ITypeInspector _innerTypeDescriptor;
         private readonly IReadOnlyHashSet<Type> ignoreTypes;
@@ -22,7 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
 
         public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
         {
-            var props = _innerTypeDescriptor.GetProperties(type, container);
+            IEnumerable<IPropertyDescriptor> props = _innerTypeDescriptor.GetProperties(type, container);
             props = props.Where(x => !ignoreTypes.Contains(x.Type));
             return props;
         }

@@ -1,14 +1,9 @@
-﻿using Ao.ObjectDesign.ForView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
-using System.ComponentModel;
 using System.Windows.Data;
-using System.Globalization;
 
 namespace Ao.ObjectDesign.Wpf.Conditions
 {
@@ -23,13 +18,13 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         {
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                var convert = TypeDescriptor.GetConverter((Type)parameter);
+                TypeConverter convert = TypeDescriptor.GetConverter((Type)parameter);
                 return convert.ConvertToString(value);
             }
 
             public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
             {
-                var convert = TypeDescriptor.GetConverter((Type)parameter);
+                TypeConverter convert = TypeDescriptor.GetConverter((Type)parameter);
                 return convert.ConvertFrom(value);
             }
         }
@@ -43,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         }
         protected override FrameworkElement CreateView(WpfForViewBuildContext context)
         {
-            return new ComboBox { ItemsSource=Enum.GetNames(context.PropertyProxy.Type)};
+            return new ComboBox { ItemsSource = Enum.GetNames(context.PropertyProxy.Type) };
         }
     }
 }

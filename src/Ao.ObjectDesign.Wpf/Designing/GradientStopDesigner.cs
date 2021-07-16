@@ -40,11 +40,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => color;
             set
             {
-                if (color !=null)
+                if (color != null)
                 {
                     color.PropertyChanged -= OnColorPropertyChanged;
                 }
-                if (value !=null)
+                if (value != null)
                 {
                     value.PropertyChanged += OnColorPropertyChanged;
                 }

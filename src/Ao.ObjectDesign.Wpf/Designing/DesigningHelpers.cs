@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Designing
 {
@@ -41,15 +39,15 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            var types = assembly.GetExportedTypes()
+            IEnumerable<PropertyIdentity> types = assembly.GetExportedTypes()
                 .Select(x =>
                 {
-                    var attr = x.GetCustomAttribute<DesignForAttribute>();
+                    DesignForAttribute attr = x.GetCustomAttribute<DesignForAttribute>();
                     if (attr is null)
                     {
                         return null;
                     }
-                    var prop = x.GetProperties().Where(y => y.PropertyType == attr.Type).FirstOrDefault();
+                    PropertyInfo prop = x.GetProperties().Where(y => y.PropertyType == attr.Type).FirstOrDefault();
                     if (prop is null)
                     {
                         return null;
@@ -66,7 +64,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            var types = assembly.GetExportedTypes()
+            IEnumerable<Type> types = assembly.GetExportedTypes()
                 .Select(x => x.GetCustomAttribute<DesignForAttribute>())
                 .Where(x => x != null)
                 .Select(x => x.Type);

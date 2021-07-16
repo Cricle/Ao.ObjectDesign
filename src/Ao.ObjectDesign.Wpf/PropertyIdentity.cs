@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -35,7 +34,7 @@ namespace Ao.ObjectDesign.Wpf
         public override int GetHashCode()
         {
 #if NET5_0
-            return HashCode.Combine(Type,PropertyName);
+            return HashCode.Combine(Type, PropertyName);
 #else
             return Type.GetHashCode() ^ PropertyName.GetHashCode();
 #endif

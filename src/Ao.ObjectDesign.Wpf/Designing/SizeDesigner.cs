@@ -1,9 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -82,8 +78,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
-                var w = Clamp(width, minWidth, maxWidth);
-                var h = Clamp(height, minHeight, maxHeight);
+                double w = Clamp(width, minWidth, maxWidth);
+                double h = Clamp(height, minHeight, maxHeight);
                 return new Size(w, h);
             }
             set

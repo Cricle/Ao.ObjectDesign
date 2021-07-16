@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,7 +8,7 @@ namespace Ao.ObjectDesign.Controls
     [MappingFor(typeof(TextBlock))]
     public class TextBlockSetting : FrameworkElementSetting, IMiddlewareDesigner<TextBlock>
     {
-        private double fontSize ;
+        private double fontSize;
         private FontWeightDesigner fontWeight;
         private FontStyleDesigner fontStyle;
         private FontFamilyDesigner fontFamily;
@@ -21,7 +16,7 @@ namespace Ao.ObjectDesign.Controls
         private double baselineOffset;
         private TextWrapping textWrapping;
         private BrushDesigner background;
-        private double lineHeight ;
+        private double lineHeight;
         private LineStackingStrategy lineStackingStrategy;
         private ThicknessDesigner padding;
         private TextAlignment textAlignment;
@@ -128,7 +123,7 @@ namespace Ao.ObjectDesign.Controls
         public virtual string Text
         {
             get => text;
-            set => Set(ref text,value);
+            set => Set(ref text, value);
         }
 
         public override void SetDefault()
@@ -142,7 +137,7 @@ namespace Ao.ObjectDesign.Controls
             BaselineOffset = double.NaN;
             FontSize = SystemFonts.MessageFontSize;
             TextWrapping = TextWrapping.NoWrap;
-            Background =new BrushDesigner();
+            Background = new BrushDesigner();
             TextDecorations = new TextDecorationCollectionDesigner();
             LineHeight = double.NaN;
             LineStackingStrategy = LineStackingStrategy.MaxHeight;
@@ -164,23 +159,23 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                FontWeight = new FontWeightDesigner { FontWeight=value.FontWeight};
-                FontStyle = new FontStyleDesigner { FontStyle=value.FontStyle};
-                FontFamily = new FontFamilyDesigner { FontFamily=value.FontFamily};
+                FontWeight = new FontWeightDesigner { FontWeight = value.FontWeight };
+                FontStyle = new FontStyleDesigner { FontStyle = value.FontStyle };
+                FontFamily = new FontFamilyDesigner { FontFamily = value.FontFamily };
                 Text = value.Text;
-                FontStretch = new FontStretchDesigner { FontStretch=value.FontStretch};
+                FontStretch = new FontStretchDesigner { FontStretch = value.FontStretch };
                 BaselineOffset = value.BaselineOffset;
                 FontSize = value.FontSize;
                 TextWrapping = value.TextWrapping;
-                Background = new BrushDesigner { Brush=value.Background};
-                TextDecorations = new TextDecorationCollectionDesigner { TextDecorationCollection=value.TextDecorations};
+                Background = new BrushDesigner { Brush = value.Background };
+                TextDecorations = new TextDecorationCollectionDesigner { TextDecorationCollection = value.TextDecorations };
                 LineHeight = value.LineHeight;
                 LineStackingStrategy = value.LineStackingStrategy;
-                Padding = new ThicknessDesigner { Thickness=value.Padding};
+                Padding = new ThicknessDesigner { Thickness = value.Padding };
                 TextAlignment = value.TextAlignment;
                 TextTrimming = value.TextTrimming;
                 IsHyphenationEnabled = value.IsHyphenationEnabled;
-                Foreground = new BrushDesigner {Brush=value.Foreground};
+                Foreground = new BrushDesigner { Brush = value.Foreground };
             }
         }
 
@@ -190,15 +185,15 @@ namespace Ao.ObjectDesign.Controls
             {
                 WriteTo((FrameworkElement)value);
                 value.FontWeight = fontWeight?.FontWeight ?? default;
-                value.FontStyle = fontStyle?.FontStyle??default;
+                value.FontStyle = fontStyle?.FontStyle ?? default;
                 value.FontFamily = fontFamily?.FontFamily;
                 value.Text = text; ;
-                value.FontStretch = fontStretch?.FontStretch??default;
+                value.FontStretch = fontStretch?.FontStretch ?? default;
                 value.BaselineOffset = baselineOffset;
                 value.FontSize = fontSize;
                 value.TextWrapping = textWrapping;
                 value.Background = background?.Brush;
-                value.TextDecorations =textDecorations?.TextDecorationCollection;
+                value.TextDecorations = textDecorations?.TextDecorationCollection;
                 value.LineHeight = lineHeight;
                 value.LineStackingStrategy = lineStackingStrategy;
                 value.Padding = padding?.Thickness ?? default;

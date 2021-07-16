@@ -1,20 +1,15 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(RangeBase))]
-    public abstract class RangeBaseSetting : ControlSetting,IMiddlewareDesigner<RangeBase>
+    public abstract class RangeBaseSetting : ControlSetting, IMiddlewareDesigner<RangeBase>
     {
-        private double largeChange ;
-        private double smallChange ;
+        private double largeChange;
+        private double smallChange;
         private double value;
         private double maximum;
         private double minimum;
@@ -69,7 +64,7 @@ namespace Ao.ObjectDesign.Controls
             {
                 Apply((Control)value);
                 LargeChange = value.LargeChange;
-                SmallChange =value.SmallChange;
+                SmallChange = value.SmallChange;
                 Minimum = value.Minimum;
                 Maximum = value.Maximum;
                 Value = value.Value;
@@ -84,7 +79,7 @@ namespace Ao.ObjectDesign.Controls
                 value.LargeChange = LargeChange;
                 value.SmallChange = SmallChange;
                 value.Minimum = Minimum;
-                value.Maximum =Maximum;
+                value.Maximum = Maximum;
                 value.Value = Value;
             }
         }

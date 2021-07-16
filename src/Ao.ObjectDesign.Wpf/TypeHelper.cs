@@ -17,16 +17,16 @@ namespace Ao.ObjectDesign.Wpf
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object SafeChangeType(object value, Type type)
         {
-            if (TryChangeType(value, type, out _, out var res))
+            if (TryChangeType(value, type, out _, out object res))
             {
                 return res;
             }
             return null;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static object ChangeType(object value,Type type)
+        public static object ChangeType(object value, Type type)
         {
-            if (TryChangeType(value,type,out var ex,out var res))
+            if (TryChangeType(value, type, out Exception ex, out object res))
             {
                 return res;
             }

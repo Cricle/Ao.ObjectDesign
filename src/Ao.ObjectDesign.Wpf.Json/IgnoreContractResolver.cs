@@ -2,10 +2,7 @@
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Json
 {
@@ -15,7 +12,7 @@ namespace Ao.ObjectDesign.Wpf.Json
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
-            var prop = base.CreateProperty(member, memberSerialization);
+            JsonProperty prop = base.CreateProperty(member, memberSerialization);
             if (member is PropertyInfo info && IgnoreTypes.Contains(info.PropertyType))
             {
                 prop.Ignored = true;

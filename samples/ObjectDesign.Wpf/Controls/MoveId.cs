@@ -1,10 +1,4 @@
-﻿using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ao.ObjectDesign.Wpf.Annotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

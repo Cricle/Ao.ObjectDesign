@@ -10,7 +10,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         [PlatformTargetProperty]
         public virtual TranslateTransform TranslateTransform
         {
-            get => new TranslateTransform(x,y);
+            get => new TranslateTransform(x, y);
             set
             {
                 if (value is null)
@@ -20,7 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 else
                 {
                     X = value.X;
-                    Y= value.Y;
+                    Y = value.Y;
                 }
             }
         }

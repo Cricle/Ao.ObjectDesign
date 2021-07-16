@@ -1,9 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
@@ -25,7 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => new DropShadowEffect
             {
                 ShadowDepth = shadowDepth,
-                Color = color?.Color??Colors.Transparent,
+                Color = color?.Color ?? Colors.Transparent,
                 BlurRadius = blurRadius,
                 Opacity = opacity,
                 Direction = direction,

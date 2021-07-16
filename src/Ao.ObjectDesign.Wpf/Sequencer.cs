@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace Ao.ObjectDesign.Wpf
@@ -27,12 +25,12 @@ namespace Ao.ObjectDesign.Wpf
 
         protected virtual void OnReset(IModifyDetail detail)
         {
-            var prop = detail.Instance.GetType().GetProperty(detail.PropertyName);
+            PropertyInfo prop = detail.Instance.GetType().GetProperty(detail.PropertyName);
             prop.SetValue(detail.Instance, detail.From);
         }
         private void ResetValue(IModifyDetail detail)
         {
-            var identity = new IgnoreIdentity(detail.Instance, detail.PropertyName);
+            IgnoreIdentity identity = new IgnoreIdentity(detail.Instance, detail.PropertyName);
             try
             {
                 ignores.Add(identity);
@@ -56,12 +54,12 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (Undos.Count != 0)
             {
-                var l = Undos.Pop(true);
+                IModifyDetail l = Undos.Pop(true);
                 Debug.Assert(l != null);
                 ResetValue(l);
                 if (pushRedo)
                 {
-                    var rev = l.Reverse();
+                    ModifyDetail rev = l.Reverse();
                     Redos.Push(rev, false);
                 }
             }
@@ -74,29 +72,29 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (Redos.Count != 0)
             {
-                var l = Redos.Pop(true);
+                IModifyDetail l = Redos.Pop(true);
                 Debug.Assert(l != null);
                 ResetValue(l);
                 if (pushUndo)
                 {
-                    var rev = l.Reverse();
+                    ModifyDetail rev = l.Reverse();
                     Undos.Push(rev, false);
                 }
             }
         }
         protected override void OnClearNotifyer(IReadOnlyHashSet<INotifyPropertyChangeTo> notifies)
         {
-            foreach (var item in notifies)
+            foreach (INotifyPropertyChangeTo item in notifies)
             {
                 item.PropertyChangeTo -= OnNotifyPropertyChangingPropertyChanging;
             }
         }
         protected virtual void OnNotifyPropertyChangingPropertyChanging(object sender, PropertyChangeToEventArgs e)
         {
-            var identity = new IgnoreIdentity(sender, e.PropertyName);
+            IgnoreIdentity identity = new IgnoreIdentity(sender, e.PropertyName);
             if (!ignores.Contains(identity))
             {
-                var detail = new ModifyDetail(sender, e.PropertyName, e.From, e.To);
+                ModifyDetail detail = new ModifyDetail(sender, e.PropertyName, e.From, e.To);
                 Undos.Push(detail, true);
             }
         }

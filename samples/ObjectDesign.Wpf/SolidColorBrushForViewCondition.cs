@@ -1,19 +1,11 @@
-﻿using Ao.ObjectDesign.ForView;
-using Ao.ObjectDesign.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using MahApps.Metro.Controls;
+﻿using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Conditions;
-using System.Windows.Data;
-using System.Windows.Controls.Primitives;
+using MahApps.Metro.Controls;
+using System.Windows;
 using System.Windows.Controls;
-using System.Globalization;
-using Ao.ObjectDesign.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Data;
+using System.Windows.Media;
 
 namespace ObjectDesign.Wpf
 {
@@ -30,12 +22,12 @@ namespace ObjectDesign.Wpf
         }
         protected override FrameworkElement CreateView(WpfForViewBuildContext context)
         {
-            var picker = new ColorPicker();
-            var pop = new Popup { StaysOpen = false };
+            ColorPicker picker = new ColorPicker();
+            Popup pop = new Popup { StaysOpen = false };
             pop.Child = picker;
-            var button = new Button { MaxWidth = 200, HorizontalAlignment = HorizontalAlignment.Left };
+            Button button = new Button { MaxWidth = 200, HorizontalAlignment = HorizontalAlignment.Left };
             button.Content = pop;
-            var brush = new SolidColorBrush();
+            SolidColorBrush brush = new SolidColorBrush();
             button.Background = brush;
             button.SetBinding(Button.BackgroundProperty, new Binding($"{context.PropertyProxy.PropertyInfo.Name}")
             {

@@ -1,17 +1,12 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Window))]
-    public class WindowSetting : ControlSetting,IMiddlewareDesigner<Window>
+    public class WindowSetting : ControlSetting, IMiddlewareDesigner<Window>
     {
         private bool showInTaskbar;
         private WindowStartupLocation windowStartupLocation;
@@ -136,7 +131,7 @@ namespace Ao.ObjectDesign.Controls
                 SizeToContent = value.SizeToContent;
                 AllowsTransparency = value.AllowsTransparency;
                 Left = value.Left;
-                Icon = new ImageSourceDesigner { ImageSource= value.Icon};
+                Icon = new ImageSourceDesigner { ImageSource = value.Icon };
                 WindowStyle = value.WindowStyle;
                 WindowState = value.WindowState;
                 ResizeMode = value.ResizeMode;

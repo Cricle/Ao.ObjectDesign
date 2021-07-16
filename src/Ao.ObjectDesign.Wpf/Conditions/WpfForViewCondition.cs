@@ -1,8 +1,5 @@
 ﻿using Ao.ObjectDesign.ForView;
 using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
 
@@ -21,9 +18,9 @@ namespace Ao.ObjectDesign.Wpf.Conditions
 
         protected Binding CreateWpfBinding(IPropertyProxy propertyProxy, BindingMode mode, UpdateSourceTrigger updateSourceTrigger, out DependencyProperty bindProperty)
         {
-            var descriptorMap = DependencyObjectHelper.GetDependencyPropertyDescriptors(propertyProxy.DeclaringInstance.GetType());
+            System.Collections.Generic.IReadOnlyDictionary<string, System.ComponentModel.DependencyPropertyDescriptor> descriptorMap = DependencyObjectHelper.GetDependencyPropertyDescriptors(propertyProxy.DeclaringInstance.GetType());
             bindProperty = descriptorMap[propertyProxy.PropertyInfo.Name].DependencyProperty;
-            var binding = new Binding(propertyProxy.PropertyInfo.Name)
+            Binding binding = new Binding(propertyProxy.PropertyInfo.Name)
             {
                 Source = propertyProxy.DeclaringInstance,
                 Mode = bindProperty.ReadOnly ? BindingMode.OneWay : mode,
@@ -33,7 +30,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         }
         protected Binding CreateClrBinding(IPropertyVisitor visitor, BindingMode mode, UpdateSourceTrigger updateSourceTrigger)
         {
-            var binding = new Binding(nameof(PropertyVisitor.Value))
+            Binding binding = new Binding(nameof(PropertyVisitor.Value))
             {
                 Source = visitor,
                 Mode = mode,
@@ -59,7 +56,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
         }
         public FrameworkElement Create(WpfForViewBuildContext context)
         {
-            var view = CreateView(context);
+            FrameworkElement view = CreateView(context);
             if (view is null)
             {
                 return null;
@@ -71,12 +68,12 @@ namespace Ao.ObjectDesign.Wpf.Conditions
                 binding = CreateWpfBinding(context.PropertyProxy,
                     context.BindingMode,
                     context.UpdateSourceTrigger,
-                    out var prop);
+                    out DependencyProperty prop);
                 view.IsEnabled = !prop.ReadOnly;
             }
             else
             {
-                var visitor = context.PropertyVisitor;
+                IPropertyVisitor visitor = context.PropertyVisitor;
                 binding = CreateClrBinding(visitor, context.BindingMode, context.UpdateSourceTrigger);
             }
             Bind(context, view, binding);

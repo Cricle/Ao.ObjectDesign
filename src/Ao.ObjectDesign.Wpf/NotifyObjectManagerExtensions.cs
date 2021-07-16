@@ -15,8 +15,8 @@ namespace Ao.ObjectDesign.Wpf
                 throw new ArgumentNullException(nameof(mgr));
             }
 
-            var s = mgr.Listenings.ToList();
-            foreach (var item in s)
+            List<INotifyPropertyChangeTo> s = mgr.Listenings.ToList();
+            foreach (INotifyPropertyChangeTo item in s)
             {
                 mgr.Strip(item);
             }
@@ -34,15 +34,15 @@ namespace Ao.ObjectDesign.Wpf
                 throw new ArgumentNullException(nameof(instance));
             }
 
-            var props = instance.GetType().GetProperties();
+            System.Reflection.PropertyInfo[] props = instance.GetType().GetProperties();
             mgr.Attack(instance);
-            var attacks = new List<INotifyPropertyChangeTo> { instance };
-            foreach (var prop in props)
+            List<INotifyPropertyChangeTo> attacks = new List<INotifyPropertyChangeTo> { instance };
+            foreach (System.Reflection.PropertyInfo prop in props)
             {
                 if (prop.PropertyType.IsClass &&
                     prop.PropertyType.GetInterface(INotifyPropertyChangeToTypeName) != null)
                 {
-                    var val = prop.GetValue(instance);
+                    object val = prop.GetValue(instance);
                     if (val is INotifyPropertyChangeTo notifyer)
                     {
                         mgr.Attack(notifyer);

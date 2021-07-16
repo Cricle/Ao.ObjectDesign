@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -48,7 +43,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (!EqualityComparer<T>.Default.Equals(prop, value))
             {
-                var origin = prop;
+                T origin = prop;
                 RaisePropertyChanging(name);
                 prop = value;
                 RaisePropertyChanged(name);

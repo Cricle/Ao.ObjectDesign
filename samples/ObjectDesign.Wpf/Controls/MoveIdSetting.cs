@@ -1,8 +1,6 @@
-﻿using Ao.ObjectDesign.Controls;
-using Ao.ObjectDesign.Wpf;
+﻿using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ObjectDesign.Wpf.Controls
@@ -37,7 +35,7 @@ namespace ObjectDesign.Wpf.Controls
         {
             //base.SetDefault();
             IdFontSize = 12;
-            IdBrush = new BrushDesigner { Brush=Brushes.Black};
+            IdBrush = new BrushDesigner { Brush = Brushes.Black };
             Text = null;
         }
 
@@ -51,7 +49,7 @@ namespace ObjectDesign.Wpf.Controls
             {
                 //Apply((Control)value);
                 IdFontSize = value.IdFontSize;
-                IdBrush = new BrushDesigner { Brush=value.IdBrush};
+                IdBrush = new BrushDesigner { Brush = value.IdBrush };
                 Text = value.Text;
 
             }

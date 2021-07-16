@@ -1,11 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
-using ObjectDesign.Wpf.Views;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -24,7 +19,7 @@ namespace ObjectDesign.Wpf.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is PenBrushTypes type && value is Visibility v && v==  Visibility.Visible)
+            if (parameter is PenBrushTypes type && value is Visibility v && v == Visibility.Visible)
             {
                 return type;
             }
@@ -35,7 +30,7 @@ namespace ObjectDesign.Wpf.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is PenBrushTypes input&&parameter is PenBrushTypes target)
+            if (value is PenBrushTypes input && parameter is PenBrushTypes target)
             {
                 return input == target;
             }
@@ -44,7 +39,7 @@ namespace ObjectDesign.Wpf.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is PenBrushTypes type&&value is bool b&&b)
+            if (parameter is PenBrushTypes type && value is bool b && b)
             {
                 return type;
             }

@@ -1,39 +1,28 @@
 ﻿using Ao.ObjectDesign;
+using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Wpf.Json;
+using Ao.ObjectDesign.Wpf.Xml;
+using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+using ObjectDesign.Wpf.Controls;
+using ObjectDesign.Wpf.Views;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
-using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Controls;
-using System.Windows.Shapes;
-using Ao.ObjectDesign.Wpf.Json;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Collections.Generic;
-using System.Reflection;
-using Newtonsoft.Json;
-using System.Linq.Expressions;
-using System.Linq;
-using Ao.ObjectDesign.Wpf.Annotations;
-using ObjectDesign.Wpf.Views;
-using System.Xaml;
-using ObjectDesign.Wpf.Controls;
-using System.Diagnostics;
-using System.Collections.ObjectModel;
-using System.IO;
-using MahApps.Metro.Controls.Dialogs;
-using System.Xml.Serialization;
-using Ao.ObjectDesign.Wpf.Xml;
-using Newtonsoft.Json.Bson;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.TypeInspectors;
-using YamlDotNet.Core;
-using Ao.ObjectDesign.Wpf.Yaml;
 
 namespace ObjectDesign.Wpf
 {
@@ -71,14 +60,16 @@ namespace ObjectDesign.Wpf
                 .Where(x => !x.ClrType.IsAbstract && !x.UIType.IsAbstract && !ignoreTypes.Contains(x.UIType))
                 .ToList();
             settingTypes.Add(DesignMapping.FromMapping(typeof(MoveIdSetting)));
-            dtbuilder = new ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext>();
-            dtbuilder.Add(new CornerDesignCondition());
-            dtbuilder.Add(new EnumCondition());
-            dtbuilder.Add(new FontSettingCondition());
-            dtbuilder.Add(new LocationSizeCondition());
-            dtbuilder.Add(new PenBrushCondition());
-            dtbuilder.Add(new PrimitiveCondition());
-            dtbuilder.Add(new FontFamilyCondition());
+            dtbuilder = new ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext>
+            {
+                new CornerDesignCondition(),
+                new EnumCondition(),
+                new FontSettingCondition(),
+                new LocationSizeCondition(),
+                new PenBrushCondition(),
+                new PrimitiveCondition(),
+                new FontFamilyCondition()
+            };
 
             forViewDataTemplateSelector = new ForViewDataTemplateSelector(dtbuilder, objectDesigner);
         }
@@ -104,57 +95,57 @@ namespace ObjectDesign.Wpf
                 {
                     sequencer.Redo();
                 }
-                else if (e.Key== Key.S)
+                else if (e.Key == Key.S)
                 {
-                    var t = currentObject.GetType();
-                    var str = DesignJsonHelper.SerializeObject(currentObject);
+                    Type t = currentObject.GetType();
+                    string str = DesignJsonHelper.SerializeObject(currentObject);
                     File.WriteAllText(t.Name + ".json", str);
                     this.ShowMessageAsync(string.Empty, "保存为json成功");
                 }
-                else if (e.Key== Key.T)
+                else if (e.Key == Key.T)
                 {
-                    var t = currentObject.GetType();
-                    using (var fs = File.Open(t.Name + ".bson", FileMode.Create))
-                    using (var writer = new BsonDataWriter(fs))
+                    Type t = currentObject.GetType();
+                    using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Create))
+                    using (BsonDataWriter writer = new BsonDataWriter(fs))
                     {
-                        var serializer = new JsonSerializer();
-                        var setting= DesignJsonHelper.CreateSerializeSettings();
+                        JsonSerializer serializer = new JsonSerializer();
+                        JsonSerializerSettings setting = DesignJsonHelper.CreateSerializeSettings();
                         serializer.ContractResolver = setting.ContractResolver;
                         serializer.Serialize(writer, currentObject);
                     }
-                    using (var fs=File.Open(t.Name + ".bson", FileMode.Open))
-                        using(var reader=new BsonDataReader(fs))
+                    using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Open))
+                    using (BsonDataReader reader = new BsonDataReader(fs))
                     {
-                        var serializer = new JsonSerializer();
-                        var setting = DesignJsonHelper.CreateSerializeSettings();
+                        JsonSerializer serializer = new JsonSerializer();
+                        JsonSerializerSettings setting = DesignJsonHelper.CreateSerializeSettings();
                         serializer.ContractResolver = setting.ContractResolver;
-                        var obj=serializer.Deserialize(reader, t);
+                        object obj = serializer.Deserialize(reader, t);
                     }
                     this.ShowMessageAsync(string.Empty, "保存为bson成功");
                 }
-                else if (e.Key== Key.P)
+                else if (e.Key == Key.P)
                 {
                     if (currentObject is ButtonSetting bs)
                     {
                         bs.BorderBrush.RadialGradientBrushDesigner.PenGradientStops.Add(new GradientStopDesigner());
                     }
-                    var t = currentObject.GetType();
-                    var str = DeisgnYamlSerializer.Serialize(currentObject);
+                    Type t = currentObject.GetType();
+                    string str = DeisgnYamlSerializer.Serialize(currentObject);
                     File.WriteAllText(t.Name + ".yaml", str);
 
-                    var xa = DeisgnYamlSerializer.Deserializer(str, t);
+                    object xa = DeisgnYamlSerializer.Deserializer(str, t);
                     this.ShowMessageAsync(string.Empty, "保存为yaml成功");
                 }
-                else if (e.Key== Key.K)
+                else if (e.Key == Key.K)
                 {
-                    var t = currentObject.GetType();
-                    var s = DeisgnXmlSerializer.Serialize(currentObject);
+                    Type t = currentObject.GetType();
+                    string s = DeisgnXmlSerializer.Serialize(currentObject);
                     File.WriteAllText(t.Name + ".xml", s);
                     this.ShowMessageAsync(string.Empty, "保存为xml成功");
                 }
             }
         }
-        private CompiledSequencer sequencer =new CompiledSequencer();
+        private CompiledSequencer sequencer = new CompiledSequencer();
         private INotifyPropertyChangeTo currentObject;
         private IDisposable disposable;
         private Dictionary<Type, INotifyPropertyChangeTo> uics = new Dictionary<Type, INotifyPropertyChangeTo>();
@@ -165,7 +156,7 @@ namespace ObjectDesign.Wpf
         {
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignMapping item)
             {
-                var bg = Stopwatch.GetTimestamp();
+                long bg = Stopwatch.GetTimestamp();
                 INotifyPropertyChangeTo obj = null;
                 designs.Clear();
                 disposable?.Dispose();
@@ -174,11 +165,11 @@ namespace ObjectDesign.Wpf
                 sequencer.CleanAllRecords();
                 if (!uics.TryGetValue(item.ClrType, out obj))
                 {
-                    var t = item.ClrType;
-                    var fn = t.Name + ".json";
+                    Type t = item.ClrType;
+                    string fn = t.Name + ".json";
                     if (File.Exists(fn))
                     {
-                        var str = File.ReadAllText(fn);
+                        string str = File.ReadAllText(fn);
                         obj = (INotifyPropertyChangeTo)DesignJsonHelper.DeserializeObject(str, t);
                     }
                     else
@@ -191,8 +182,8 @@ namespace ObjectDesign.Wpf
                     }
                     uics.Add(item.ClrType, obj);
                 }
-                var ui = (DependencyObject)Activator.CreateInstance(item.UIType);
-                var drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay, UpdateSourceTrigger.Default);
+                DependencyObject ui = (DependencyObject)Activator.CreateInstance(item.UIType);
+                IEnumerable<BindingUnit> drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay, UpdateSourceTrigger.Default);
                 if (ui is FrameworkElement fe)
                 {
                     fe.SetBindings(drawing);
@@ -217,7 +208,7 @@ namespace ObjectDesign.Wpf
                 }
                 if (mode == GenerateMode.DataTemplate)
                 {
-                    var ctxs = NotifySubscriber.Lookup(proxy).Select(x => new WpfTemplateForViewBuildContext
+                    WpfTemplateForViewBuildContext[] ctxs = NotifySubscriber.Lookup(proxy).Select(x => new WpfTemplateForViewBuildContext
                     {
                         Designer = ObjectDesigner.Instance,
                         ForViewBuilder = dtbuilder,
@@ -231,21 +222,21 @@ namespace ObjectDesign.Wpf
                     {
                         Design.ItemTemplateSelector = forViewDataTemplateSelector;
                     }
-                    foreach (var prop in ctxs.Where(x => x.PropertyProxy.DeclaringInstance == proxy.Instance))
+                    foreach (WpfTemplateForViewBuildContext prop in ctxs.Where(x => x.PropertyProxy.DeclaringInstance == proxy.Instance))
                     {
                         designs.Add(prop);
                     }
                 }
                 else
                 {
-                    var uig = new UIGenerator(builder);
-                    var props = proxy.GetPropertyProxies();
-                    var ds = uig.Generate(props);
-                    var ctxs = ds.Where(x => x.View != null);
-                    disposable = NotifySubscriber.Subscribe(ctxs.Select(x=>x.Context), sequencer);
-                    foreach (var ctx in ctxs)
+                    UIGenerator uig = new UIGenerator(builder);
+                    IEnumerable<IPropertyProxy> props = proxy.GetPropertyProxies();
+                    IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> ds = uig.Generate(props);
+                    IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> ctxs = ds.Where(x => x.View != null);
+                    disposable = NotifySubscriber.Subscribe(ctxs.Select(x => x.Context), sequencer);
+                    foreach (IUISpirit<FrameworkElement, WpfForViewBuildContext> ctx in ctxs)
                     {
-                        var grid = new Grid();
+                        Grid grid = new Grid();
                         grid.ColumnDefinitions.Add(new ColumnDefinition
                         {
                             Width = GridLength.Auto
@@ -255,7 +246,7 @@ namespace ObjectDesign.Wpf
                             Width = new GridLength(1, GridUnitType.Star)
                         });
                         Grid.SetColumn(ctx.View, 1);
-                        var tbx = new TextBlock { Text = ctx.Context.PropertyProxy.PropertyInfo.Name };
+                        TextBlock tbx = new TextBlock { Text = ctx.Context.PropertyProxy.PropertyInfo.Name };
                         grid.Children.Add(tbx);
                         grid.Children.Add(ctx.View);
                         designs.Add(grid);
@@ -263,7 +254,7 @@ namespace ObjectDesign.Wpf
                     //Design.ItemsSource = designs;
                 }
                 Sv.Child = (UIElement)ui;
-                var ed = Stopwatch.GetTimestamp();
+                long ed = Stopwatch.GetTimestamp();
                 Title = $"Generate ui use {new TimeSpan(ed - bg)}";
             }
         }

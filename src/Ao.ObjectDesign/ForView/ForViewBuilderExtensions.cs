@@ -19,16 +19,16 @@ namespace Ao.ObjectDesign.ForView
             {
                 throw new ArgumentNullException(nameof(builder));
             }
-            var attr = context.PropertyProxy.PropertyInfo.GetCustomAttribute<ForViewConditionAttribute>();
+            ForViewConditionAttribute attr = context.PropertyProxy.PropertyInfo.GetCustomAttribute<ForViewConditionAttribute>();
             if (attr != null)
             {
-                var inst = (IForViewCondition<TView, TContext>)Activator.CreateInstance(attr.ConditionType);
+                IForViewCondition<TView, TContext> inst = (IForViewCondition<TView, TContext>)Activator.CreateInstance(attr.ConditionType);
                 if (forceSelectBuild || inst.CanBuild(context))
                 {
                     return inst.Create(context);
                 }
             }
-            foreach (var item in builder.OrderByDescending(x => x.Order))
+            foreach (IForViewCondition<TView, TContext> item in builder.OrderByDescending(x => x.Order))
             {
                 if (item.CanBuild(context))
                 {

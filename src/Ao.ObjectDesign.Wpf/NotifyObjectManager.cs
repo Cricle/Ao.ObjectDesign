@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public class NotifyObjectManager: INotifyObjectManager
+    public class NotifyObjectManager : INotifyObjectManager
     {
         private readonly HashSet<INotifyPropertyChangeTo> listenings = new HashSet<INotifyPropertyChangeTo>();
 
@@ -23,7 +22,7 @@ namespace Ao.ObjectDesign.Wpf
         }
         public void ClearNotifyer()
         {
-            var ds = Listenings;
+            IReadOnlyHashSet<INotifyPropertyChangeTo> ds = Listenings;
             listenings.Clear();
             OnClearNotifyer(ds);
         }
@@ -67,6 +66,6 @@ namespace Ao.ObjectDesign.Wpf
         {
         }
 
-        
+
     }
 }

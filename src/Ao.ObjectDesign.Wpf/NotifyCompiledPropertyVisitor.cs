@@ -19,7 +19,7 @@ namespace Ao.ObjectDesign.Wpf
         }
         public override void SetValue(object value)
         {
-            var origin = GetValue();
+            object origin = GetValue();
             base.SetValue(value);
             if (origin != value)
             {

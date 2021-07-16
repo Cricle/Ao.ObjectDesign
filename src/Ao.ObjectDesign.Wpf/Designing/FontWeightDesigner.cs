@@ -44,7 +44,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
-                if (fontWeightMap.TryGetValue(PenFontWeight, out var w))
+                if (fontWeightMap.TryGetValue(PenFontWeight, out FontWeight w))
                 {
                     return w;
                 }

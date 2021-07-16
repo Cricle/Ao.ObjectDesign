@@ -1,16 +1,11 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Expander))]
-    public class ExpanderSetting : ControlSetting,IMiddlewareDesigner<Expander>
+    public class ExpanderSetting : ControlSetting, IMiddlewareDesigner<Expander>
     {
         private ExpandDirection expandDirection;
         private bool isExpanded;
@@ -49,7 +44,7 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(Expander value)
         {
-            if (value !=null)
+            if (value != null)
             {
                 WriteTo((Control)value);
                 value.IsExpanded = isExpanded;

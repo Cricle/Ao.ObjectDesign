@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 
 namespace System.Collections.ObjectModel
 {
@@ -45,7 +43,7 @@ namespace System.Collections.ObjectModel
 
             int startIndex = Count;
 
-            foreach (var item in enumerable)
+            foreach (T item in enumerable)
             {
                 Items.Add(item);
             }
@@ -60,7 +58,7 @@ namespace System.Collections.ObjectModel
 
             if (Count != 0)
             {
-                var its = this.ToList();
+                List<T> its = this.ToList();
                 Items.Clear();
                 OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, its, -1));
                 OnPropertyChanged(EventArgsCache.CountPropertyChanged);
@@ -69,7 +67,7 @@ namespace System.Collections.ObjectModel
         }
         private void Reset(Func<IList<T>> v)
         {
-            var ds = v();
+            IList<T> ds = v();
             for (int i = 0; i < ds.Count; i++)
             {
                 this[i] = ds[i];

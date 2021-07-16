@@ -48,7 +48,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
-                var brush= new LinearGradientBrush
+                LinearGradientBrush brush = new LinearGradientBrush
                 {
                     StartPoint = startPoint,
                     EndPoint = endPoint

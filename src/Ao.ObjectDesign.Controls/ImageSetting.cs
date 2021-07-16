@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,7 +7,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Image))]
-    public class ImageSetting : FrameworkElementSetting,IMiddlewareDesigner<Image>
+    public class ImageSetting : FrameworkElementSetting, IMiddlewareDesigner<Image>
     {
         private ImageSourceDesigner source;
         private Stretch stretch;
@@ -61,7 +56,7 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(Image value)
         {
-            if (value!=null)
+            if (value != null)
             {
                 WriteTo((FrameworkElement)value);
                 value.StretchDirection = stretchDirection;

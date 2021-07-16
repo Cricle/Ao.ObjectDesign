@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -46,8 +41,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     return null;
                 }
-                var brush = new ImageBrush();
-                brush.ImageSource = source.ImageSource;
+                ImageBrush brush = new ImageBrush
+                {
+                    ImageSource = source.ImageSource
+                };
                 Apply(brush);
                 return brush;
             }

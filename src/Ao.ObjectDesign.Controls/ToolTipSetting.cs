@@ -1,17 +1,12 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(ToolTip))]
-    public class ToolTipSetting : ControlSetting,IMiddlewareDesigner<ToolTip>
+    public class ToolTipSetting : ControlSetting, IMiddlewareDesigner<ToolTip>
     {
         private bool isOpen;
         private bool staysOpen;
@@ -88,7 +83,7 @@ namespace Ao.ObjectDesign.Controls
                 IsOpen = value.IsOpen;
                 StaysOpen = value.StaysOpen;
                 Placement = value.Placement;
-                PlacementRectangle = new RectDesigner { Rect= value.PlacementRectangle };
+                PlacementRectangle = new RectDesigner { Rect = value.PlacementRectangle };
                 HorizontalOffset = value.HorizontalOffset;
                 VerticalOffset = value.VerticalOffset;
                 HasDropShadow = value.HasDropShadow;

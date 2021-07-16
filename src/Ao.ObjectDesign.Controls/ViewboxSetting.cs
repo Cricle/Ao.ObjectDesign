@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -12,7 +7,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Viewbox))]
-    public class ViewboxSetting : FrameworkElementSetting,IMiddlewareDesigner<Viewbox>
+    public class ViewboxSetting : FrameworkElementSetting, IMiddlewareDesigner<Viewbox>
     {
         private Stretch stretch;
         private StretchDirection stretchDirection;

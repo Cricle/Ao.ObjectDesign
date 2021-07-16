@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YamlDotNet.Serialization;
 
 namespace Ao.ObjectDesign.Wpf.Yaml
@@ -29,7 +25,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
         }
         public static string Serialize(object value, Type type, IReadOnlyHashSet<Type> ignoreTypes)
         {
-            var writer = new StringWriter();
+            StringWriter writer = new StringWriter();
             Serialize(writer, value, type, ignoreTypes);
             return writer.ToString();
         }
@@ -37,9 +33,9 @@ namespace Ao.ObjectDesign.Wpf.Yaml
         {
             Serialize(textWriter, value, type, DesigningHelpers.KnowDesigningTypes);
         }
-        public static void Serialize(TextWriter textWriter,object value,Type type,IReadOnlyHashSet<Type> ignoreTypes)
+        public static void Serialize(TextWriter textWriter, object value, Type type, IReadOnlyHashSet<Type> ignoreTypes)
         {
-            var builder = new SerializerBuilder()
+            ISerializer builder = new SerializerBuilder()
                 .WithTypeInspector(inspector => new IgnoresTypeInspector(inspector, ignoreTypes))
                 .Build();
             builder.Serialize(textWriter, value, type);
@@ -48,7 +44,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
         {
             return Deserializer(str, type, DesigningHelpers.KnowDesigningTypes);
         }
-        public static  object Deserializer(string str, Type type, IReadOnlyHashSet<Type> ignoreTypes)
+        public static object Deserializer(string str, Type type, IReadOnlyHashSet<Type> ignoreTypes)
         {
             return Deserializer(new StringReader(str), type, ignoreTypes);
         }
@@ -58,7 +54,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
         }
         public static object Deserializer(TextReader textReader, Type type, IReadOnlyHashSet<Type> ignoreTypes)
         {
-            var builder = new DeserializerBuilder()
+            IDeserializer builder = new DeserializerBuilder()
                 .WithTypeInspector(inspector => new IgnoresTypeInspector(inspector, ignoreTypes))
                 .Build();
             return builder.Deserialize(textReader, type);

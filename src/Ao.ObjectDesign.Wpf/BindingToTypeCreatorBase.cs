@@ -8,7 +8,7 @@ namespace Ao.ObjectDesign.Wpf
     public abstract class BindingToTypeCreatorBase : IBindingToTypeCreator
     {
         protected BindingToTypeCreatorBase(IEnumerable<Type> supportCreateBindTypes)
-            :this(new ReadOnlyHashSet<Type>(supportCreateBindTypes))
+            : this(new ReadOnlyHashSet<Type>(supportCreateBindTypes))
         {
         }
 

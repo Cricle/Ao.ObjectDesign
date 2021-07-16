@@ -1,12 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Test.Designing
 {
@@ -16,8 +10,10 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         [TestMethod]
         public void SetFromWpfValue()
         {
-            var design = new CornerRadiusDesigner();
-            design.CornerRadius = new CornerRadius(1, 2, 3, 4);
+            CornerRadiusDesigner design = new CornerRadiusDesigner
+            {
+                CornerRadius = new CornerRadius(1, 2, 3, 4)
+            };
 
 
             Assert.AreEqual(1, design.Left);
@@ -28,13 +24,15 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         [TestMethod]
         public void MakeWpfValue()
         {
-            var design = new CornerRadiusDesigner();
-            design.Left = 1;
-            design.Top = 2;
-            design.Right = 3;
-            design.Bottom = 4;
+            CornerRadiusDesigner design = new CornerRadiusDesigner
+            {
+                Left = 1,
+                Top = 2,
+                Right = 3,
+                Bottom = 4
+            };
 
-            var val = design.CornerRadius;
+            CornerRadius val = design.CornerRadius;
 
             Assert.AreEqual(1, val.TopLeft);
             Assert.AreEqual(2, val.TopRight);

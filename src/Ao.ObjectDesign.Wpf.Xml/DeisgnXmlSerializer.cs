@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -15,8 +11,8 @@ namespace Ao.ObjectDesign.Wpf.Xml
     {
         public static XmlAttributeOverrides CreateDesignIgnores()
         {
-            var over = new XmlAttributeOverrides();
-            foreach (var item in DesigningHelpers.KnowDesigningPropertyIdentities)
+            XmlAttributeOverrides over = new XmlAttributeOverrides();
+            foreach (PropertyIdentity item in DesigningHelpers.KnowDesigningPropertyIdentities)
             {
                 over.Add(item.Type, item.PropertyName, new XmlAttributes { XmlIgnore = true });
             }
@@ -30,10 +26,10 @@ namespace Ao.ObjectDesign.Wpf.Xml
         {
             return Deserialize(type, new StringReader(text));
         }
-        public static object Deserialize(Type type,TextReader reader)
+        public static object Deserialize(Type type, TextReader reader)
         {
-            var over = CreateDesignIgnores();
-            var xmlSer = new XmlSerializer(type, over);
+            XmlAttributeOverrides over = CreateDesignIgnores();
+            XmlSerializer xmlSer = new XmlSerializer(type, over);
             return xmlSer.Deserialize(reader);
         }
         public static string Serialize(object obj)
@@ -42,14 +38,14 @@ namespace Ao.ObjectDesign.Wpf.Xml
         }
         public static string Serialize(object obj, Type type)
         {
-            var writer = new StringWriter();
+            StringWriter writer = new StringWriter();
             Serialize(obj, type, writer);
             return writer.ToString();
         }
-        public static void Serialize(object obj,Type type, TextWriter writer)
+        public static void Serialize(object obj, Type type, TextWriter writer)
         {
-            var over = CreateDesignIgnores();
-            var xmlSer = new XmlSerializer(type, over);
+            XmlAttributeOverrides over = CreateDesignIgnores();
+            XmlSerializer xmlSer = new XmlSerializer(type, over);
             xmlSer.Serialize(writer, obj);
         }
 

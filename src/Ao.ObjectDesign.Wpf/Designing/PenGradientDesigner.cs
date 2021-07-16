@@ -28,16 +28,16 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             if (e.NewItems != null)
             {
-                var news = e.NewItems.OfType<GradientStopDesigner>();
-                foreach (var item in news)
+                IEnumerable<GradientStopDesigner> news = e.NewItems.OfType<GradientStopDesigner>();
+                foreach (GradientStopDesigner item in news)
                 {
                     item.PropertyChanged += OnItemPropertyChanged;
                 }
             }
             if (e.OldItems != null)
             {
-                var news = e.NewItems.OfType<GradientStopDesigner>();
-                foreach (var item in news)
+                IEnumerable<GradientStopDesigner> news = e.NewItems.OfType<GradientStopDesigner>();
+                foreach (GradientStopDesigner item in news)
                 {
                     item.PropertyChanged -= OnItemPropertyChanged;
                 }
@@ -85,11 +85,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => penGradientStops;
             set
             {
-                if (penGradientStops!=null)
+                if (penGradientStops != null)
                 {
                     penGradientStops.CollectionChanged -= OnPenGradientStopsCollectionChanged;
                 }
-                if (value!=null)
+                if (value != null)
                 {
                     value.CollectionChanged -= OnPenGradientStopsCollectionChanged;
                 }
@@ -102,7 +102,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
-                var stops = penGradientStops;
+                SilentObservableCollection<GradientStopDesigner> stops = penGradientStops;
                 if (stops is null)
                 {
                     return Enumerable.Empty<GradientStop>();

@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ao.ObjectDesign.Abstract.Annotations
 {
-    [AttributeUsage(AttributeTargets.Property,Inherited =false,AllowMultiple =false)]
+    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class ForViewConditionAttribute : Attribute
     {
         public ForViewConditionAttribute(Type conditionType)

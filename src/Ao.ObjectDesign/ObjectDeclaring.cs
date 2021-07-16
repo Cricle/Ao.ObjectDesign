@@ -33,8 +33,8 @@ namespace Ao.ObjectDesign
             {
                 yield break;
             }
-            var properties = Type.GetProperties();
-            foreach (var item in properties)
+            PropertyInfo[] properties = Type.GetProperties();
+            foreach (PropertyInfo item in properties)
             {
                 if (CanProxy(item))
                 {
@@ -49,7 +49,7 @@ namespace Ao.ObjectDesign
             {
                 return false;
             }
-            var attr = propertyInfo.GetCustomAttribute<EditorBrowsableAttribute>();
+            EditorBrowsableAttribute attr = propertyInfo.GetCustomAttribute<EditorBrowsableAttribute>();
             if (attr is null)
             {
                 return true;

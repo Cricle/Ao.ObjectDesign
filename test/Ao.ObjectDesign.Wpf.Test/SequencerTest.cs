@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -24,8 +19,8 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Changed_Undo_PropertyMustUndo()
         {
-            var seq = new Sequencer();
-            var student = new Student();
+            Sequencer seq = new Sequencer();
+            Student student = new Student();
             seq.Attack(student);
             student.Name = "hello";
             seq.Undo(false);
@@ -34,13 +29,13 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Changed_UndoAfterRedo_PropertyMustResetOrigin()
         {
-            var seq = new Sequencer();
-            var student = new Student();
+            Sequencer seq = new Sequencer();
+            Student student = new Student();
             seq.Attack(student);
             student.Name = "hello";
             seq.Undo(true);
             seq.Redo(true);
-            Assert.AreEqual("hello",student.Name);
+            Assert.AreEqual("hello", student.Name);
         }
 
     }

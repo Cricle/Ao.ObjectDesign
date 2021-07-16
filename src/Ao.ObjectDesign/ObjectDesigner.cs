@@ -4,7 +4,7 @@ namespace Ao.ObjectDesign
 {
     public class ObjectDesigner : IObjectDesigner
     {
-        public readonly static ObjectDesigner Instance = new ObjectDesigner();
+        public static readonly ObjectDesigner Instance = new ObjectDesigner();
 
         public static IObjectProxy CreateDefaultProxy(object instance, Type type)
         {

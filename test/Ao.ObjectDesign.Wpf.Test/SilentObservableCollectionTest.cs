@@ -1,11 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -17,11 +14,11 @@ namespace Ao.ObjectDesign.Wpf.Test
         {
             new SilentObservableCollection<int>();
 
-            var coll = new SilentObservableCollection<int>(new[] { 1, 2, 3, 4 });
+            SilentObservableCollection<int> coll = new SilentObservableCollection<int>(new[] { 1, 2, 3, 4 });
             Assert.AreEqual(4, coll.Count);
             for (int i = 1; i < 5; i++)
             {
-                Assert.AreEqual(i, coll[i-1]);
+                Assert.AreEqual(i, coll[i - 1]);
             }
             coll = new SilentObservableCollection<int>(new List<int> { 1, 2, 3, 4 });
             Assert.AreEqual(4, coll.Count);
@@ -37,7 +34,7 @@ namespace Ao.ObjectDesign.Wpf.Test
         [DataRow(new int[] { 1, 1, 0, 34, 1, 2, 4 })]
         public void AddRange_AllMustAdded(int[] datas)
         {
-            var coll = new SilentObservableCollection<int>();
+            SilentObservableCollection<int> coll = new SilentObservableCollection<int>();
             coll.AddRange(datas);
             Assert.AreEqual(datas.Length, coll.Count);
             for (int i = 0; i < datas.Length; i++)
@@ -48,7 +45,7 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void BatchClear_MustCleared()
         {
-            var coll = new SilentObservableCollection<int>
+            SilentObservableCollection<int> coll = new SilentObservableCollection<int>
             {
                 1,2,3,4,5,6
             };
@@ -65,17 +62,17 @@ namespace Ao.ObjectDesign.Wpf.Test
             Assert.IsNotNull(eg);
             Assert.AreEqual(NotifyCollectionChangedAction.Remove, eg.Action);
             Assert.IsNull(eg.NewItems);
-            Assert.AreEqual(6,eg.OldItems.Count);
+            Assert.AreEqual(6, eg.OldItems.Count);
         }
         [TestMethod]
         public void Sort_MustSortedByProperty()
         {
-            var coll = new SilentObservableCollection<int>
+            SilentObservableCollection<int> coll = new SilentObservableCollection<int>
             {
                 5,1,2,3,4,5,7,1,-1
             };
-            var order = coll.OrderBy(x => x).ToArray();
-            var orderDesc = coll.OrderByDescending(x => x).ToArray();
+            int[] order = coll.OrderBy(x => x).ToArray();
+            int[] orderDesc = coll.OrderByDescending(x => x).ToArray();
 
             coll.Sort(x => x);
             for (int i = 0; i < order.Length; i++)

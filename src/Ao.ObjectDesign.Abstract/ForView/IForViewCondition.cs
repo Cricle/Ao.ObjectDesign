@@ -1,10 +1,7 @@
-﻿using System;
-using System.Text;
-
-namespace Ao.ObjectDesign.ForView
+﻿namespace Ao.ObjectDesign.ForView
 {
-    public interface IForViewCondition<out TView,TContext>
-        where TContext:IForViewBuildContext
+    public interface IForViewCondition<out TView, TContext>
+        where TContext : IForViewBuildContext
     {
         int Order { get; }
 

@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -80,11 +76,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => viewport;
             set
             {
-                if (viewport !=null)
+                if (viewport != null)
                 {
                     viewport.PropertyChanged -= OnViewportPropertyChanged;
                 }
-                if (value!=null)
+                if (value != null)
                 {
                     value.PropertyChanged += OnViewportPropertyChanged;
                 }

@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
@@ -73,7 +72,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             get
             {
-                var brush = new RadialGradientBrush
+                RadialGradientBrush brush = new RadialGradientBrush
                 {
                     GradientOrigin = gradientOrigin,
                     Center = center,

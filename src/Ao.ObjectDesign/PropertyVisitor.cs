@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign
 {
-    public class PropertyVisitor : ObjectProxy, IPropertyVisitor,INotifyPropertyChanged
+    public class PropertyVisitor : ObjectProxy, IPropertyVisitor, INotifyPropertyChanged
     {
         private static readonly ConcurrentDictionary<Type, TypeConverter> typeConverterMap = new ConcurrentDictionary<Type, TypeConverter>();
 
@@ -22,10 +22,10 @@ namespace Ao.ObjectDesign
             {
                 throw new ArgumentException($"declaringInstance is not equals or base on {PropertyInfo.DeclaringType.FullName}");
             }
-            var typeDescAttr = PropertyInfo.GetCustomAttribute<TypeConverterAttribute>();
+            TypeConverterAttribute typeDescAttr = PropertyInfo.GetCustomAttribute<TypeConverterAttribute>();
             if (typeDescAttr != null)
             {
-                var type = Type.GetType(typeDescAttr.ConverterTypeName, true);
+                Type type = Type.GetType(typeDescAttr.ConverterTypeName, true);
                 typeConverter = typeConverterMap.GetOrAdd(type, t => (TypeConverter)Activator.CreateInstance(t));
             }
             else
@@ -49,11 +49,11 @@ namespace Ao.ObjectDesign
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName]string name=null)
+        protected virtual void RaisePropertyChanged([CallerMemberName] string name = null)
         {
             RaisePropertyChanged(this, name);
         }
-        protected virtual void RaisePropertyChanged(object instance,[CallerMemberName] string name = null)
+        protected virtual void RaisePropertyChanged(object instance, [CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(instance, new PropertyChangedEventArgs(name));
         }

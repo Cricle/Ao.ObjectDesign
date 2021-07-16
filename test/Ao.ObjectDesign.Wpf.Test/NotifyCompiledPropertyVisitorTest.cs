@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
@@ -17,10 +12,10 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void SetValue_MustRaiseChangeToEvent()
         {
-            var stu = new Student();
-            var prop = stu.GetType().GetProperties()[0];
+            Student stu = new Student();
+            System.Reflection.PropertyInfo prop = stu.GetType().GetProperties()[0];
 
-            var visitor = new NotifyCompiledPropertyVisitor(stu, prop);
+            NotifyCompiledPropertyVisitor visitor = new NotifyCompiledPropertyVisitor(stu, prop);
 
             object o1 = null;
             PropertyChangeToEventArgs e1 = null;

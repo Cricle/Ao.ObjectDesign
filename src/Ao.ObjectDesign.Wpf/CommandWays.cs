@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.Wpf
                 {
                     throw new ArgumentOutOfRangeException($"Max undo size must more or equal zero");
                 }
-                var origin = maxSize;
+                int origin = maxSize;
                 maxSize = value;
                 if (origin > value)
                 {
@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             get
             {
-                var f = ways.First;
+                LinkedListNode<T> f = ways.First;
                 if (f is null)
                 {
                     return default;
@@ -52,7 +52,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             get
             {
-                var f = ways.Last;
+                LinkedListNode<T> f = ways.Last;
                 if (f is null)
                 {
                     return default;
@@ -65,10 +65,10 @@ namespace Ao.ObjectDesign.Wpf
 
         private void Resize(int size)
         {
-            var removed = new List<T>();
+            List<T> removed = new List<T>();
             while (ways.Count > size)
             {
-                var f = ways.First;
+                LinkedListNode<T> f = ways.First;
                 removed.Add(f.Value);
                 ways.RemoveFirst();
             }
@@ -96,7 +96,7 @@ namespace Ao.ObjectDesign.Wpf
             }
             if (ways.Count >= maxSize)
             {
-                var val = ways.Last.Value;
+                T val = ways.Last.Value;
                 ways.RemoveLast();
                 if (notify)
                 {
@@ -119,12 +119,12 @@ namespace Ao.ObjectDesign.Wpf
             {
                 return;
             }
-            var arr = items.ToList();
-            var popCount = ways.Count + arr.Count - MaxSize;
+            List<T> arr = items.ToList();
+            int popCount = ways.Count + arr.Count - MaxSize;
             if (popCount > 0)
             {
-                var sub = new T[popCount];
-                for (var i = 0; i < popCount; i++)
+                T[] sub = new T[popCount];
+                for (int i = 0; i < popCount; i++)
                 {
                     sub[i] = ways.Last.Value;
                     ways.RemoveLast();
@@ -134,7 +134,7 @@ namespace Ao.ObjectDesign.Wpf
                     WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(sub, CommandWaysOperatorTypes.Remove));
                 }
             }
-            foreach (var item in arr)
+            foreach (T item in arr)
             {
                 ways.AddFirst(item);
             }
@@ -152,7 +152,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (ways.Count != 0)
             {
-                var coll = ways.ToList();
+                List<T> coll = ways.ToList();
                 ways.Clear();
                 if (notify)
                 {
@@ -180,7 +180,7 @@ namespace Ao.ObjectDesign.Wpf
             {
                 return default;
             }
-            var last = ways.First;
+            LinkedListNode<T> last = ways.First;
             if (last != null)
             {
                 ways.RemoveFirst();

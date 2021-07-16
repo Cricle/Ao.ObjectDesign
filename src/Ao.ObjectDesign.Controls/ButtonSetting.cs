@@ -6,7 +6,7 @@ using System.Windows.Controls.Primitives;
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Button))]
-    public class ButtonSetting : ButtonBaseSetting,IMiddlewareDesigner<Button>
+    public class ButtonSetting : ButtonBaseSetting, IMiddlewareDesigner<Button>
     {
         private bool isDefault;
         private bool isCancel;

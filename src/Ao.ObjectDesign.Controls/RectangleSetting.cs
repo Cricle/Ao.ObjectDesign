@@ -1,16 +1,11 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Shapes;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Rectangle))]
-    public class RectangleSetting : ShapeSetting,IMiddlewareDesigner<Rectangle>
+    public class RectangleSetting : ShapeSetting, IMiddlewareDesigner<Rectangle>
     {
         private double radiusX;
         private double radiusY;

@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -83,7 +78,7 @@ namespace Ao.ObjectDesign.Controls
         public virtual PenLineCap StrokeStartLineCap
         {
             get => strokeStartLineCap;
-            set => Set(ref strokeStartLineCap,value);
+            set => Set(ref strokeStartLineCap, value);
         }
 
         public virtual BrushDesigner Stroke
@@ -115,11 +110,11 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                Stroke = new BrushDesigner { Brush=value.Stroke};
+                Stroke = new BrushDesigner { Brush = value.Stroke };
                 StrokeEndLineCap = value.StrokeEndLineCap;
                 StrokeStartLineCap = value.StrokeStartLineCap;
                 StrokeThickness = value.StrokeThickness;
-                Fill = new BrushDesigner { Brush=value.Fill};
+                Fill = new BrushDesigner { Brush = value.Fill };
                 StrokeDashOffset = value.StrokeDashOffset;
                 Stretch = value.Stretch;
                 StrokeMiterLimit = value.StrokeMiterLimit;
@@ -142,7 +137,7 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(Shape value)
         {
-            if (value!=null)
+            if (value != null)
             {
                 WriteTo((FrameworkElement)value);
                 value.Stroke = stroke?.Brush;

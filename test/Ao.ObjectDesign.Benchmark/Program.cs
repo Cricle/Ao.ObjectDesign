@@ -2,8 +2,6 @@
 using Ao.ObjectDesign.Wpf;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
-using System;
-using System.Reflection;
 
 namespace Ao.ObjectDesign.Benchmark
 {

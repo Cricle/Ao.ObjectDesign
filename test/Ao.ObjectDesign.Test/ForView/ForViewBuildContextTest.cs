@@ -1,8 +1,6 @@
 ﻿using Ao.ObjectDesign.ForView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ao.ObjectDesign.Test.ForView
 {
@@ -17,10 +15,10 @@ namespace Ao.ObjectDesign.Test.ForView
         [TestMethod]
         public void GivenValueInit_PropertyMustEqualInput()
         {
-            var inst = new Student();
-            var prop = inst.GetType().GetProperties()[0];
-            var propProxy = new PropertyProxy(inst, prop);
-            var ctx = new ForViewBuildContext(propProxy);
+            Student inst = new Student();
+            System.Reflection.PropertyInfo prop = inst.GetType().GetProperties()[0];
+            PropertyProxy propProxy = new PropertyProxy(inst, prop);
+            ForViewBuildContext ctx = new ForViewBuildContext(propProxy);
             Assert.AreEqual(propProxy, ctx.PropertyProxy);
         }
     }

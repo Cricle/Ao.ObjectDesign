@@ -1,24 +1,19 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(RadioButton))]
-    public class RadioButtonSetting:ToggleButtonSetting,IMiddlewareDesigner<RadioButton>
+    public class RadioButtonSetting : ToggleButtonSetting, IMiddlewareDesigner<RadioButton>
     {
         private string groupName;
 
         public virtual string GroupName
         {
             get => groupName;
-            set => Set(ref groupName,value);
+            set => Set(ref groupName, value);
         }
         public override void SetDefault()
         {

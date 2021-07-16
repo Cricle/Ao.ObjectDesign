@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ao.ObjectDesign.Wpf.Annotations;
 using System.Windows;
-using Ao.ObjectDesign.Wpf.Annotations;
 
 namespace Ao.ObjectDesign.Wpf.Designing
 {

@@ -1,17 +1,12 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(Control))]
-    public class ControlSetting : FrameworkElementSetting,IMiddlewareDesigner<Control>
+    public class ControlSetting : FrameworkElementSetting, IMiddlewareDesigner<Control>
     {
         private BrushDesigner foreground;
         private BrushDesigner background;
@@ -123,7 +118,7 @@ namespace Ao.ObjectDesign.Controls
             VerticalContentAlignment = VerticalAlignment.Top;
             TabIndex = int.MaxValue;
             Padding = new ThicknessDesigner();
-            FontWeight =new FontWeightDesigner();
+            FontWeight = new FontWeightDesigner();
             BorderBrush = new BrushDesigner();
             HorizontalContentAlignment = HorizontalAlignment.Left;
         }
@@ -136,12 +131,12 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                FontStyle = new FontStyleDesigner { FontStyle = value.FontStyle};
+                FontStyle = new FontStyleDesigner { FontStyle = value.FontStyle };
                 FontSize = value.FontSize;
-                FontStretch =new FontStretchDesigner { FontStretch = value.FontStretch };
-                FontFamily = new FontFamilyDesigner { FontFamily= value.FontFamily };
-                Foreground = new BrushDesigner { Brush= value.Foreground};
-                Background =new BrushDesigner { Brush = value.Background};
+                FontStretch = new FontStretchDesigner { FontStretch = value.FontStretch };
+                FontFamily = new FontFamilyDesigner { FontFamily = value.FontFamily };
+                Foreground = new BrushDesigner { Brush = value.Foreground };
+                Background = new BrushDesigner { Brush = value.Background };
                 BorderThickness = new ThicknessDesigner { Thickness = value.BorderThickness };
                 IsTabStop = value.IsTabStop;
                 VerticalContentAlignment = value.VerticalAlignment;
@@ -154,10 +149,10 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(Control value)
         {
-            if (value!=null)
+            if (value != null)
             {
                 WriteTo((FrameworkElement)value);
-                value.FontStyle = FontStyle?.FontStyle??default;
+                value.FontStyle = FontStyle?.FontStyle ?? default;
                 value.FontStretch = FontStretch?.FontStretch ?? default;
                 value.FontSize = FontSize;
                 value.FontFamily = FontFamily?.FontFamily;

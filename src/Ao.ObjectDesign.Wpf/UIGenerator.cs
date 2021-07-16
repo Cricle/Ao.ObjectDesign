@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using Ao.ObjectDesign.ForView;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
-using Ao.ObjectDesign.ForView;
 
 namespace Ao.ObjectDesign.Wpf
 {
@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Wpf
 
         public IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> Generate(IEnumerable<IPropertyProxy> propertyProxies)
         {
-            var ctxs = propertyProxies.Select(x => new WpfForViewBuildContext
+            IEnumerable<WpfForViewBuildContext> ctxs = propertyProxies.Select(x => new WpfForViewBuildContext
             {
                 BindingMode = Mode,
                 Designer = Designer,
@@ -47,9 +47,9 @@ namespace Ao.ObjectDesign.Wpf
                 UpdateSourceTrigger = UpdateSourceTrigger,
                 PropertyProxy = x
             });
-            foreach (var item in ctxs)
+            foreach (WpfForViewBuildContext item in ctxs)
             {
-                var ui = Builder.Build(item);
+                FrameworkElement ui = Builder.Build(item);
                 yield return new UISpirit<FrameworkElement, WpfForViewBuildContext>(ui, item);
             }
         }

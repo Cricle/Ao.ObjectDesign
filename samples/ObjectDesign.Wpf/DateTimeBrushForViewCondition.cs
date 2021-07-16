@@ -1,8 +1,8 @@
 ﻿using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Conditions;
+using MahApps.Metro.Controls;
 using System;
 using System.Windows;
-using MahApps.Metro.Controls;
-using Ao.ObjectDesign.Wpf.Conditions;
 using System.Windows.Data;
 
 namespace ObjectDesign.Wpf

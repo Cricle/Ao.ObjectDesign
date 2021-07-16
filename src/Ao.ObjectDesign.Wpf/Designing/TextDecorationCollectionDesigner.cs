@@ -1,9 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -66,7 +63,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     return null;
                 }
-                var coll = new TextDecorationCollection();
+                TextDecorationCollection coll = new TextDecorationCollection();
                 if (isUnderline)
                 {
                     coll.Add(TextDecorations.Underline);
@@ -93,7 +90,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
                 else
                 {
-                    var set = new HashSet<TextDecoration>(value);
+                    HashSet<TextDecoration> set = new HashSet<TextDecoration>(value);
                     IsBaseline = TextDecorations.Baseline.All(x => set.Contains(x));
                     IsUnderline = TextDecorations.Underline.All(x => set.Contains(x));
                     IsOverLine = TextDecorations.OverLine.All(x => set.Contains(x));
