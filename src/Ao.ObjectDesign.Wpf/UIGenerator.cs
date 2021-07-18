@@ -6,7 +6,7 @@ using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public class UIGenerator : IUIGenerator<FrameworkElement, WpfForViewBuildContext>
+    public class UIGenerator : IWpfUIGenerator, IUIGenerator<FrameworkElement, WpfForViewBuildContext>
     {
         public UIGenerator()
             : this(new ForViewBuilder<FrameworkElement, WpfForViewBuildContext>())
@@ -37,21 +37,21 @@ namespace Ao.ObjectDesign.Wpf
 
         public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
 
-        public IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> Generate(IEnumerable<IPropertyProxy> propertyProxies)
+        IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> IUIGenerator<FrameworkElement, WpfForViewBuildContext>.Generate(IEnumerable<IPropertyProxy> propertyProxies)
         {
-            IEnumerable<WpfForViewBuildContext> ctxs = propertyProxies.Select(x => new WpfForViewBuildContext
+            return Generate(propertyProxies);
+        }
+
+        public IEnumerable<IWpfUISpirit> Generate(IEnumerable<IPropertyProxy> propertyProxies)
+        {
+            return propertyProxies.Select(x => new WpfForViewBuildContext
             {
                 BindingMode = Mode,
                 Designer = Designer,
                 ForViewBuilder = Builder,
                 UpdateSourceTrigger = UpdateSourceTrigger,
                 PropertyProxy = x
-            });
-            foreach (WpfForViewBuildContext item in ctxs)
-            {
-                FrameworkElement ui = Builder.Build(item);
-                yield return new UISpirit<FrameworkElement, WpfForViewBuildContext>(ui, item);
-            }
+            }).Select(x => new WpfUISpirit(Builder.Build(x), x));
         }
     }
 }

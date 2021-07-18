@@ -28,13 +28,13 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             };
             return binding;
         }
-        protected Binding CreateClrBinding(IPropertyVisitor visitor, BindingMode mode, UpdateSourceTrigger updateSourceTrigger)
+        protected Binding CreateClrBinding(WpfForViewBuildContext context)
         {
-            Binding binding = new Binding(nameof(PropertyVisitor.Value))
+            Binding binding = new Binding(context.PropertyProxy.PropertyInfo.Name)
             {
-                Source = visitor,
-                Mode = mode,
-                UpdateSourceTrigger = updateSourceTrigger,
+                Source = context.PropertyProxy.DeclaringInstance,
+                Mode = context.BindingMode,
+                UpdateSourceTrigger = context.UpdateSourceTrigger,
             };
             return binding;
         }
@@ -73,8 +73,8 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             }
             else
             {
-                IPropertyVisitor visitor = context.PropertyVisitor;
-                binding = CreateClrBinding(visitor, context.BindingMode, context.UpdateSourceTrigger);
+                //IPropertyVisitor visitor = context.PropertyVisitor;
+                binding = CreateClrBinding(context);
             }
             Bind(context, view, binding);
             return view;

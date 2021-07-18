@@ -9,54 +9,65 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Data
 {
-    public class BindingDrawing
+    public class BindingDrawing : IBindingDrawing
     {
-
-        /* 项目“Ao.ObjectDesign.Wpf (net461)”的未合并的更改
-        在此之前:
-                private readonly static Type TypeDependencyObject = typeof(DependencyObject);
-        在此之后:
-                private static readonly Type TypeDependencyObject = typeof(DependencyObject);
-        */
-
-        /* 项目“Ao.ObjectDesign.Wpf (net5.0-windows)”的未合并的更改
-        在此之前:
-                private readonly static Type TypeDependencyObject = typeof(DependencyObject);
-        在此之后:
-                private static readonly Type TypeDependencyObject = typeof(DependencyObject);
-        */
         private static readonly Type TypeDependencyObject = typeof(DependencyObject);
 
         public BindingDrawing(Type clrType)
-            : this(clrType, null)
+            : this(clrType, AttributeBindForGetter.Instance)
         {
         }
-        public BindingDrawing(Type clrType, Type dependencyObjectType)
+        public BindingDrawing(Type clrType, IBindForGetter bindForGetter)
+            : this(clrType, null, bindForGetter)
+        {
+        }
+        public BindingDrawing(Type clrType, Type dependencyObjectType, IBindForGetter bindForGetter)
         {
             ClrType = clrType ?? throw new ArgumentNullException(nameof(clrType));
             DependencyObjectType = dependencyObjectType;
+            BindForGetter = bindForGetter ?? throw new ArgumentNullException(nameof(bindForGetter));
         }
 
         public Type ClrType { get; }
 
         public Type DependencyObjectType { get; }
 
+        public IBindForGetter BindForGetter { get; }
+
         public IEnumerable<IBindingDrawingItem> Analysis()
         {
             return Analysis(ClrType, DependencyObjectType, null);
         }
-
         private IEnumerable<IBindingDrawingItem> Analysis(Type clrType, Type dependencyObjectType, string basePath)
         {
+            if (clrType is null)
+            {
+                throw new ArgumentNullException(nameof(clrType));
+            }
+
             Type mapFor = clrType.GetCustomAttribute<MappingForAttribute>()?.Type ?? dependencyObjectType;
             if (mapFor is null)
             {
-                throw new InvalidOperationException("Unknow mapping for type!");
+                throw new InvalidOperationException($"Unknow mapping for type from root type {clrType.FullName}!");
             }
 
-            IReadOnlyDictionary<string, DependencyPropertyDescriptor> dep = DependencyObjectHelper.GetDependencyPropertyDescriptors(mapFor);
-            IEnumerable<PropertyInfo> clrPropertys = clrType.GetProperties()
-                .Where(CanMap);
+            return Analysis(clrType, mapFor, dependencyObjectType, basePath);
+        }
+        private IEnumerable<IBindingDrawingItem> Analysis(Type clrType, Type mappingForType, Type dependencyObjectType, string basePath)
+        {
+            if (clrType is null)
+            {
+                throw new ArgumentNullException(nameof(clrType));
+            }
+
+            if (mappingForType is null)
+            {
+                throw new ArgumentNullException(nameof(mappingForType));
+            }
+
+
+            IReadOnlyDictionary<string, DependencyPropertyDescriptor> dep = GetDependencyPropertyDescriptorMap(mappingForType);
+            IEnumerable<PropertyInfo> clrPropertys = clrType.GetProperties().Where(CanMap);
             foreach (PropertyInfo item in clrPropertys)
             {
                 bool isUnfold = item.GetCustomAttribute<UnfoldMappingAttribute>() != null;
@@ -66,7 +77,7 @@ namespace Ao.ObjectDesign.Wpf.Data
                     DesignForAttribute innerDp = innerType.GetCustomAttribute<DesignForAttribute>();
                     if (innerDp != null)
                     {
-                        BindForAttribute mFor = item.GetCustomAttribute<BindForAttribute>();
+                        BindForAttribute mFor = BindForGetter.Get(item);
                         Type dpType = mFor?.DependencyObjectType ?? innerDp.Type;
                         if (TypeDependencyObject.IsAssignableFrom(dpType))
                         {
@@ -84,10 +95,10 @@ namespace Ao.ObjectDesign.Wpf.Data
             Type clrType,
             Type dependencyObjectType,
             PropertyInfo info,
-            IReadOnlyDictionary<string, DependencyPropertyDescriptor> d,
+            IReadOnlyDictionary<string, DependencyPropertyDescriptor> descriptorMap,
             string basePath = null)
         {
-            BindForAttribute mapFor = info.GetCustomAttribute<BindForAttribute>();
+            BindForAttribute mapFor = BindForGetter.Get(info);
             string name = mapFor?.ForName ?? info.Name;
             string depName = name;
             string path = info.Name;
@@ -102,19 +113,17 @@ namespace Ao.ObjectDesign.Wpf.Data
                 PropertyInfo = info,
                 Path = info.Name
             };
-            IReadOnlyDictionary<string, DependencyPropertyDescriptor> map = d;
+            IReadOnlyDictionary<string, DependencyPropertyDescriptor> map = descriptorMap;
 
             if (mapFor?.DependencyObjectType != null)
             {
-                map = DependencyObjectHelper.GetDependencyPropertyDescriptors(mapFor.DependencyObjectType);
+                map = GetDependencyPropertyDescriptorMap(mapFor.DependencyObjectType);
             }
 
             Debug.Assert(map != null);
             Debug.Assert(!string.IsNullOrEmpty(name));
 
-            if (info.PropertyType.IsClass &&
-                info.PropertyType != typeof(string) &&
-                info.GetCustomAttribute<NoInnerBindAttribute>() is null)
+            if (CanStepInnerBind(info))
             {
                 DesignForAttribute designFor = info.PropertyType.GetCustomAttribute<DesignForAttribute>();
                 if (designFor is null)
@@ -127,9 +136,9 @@ namespace Ao.ObjectDesign.Wpf.Data
                     return item;
                 }
                 item.Path = string.Concat(info.Name, ".", targetProperty.Name);
-                if (d != map)
+                if (descriptorMap != map)
                 {
-                    map = DependencyObjectHelper.GetDependencyPropertyDescriptors(designFor.Type);
+                    map = GetDependencyPropertyDescriptorMap(designFor.Type);
                 }
             }
 
@@ -139,6 +148,16 @@ namespace Ao.ObjectDesign.Wpf.Data
                 item.HasPropertyBind = true;
             }
             return item;
+        }
+        protected virtual IReadOnlyDictionary<string, DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
+        {
+            return DependencyObjectHelper.GetDependencyPropertyDescriptors(type);
+        }
+        protected virtual bool CanStepInnerBind(PropertyInfo info)
+        {
+            return info.PropertyType.IsClass &&
+                info.PropertyType != typeof(string) &&
+                info.GetCustomAttribute<NoInnerBindAttribute>() is null;
         }
         protected virtual bool CanMap(PropertyInfo info)
         {

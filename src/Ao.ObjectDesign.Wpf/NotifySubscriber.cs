@@ -23,16 +23,31 @@ namespace Ao.ObjectDesign.Wpf
         {
             return proxy.Type.GetInterface(INotifyPropertyChangeToTypeName) != null;
         }
-        public static IDisposable Subscribe(IEnumerable<WpfForViewBuildContextBase> ctxs, INotifyObjectManager mgr)
+        public static IDisposable Subscribe(IEnumerable<WpfForViewBuildContextBase> ctxs, 
+            INotifyObjectManager mgr, 
+            AttackModes attackMode)
         {
             SubscribeCallback cb = new SubscribeCallback { Disposed = EmptyAction };
             foreach (WpfForViewBuildContextBase item in ctxs)
             {
-                item.PropertyVisitorCreated += handler;
-                cb.Disposed += () =>
+                if ((attackMode & AttackModes.PropertyVisitor) != 0)
                 {
-                    item.PropertyVisitorCreated -= handler;
-                };
+                    item.PropertyVisitorCreated += handler;
+                    cb.Disposed += () =>
+                    {
+                        item.PropertyVisitorCreated -= handler;
+                    };
+                }
+                if ((attackMode & AttackModes.DeclareObject) != 0 &&
+                    item.PropertyProxy.DeclaringInstance is INotifyPropertyChangeTo decChangeTo)
+                {
+                    mgr.Attack(decChangeTo);
+                }
+                if ((attackMode & AttackModes.NativeProperty) != 0&&
+                    item.PropertyVisitor.Value is INotifyPropertyChangeTo propChangeTo)
+                {
+                    mgr.Attack(propChangeTo);
+                }
             }
             return cb;
 

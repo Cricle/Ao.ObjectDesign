@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
@@ -16,6 +17,7 @@ using ObjectDesign.Wpf.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -26,11 +28,6 @@ using System.Windows.Input;
 
 namespace ObjectDesign.Wpf
 {
-    public enum DesignLevels
-    {
-        UI,
-        Setting,
-    }
     public enum GenerateMode
     {
         Direct,
@@ -45,22 +42,19 @@ namespace ObjectDesign.Wpf
         {
             typeof(Window),typeof(ToolTip)
         };
-        private ForViewBuilder<FrameworkElement, WpfForViewBuildContext> builder;
-        private ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext> dtbuilder;
-        private ForViewDataTemplateSelector forViewDataTemplateSelector;
-        private IObjectDesigner objectDesigner;
+        private WpfObjectDesigner wpfObjectDesigner;
         private List<DesignMapping> settingTypes;
+        private ForViewDataTemplateSelector forViewDataTemplateSelector;
         private void Init()
         {
-            builder = new ForViewBuilder<FrameworkElement, WpfForViewBuildContext>();
-            builder.AddWpfCondition();
-            builder.Add(new DateTimeBrushForViewCondition());
-            objectDesigner = ObjectDesigner.Instance;
+            wpfObjectDesigner = new WpfObjectDesigner(true);
+            wpfObjectDesigner.UIBuilder.AddWpfCondition();
+            wpfObjectDesigner.UIBuilder.Add(new DateTimeBrushForViewCondition());
             settingTypes = KnowControlTypes.SettingTypes
                 .Where(x => !x.ClrType.IsAbstract && !x.UIType.IsAbstract && !ignoreTypes.Contains(x.UIType))
                 .ToList();
             settingTypes.Add(DesignMapping.FromMapping(typeof(MoveIdSetting)));
-            dtbuilder = new ForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext>
+            var coditions = new IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>[]
             {
                 new CornerDesignCondition(),
                 new EnumCondition(),
@@ -70,8 +64,10 @@ namespace ObjectDesign.Wpf
                 new PrimitiveCondition(),
                 new FontFamilyCondition()
             };
+            wpfObjectDesigner.DataTemplateBuilder.AddRange(coditions);
 
-            forViewDataTemplateSelector = new ForViewDataTemplateSelector(dtbuilder, objectDesigner);
+            forViewDataTemplateSelector = wpfObjectDesigner.CreateTemplateSelector();
+            sequencer = (Sequencer)wpfObjectDesigner.Sequencer;
         }
         public MainWindow()
         {
@@ -95,14 +91,14 @@ namespace ObjectDesign.Wpf
                 {
                     sequencer.Redo();
                 }
-                else if (e.Key == Key.S)
+                else if (e.Key == Key.J)
                 {
                     Type t = currentObject.GetType();
                     string str = DesignJsonHelper.SerializeObject(currentObject);
                     File.WriteAllText(t.Name + ".json", str);
                     this.ShowMessageAsync(string.Empty, "保存为json成功");
                 }
-                else if (e.Key == Key.T)
+                else if (e.Key == Key.B)
                 {
                     Type t = currentObject.GetType();
                     using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Create))
@@ -123,12 +119,8 @@ namespace ObjectDesign.Wpf
                     }
                     this.ShowMessageAsync(string.Empty, "保存为bson成功");
                 }
-                else if (e.Key == Key.P)
+                else if (e.Key == Key.Y)
                 {
-                    if (currentObject is ButtonSetting bs)
-                    {
-                        bs.BorderBrush.RadialGradientBrushDesigner.PenGradientStops.Add(new GradientStopDesigner());
-                    }
                     Type t = currentObject.GetType();
                     string str = DeisgnYamlSerializer.Serialize(currentObject);
                     File.WriteAllText(t.Name + ".yaml", str);
@@ -145,7 +137,7 @@ namespace ObjectDesign.Wpf
                 }
             }
         }
-        private CompiledSequencer sequencer = new CompiledSequencer();
+        private Sequencer sequencer;
         private INotifyPropertyChangeTo currentObject;
         private IDisposable disposable;
         private Dictionary<Type, INotifyPropertyChangeTo> uics = new Dictionary<Type, INotifyPropertyChangeTo>();
@@ -174,7 +166,7 @@ namespace ObjectDesign.Wpf
                     }
                     else
                     {
-                        obj = (INotifyPropertyChangeTo)Activator.CreateInstance(item.ClrType);
+                        obj = (INotifyPropertyChangeTo)ReflectionHelper.Create(item.ClrType);
                         if (obj is IDefaulted uis)
                         {
                             uis.SetDefault();
@@ -182,7 +174,7 @@ namespace ObjectDesign.Wpf
                     }
                     uics.Add(item.ClrType, obj);
                 }
-                DependencyObject ui = (DependencyObject)Activator.CreateInstance(item.UIType);
+                DependencyObject ui = (DependencyObject)ReflectionHelper.Create(item.UIType);
                 IEnumerable<BindingUnit> drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay, UpdateSourceTrigger.Default);
                 if (ui is FrameworkElement fe)
                 {
@@ -192,49 +184,25 @@ namespace ObjectDesign.Wpf
                 {
                     fce.SetBindings(drawing);
                 }
-                if (ui is CheckBox cb)
-                {
-                    cb.Content = "hewoiuguidasvfbsa";
-                }
                 currentObject = obj;
-                IObjectProxy proxy = null;
-                if (level == DesignLevels.Setting)
-                {
-                    proxy = objectDesigner.CreateProxy(obj, obj.GetType());
-                }
-                else if (level == DesignLevels.UI)
-                {
-                    proxy = objectDesigner.CreateProxy(ui, ui.GetType());
-                }
                 if (mode == GenerateMode.DataTemplate)
                 {
-                    WpfTemplateForViewBuildContext[] ctxs = NotifySubscriber.Lookup(proxy).Select(x => new WpfTemplateForViewBuildContext
-                    {
-                        Designer = ObjectDesigner.Instance,
-                        ForViewBuilder = dtbuilder,
-                        PropertyProxy = x,
-                        BindingMode = BindingMode.TwoWay,
-                        UpdateSourceTrigger = UpdateSourceTrigger.Default,
-                        UseNotifyVisitor = true
-                    }).Where(x => dtbuilder.Any(y => y.CanBuild(x))).ToArray();
-                    disposable = NotifySubscriber.Subscribe(ctxs, sequencer);
+                    var res = wpfObjectDesigner.BuildDataTemplate(obj, AttackModes.VisitorAndDeclared);
+                    disposable = res.Subjected;
                     if (Design.ItemTemplateSelector is null)
                     {
                         Design.ItemTemplateSelector = forViewDataTemplateSelector;
                     }
-                    foreach (WpfTemplateForViewBuildContext prop in ctxs.Where(x => x.PropertyProxy.DeclaringInstance == proxy.Instance))
+                    foreach (WpfTemplateForViewBuildContext prop in res.GetEqualsInstanceContexts(obj))
                     {
                         designs.Add(prop);
                     }
                 }
                 else
                 {
-                    UIGenerator uig = new UIGenerator(builder);
-                    IEnumerable<IPropertyProxy> props = proxy.GetPropertyProxies();
-                    IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> ds = uig.Generate(props);
-                    IEnumerable<IUISpirit<FrameworkElement, WpfForViewBuildContext>> ctxs = ds.Where(x => x.View != null);
-                    disposable = NotifySubscriber.Subscribe(ctxs.Select(x => x.Context), sequencer);
-                    foreach (IUISpirit<FrameworkElement, WpfForViewBuildContext> ctx in ctxs)
+                    var res = wpfObjectDesigner.BuildUI(obj, AttackModes.NativeAndDeclared);
+                    disposable = res.Subjected;
+                    foreach (IWpfUISpirit ctx in res.Contexts)
                     {
                         Grid grid = new Grid();
                         grid.ColumnDefinitions.Add(new ColumnDefinition

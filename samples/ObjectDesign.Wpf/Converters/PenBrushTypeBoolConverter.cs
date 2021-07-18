@@ -8,6 +8,8 @@ namespace ObjectDesign.Wpf.Converters
 {
     public class PenBrushTypeVisibilityConverter : IValueConverter
     {
+        public static readonly PenBrushTypeVisibilityConverter Instance = new PenBrushTypeVisibilityConverter();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is PenBrushTypes input && parameter is PenBrushTypes target)
@@ -28,6 +30,8 @@ namespace ObjectDesign.Wpf.Converters
     }
     public class PenBrushTypeBoolConverter : IValueConverter
     {
+        public static readonly PenBrushTypeBoolConverter Instance = new PenBrushTypeBoolConverter();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is PenBrushTypes input && parameter is PenBrushTypes target)

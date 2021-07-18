@@ -7,6 +7,8 @@ namespace ObjectDesign.Wpf.Converters
 {
     public class PropertyProxyNameConverter : IValueConverter
     {
+        public static readonly PropertyProxyNameConverter Instance = new PropertyProxyNameConverter();
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is IPropertyProxy proxy)

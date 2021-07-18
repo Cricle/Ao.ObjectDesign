@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -52,7 +53,21 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        public virtual bool HasTextDecorations => isUnderline || isOverLine || isStrikethrough || isBaseline;
+        public virtual bool HasTextDecorations
+        {
+            get => isUnderline || isOverLine || isStrikethrough || isBaseline;
+            set
+            {
+                if (value)
+                {
+                    throw new NotSupportedException($"HasTextDecorations setter only accept false");
+                }
+                else
+                {
+                    IsUnderline = IsOverLine = IsStrikethrough = IsBaseline = false;
+                }
+            }
+        }
 
         [PlatformTargetProperty]
         public virtual TextDecorationCollection TextDecorationCollection

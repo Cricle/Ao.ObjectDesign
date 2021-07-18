@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign.Controls
 
         public void WriteTo(CheckBox value)
         {
-            Apply((CheckBox)value);
+            Apply((ToggleButton)value);
         }
     }
 }

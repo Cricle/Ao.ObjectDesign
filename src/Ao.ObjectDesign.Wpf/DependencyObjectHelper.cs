@@ -51,10 +51,13 @@ namespace Ao.ObjectDesign.Wpf
             }
             ThrowIfTypeNotBaseOnDependencyObject(type);
 
-            return dependencyProperties.GetOrAdd(type,
-                x => GetPropertyDescriptors(type)
+            return dependencyProperties.GetOrAdd(type, GetDependencyPropertyDescriptorMap);
+        }
+        private static Dictionary<string,DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
+        {
+            return GetPropertyDescriptors(type)
                 .Select(t => DependencyPropertyDescriptor.FromProperty(t))
-                .Where(t => t != null).ToDictionary(y => y.Name));
+                .Where(t => t != null).ToDictionary(y => y.Name);
         }
         public static IEnumerable<DependencyProperty> GetDependencyProperties(Type type)
         {

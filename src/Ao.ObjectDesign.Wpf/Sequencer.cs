@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Ao.ObjectDesign.Wpf
 {
     [DebuggerDisplay("Undos = {Undos.Count}, Redos = {Redos.Count}, ListeningCount = {ListeningCount}")]
-    public class Sequencer : NotifyObjectManager, ISequencer
+    public class Sequencer : NotifyObjectManager, ISequencer, INotifyableSequencer, IUndoRedo
     {
         public Sequencer()
         {

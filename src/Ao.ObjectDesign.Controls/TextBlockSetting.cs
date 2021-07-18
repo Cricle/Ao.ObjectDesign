@@ -187,7 +187,7 @@ namespace Ao.ObjectDesign.Controls
                 value.FontWeight = fontWeight?.FontWeight ?? default;
                 value.FontStyle = fontStyle?.FontStyle ?? default;
                 value.FontFamily = fontFamily?.FontFamily;
-                value.Text = text; ;
+                value.Text = text;
                 value.FontStretch = fontStretch?.FontStretch ?? default;
                 value.BaselineOffset = baselineOffset;
                 value.FontSize = fontSize;

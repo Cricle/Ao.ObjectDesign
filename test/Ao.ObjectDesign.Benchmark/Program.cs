@@ -9,7 +9,6 @@ namespace Ao.ObjectDesign.Benchmark
     {
         static void Main(string[] args)
         {
-            //new Benchmarks().GetSetCompiled();
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run();
         }
     }

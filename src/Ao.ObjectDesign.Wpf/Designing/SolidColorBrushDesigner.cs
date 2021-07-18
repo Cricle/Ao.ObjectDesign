@@ -32,7 +32,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
         private void OnColorPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaiseSolidColorBrushChanged();
+            if (e.PropertyName == nameof(ColorDesigner.Color))
+            {
+                RaiseSolidColorBrushChanged();
+            }
         }
 
         [PlatformTargetProperty]

@@ -1,13 +1,16 @@
 ﻿using Ao.ObjectDesign.ForView;
+using System;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Conditions
 {
     public abstract class TemplateCondition<T> : TemplateCondition
     {
+        private readonly Type targetType = typeof(T);
+
         public override bool CanBuild(WpfTemplateForViewBuildContext context)
         {
-            return context.PropertyProxy.Type == typeof(T);
+            return context.PropertyProxy.Type == targetType;
         }
     }
     public abstract class TemplateCondition : IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>

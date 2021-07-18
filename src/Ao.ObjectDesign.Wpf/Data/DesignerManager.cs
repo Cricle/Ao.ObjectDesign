@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf.Data
             BindingMode mode,
             UpdateSourceTrigger updateSourceTrigger)
         {
-            BindingDrawing drawing = new BindingDrawing(clr.GetType(), @object.GetType());
+            BindingDrawing drawing = new BindingDrawing(clr.GetType(), @object.GetType(),AttributeBindForGetter.Instance);
             return CreateBindings(drawing, clr, mode, updateSourceTrigger);
         }
         public static IEnumerable<BindingUnit> CreateBindings(BindingDrawing drawing,

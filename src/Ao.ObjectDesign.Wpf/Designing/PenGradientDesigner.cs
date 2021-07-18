@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(IEnumerable<GradientStop>))]
     public abstract class GradientBrushDesigner : NotifyableObject, IMiddlewareDesigner<GradientBrush>
     {
-        protected static readonly IReadOnlyHashSet<string> IncludePropertyNames = new ReadOnlyHashSet<string>(new HashSet<string>
+        protected static readonly IReadOnlyHashSet<string> IncludePropertyNames = new ReadOnlyHashSet<string>(new string[]
         {
             nameof(Opacity),
             nameof(SpreadMethod),
