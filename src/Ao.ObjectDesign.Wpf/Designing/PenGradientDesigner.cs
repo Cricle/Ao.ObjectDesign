@@ -134,7 +134,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         public virtual void Apply(GradientBrush brush)
         {
-            PenGradientStops.Clear();
+            PenGradientStops?.Clear();
             if (brush is null)
             {
                 ColorInterpolationMode = ColorInterpolationMode.SRgbLinearInterpolation;

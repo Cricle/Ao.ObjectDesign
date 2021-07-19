@@ -9,6 +9,7 @@ namespace Ao.ObjectDesign.Wpf
 {
     public static class DependencyObjectHelper
     {
+        private static readonly Type DependencyObjectType = typeof(DependencyObject);
         private static readonly Attribute[] dependencyAttributes = new Attribute[] { new PropertyFilterAttribute(PropertyFilterOptions.All) };
 
         private static readonly ConcurrentDictionary<Type, Dictionary<string, DependencyPropertyDescriptor>> dependencyProperties =
@@ -16,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf
 
         private static void ThrowIfTypeNotBaseOnDependencyObject(Type type)
         {
-            if (!typeof(DependencyObject).IsAssignableFrom(type))
+            if (!DependencyObjectType.IsAssignableFrom(type))
             {
                 throw new InvalidCastException($"Type {type} can't case to DependencyObject");
             }
@@ -30,7 +31,7 @@ namespace Ao.ObjectDesign.Wpf
             ThrowIfTypeNotBaseOnDependencyObject(type);
 
             IEnumerable<PropertyDescriptor> ret = Enumerable.Empty<PropertyDescriptor>();
-            Type depObjType = typeof(DependencyObject);
+            Type depObjType = DependencyObjectType;
             Type t = type;
             while (t != depObjType)
             {

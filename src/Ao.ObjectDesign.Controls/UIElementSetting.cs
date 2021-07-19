@@ -2,12 +2,14 @@
 using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System;
+using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Controls
 {
     [MappingFor(typeof(UIElement))]
-    public class UIElementSetting : NotifyableObject, IMiddlewareDesigner<UIElement>
+    public class UIElementSetting : NotifyableObject, IMiddlewareDesigner<UIElement>, IMiddlewareDesigner, ICloneable
     {
         private string uid;
         private Visibility visibility;
@@ -34,13 +36,14 @@ namespace Ao.ObjectDesign.Controls
             get => opacityMask;
             set => Set(ref opacityMask, value);
         }
-
+        [DefaultValue(false)]
         public virtual bool AllowDrop
         {
             get => allowDrop;
             set => Set(ref allowDrop, value);
         }
 
+        [DefaultValue(null)]
         [TransferOrigin(typeof(object))]
         public virtual string Tag
         {
@@ -48,54 +51,63 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref tag, value);
         }
 
+        [DefaultValue(null)]
         public virtual string Uid
         {
             get => uid;
             set => Set(ref uid, value);
         }
 
+        [DefaultValue(1d)]
         public virtual double Opacity
         {
             get => opacity;
             set => Set(ref opacity, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool Focusable
         {
             get => focusable;
             set => Set(ref focusable, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsManipulationEnabled
         {
             get => isManipulationEnabled;
             set => Set(ref isManipulationEnabled, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool IsHitTestVisible
         {
             get => isHitTestVisible;
             set => Set(ref isHitTestVisible, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool IsEnabled
         {
             get => isEnabled;
             set => Set(ref isEnabled, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool SnapsToDevicePixels
         {
             get => snapsToDevicePixels;
             set => Set(ref snapsToDevicePixels, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool ClipToBounds
         {
             get => clipToBounds;
             set => Set(ref clipToBounds, value);
         }
 
+        [DefaultValue(Visibility.Visible)]
         public virtual Visibility Visibility
         {
             get => visibility;
@@ -138,22 +150,59 @@ namespace Ao.ObjectDesign.Controls
                 }
             }
         }
-        public virtual void SetDefault()
+        protected void CheckType(object value)
         {
-            Uid = null;
-            Visibility = Visibility.Visible;
-            ClipToBounds = false;
-            SnapsToDevicePixels = false;
-            IsEnabled = true;
-            IsHitTestVisible = true;
-            IsManipulationEnabled = false;
-            Focusable = false;
-            AllowDrop = false;
-            Opacity = 1;
-            OpacityMask = new BrushDesigner();
-            RenderTransformOrigin = new PointDesigner();
+            if (!GetType().IsInstanceOfType(value))
+            {
+                var attr = GetType().GetCustomAttribute<MappingForAttribute>();
+                if (attr is null)
+                {
+                    throw new InvalidOperationException($"Type {GetType().FullName} no tag MappingForAttribute");
+                }
+                if (!attr.Type.IsInstanceOfType(value))
+                {
+                    throw new InvalidOperationException($"Type {value.GetType().FullName} can't convert to {attr.Type.FullName}");
+                }
+            }
+        }
+        public void Apply(object value)
+        {
+            if (value is null)
+            {
+                SetDefault();
+            }
+            else
+            {
+                CheckType(value);
+                FlatReflectionHelper.SpecularMapping(value, this);
+            }
         }
 
+        //public virtual void SetDefault()
+        //{
+        //    ReflectionHelper.SetDefault(this, SetDefaultOptions.ClassGenerateNew);
+        //}
+
+        public void WriteTo(UIElementSetting value)
+        {
+            if (value is null)
+            {
+                SetDefault();
+            }
+            else
+            {
+                FlatReflectionHelper.SpecularMapping(value, this);
+            }
+        }
+
+        public void WriteTo(object value)
+        {
+            if (value != null)
+            {
+                CheckType(value);
+                FlatReflectionHelper.SpecularMapping(this, value);
+            }
+        }
         public virtual void WriteTo(UIElement value)
         {
             if (value != null)
@@ -172,10 +221,33 @@ namespace Ao.ObjectDesign.Controls
                 value.RenderTransformOrigin = renderTransformOrigin?.Point ?? default;
             }
         }
-
-        public void WriteTo(UIElementSetting value)
+        public virtual void SetDefault()
         {
-            throw new NotImplementedException();
+            Uid = null;
+            Visibility = Visibility.Visible;
+            ClipToBounds = false;
+            SnapsToDevicePixels = false;
+            IsEnabled = true;
+            IsHitTestVisible = true;
+            IsManipulationEnabled = false;
+            Focusable = false;
+            AllowDrop = false;
+            Opacity = 1;
+            OpacityMask = new BrushDesigner();
+            RenderTransformOrigin = new PointDesigner();
+        }
+        public void SetDefaultReflection()
+        {
+            ReflectionHelper.SetDefault(this, SetDefaultOptions.Deep | SetDefaultOptions.ClassGenerateNew);
+        }
+
+        public virtual object Clone()
+        {
+            return ReflectionHelper.Clone(GetType(), this, GetCloneIgnoreTypes());
+        }
+        protected virtual IReadOnlyHashSet<Type> GetCloneIgnoreTypes()
+        {
+            return DesigningHelpers.KnowDesigningTypes;
         }
     }
 }

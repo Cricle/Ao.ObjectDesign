@@ -1,5 +1,7 @@
-﻿using Ao.ObjectDesign.Wpf.Annotations;
+﻿using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,13 +13,15 @@ namespace Ao.ObjectDesign.Controls
     {
         private Stretch stretch;
         private StretchDirection stretchDirection;
-
+        
+        [DefaultValue(StretchDirection.Both)]
         public virtual StretchDirection StretchDirection
         {
             get => stretchDirection;
             set => Set(ref stretchDirection, value);
         }
 
+        [DefaultValue(Stretch.None)]
         public virtual Stretch Stretch
         {
             get => stretch;
@@ -26,9 +30,7 @@ namespace Ao.ObjectDesign.Controls
 
         public override void SetDefault()
         {
-            base.SetDefault();
-            Stretch = Stretch.None;
-            StretchDirection = StretchDirection.Both;
+            ReflectionHelper.SetDefault(this, SetDefaultOptions.IgnoreNotNull| SetDefaultOptions.Deep| SetDefaultOptions.ClassGenerateNew);
         }
 
         public void Apply(Viewbox value)
@@ -39,9 +41,10 @@ namespace Ao.ObjectDesign.Controls
             }
             else
             {
-                Apply((FrameworkElement)value);
-                Stretch = value.Stretch;
-                StretchDirection = value.StretchDirection;
+                FlatReflectionHelper.SpecularMapping(value, this);
+                //Apply((FrameworkElement)value);
+                //Stretch = value.Stretch;
+                //StretchDirection = value.StretchDirection;
             }
         }
 
@@ -49,9 +52,10 @@ namespace Ao.ObjectDesign.Controls
         {
             if (value != null)
             {
-                WriteTo((FrameworkElement)value);
-                value.Stretch = Stretch;
-                value.StretchDirection = StretchDirection;
+                FlatReflectionHelper.SpecularMapping(this,value);
+                //WriteTo((FrameworkElement)value);
+                //value.Stretch = Stretch;
+                //value.StretchDirection = StretchDirection;
             }
         }
     }

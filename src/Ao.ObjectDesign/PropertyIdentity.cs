@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public class PropertyIdentity : IEquatable<PropertyIdentity>
     {
@@ -33,11 +33,7 @@ namespace Ao.ObjectDesign.Wpf
         }
         public override int GetHashCode()
         {
-#if NET5_0
-            return HashCode.Combine(Type, PropertyName);
-#else
             return Type.GetHashCode() ^ PropertyName.GetHashCode();
-#endif
         }
     }
 }

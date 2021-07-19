@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -11,12 +12,14 @@ namespace Ao.ObjectDesign.Controls
         private bool isDefault;
         private bool isCancel;
 
+        [DefaultValue(false)]
         public virtual bool IsDefault
         {
             get => isDefault;
             set => Set(ref isDefault, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsCancel
         {
             get => isCancel;

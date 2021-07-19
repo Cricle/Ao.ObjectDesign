@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -14,23 +15,27 @@ namespace Ao.ObjectDesign.Controls
         private double maximum;
         private double minimum;
 
+        [DefaultValue(0d)]
         public virtual double Minimum
         {
             get => minimum;
             set => Set(ref minimum, value);
         }
+        [DefaultValue(100d)]
         public virtual double Maximum
         {
             get => maximum;
             set => Set(ref maximum, value);
         }
 
+        [DefaultValue(0d)]
         public virtual double Value
         {
             get => value;
             set => Set(ref this.value, value);
         }
 
+        [DefaultValue(0.1d)]
         public virtual double SmallChange
         {
             get => smallChange;
@@ -38,6 +43,7 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(1d)]
         public virtual double LargeChange
         {
             get => largeChange;

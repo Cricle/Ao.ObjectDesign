@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -44,13 +45,13 @@ namespace Ao.ObjectDesign.Controls
             get => fontWeight;
             set => Set(ref fontWeight, value);
         }
-
+        [DefaultValue(12d)]
         public virtual double FontSize
         {
             get => fontSize;
             set => Set(ref fontSize, value);
         }
-
+        [DefaultValue(HorizontalAlignment.Left)]
         public virtual HorizontalAlignment HorizontalContentAlignment
         {
             get => horizontalContentAlignment;
@@ -69,18 +70,21 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref padding, value);
         }
 
+        [DefaultValue(int.MaxValue)]
         public virtual int TabIndex
         {
             get => tabIndex;
             set => Set(ref tabIndex, value);
         }
 
+        [DefaultValue(VerticalAlignment.Top)]
         public virtual VerticalAlignment VerticalContentAlignment
         {
             get => verticalContentAlignment;
             set => Set(ref verticalContentAlignment, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool IsTabStop
         {
             get => isTabStop;

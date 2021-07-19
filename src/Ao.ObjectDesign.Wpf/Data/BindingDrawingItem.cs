@@ -18,6 +18,10 @@ namespace Ao.ObjectDesign.Wpf.Data
 
         public bool HasPropertyBind { get; set; }
 
+        public Type ConverterType { get; set; }
+
+        public object ConverterParamter { get; set; }
+
         public override string ToString()
         {
             return $"{{Property:{PropertyInfo.Name}, DependencyProperty:{DependencyProperty.Name}, Path:{Path}, HasBind:{HasPropertyBind}}}";

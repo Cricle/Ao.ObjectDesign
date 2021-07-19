@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Wpf
 {
-    public class NotifySubscriber
+    public static class NotifySubscriber
     {
         private static readonly string INotifyPropertyChangeToTypeName = typeof(INotifyPropertyChangeTo).FullName;
         private static Action EmptyAction => () => { };

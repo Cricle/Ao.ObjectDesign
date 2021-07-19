@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf.Data
             BindingMode mode,
             UpdateSourceTrigger updateSourceTrigger)
         {
-            BindingDrawing drawing = new BindingDrawing(clr.GetType(), @object.GetType(),AttributeBindForGetter.Instance);
+            BindingDrawing drawing = new BindingDrawing(clr.GetType(), @object.GetType(), AttributeBindForGetter.Instance);
             return CreateBindings(drawing, clr, mode, updateSourceTrigger);
         }
         public static IEnumerable<BindingUnit> CreateBindings(BindingDrawing drawing,
@@ -31,12 +31,23 @@ namespace Ao.ObjectDesign.Wpf.Data
             UpdateSourceTrigger updateSourceTrigger)
         {
             return drawing.Analysis().Where(x => x.HasPropertyBind)
-                .Select(x => new BindingUnit(new Binding(x.Path)
+                .Select(x =>
                 {
-                    Source = source,
-                    Mode = mode,
-                    UpdateSourceTrigger = updateSourceTrigger
-                }, x.DependencyProperty));
+                    var binding = new Binding(x.Path)
+                    {
+                        Source = source,
+                        Mode = mode,
+                        UpdateSourceTrigger = updateSourceTrigger
+                    };
+                    if (x.ConverterType != null)
+                    {
+                        var converter = (IValueConverter)ReflectionHelper.Create(x.ConverterType);
+                        binding.Converter = converter;
+                        binding.ConverterParameter = x.ConverterParamter;
+                    }
+                    var unit = new BindingUnit(binding, x.DependencyProperty);
+                    return unit;
+                });
         }
     }
 }

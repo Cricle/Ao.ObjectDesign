@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Shapes;
 
 namespace Ao.ObjectDesign.Controls
@@ -10,11 +11,13 @@ namespace Ao.ObjectDesign.Controls
         private double radiusX;
         private double radiusY;
 
+        [DefaultValue(0d)]
         public virtual double RadiusX
         {
             get => radiusX;
             set => Set(ref radiusX, value);
         }
+        [DefaultValue(0d)]
         public virtual double RadiusY
         {
             get => radiusY;

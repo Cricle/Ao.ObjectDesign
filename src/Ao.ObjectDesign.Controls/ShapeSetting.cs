@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -21,12 +22,14 @@ namespace Ao.ObjectDesign.Controls
         private PenLineCap strokeDashCap;
         private PenLineJoin strokeLineJoin;
 
+        [DefaultValue(PenLineJoin.Miter)]
         public virtual PenLineJoin StrokeLineJoin
         {
             get => strokeLineJoin;
             set => Set(ref strokeLineJoin, value);
         }
 
+        [DefaultValue(PenLineCap.Flat)]
         public virtual PenLineCap StrokeDashCap
         {
             get => strokeDashCap;
@@ -39,18 +42,21 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref strokeDashArray, value);
         }
 
+        [DefaultValue(0)]
         public virtual double StrokeMiterLimit
         {
             get => strokeMiterLimit;
             set => Set(ref strokeMiterLimit, value);
         }
 
+        [DefaultValue(Stretch.None)]
         public virtual Stretch Stretch
         {
             get => stretch;
             set => Set(ref stretch, value);
         }
 
+        [DefaultValue(0)]
         public virtual double StrokeDashOffset
         {
             get => strokeDashOffset;
@@ -63,6 +69,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref fill, value);
         }
 
+        [DefaultValue(1)]
         public virtual double StrokeThickness
         {
             get => strokeThickness;
@@ -70,11 +77,13 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(PenLineCap.Flat)]
         public virtual PenLineCap StrokeEndLineCap
         {
             get => strokeEndLineCap;
             set => Set(ref strokeEndLineCap, value);
         }
+        [DefaultValue(PenLineCap.Flat)]
         public virtual PenLineCap StrokeStartLineCap
         {
             get => strokeStartLineCap;

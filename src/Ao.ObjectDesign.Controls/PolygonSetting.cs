@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -11,6 +12,7 @@ namespace Ao.ObjectDesign.Controls
         private PointCollectionDesigner points;
         private FillRule fillRule;
 
+        [DefaultValue(FillRule.EvenOdd)]
         public virtual FillRule FillRule
         {
             get => fillRule;

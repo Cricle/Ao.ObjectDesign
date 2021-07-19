@@ -2,7 +2,6 @@
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
@@ -10,8 +9,6 @@ using Ao.ObjectDesign.Wpf.Xml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
 using ObjectDesign.Wpf.Controls;
 using ObjectDesign.Wpf.Views;
 using System;
@@ -19,12 +16,16 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Markup;
+using System.Xaml;
+using System.Xml;
 
 namespace ObjectDesign.Wpf
 {
@@ -32,6 +33,32 @@ namespace ObjectDesign.Wpf
     {
         Direct,
         DataTemplate
+    }
+    public class Objx
+    {
+        public string Name { get; set; }
+
+        public string Name2 { get; set; }
+
+        public int Age { get; set; }
+    }
+    public class MyXamlObjectWriter : XamlObjectWriter
+    {
+        public MyXamlObjectWriter(XamlSchemaContext schemaContext) : base(schemaContext)
+        {
+        }
+
+        public MyXamlObjectWriter(XamlSchemaContext schemaContext, XamlObjectWriterSettings settings) : base(schemaContext, settings)
+        {
+        }
+        protected override bool OnSetValue(object eventSender, XamlMember member, object value)
+        {
+            if (member.Type.UnderlyingType==typeof(int))
+            {
+                return false;
+            }
+            return base.OnSetValue(eventSender, member, value);
+        }
     }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -64,6 +91,8 @@ namespace ObjectDesign.Wpf
                 new PrimitiveCondition(),
                 new FontFamilyCondition()
             };
+
+
             wpfObjectDesigner.DataTemplateBuilder.AddRange(coditions);
 
             forViewDataTemplateSelector = wpfObjectDesigner.CreateTemplateSelector();
@@ -94,7 +123,7 @@ namespace ObjectDesign.Wpf
                 else if (e.Key == Key.J)
                 {
                     Type t = currentObject.GetType();
-                    string str = DesignJsonHelper.SerializeObject(currentObject);
+                    string str = DesignJsonHelper.Serialize(currentObject);
                     File.WriteAllText(t.Name + ".json", str);
                     this.ShowMessageAsync(string.Empty, "保存为json成功");
                 }
@@ -102,20 +131,12 @@ namespace ObjectDesign.Wpf
                 {
                     Type t = currentObject.GetType();
                     using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Create))
-                    using (BsonDataWriter writer = new BsonDataWriter(fs))
                     {
-                        JsonSerializer serializer = new JsonSerializer();
-                        JsonSerializerSettings setting = DesignJsonHelper.CreateSerializeSettings();
-                        serializer.ContractResolver = setting.ContractResolver;
-                        serializer.Serialize(writer, currentObject);
+                        DesignBsonHelper.Serialize(fs, currentObject, t);
                     }
                     using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Open))
-                    using (BsonDataReader reader = new BsonDataReader(fs))
                     {
-                        JsonSerializer serializer = new JsonSerializer();
-                        JsonSerializerSettings setting = DesignJsonHelper.CreateSerializeSettings();
-                        serializer.ContractResolver = setting.ContractResolver;
-                        object obj = serializer.Deserialize(reader, t);
+                        var obj=DesignBsonHelper.Deserialize(fs, t);
                     }
                     this.ShowMessageAsync(string.Empty, "保存为bson成功");
                 }
@@ -135,13 +156,13 @@ namespace ObjectDesign.Wpf
                     File.WriteAllText(t.Name + ".xml", s);
                     this.ShowMessageAsync(string.Empty, "保存为xml成功");
                 }
+                //DesignerSerializationVisibilityAttribute
             }
         }
         private Sequencer sequencer;
         private INotifyPropertyChangeTo currentObject;
         private IDisposable disposable;
         private Dictionary<Type, INotifyPropertyChangeTo> uics = new Dictionary<Type, INotifyPropertyChangeTo>();
-        private DesignLevels level = DesignLevels.Setting;
         private GenerateMode mode = GenerateMode.Direct;
         private SilentObservableCollection<object> designs = new SilentObservableCollection<object>();
         private void Providing_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -157,12 +178,11 @@ namespace ObjectDesign.Wpf
                 sequencer.CleanAllRecords();
                 if (!uics.TryGetValue(item.ClrType, out obj))
                 {
-                    Type t = item.ClrType;
-                    string fn = t.Name + ".json";
+                    string fn = item.ClrType.Name + ".json";
                     if (File.Exists(fn))
                     {
                         string str = File.ReadAllText(fn);
-                        obj = (INotifyPropertyChangeTo)DesignJsonHelper.DeserializeObject(str, t);
+                        obj = (INotifyPropertyChangeTo)DesignJsonHelper.Deserialize(str, item.ClrType);
                     }
                     else
                     {
@@ -232,14 +252,6 @@ namespace ObjectDesign.Wpf
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is ComboBoxItem item && item.Tag is GenerateMode mode)
             {
                 this.mode = mode;
-            }
-        }
-
-        private void ComboBox_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is ComboBoxItem item && item.Tag is DesignLevels level)
-            {
-                this.level = level;
             }
         }
     }

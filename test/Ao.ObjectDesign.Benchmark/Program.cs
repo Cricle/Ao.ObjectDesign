@@ -23,7 +23,7 @@ namespace Ao.ObjectDesign.Benchmark
         [Benchmark]
         public void CloneSettings()
         {
-            ReflectionHelper.CloneIgnoreDesigners(setting);
+            ReflectionHelper.Clone(setting);
         }
     }
     class Student

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -12,18 +13,21 @@ namespace Ao.ObjectDesign.Controls
         private bool? isSynchronizedWithCurrentItem;
         private string selectedValuePath;
 
+        [DefaultValue(null)]
         public virtual string SelectedValuePath
         {
             get => selectedValuePath;
             set => Set(ref selectedValuePath, value);
         }
 
+        [DefaultValue(null)]
         public virtual bool? IsSynchronizedWithCurrentItem
         {
             get => isSynchronizedWithCurrentItem;
             set => Set(ref isSynchronizedWithCurrentItem, value);
         }
 
+        [DefaultValue(-1)]
         public virtual int SelectedIndex
         {
             get => selectedIndex;

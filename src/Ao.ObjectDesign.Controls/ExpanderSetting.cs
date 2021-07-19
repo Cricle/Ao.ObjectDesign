@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
@@ -10,12 +11,14 @@ namespace Ao.ObjectDesign.Controls
         private ExpandDirection expandDirection;
         private bool isExpanded;
 
+        [DefaultValue(false)]
         public virtual bool IsExpanded
         {
             get => isExpanded;
             set => Set(ref isExpanded, value);
         }
 
+        [DefaultValue(ExpandDirection.Down)]
         public virtual ExpandDirection ExpandDirection
         {
             get => expandDirection;

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -11,12 +12,14 @@ namespace Ao.ObjectDesign.Controls
         private bool isIndeterminate;
         private Orientation orientation;
 
+        [DefaultValue(false)]
         public virtual bool IsIndeterminate
         {
             get => isIndeterminate;
             set => Set(ref isIndeterminate, value);
         }
 
+        [DefaultValue(Orientation.Horizontal)]
         public virtual Orientation Orientation
         {
             get => orientation;

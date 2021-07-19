@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls.Primitives;
 
 namespace Ao.ObjectDesign.Controls
@@ -10,12 +11,13 @@ namespace Ao.ObjectDesign.Controls
         private bool isThreeState;
         private bool? isChecked;
 
+        [DefaultValue(false)]
         public virtual bool? IsChecked
         {
             get => isChecked;
             set => Set(ref isChecked, value);
         }
-
+        [DefaultValue(false)]
         public virtual bool IsThreeState
         {
             get => isThreeState;

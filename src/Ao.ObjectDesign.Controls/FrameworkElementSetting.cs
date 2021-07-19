@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Controls
@@ -30,6 +31,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref cursor, value);
         }
 
+        [DefaultValue(0d)]
         public virtual double MinHeight
         {
             get => minHeight;
@@ -39,6 +41,7 @@ namespace Ao.ObjectDesign.Controls
             }
         }
 
+        [DefaultValue(double.PositiveInfinity)]
         public virtual double MaxHeight
         {
             get => maxHeight;
@@ -49,6 +52,7 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(double.PositiveInfinity)]
         public virtual double MaxWidth
         {
             get => maxWidth;
@@ -58,6 +62,7 @@ namespace Ao.ObjectDesign.Controls
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double MinWidth
         {
             get => minWidth;
@@ -67,6 +72,7 @@ namespace Ao.ObjectDesign.Controls
             }
         }
 
+        [DefaultValue(double.NaN)]
         public virtual double Height
         {
             get => height;
@@ -75,6 +81,7 @@ namespace Ao.ObjectDesign.Controls
                 Set(ref height, value);
             }
         }
+        [DefaultValue(double.NaN)]
         public virtual double Width
         {
             get => width;
@@ -83,19 +90,8 @@ namespace Ao.ObjectDesign.Controls
                 Set(ref width, value);
             }
         }
-        protected double Clamp(double value, double min, double max)
-        {
-            if (min > max)
-            {
-                return value;
-            }
-            if (max == double.PositiveInfinity)
-            {
-                return Math.Max(value, min);
-            }
-            return Math.Min(Math.Max(value, min), max);
-        }
 
+        [DefaultValue(false)]
         public virtual bool ForceCursor
         {
             get => forceCursor;
@@ -109,12 +105,14 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref toolTip, value);
         }
 
+        [DefaultValue(HorizontalAlignment.Stretch)]
         public virtual HorizontalAlignment HorizontalAlignment
         {
             get => horizontalAlignment;
             set => Set(ref horizontalAlignment, value);
         }
 
+        [DefaultValue(VerticalAlignment.Stretch)]
         public virtual VerticalAlignment VerticalAlignment
         {
             get => verticalAlignment;
@@ -127,18 +125,21 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref margin, value);
         }
 
+        [DefaultValue(FlowDirection.LeftToRight)]
         public virtual FlowDirection FlowDirection
         {
             get => flowDirection;
             set => Set(ref flowDirection, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool UseLayoutRounding
         {
             get => useLayoutRounding;
             set => Set(ref useLayoutRounding, value);
         }
 
+        [DefaultValue(null)]
         public virtual string Name
         {
             get => name;

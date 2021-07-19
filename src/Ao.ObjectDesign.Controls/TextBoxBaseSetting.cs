@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -22,6 +23,7 @@ namespace Ao.ObjectDesign.Controls
         private BrushDesigner caretBrush;
         private bool isInactiveSelectionHighlightEnabled;
 
+        [DefaultValue(false)]
         public virtual bool IsInactiveSelectionHighlightEnabled
         {
             get => isInactiveSelectionHighlightEnabled;
@@ -34,6 +36,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref caretBrush, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsReadOnly
         {
             get => isReadOnly;
@@ -45,53 +48,62 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref selectionBrush, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool AutoWordSelection
         {
             get => autoWordSelection;
             set => Set(ref autoWordSelection, value);
         }
 
+        [DefaultValue(1)]
         public virtual int UndoLimit
         {
             get => undoLimit;
             set => Set(ref undoLimit, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool IsUndoEnabled
         {
             get => isUndoEnabled;
             set => Set(ref isUndoEnabled, value);
         }
 
+        [DefaultValue(0.4d)]
         public virtual double SelectionOpacity
         {
             get => selectionOpacity;
             set => Set(ref selectionOpacity, value);
         }
 
+        [DefaultValue(ScrollBarVisibility.Hidden)]
         public virtual ScrollBarVisibility HorizontalScrollBarVisibility
         {
             get => horizontalScrollBarVisibility;
             set => Set(ref horizontalScrollBarVisibility, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsReadOnlyCaretVisible
         {
             get => isReadOnlyCaretVisible;
             set => Set(ref isReadOnlyCaretVisible, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool AcceptsTab
         {
             get => acceptsTab;
             set => Set(ref acceptsTab, value);
         }
+        [DefaultValue(true)]
         public virtual bool AcceptsReturn
         {
             get => acceptsReturn;
             set => Set(ref acceptsReturn, value);
         }
 
+        [DefaultValue(ScrollBarVisibility.Hidden)]
         public virtual ScrollBarVisibility VerticalScrollBarVisibility
         {
             get => verticalScrollBarVisibility;
@@ -102,6 +114,7 @@ namespace Ao.ObjectDesign.Controls
         public override void SetDefault()
         {
             base.SetDefault();
+            IsReadOnlyCaretVisible = false;
             VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
             AcceptsReturn = true;
             AcceptsTab = false;

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
@@ -8,31 +9,35 @@ namespace Ao.ObjectDesign.Controls
     public class ScrollViewerSetting : ControlSetting, IMiddlewareDesigner<ScrollViewer>
     {
         private bool canContentScroll;
-        private ScrollBarVisibility horizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
-        private ScrollBarVisibility verticalScrollBarVisibility = ScrollBarVisibility.Visible;
-        private double panningDeceleration = 1 / 96d;
+        private ScrollBarVisibility horizontalScrollBarVisibility;
+        private ScrollBarVisibility verticalScrollBarVisibility;
+        private double panningDeceleration;
         private bool isDeferredScrollingEnabled;
         private PanningMode panningMode;
-        private double panningRatio = 1;
+        private double panningRatio;
 
+        [DefaultValue(1d)]
         public virtual double PanningRatio
         {
             get => panningRatio;
             set => Set(ref panningRatio, value);
         }
 
+        [DefaultValue(PanningMode.None)]
         public virtual PanningMode PanningMode
         {
             get => panningMode;
             set => Set(ref panningMode, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsDeferredScrollingEnabled
         {
             get => isDeferredScrollingEnabled;
             set => Set(ref isDeferredScrollingEnabled, value);
         }
 
+        [DefaultValue(1/96d)]
         public virtual double PanningDeceleration
         {
             get => panningDeceleration;
@@ -40,18 +45,21 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(ScrollBarVisibility.Visible)]
         public virtual ScrollBarVisibility VerticalScrollBarVisibility
         {
             get => verticalScrollBarVisibility;
             set => Set(ref verticalScrollBarVisibility, value);
         }
 
+        [DefaultValue(ScrollBarVisibility.Hidden)]
         public virtual ScrollBarVisibility HorizontalScrollBarVisibility
         {
             get => horizontalScrollBarVisibility;
             set => Set(ref horizontalScrollBarVisibility, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool CanContentScroll
         {
             get => canContentScroll;

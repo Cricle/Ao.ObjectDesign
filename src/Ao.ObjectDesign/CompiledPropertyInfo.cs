@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
+using System.Reflection.Emit;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
-    internal delegate void PropertySetter(object instance, object value);
-    internal delegate object PropertyGetter(object instance);
-    internal delegate object TypeCreator();
-    internal static class CompiledPropertyInfo
+    public delegate void PropertySetter(object instance, object value);
+    public delegate object PropertyGetter(object instance);
+    public delegate object TypeCreator();
+
+    public static class CompiledPropertyInfo
     {
         private static readonly ConcurrentDictionary<PropertyIdentity, PropertySetter> propertySetters =
             new ConcurrentDictionary<PropertyIdentity, PropertySetter>(PropertyIdentityComparer.Instance);
@@ -22,7 +26,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             return typeCreators.GetOrAdd(type, t =>
             {
-                System.Reflection.ConstructorInfo construct = type.GetConstructor(Type.EmptyTypes);
+                ConstructorInfo construct = type.GetConstructor(Type.EmptyTypes);
                 if (construct is null)
                 {
                     throw new NotSupportedException($"Type {type.FullName} can't build, it has not empty argument constructor");
@@ -34,8 +38,8 @@ namespace Ao.ObjectDesign.Wpf
         {
             return propertySetters.GetOrAdd(identity, x =>
             {
-                System.Reflection.PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
-                System.Reflection.Emit.DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
+                PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
+                DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
                 return (PropertySetter)dn.CreateDelegate(typeof(PropertySetter));
             });
         }
@@ -43,8 +47,8 @@ namespace Ao.ObjectDesign.Wpf
         {
             return propertyGetters.GetOrAdd(identity, x =>
             {
-                System.Reflection.PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
-                System.Reflection.Emit.DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
+                PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
+                DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
                 return (PropertyGetter)dn.CreateDelegate(typeof(PropertyGetter));
             });
         }

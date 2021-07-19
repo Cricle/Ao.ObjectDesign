@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -54,6 +55,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref fontWeight, value);
         }
 
+        [DefaultValue(12d)]
         public virtual double FontSize
         {
             get => fontSize;
@@ -66,18 +68,21 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref foreground, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsHyphenationEnabled
         {
             get => isHyphenationEnabled;
             set => Set(ref isHyphenationEnabled, value);
         }
 
+        [DefaultValue(TextTrimming.None)]
         public virtual TextTrimming TextTrimming
         {
             get => textTrimming;
             set => Set(ref textTrimming, value);
         }
 
+        [DefaultValue(TextTrimming.None)]
         public virtual TextAlignment TextAlignment
         {
             get => textAlignment;
@@ -90,12 +95,14 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref padding, value);
         }
 
+        [DefaultValue(LineStackingStrategy.MaxHeight)]
         public virtual LineStackingStrategy LineStackingStrategy
         {
             get => lineStackingStrategy;
             set => Set(ref lineStackingStrategy, value);
         }
 
+        [DefaultValue(double.NaN)]
         public virtual double LineHeight
         {
             get => lineHeight;
@@ -108,18 +115,21 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref background, value);
         }
 
+        [DefaultValue(TextWrapping.NoWrap)]
         public virtual TextWrapping TextWrapping
         {
             get => textWrapping;
             set => Set(ref textWrapping, value);
         }
 
+        [DefaultValue(double.NaN)]
         public virtual double BaselineOffset
         {
             get => baselineOffset;
             set => Set(ref baselineOffset, value);
         }
 
+        [DefaultValue(null)]
         public virtual string Text
         {
             get => text;

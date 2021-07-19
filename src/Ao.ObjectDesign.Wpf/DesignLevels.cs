@@ -6,6 +6,6 @@ namespace Ao.ObjectDesign.Wpf
     public enum DesignLevels
     {
         UI = 0,
-        Setting = 1,
+        Setting = 1
     }
 }

@@ -1,12 +1,15 @@
 ﻿using Ao.ObjectDesign.Wpf.Designing;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
 using System;
+using System.IO;
+using System.Text;
 
 namespace Ao.ObjectDesign.Wpf.Json
 {
     public static class DesignJsonHelper
     {
-        private static readonly JsonSerializerSettings settings;
+        internal static readonly JsonSerializerSettings settings;
 
         static DesignJsonHelper()
         {
@@ -29,19 +32,19 @@ namespace Ao.ObjectDesign.Wpf.Json
             }
             return resolver;
         }
-        public static string SerializeObject<T>(T obj)
+        public static string Serialize<T>(T obj)
         {
             return JsonConvert.SerializeObject(obj, settings);
         }
-        public static string SerializeObject(object obj)
+        public static string Serialize(object obj)
         {
             return JsonConvert.SerializeObject(obj, settings);
         }
-        public static T DeserializeObject<T>(string value)
+        public static T Deserialize<T>(string value)
         {
             return JsonConvert.DeserializeObject<T>(value, settings);
         }
-        public static object DeserializeObject(string value, Type type)
+        public static object Deserialize(string value, Type type)
         {
             return JsonConvert.DeserializeObject(value, type, settings);
         }

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Shapes;
 
 namespace Ao.ObjectDesign.Controls
@@ -12,21 +13,25 @@ namespace Ao.ObjectDesign.Controls
         private double x2;
         private double y2;
 
+        [DefaultValue(0d)]
         public virtual double X1
         {
             get => x1;
             set => Set(ref x1, value);
         }
+        [DefaultValue(0d)]
         public virtual double X2
         {
             get => x2;
             set => Set(ref x2, value);
         }
+        [DefaultValue(0d)]
         public virtual double Y1
         {
             get => y1;
             set => Set(ref y1, value);
         }
+        [DefaultValue(0d)]
         public virtual double Y2
         {
             get => y2;

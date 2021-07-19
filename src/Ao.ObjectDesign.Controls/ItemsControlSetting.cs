@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,30 +15,35 @@ namespace Ao.ObjectDesign.Controls
         private bool isTextSearchCaseSensitive;
         private bool isTextSearchEnabled;
 
+        [DefaultValue(false)]
         public virtual bool IsTextSearchEnabled
         {
             get => isTextSearchEnabled;
             set => Set(ref isTextSearchEnabled, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsTextSearchCaseSensitive
         {
             get => isTextSearchCaseSensitive;
             set => Set(ref isTextSearchCaseSensitive, value);
         }
 
+        [DefaultValue(null)]
         public virtual string DisplayMemberPath
         {
             get => displayMemberPath;
             set => Set(ref displayMemberPath, value);
         }
 
+        [DefaultValue(null)]
         public virtual string ItemStringFormat
         {
             get => itemStringFormat;
             set => Set(ref itemStringFormat, value);
         }
 
+        [DefaultValue(0)]
         public virtual int AlternationCount
         {
             get => alternationCount;

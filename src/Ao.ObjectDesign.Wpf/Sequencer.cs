@@ -74,12 +74,16 @@ namespace Ao.ObjectDesign.Wpf
             {
                 IModifyDetail l = Redos.Pop(true);
                 Debug.Assert(l != null);
-                ResetValue(l);
-                if (pushUndo)
-                {
-                    ModifyDetail rev = l.Reverse();
-                    Undos.Push(rev, false);
-                }
+                CoreUndo(l, pushUndo);
+            }
+        }
+        private void CoreUndo(IModifyDetail detail,bool pushUndo)
+        {
+            ResetValue(detail);
+            if (pushUndo)
+            {
+                ModifyDetail rev = detail.Reverse();
+                Undos.Push(rev, false);
             }
         }
         protected override void OnClearNotifyer(IReadOnlyHashSet<INotifyPropertyChangeTo> notifies)

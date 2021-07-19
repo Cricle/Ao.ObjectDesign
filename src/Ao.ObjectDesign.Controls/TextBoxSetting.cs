@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,12 +22,14 @@ namespace Ao.ObjectDesign.Controls
         private TextWrapping textWrapping;
         private string selectedText;
 
+        [DefaultValue(null)]
         public virtual string SelectedText
         {
             get => selectedText;
             set => Set(ref selectedText, value);
         }
 
+        [DefaultValue(TextWrapping.NoWrap)]
         public virtual TextWrapping TextWrapping
         {
             get => textWrapping;
@@ -39,12 +42,14 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref textDecorations, value);
         }
 
+        [DefaultValue(0)]
         public virtual int SelectionStart
         {
             get => selectionStart;
             set => Set(ref selectionStart, value);
         }
 
+        [DefaultValue(0)]
         public virtual int SelectionLength
         {
             get => selectionLength;
@@ -52,18 +57,21 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(0)]
         public virtual int CaretIndex
         {
             get => caretIndex;
             set => Set(ref caretIndex, value);
         }
 
+        [DefaultValue(TextAlignment.Left)]
         public virtual TextAlignment TextAlignment
         {
             get => textAlignment;
             set => Set(ref textAlignment, value);
         }
 
+        [DefaultValue(0)]
         public virtual int MaxLength
         {
             get => maxLength;
@@ -71,23 +79,27 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(CharacterCasing.Normal)]
         public virtual CharacterCasing CharacterCasing
         {
             get => characterCasing;
             set => Set(ref characterCasing, value);
         }
 
+        [DefaultValue(null)]
         public virtual string Text
         {
             get => text;
             set => Set(ref text, value);
         }
+        [DefaultValue(1)]
         public virtual int MaxLines
         {
             get => maxLines;
             set => Set(ref maxLines, value);
         }
 
+        [DefaultValue(0)]
         public virtual int MinLines
         {
             get => minLines;

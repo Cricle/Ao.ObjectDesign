@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -23,30 +24,35 @@ namespace Ao.ObjectDesign.Controls
         private bool isMoveToPointEnabled;
         private double selectionEnd;
 
+        [DefaultValue(0d)]
         public virtual double SelectionEnd
         {
             get => selectionEnd;
             set => Set(ref selectionEnd, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsMoveToPointEnabled
         {
             get => isMoveToPointEnabled;
             set => Set(ref isMoveToPointEnabled, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsSelectionRangeEnabled
         {
             get => isSelectionRangeEnabled;
             set => Set(ref isSelectionRangeEnabled, value);
         }
 
+        [DefaultValue(TickPlacement.None)]
         public virtual TickPlacement TickPlacement
         {
             get => tickPlacement;
             set => Set(ref tickPlacement, value);
         }
 
+        [DefaultValue(0d)]
         public virtual double SelectionStart
         {
             get => selectionStart;
@@ -59,30 +65,35 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref ticks, value);
         }
 
+        [DefaultValue(1d)]
         public virtual double TickFrequency
         {
             get => tickFrequency;
             set => Set(ref tickFrequency, value);
         }
 
+        [DefaultValue(Orientation.Horizontal)]
         public virtual Orientation Orientation
         {
             get => orientation;
             set => Set(ref orientation, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsDirectionReversed
         {
             get => isDirectionReversed;
             set => Set(ref isDirectionReversed, value);
         }
 
+        [DefaultValue(1)]
         public virtual int Delay
         {
             get => delay;
             set => Set(ref delay, value);
         }
 
+        [DefaultValue(1)]
         public virtual int Interval
         {
             get => interval;
@@ -90,18 +101,21 @@ namespace Ao.ObjectDesign.Controls
         }
 
 
+        [DefaultValue(AutoToolTipPlacement.None)]
         public virtual AutoToolTipPlacement AutoToolTipPlacement
         {
             get => autoToolTipPlacement;
             set => Set(ref autoToolTipPlacement, value);
         }
 
+        [DefaultValue(0)]
         public virtual int AutoToolTipPrecision
         {
             get => autoToolTipPrecision;
             set => Set(ref autoToolTipPrecision, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsSnapToTickEnabled
         {
             get => isSnapToTickEnabled;

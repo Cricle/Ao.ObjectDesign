@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,12 +14,14 @@ namespace Ao.ObjectDesign.Controls
         private Stretch stretch;
         private StretchDirection stretchDirection;
 
+        [DefaultValue(StretchDirection.Both)]
         public virtual StretchDirection StretchDirection
         {
             get => stretchDirection;
             set => Set(ref stretchDirection, value);
         }
 
+        [DefaultValue(Stretch.Uniform)]
         public virtual Stretch Stretch
         {
             get => stretch;

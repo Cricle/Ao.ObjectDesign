@@ -15,6 +15,7 @@ namespace Ao.ObjectDesign.Wpf
         void Clear(bool notify);
         bool Contains(T item);
         T Pop(bool notify);
+        T Peek();
         void Push(T item, bool notify);
         void PushRange(IEnumerable<T> items, bool notify);
     }

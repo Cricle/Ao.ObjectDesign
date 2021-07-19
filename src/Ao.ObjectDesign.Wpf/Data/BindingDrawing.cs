@@ -99,7 +99,7 @@ namespace Ao.ObjectDesign.Wpf.Data
             string basePath = null)
         {
             BindForAttribute mapFor = BindForGetter.Get(info);
-            string name = mapFor?.ForName ?? info.Name;
+            string name = mapFor?.PropertyName ?? info.Name;
             string depName = name;
             string path = info.Name;
             if (!string.IsNullOrEmpty(basePath))
@@ -111,7 +111,9 @@ namespace Ao.ObjectDesign.Wpf.Data
                 ClrType = clrType,
                 DependencyObjectType = dependencyObjectType,
                 PropertyInfo = info,
-                Path = info.Name
+                Path = info.Name,
+                ConverterParamter = mapFor?.ConverterParamer,
+                ConverterType = mapFor?.ConverterType,
             };
             IReadOnlyDictionary<string, DependencyPropertyDescriptor> map = descriptorMap;
 

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
@@ -14,18 +15,21 @@ namespace Ao.ObjectDesign.Controls
         private char passwordChar;
         private bool isInactiveSelectionHighlightEnabled;
 
+        [DefaultValue(false)]
         public virtual bool IsInactiveSelectionHighlightEnabled
         {
             get => isInactiveSelectionHighlightEnabled;
             set => Set(ref isInactiveSelectionHighlightEnabled, value);
         }
 
+        [DefaultValue('●')]
         public virtual char PasswordChar
         {
             get => passwordChar;
             set => Set(ref passwordChar, value);
         }
 
+        [DefaultValue(1)]
         public virtual int MaxLength
         {
             get => maxLength;
@@ -38,6 +42,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref selectionBrush, value);
         }
 
+        [DefaultValue(0.4d)]
         public virtual double SelectionOpacity
         {
             get => selectionOpacity;

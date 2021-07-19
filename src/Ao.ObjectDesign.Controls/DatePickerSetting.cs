@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,48 +20,56 @@ namespace Ao.ObjectDesign.Controls
         private DayOfWeek firstDayOfWeek;
         private DateTime? selectedDate;
 
+        [DefaultValue(null)]
         public virtual DateTime? SelectedDate
         {
             get => selectedDate;
             set => Set(ref selectedDate, value);
         }
 
+        [DefaultValue(DayOfWeek.Sunday)]
         public virtual DayOfWeek FirstDayOfWeek
         {
             get => firstDayOfWeek;
             set => Set(ref firstDayOfWeek, value);
         }
 
+        [DefaultValue(null)]
         public virtual string Text
         {
             get => text;
             set => Set(ref text, value);
         }
 
+        [DefaultValue(DatePickerFormat.Long)]
         public virtual DatePickerFormat SelectedDateFormat
         {
             get => selectedDateFormat;
             set => Set(ref selectedDateFormat, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsDropDownOpen
         {
             get => isDropDownOpen;
             set => Set(ref isDropDownOpen, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool IsTodayHighlighted
         {
             get => isTodayHighlighted;
             set => Set(ref isTodayHighlighted, value);
         }
 
+        [DefaultValue(null)]
         public virtual DateTime? DisplayDateEnd
         {
             get => displayDateEnd;
             set => Set(ref displayDateEnd, value);
         }
 
+        [DefaultValue(null)]
         public virtual DateTime? DisplayDateStart
         {
             get => displayDateStart;

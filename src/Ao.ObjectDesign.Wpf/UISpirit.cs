@@ -23,7 +23,22 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (obj is UISpirit<TView, TContext> b)
             {
-                return View.Equals(b.View) &&
+                if (View==null&&b.View==null&&
+                    Context==null&&b.Context==null)
+                {
+                    return true;
+                }
+                if (View==null&&b.View!=null||
+                    View != null && b.View == null)
+                {
+                    return false;
+                }
+                if (Context==null&&b.Context!=null||
+                    Context!=null&&b.Context==null)
+                {
+                    return false;
+                }
+                return View .Equals(b.View )&&
                     Context.Equals(b.Context);
             }
             return false;
@@ -34,11 +49,7 @@ namespace Ao.ObjectDesign.Wpf
         }
         public override int GetHashCode()
         {
-#if NET5_0
-            return HashCode.Combine(View, Context);
-#else
             return View.GetHashCode() ^ Context.GetHashCode();
-#endif
         }
     }
 }

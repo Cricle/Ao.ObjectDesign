@@ -174,6 +174,10 @@ namespace Ao.ObjectDesign.Wpf
         {
             return Pop(true);
         }
+        public virtual T Peek()
+        {
+            return First;
+        }
         public virtual T Pop(bool notify)
         {
             if (ways.Count == 0)

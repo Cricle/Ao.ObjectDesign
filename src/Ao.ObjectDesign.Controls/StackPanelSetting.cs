@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Controls
@@ -11,17 +12,20 @@ namespace Ao.ObjectDesign.Controls
         private bool canHorizontallyScroll;
         private Orientation orientation;
 
+        [DefaultValue(Orientation.Vertical)]
         public virtual Orientation Orientation
         {
             get => orientation;
             set => Set(ref orientation, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool CanHorizontallyScroll
         {
             get => canHorizontallyScroll;
             set => Set(ref canHorizontallyScroll, value);
         }
+        [DefaultValue(false)]
         public virtual bool CanVerticallyScroll
         {
             get => canVerticallyScroll;

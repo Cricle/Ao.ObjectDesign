@@ -6,7 +6,6 @@ namespace Ao.ObjectDesign.Wpf.Data
 {
     public interface IBindingDrawingItem
     {
-
         Type ClrType { get; }
 
         Type DependencyObjectType { get; }
@@ -16,6 +15,10 @@ namespace Ao.ObjectDesign.Wpf.Data
         DependencyProperty DependencyProperty { get; }
 
         string Path { get; }
+
+        Type ConverterType { get; }
+
+        object ConverterParamter { get; }
 
         bool HasPropertyBind { get; }
 

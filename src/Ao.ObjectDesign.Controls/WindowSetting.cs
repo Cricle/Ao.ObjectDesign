@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -22,36 +23,42 @@ namespace Ao.ObjectDesign.Controls
         private bool showActivated;
         private string title;
 
+        [DefaultValue(null)]
         public virtual string Title
         {
             get => title;
             set => Set(ref title, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool ShowActivated
         {
             get => showActivated;
             set => Set(ref showActivated, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool Topmost
         {
             get => topmost;
             set => Set(ref topmost, value);
         }
 
+        [DefaultValue(ResizeMode.CanResize)]
         public virtual ResizeMode ResizeMode
         {
             get => resizeMode;
             set => Set(ref resizeMode, value);
         }
 
+        [DefaultValue(WindowState.Normal)]
         public virtual WindowState WindowState
         {
             get => windowState;
             set => Set(ref windowState, value);
         }
 
+        [DefaultValue(WindowStyle.None)]
         public virtual WindowStyle WindowStyle
         {
             get => windowStyle;
@@ -64,36 +71,42 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref icon, value);
         }
 
+        [DefaultValue(double.NaN)]
         public virtual double Left
         {
             get => left;
             set => Set(ref left, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool AllowsTransparency
         {
             get => allowsTransparency;
             set => Set(ref allowsTransparency, value);
         }
 
+        [DefaultValue(SizeToContent.Manual)]
         public virtual SizeToContent SizeToContent
         {
             get => sizeToContent;
             set => Set(ref sizeToContent, value);
         }
 
+        [DefaultValue(double.NaN)]
         public virtual double Top
         {
             get => top;
             set => Set(ref top, value);
         }
 
+        [DefaultValue(WindowStartupLocation.Manual)]
         public virtual WindowStartupLocation WindowStartupLocation
         {
             get => windowStartupLocation;
             set => Set(ref windowStartupLocation, value);
         }
 
+        [DefaultValue(true)]
         public virtual bool ShowInTaskbar
         {
             get => showInTaskbar;

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
@@ -16,18 +17,21 @@ namespace Ao.ObjectDesign.Controls
         private double verticalOffset;
         private bool hasDropShadow;
 
+        [DefaultValue(false)]
         public virtual bool HasDropShadow
         {
             get => hasDropShadow;
             set => Set(ref hasDropShadow, value);
         }
 
+        [DefaultValue(0d)]
         public virtual double VerticalOffset
         {
             get => verticalOffset;
             set => Set(ref verticalOffset, value);
         }
 
+        [DefaultValue(0d)]
         public virtual double HorizontalOffset
         {
             get => horizontalOffset;
@@ -40,18 +44,21 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref placementRectangle, value);
         }
 
+        [DefaultValue(PlacementMode.Mouse)]
         public virtual PlacementMode Placement
         {
             get => placement;
             set => Set(ref placement, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool StaysOpen
         {
             get => staysOpen;
             set => Set(ref staysOpen, value);
         }
 
+        [DefaultValue(false)]
         public virtual bool IsOpen
         {
             get => isOpen;
