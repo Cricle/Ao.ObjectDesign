@@ -61,7 +61,7 @@ namespace Ao.ObjectDesign.Wpf
             {
                 try
                 {
-                    result = Enum.Parse(type, value?.ToString());
+                    result = Enum.Parse(type, value.ToString());
                     return true;
                 }
                 catch (Exception e)

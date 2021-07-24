@@ -9,6 +9,7 @@ namespace Ao.ObjectDesign.Benchmark
     {
         static void Main(string[] args)
         {
+            //new ExpressionAndDynamic().NewByDync();
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run();
         }
     }

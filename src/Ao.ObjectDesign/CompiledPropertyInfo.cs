@@ -13,6 +13,11 @@ namespace Ao.ObjectDesign
 
     public static class CompiledPropertyInfo
     {
+        private static readonly Type ObjectType = typeof(object);
+        private static readonly Type TypeCreatorType = typeof(TypeCreator);
+        private static readonly Type PropertyGetterType = typeof(PropertyGetter);
+        private static readonly Type PropertySetterType = typeof(PropertySetter);
+
         private static readonly ConcurrentDictionary<PropertyIdentity, PropertySetter> propertySetters =
             new ConcurrentDictionary<PropertyIdentity, PropertySetter>(PropertyIdentityComparer.Instance);
 
@@ -24,6 +29,11 @@ namespace Ao.ObjectDesign
 
         public static TypeCreator GetCreator(Type type)
         {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return typeCreators.GetOrAdd(type, t =>
             {
                 ConstructorInfo construct = type.GetConstructor(Type.EmptyTypes);
@@ -31,25 +41,41 @@ namespace Ao.ObjectDesign
                 {
                     throw new NotSupportedException($"Type {type.FullName} can't build, it has not empty argument constructor");
                 }
-                return Expression.Lambda<TypeCreator>(Expression.Convert(Expression.New(construct), typeof(object))).Compile();
+                string name = string.Concat("create", type.Name);
+                var dn = new DynamicMethod(name, ObjectType, Type.EmptyTypes, true);
+                dn.InitLocals = false;
+                var il = dn.GetILGenerator();
+                il.Emit(OpCodes.Newobj, construct);
+                il.Emit(OpCodes.Ret);
+                return (TypeCreator)dn.CreateDelegate(TypeCreatorType);
             });
         }
         public static PropertySetter GetSetter(PropertyIdentity identity)
         {
+            if (identity is null)
+            {
+                throw new ArgumentNullException(nameof(identity));
+            }
+
             return propertySetters.GetOrAdd(identity, x =>
             {
                 PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
                 DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
-                return (PropertySetter)dn.CreateDelegate(typeof(PropertySetter));
+                return (PropertySetter)dn.CreateDelegate(PropertySetterType);
             });
         }
         public static PropertyGetter GetGetter(PropertyIdentity identity)
         {
+            if (identity is null)
+            {
+                throw new ArgumentNullException(nameof(identity));
+            }
+
             return propertyGetters.GetOrAdd(identity, x =>
             {
                 PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
                 DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
-                return (PropertyGetter)dn.CreateDelegate(typeof(PropertyGetter));
+                return (PropertyGetter)dn.CreateDelegate(PropertyGetterType);
             });
         }
 

@@ -7,7 +7,7 @@ namespace Ao.ObjectDesign.Wpf.Annotations
     {
         public TransferOriginAttribute(Type origin)
         {
-            Origin = origin;
+            Origin = origin ?? throw new ArgumentNullException(nameof(origin));
         }
 
         public Type Origin { get; set; }

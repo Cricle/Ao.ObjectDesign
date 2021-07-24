@@ -28,6 +28,10 @@ namespace Ao.ObjectDesign.Wpf
 
         public override int GetHashCode()
         {
+            if (ClrType is null)
+            {
+                return 0;
+            }
 #if NET5_0
             return HashCode.Combine(ClrType, UIType);
 #else

@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf.Annotations
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Property| AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public sealed class BindForAttribute : Attribute
     {
         private static readonly Type DependencyObjectTypeValue = typeof(DependencyObject);

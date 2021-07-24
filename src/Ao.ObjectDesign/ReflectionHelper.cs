@@ -82,11 +82,11 @@ namespace Ao.ObjectDesign
                 if (item.PropertyType.IsClass &&
                     item.PropertyType != StringType)
                 {
-                    if (item.PropertyType.GetInterface(IListTypeName) != null)
+                    object itemValue = Create(item.PropertyType);
+
+                    if (itemValue is IList destEnu)
                     {
-                        object itemValue = Create(item.PropertyType);
                         IList enu = (IList)sourceValue;
-                        IList destEnu = (IList)itemValue;
                         foreach (object e in enu)
                         {
                             destEnu.Add(e);
@@ -94,7 +94,6 @@ namespace Ao.ObjectDesign
                     }
                     else
                     {
-                        object itemValue = Create(item.PropertyType);
                         Clone(itemValue, sourceValue, ignoreTypes);
                         setter(dest, itemValue);
                     }

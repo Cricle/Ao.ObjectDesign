@@ -6,6 +6,8 @@ namespace Ao.ObjectDesign.Wpf
 {
     public static class ObjectLookup
     {
+        private static readonly string INotifyPropertyChangeToName = typeof(INotifyPropertyChangeTo).FullName;
+
         public static IEnumerable<INotifyPropertyChangeTo> LookupNotifyableChangeTo(IObjectProxy proxy, bool skipSelf)
         {
             if (proxy is null)
@@ -24,7 +26,7 @@ namespace Ao.ObjectDesign.Wpf
                 throw new ArgumentNullException(nameof(proxy));
             }
 
-            return proxy.Type.GetInterface(typeof(INotifyPropertyChangeTo).FullName) != null;
+            return proxy.Type.GetInterface(INotifyPropertyChangeToName) != null;
         }
         private static INotifyPropertyChangeTo NotifyableChangeToValueFactory(IPropertyProxy proxy, IPropertyVisitor visitor)
         {

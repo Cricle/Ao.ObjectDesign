@@ -4,9 +4,24 @@ namespace Ao.ObjectDesign
 {
     public class PropertyIdentity : IEquatable<PropertyIdentity>
     {
+        public PropertyIdentity(PropertyIdentity identity)
+        {
+            if (identity is null)
+            {
+                throw new ArgumentNullException(nameof(identity));
+            }
+
+            Type = identity.Type;
+            PropertyName = identity.PropertyName;
+        }
         public PropertyIdentity(Type type, string propertyName)
         {
-            Type = type;
+            if (string.IsNullOrEmpty(propertyName))
+            {
+                throw new ArgumentException($"“{nameof(propertyName)}”不能为 null 或空。", nameof(propertyName));
+            }
+
+            Type = type ?? throw new ArgumentNullException(nameof(type));
             PropertyName = propertyName;
         }
 

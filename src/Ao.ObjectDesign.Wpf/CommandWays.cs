@@ -34,7 +34,7 @@ namespace Ao.ObjectDesign.Wpf
         }
 
         public int Count => ways.Count;
-
+        
         public T First
         {
             get
@@ -180,19 +180,18 @@ namespace Ao.ObjectDesign.Wpf
         }
         public virtual T Pop(bool notify)
         {
-            if (ways.Count == 0)
+            if (ways.Count != 0)
             {
-                return default;
-            }
-            LinkedListNode<T> last = ways.First;
-            if (last != null)
-            {
-                ways.RemoveFirst();
-                if (notify)
+                LinkedListNode<T> last = ways.First;
+                if (last != null)
                 {
-                    WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(new T[] { last.Value }, CommandWaysOperatorTypes.Remove));
+                    ways.RemoveFirst();
+                    if (notify)
+                    {
+                        WayChanged?.Invoke(this, new CommandWaysOperatorEventArgs<T>(new T[] { last.Value }, CommandWaysOperatorTypes.Remove));
+                    }
+                    return last.Value;
                 }
-                return last.Value;
             }
             return default;
         }

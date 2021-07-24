@@ -36,7 +36,23 @@ namespace Ao.ObjectDesign.Wpf
 
         public override int GetHashCode()
         {
-            return Instance.GetHashCode() ^ PropertyName.GetHashCode();
+            int h = 0;
+            if (Instance!=null)
+            {
+                h = Instance.GetHashCode();
+            }
+            if (!string.IsNullOrEmpty(PropertyName))
+            {
+                if (h==0)
+                {
+                    h = PropertyName.GetHashCode();
+                }
+                else
+                {
+                    h ^= PropertyName.GetHashCode();
+                }
+            }
+            return h;
         }
 
         private string GetDebuggerDisplay()

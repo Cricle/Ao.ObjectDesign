@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign
         {
             Instance = instance ?? throw new ArgumentNullException(nameof(instance));
 
-            if (!type.IsAssignableFrom(instance.GetType()))
+            if (!type.IsInstanceOfType(instance))
             {
                 throw new ArgumentException($"Instance {instance} is not assignable from {type}");
             }

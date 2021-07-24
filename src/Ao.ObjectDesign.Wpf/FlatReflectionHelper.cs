@@ -14,10 +14,10 @@ namespace Ao.ObjectDesign.Wpf
             var res = new List<SpecularMappingItem>();
             var sourceProperties = source.GetType().GetProperties();
             var destProperties = target.GetType().GetProperties()
-                .ToDictionary(x=>x.Name);
+                .ToDictionary(x => x.Name);
             foreach (var item in sourceProperties)
             {
-                if (destProperties.TryGetValue(item.Name, out var propInfo) &&
+                if (destProperties.TryGetValue(item.Name, out var propInfo)&&
                     item.PropertyType == propInfo.PropertyType)
                 {
                     var sourceValue = ReflectionHelper.GetValue(source, item);

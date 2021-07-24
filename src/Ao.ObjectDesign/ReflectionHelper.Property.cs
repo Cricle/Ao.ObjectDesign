@@ -8,15 +8,6 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign
 {
-    [Flags]
-    public enum SetDefaultOptions
-    {
-        None,
-        IgnoreNoAttribute = 1,
-        IgnoreNotNull = IgnoreNoAttribute << 1,
-        ClassGenerateNew = IgnoreNoAttribute << 2,
-        Deep = IgnoreNoAttribute << 3
-    }
     public static partial class ReflectionHelper
     {
         private static readonly ConcurrentDictionary<Type, WeakReference<IReadOnlyDictionary<PropertyIdentity, object>>> defaultValueCache
@@ -85,16 +76,17 @@ namespace Ao.ObjectDesign
                     }
                 }
                 includeTypes = includeTypes
-                    .SelectMany(x=>x.GetProperties().Select(p=>p.PropertyType))
+                    .SelectMany(x => x.GetProperties().Select(p => p.PropertyType))
                     .Where(CanStepIn)
-                    .Where(x=>!res.ContainsKey(x))
                     .ToList();
             }
             return res;
 
             bool CanStepIn(Type testType)
             {
-                return testType.IsClass && testType != typeof(string);
+                return testType.IsClass && 
+                    testType != StringType&&
+                    !res.ContainsKey(testType);
             }
         }
         public static void SetDefault(object instance, SetDefaultOptions options)
@@ -139,7 +131,7 @@ namespace Ao.ObjectDesign
                 {
                     var identity = new PropertyIdentity(type, item.Name);
                     if (item.PropertyType.IsClass &&
-                        item.PropertyType != typeof(string))
+                        item.PropertyType != StringType)
                     {
                         if ((options & SetDefaultOptions.ClassGenerateNew) != 0)
                         {

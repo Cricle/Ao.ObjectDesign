@@ -12,6 +12,7 @@ namespace Ao.ObjectDesign.Wpf
             Undos = CreateCommandWays();
             Redos = CreateCommandWays();
         }
+
         public ICommandWays<IModifyDetail> Undos { get; }
 
         public ICommandWays<IModifyDetail> Redos { get; }

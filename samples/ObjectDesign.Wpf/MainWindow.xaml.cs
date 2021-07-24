@@ -42,24 +42,6 @@ namespace ObjectDesign.Wpf
 
         public int Age { get; set; }
     }
-    public class MyXamlObjectWriter : XamlObjectWriter
-    {
-        public MyXamlObjectWriter(XamlSchemaContext schemaContext) : base(schemaContext)
-        {
-        }
-
-        public MyXamlObjectWriter(XamlSchemaContext schemaContext, XamlObjectWriterSettings settings) : base(schemaContext, settings)
-        {
-        }
-        protected override bool OnSetValue(object eventSender, XamlMember member, object value)
-        {
-            if (member.Type.UnderlyingType==typeof(int))
-            {
-                return false;
-            }
-            return base.OnSetValue(eventSender, member, value);
-        }
-    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>

@@ -20,6 +20,7 @@ namespace Ao.ObjectDesign.Wpf
 
             return listenings.Contains(notifyPropertyChangeTo);
         }
+
         public void ClearNotifyer()
         {
             IReadOnlyHashSet<INotifyPropertyChangeTo> ds = Listenings;
@@ -38,12 +39,13 @@ namespace Ao.ObjectDesign.Wpf
                 throw new ArgumentNullException(nameof(notifyPropertyChangeTo));
             }
 
-            if (listenings.Add(notifyPropertyChangeTo))
+            bool succeed = listenings.Add(notifyPropertyChangeTo);
+
+            if (succeed)
             {
                 OnAttack(notifyPropertyChangeTo);
-                return true;
             }
-            return false;
+            return succeed;
         }
 
         protected virtual void OnAttack(INotifyPropertyChangeTo notifyPropertyChangeTo)
