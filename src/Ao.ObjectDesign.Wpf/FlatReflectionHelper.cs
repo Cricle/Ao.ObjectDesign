@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign.Wpf
 {
     public static class FlatReflectionHelper
     {
-        public static IReadOnlyCollection<SpecularMappingItem> SpecularMapping(object source,object target)
+        public static IReadOnlyList<SpecularMappingItem> SpecularMapping(object source,object target)
         {
             var res = new List<SpecularMappingItem>();
             var sourceProperties = source.GetType().GetProperties();
@@ -17,12 +17,18 @@ namespace Ao.ObjectDesign.Wpf
                 .ToDictionary(x => x.Name);
             foreach (var item in sourceProperties)
             {
-                if (destProperties.TryGetValue(item.Name, out var propInfo)&&
-                    item.PropertyType == propInfo.PropertyType)
+                if (destProperties.TryGetValue(item.Name, out var propInfo))
                 {
-                    var sourceValue = ReflectionHelper.GetValue(source, item);
-                    ReflectionHelper.SetValue(target, sourceValue, propInfo);
-                    res.Add(new SpecularMappingItem(item, propInfo, sourceValue, true));
+                    if (item.PropertyType == propInfo.PropertyType)
+                    {
+                        var sourceValue = ReflectionHelper.GetValue(source, item);
+                        ReflectionHelper.SetValue(target, sourceValue, propInfo);
+                        res.Add(new SpecularMappingItem(item, propInfo, sourceValue, true));
+                    }
+                    else
+                    {
+                        res.Add(new SpecularMappingItem(item, propInfo, null, false));
+                    }
                 }
                 else
                 {

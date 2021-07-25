@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Wpf
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
-    internal readonly struct IgnoreIdentity : IEquatable<IgnoreIdentity>
+    public readonly struct IgnoreIdentity : IEquatable<IgnoreIdentity>
     {
         public readonly object Instance;
 
@@ -37,13 +38,13 @@ namespace Ao.ObjectDesign.Wpf
         public override int GetHashCode()
         {
             int h = 0;
-            if (Instance!=null)
+            if (Instance != null)
             {
                 h = Instance.GetHashCode();
             }
             if (!string.IsNullOrEmpty(PropertyName))
             {
-                if (h==0)
+                if (h == 0)
                 {
                     h = PropertyName.GetHashCode();
                 }

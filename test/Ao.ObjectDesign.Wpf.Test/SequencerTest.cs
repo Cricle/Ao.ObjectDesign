@@ -2,7 +2,6 @@
 
 namespace Ao.ObjectDesign.Wpf.Test
 {
-
     class Student : NotifyableObject
     {
         private string name;
@@ -19,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Changed_Undo_PropertyMustUndo()
         {
-            Sequencer seq = new Sequencer();
+            PropertySequencer seq = new PropertySequencer();
             Student student = new Student();
             seq.Attack(student);
             student.Name = "hello";
@@ -29,7 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Test
         [TestMethod]
         public void Changed_UndoAfterRedo_PropertyMustResetOrigin()
         {
-            Sequencer seq = new Sequencer();
+            PropertySequencer seq = new PropertySequencer();
             Student student = new Student();
             seq.Attack(student);
             student.Name = "hello";

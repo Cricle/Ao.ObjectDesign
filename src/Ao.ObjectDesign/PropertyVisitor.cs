@@ -100,7 +100,10 @@ namespace Ao.ObjectDesign
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaiseValueChanged()
         {
-            PropertyChanged?.Invoke(this, valueCHangedEventArgs);
+            if (PropertyChanged != null)
+            {
+                PropertyChanged.Invoke(this, valueCHangedEventArgs);
+            }
         }
     }
 }

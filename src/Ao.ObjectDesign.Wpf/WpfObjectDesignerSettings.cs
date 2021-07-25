@@ -12,11 +12,11 @@ namespace Ao.ObjectDesign.Wpf
 
         public IObjectDesigner Designer { get; set; }
 
-        public INotifyableSequencer Sequencer { get; set; }
+        public IActionSequencer<IModifyDetail> Sequencer { get; set; }
 
         public IWpfUIGenerator UIGenerator { get; set; }
 
-        internal void Check()
+        public void Check()
         {
             if (DataTemplateBuilder is null)
             {

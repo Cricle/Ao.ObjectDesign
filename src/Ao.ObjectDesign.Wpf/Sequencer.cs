@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace Ao.ObjectDesign.Wpf
 {
     [DebuggerDisplay("Undos = {Undos.Count}, Redos = {Redos.Count}, ListeningCount = {ListeningCount}")]
-    public class Sequencer : NotifyObjectManager, ISequencer, INotifyableSequencer, IUndoRedo
+    public abstract class Sequencer<TFallback> : NotifyObjectManager, IActionSequencer<TFallback>, IUndoRedo
+        where TFallback : IFallbackable
     {
         public Sequencer()
         {
@@ -13,34 +13,21 @@ namespace Ao.ObjectDesign.Wpf
             Redos = CreateCommandWays();
         }
 
-        public ICommandWays<IModifyDetail> Undos { get; }
+        public ICommandWays<TFallback> Undos { get; }
 
-        public ICommandWays<IModifyDetail> Redos { get; }
+        public ICommandWays<TFallback> Redos { get; }
 
-        private readonly HashSet<IgnoreIdentity> ignores = new HashSet<IgnoreIdentity>();
+        public bool CanUndo => Undos.Count > 0;
 
-        protected virtual ICommandWays<IModifyDetail> CreateCommandWays()
+        public bool CanRedo => Redos.Count > 0;
+
+        protected virtual ICommandWays<TFallback> CreateCommandWays()
         {
-            return new CommandWays<IModifyDetail>();
+            return new CommandWays<TFallback>();
         }
-
-        protected virtual void OnReset(IModifyDetail detail)
+        protected virtual bool IsSequenceIgnore(object sender, PropertyChangeToEventArgs e)
         {
-            PropertyInfo prop = detail.Instance.GetType().GetProperty(detail.PropertyName);
-            prop.SetValue(detail.Instance, detail.From);
-        }
-        private void ResetValue(IModifyDetail detail)
-        {
-            IgnoreIdentity identity = new IgnoreIdentity(detail.Instance, detail.PropertyName);
-            try
-            {
-                ignores.Add(identity);
-                OnReset(detail);
-            }
-            finally
-            {
-                ignores.Remove(identity);
-            }
+            return false;
         }
         public void Undo()
         {
@@ -55,16 +42,40 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (Undos.Count != 0)
             {
-                IModifyDetail l = Undos.Pop(true);
+                TFallback l = Undos.Pop(true);
                 Debug.Assert(l != null);
-                ResetValue(l);
+                BeginUndo(l);
+                bool succeed = false;
+                try
+                {
+                    l.Fallback();
+                    succeed = true;
+                }
+                catch (Exception ex)
+                {
+                    UndoFail(l, ex);
+                }
+                EndUndo(l, succeed);
                 if (pushRedo)
                 {
-                    ModifyDetail rev = l.Reverse();
+                    TFallback rev = Reverse(l);
                     Redos.Push(rev, false);
                 }
             }
         }
+        protected virtual void BeginUndo(TFallback fallback)
+        {
+
+        }
+        protected virtual void EndUndo(TFallback fallback, bool succeed)
+        {
+
+        }
+        protected virtual void UndoFail(TFallback fallback, Exception exception)
+        {
+
+        }
+        protected abstract TFallback Reverse(TFallback fallback);
         public void Redo()
         {
             Redo(true);
@@ -73,19 +84,42 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (Redos.Count != 0)
             {
-                IModifyDetail l = Redos.Pop(true);
+                TFallback l = Redos.Pop(true);
                 Debug.Assert(l != null);
-                CoreUndo(l, pushUndo);
+                CoreRedo(l, pushUndo);
             }
         }
-        private void CoreUndo(IModifyDetail detail,bool pushUndo)
+        private void CoreRedo(TFallback detail, bool pushUndo)
         {
-            ResetValue(detail);
+            BeginRedo(detail);
+            bool succeed = false;
+            try
+            {
+                detail.Fallback();
+                succeed = false;
+            }
+            catch (Exception ex)
+            {
+                RedoFail(detail, ex);
+            }
+            EndRedo(detail, succeed);
             if (pushUndo)
             {
-                ModifyDetail rev = detail.Reverse();
+                TFallback rev = Reverse(detail);
                 Undos.Push(rev, false);
             }
+        }
+        protected virtual void BeginRedo(TFallback fallback)
+        {
+
+        }
+        protected virtual void EndRedo(TFallback fallback, bool succeed)
+        {
+
+        }
+        protected virtual void RedoFail(TFallback fallback, Exception exception)
+        {
+
         }
         protected override void OnClearNotifyer(IReadOnlyHashSet<INotifyPropertyChangeTo> notifies)
         {
@@ -96,13 +130,14 @@ namespace Ao.ObjectDesign.Wpf
         }
         protected virtual void OnNotifyPropertyChangingPropertyChanging(object sender, PropertyChangeToEventArgs e)
         {
-            IgnoreIdentity identity = new IgnoreIdentity(sender, e.PropertyName);
-            if (!ignores.Contains(identity))
+            if (!IsSequenceIgnore(sender, e))
             {
-                ModifyDetail detail = new ModifyDetail(sender, e.PropertyName, e.From, e.To);
+                TFallback detail = CreateFallback(sender, e);
                 Undos.Push(detail, true);
             }
         }
+        protected abstract TFallback CreateFallback(object sender, PropertyChangeToEventArgs e);
+
         protected override void OnStrip(INotifyPropertyChangeTo notifyPropertyChangeTo)
         {
             notifyPropertyChangeTo.PropertyChangeTo -= OnNotifyPropertyChangingPropertyChanging;

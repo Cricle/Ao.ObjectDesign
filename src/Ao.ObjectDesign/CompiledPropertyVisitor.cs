@@ -72,6 +72,7 @@ namespace Ao.ObjectDesign
             string name = string.Concat("proxyget", type.Name, info.Name);
             DynamicMethod dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
                 ObjectType, GetterArgTypes, type, true);
+            dn.InitLocals = false;
             ILGenerator ilg = dn.GetILGenerator();
             ilg.Emit(OpCodes.Ldarg_0);
             ilg.Emit(OpCodes.Callvirt, info.GetMethod);
@@ -91,6 +92,7 @@ namespace Ao.ObjectDesign
             string name = string.Concat("proxyset", type.Name, info.Name);
             DynamicMethod dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
                 null, SetterArgTypes, type, true);
+            dn.InitLocals = false;
             ILGenerator ilg = dn.GetILGenerator();
             ilg.Emit(OpCodes.Ldarg_0);
             ilg.Emit(OpCodes.Ldarg_1);

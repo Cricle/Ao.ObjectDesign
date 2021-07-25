@@ -4,7 +4,7 @@ namespace Ao.ObjectDesign.Wpf
 {
     internal class WpfDesignBuildResult : IWpfDesignBuildResult
     {
-        public INotifyableSequencer Sequencer { get; set; }
+        public IActionSequencer<IModifyDetail> Sequencer { get; set; }
 
         public IObjectDesigner Designer { get; set; }
 

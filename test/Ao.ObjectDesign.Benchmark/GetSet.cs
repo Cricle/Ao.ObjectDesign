@@ -1,4 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
+using System.Reflection;
 
 namespace Ao.ObjectDesign.Benchmark
 {
@@ -7,20 +8,26 @@ namespace Ao.ObjectDesign.Benchmark
     {
         private readonly PropertyVisitor visitor;
         private readonly CompiledPropertyVisitor compiledVisitor;
+        private readonly Student student;
 
         public GetSet()
         {
-            Student inst = new Student { Name = "hewahdoas" };
-            System.Reflection.PropertyInfo prop = inst.GetType().GetProperty(nameof(Student.Name));
-            visitor = new PropertyVisitor(inst, prop);
-            compiledVisitor = new CompiledPropertyVisitor(inst, prop);
+            student= new Student { Name = "hewahdoas" };
+            PropertyInfo prop = student.GetType().GetProperty(nameof(Student.Name));
+            visitor = new PropertyVisitor(student, prop);
+            compiledVisitor = new CompiledPropertyVisitor(student, prop);
 
             _ = visitor.Value;
             _ = compiledVisitor.Value;
         }
-
-        [Benchmark(Baseline = true)]
+        [Benchmark(Baseline =true)]
         public void GetSetNormal()
+        {
+            _ = student.Name;
+            student.Name = "asd";
+        }
+        [Benchmark]
+        public void GetSetReflection()
         {
             _ = visitor.Value;
             visitor.SetValue("asd");

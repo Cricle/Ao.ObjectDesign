@@ -4,7 +4,7 @@ namespace Ao.ObjectDesign.Wpf
 {
     public interface IWpfDesignBuildResult
     {
-        INotifyableSequencer Sequencer { get; }
+        IActionSequencer<IModifyDetail> Sequencer { get; }
 
         IObjectDesigner Designer { get; }
 

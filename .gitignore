@@ -436,3 +436,5 @@ nuget.config
 results.xml
 uploadtest.cmd
 uploadmyget.ps1
+
+.codacy-coverage/*.*

@@ -4,6 +4,8 @@ using System.Windows;
 namespace Ao.ObjectDesign.Wpf
 {
     public class UISpirit<TView, TContext> : IUISpirit<TView, TContext>
+        where TView : class
+        where TContext : class
     {
         public UISpirit(TView view, TContext context)
         {
@@ -23,22 +25,22 @@ namespace Ao.ObjectDesign.Wpf
         {
             if (obj is UISpirit<TView, TContext> b)
             {
-                if (View==null&&b.View==null&&
-                    Context==null&&b.Context==null)
+                if (View == null && b.View == null &&
+                    Context == null && b.Context == null)
                 {
                     return true;
                 }
-                if (View==null&&b.View!=null||
+                if (View == null && b.View != null ||
                     View != null && b.View == null)
                 {
                     return false;
                 }
-                if (Context==null&&b.Context!=null||
-                    Context!=null&&b.Context==null)
+                if (Context == null && b.Context != null ||
+                    Context != null && b.Context == null)
                 {
                     return false;
                 }
-                return View .Equals(b.View )&&
+                return View.Equals(b.View) &&
                     Context.Equals(b.Context);
             }
             return false;

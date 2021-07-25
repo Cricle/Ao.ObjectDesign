@@ -27,20 +27,52 @@ namespace Ao.ObjectDesign.Wpf.Test
                 Assert.AreEqual(i, coll[i - 1]);
             }
         }
-        [TestMethod]
-        [DataRow(new int[] { })]
-        [DataRow(new int[] { 1 })]
-        [DataRow(new int[] { 1, 2, 3 })]
-        [DataRow(new int[] { 1, 1, 0, 34, 1, 2, 4 })]
-        public void AddRange_AllMustAdded(int[] datas)
+        public void AddRange_AllMustAdded<T>(T[] datas)
         {
-            SilentObservableCollection<int> coll = new SilentObservableCollection<int>();
+            SilentObservableCollection<T> coll = new SilentObservableCollection<T>();
+            object sender = null;
+            NotifyCollectionChangedEventArgs args = null;
+            coll.CollectionChanged += (o, e) =>
+            {
+                sender = o;
+                args = e;
+            };
             coll.AddRange(datas);
             Assert.AreEqual(datas.Length, coll.Count);
             for (int i = 0; i < datas.Length; i++)
             {
                 Assert.AreEqual(datas[i], coll[i], $"Fail to equal {datas[i]} and {coll[i]}");
             }
+            Assert.AreEqual(coll, sender);
+            Assert.AreEqual(NotifyCollectionChangedAction.Add, args.Action);
+            var contains = new HashSet<T>(args.NewItems.OfType<T>());
+            foreach (var item in coll)
+            {
+                if (!contains.Contains(item))
+                {
+                    Assert.Fail("Not contains {0}", item);
+                }
+            }
+        }
+
+        [TestMethod]
+        [DataRow(new int[] { })]
+        [DataRow(new int[] { 1 })]
+        [DataRow(new int[] { 1, 2, 3 })]
+        [DataRow(new int[] { 1, 1, 0, 34, 1, 2, 4 })]
+        public void AddValueTypeRange_AllMustAdded(int[] datas)
+        {
+            AddRange_AllMustAdded(datas);
+        }
+        [TestMethod]
+        public void AddRefTypesRange_AllMustAdded()
+        {
+            var objs = new object[10];
+            for (int i = 0; i < objs.Length; i++)
+            {
+                objs[i] = new object();
+            }
+            AddRange_AllMustAdded(objs);
         }
         [TestMethod]
         public void BatchClear_MustCleared()

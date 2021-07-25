@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Annotations;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
@@ -19,6 +20,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -78,7 +80,7 @@ namespace ObjectDesign.Wpf
             wpfObjectDesigner.DataTemplateBuilder.AddRange(coditions);
 
             forViewDataTemplateSelector = wpfObjectDesigner.CreateTemplateSelector();
-            sequencer = (Sequencer)wpfObjectDesigner.Sequencer;
+            sequencer = (PropertySequencer)wpfObjectDesigner.Sequencer;
         }
         public MainWindow()
         {
@@ -141,7 +143,7 @@ namespace ObjectDesign.Wpf
                 //DesignerSerializationVisibilityAttribute
             }
         }
-        private Sequencer sequencer;
+        private PropertySequencer sequencer;
         private INotifyPropertyChangeTo currentObject;
         private IDisposable disposable;
         private Dictionary<Type, INotifyPropertyChangeTo> uics = new Dictionary<Type, INotifyPropertyChangeTo>();

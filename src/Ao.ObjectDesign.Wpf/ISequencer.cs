@@ -1,9 +1,10 @@
 ﻿namespace Ao.ObjectDesign.Wpf
 {
-    public interface ISequencer
+    public interface ISequencer<TFallback>
+        where TFallback:IFallbackable
     {
-        ICommandWays<IModifyDetail> Undos { get; }
+        ICommandWays<TFallback> Undos { get; }
 
-        ICommandWays<IModifyDetail> Redos { get; }
+        ICommandWays<TFallback> Redos { get; }
     }
 }

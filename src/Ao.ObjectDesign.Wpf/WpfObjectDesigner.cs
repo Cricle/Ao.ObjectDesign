@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf
 
         public IObjectDesigner Designer { get; }
 
-        public INotifyableSequencer Sequencer { get; }
+        public IActionSequencer<IModifyDetail> Sequencer { get; }
 
         public IWpfUIGenerator UIGenerator { get; }
 
@@ -43,11 +43,11 @@ namespace Ao.ObjectDesign.Wpf
             UIGenerator = new UIGenerator(UIBuilder);
             if (useCompiledSequencer)
             {
-                Sequencer = new CompiledSequencer();
+                Sequencer = new CompiledPropertySequencer();
             }
             else
             {
-                Sequencer = new Sequencer();
+                Sequencer = new PropertySequencer();
             }
         }
         protected virtual object CreateInstance(Type type)
