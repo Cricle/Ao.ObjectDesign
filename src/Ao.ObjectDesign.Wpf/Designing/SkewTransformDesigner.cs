@@ -1,5 +1,7 @@
-﻿using Ao.ObjectDesign.Wpf.Annotations;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Annotations;
 using System.Windows.Media;
+
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(SkewTransform))]

@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Wpf.Annotations;
+﻿using Ao.ObjectDesign.Designing.Annotations;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;

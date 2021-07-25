@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Controls\Ao.ObjectDesign.Controls.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Xml\Ao.ObjectDesign.Wpf.Xml.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj" />

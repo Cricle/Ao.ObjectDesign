@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Ao.ObjectDesign.Designing;
 
 namespace Ao.ObjectDesign.Wpf
 {

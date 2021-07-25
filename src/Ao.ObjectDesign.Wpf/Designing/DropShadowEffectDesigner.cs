@@ -1,4 +1,5 @@
-﻿using Ao.ObjectDesign.Wpf.Annotations;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Annotations;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 

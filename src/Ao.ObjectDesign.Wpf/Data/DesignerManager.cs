@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Ao.ObjectDesign.Designing.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -17,15 +18,15 @@ namespace Ao.ObjectDesign.Wpf.Data
             BindingMode mode,
             UpdateSourceTrigger updateSourceTrigger)
         {
-            BindingDrawing drawing = new BindingDrawing(clr.GetType(), @object.GetType(), AttributeBindForGetter.Instance);
+            WpfBindingDrawing drawing = new WpfBindingDrawing(clr.GetType(), @object.GetType(), AttributeBindForGetter.Instance);
             return CreateBindings(drawing, clr, mode, updateSourceTrigger);
         }
-        public static IEnumerable<BindingUnit> CreateBindings(BindingDrawing drawing,
+        public static IEnumerable<BindingUnit> CreateBindings(WpfBindingDrawing drawing,
             object source)
         {
             return CreateBindings(drawing, source, BindingMode.Default, UpdateSourceTrigger.Default);
         }
-        public static IEnumerable<BindingUnit> CreateBindings(BindingDrawing drawing,
+        public static IEnumerable<BindingUnit> CreateBindings(WpfBindingDrawing drawing,
             object source,
             BindingMode mode,
             UpdateSourceTrigger updateSourceTrigger)

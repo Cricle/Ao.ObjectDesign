@@ -1,10 +1,11 @@
 ﻿using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Annotations;
+using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Ao.ObjectDesign.Designing;
 
 namespace Ao.ObjectDesign.Controls
 {

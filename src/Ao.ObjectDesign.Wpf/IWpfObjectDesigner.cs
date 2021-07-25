@@ -1,4 +1,5 @@
-﻿namespace Ao.ObjectDesign.Wpf
+﻿using Ao.ObjectDesign.Designing;
+namespace Ao.ObjectDesign.Wpf
 {
     public interface IWpfObjectDesigner
     {

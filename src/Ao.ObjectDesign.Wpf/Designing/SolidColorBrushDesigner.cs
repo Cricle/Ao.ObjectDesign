@@ -1,4 +1,5 @@
-﻿using Ao.ObjectDesign.Wpf.Annotations;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
 using System.Windows.Media;
 
