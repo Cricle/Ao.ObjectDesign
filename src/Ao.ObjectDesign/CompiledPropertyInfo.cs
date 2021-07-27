@@ -43,7 +43,6 @@ namespace Ao.ObjectDesign
                 }
                 string name = string.Concat("create", type.Name);
                 var dn = new DynamicMethod(name, ObjectType, Type.EmptyTypes, true);
-                dn.InitLocals = false;
                 var il = dn.GetILGenerator();
                 il.Emit(OpCodes.Newobj, construct);
                 il.Emit(OpCodes.Ret);

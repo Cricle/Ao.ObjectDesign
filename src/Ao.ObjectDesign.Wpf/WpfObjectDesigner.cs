@@ -2,7 +2,9 @@
 using Ao.ObjectDesign.ForView;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -68,15 +70,29 @@ namespace Ao.ObjectDesign.Wpf
             throw new NotSupportedException(designLevel.ToString());
         }
         public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
+            DesignLevels designLevel)
+        {
+            return BuildUI(mapping, designLevel, AttackModes.NativeAndDeclared);
+        }
+        public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
             DesignLevels designLevel,
             AttackModes attackMode)
         {
             var instance = CreateFromMapping(mapping, designLevel);
             return BuildUI(instance, attackMode);
         }
+        public IWpfDesignBuildUIResult BuildUI(object instance)
+        {
+            return BuildUI(instance, AttackModes.NativeAndDeclared);
+        }
         public IWpfDesignBuildUIResult BuildUI(object instance,
             AttackModes attackMode)
         {
+            if (instance is null)
+            {
+                throw new ArgumentNullException(nameof(instance));
+            }
+
             var proxy = Designer.CreateProxy(instance, instance.GetType());
             IEnumerable<IPropertyProxy> props = proxy.GetPropertyProxies();
             IEnumerable<IWpfUISpirit> ds = UIGenerator.Generate(props);
@@ -97,15 +113,29 @@ namespace Ao.ObjectDesign.Wpf
             return result;
         }
         public IWpfDesignDataTemplateBuildResult BuildDataTemplate(DesignMapping mapping,
+            DesignLevels designLevel)
+        {
+            return BuildDataTemplate(mapping, designLevel, AttackModes.VisitorAndDeclared);
+        }
+        public IWpfDesignDataTemplateBuildResult BuildDataTemplate(DesignMapping mapping,
             DesignLevels designLevel,
             AttackModes attackMode)
         {
             var instance = CreateFromMapping(mapping, designLevel);
             return BuildDataTemplate(instance, attackMode);
         }
+        public IWpfDesignDataTemplateBuildResult BuildDataTemplate(object instance)
+        {
+            return BuildDataTemplate(instance, AttackModes.VisitorAndDeclared);
+        }
         public IWpfDesignDataTemplateBuildResult BuildDataTemplate(object instance,
             AttackModes attackMode)
         {
+            if (instance is null)
+            {
+                throw new ArgumentNullException(nameof(instance));
+            }
+
             var proxy = Designer.CreateProxy(instance, instance.GetType());
             var ctxs = NotifySubscriber.Lookup(proxy).Select(x => new WpfTemplateForViewBuildContext
             {
@@ -130,6 +160,30 @@ namespace Ao.ObjectDesign.Wpf
                 Builder = DataTemplateBuilder
             };
             return result;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Add(IForViewCondition<FrameworkElement, WpfForViewBuildContext> condition)
+        {
+            Debug.Assert(UIBuilder != null);
+            UIBuilder.Add(condition);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AddRange(IEnumerable<IForViewCondition<FrameworkElement, WpfForViewBuildContext>> condition)
+        {
+            Debug.Assert(UIBuilder != null);
+            UIBuilder.AddRange(condition);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void Add(IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext> condition)
+        {
+            Debug.Assert(DataTemplateBuilder != null);
+            DataTemplateBuilder.Add(condition);
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void AddRange(IEnumerable<IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>> condition)
+        {
+            Debug.Assert(DataTemplateBuilder != null);
+            DataTemplateBuilder.AddRange(condition);
         }
     }
 }

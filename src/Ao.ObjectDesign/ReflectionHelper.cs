@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -8,14 +9,13 @@ namespace Ao.ObjectDesign
 {
     public static partial class ReflectionHelper
     {
-        private static readonly string IListTypeName = typeof(IList).FullName;
         private static readonly Type StringType = typeof(string);
 
         public static object Create(Type type)
         {
             TypeCreator creator = CompiledPropertyInfo.GetCreator(type);
-            object obj = creator();
-            return obj;
+            Debug.Assert(creator != null);
+            return creator();
         }
         public static object GetValue(object instance, PropertyInfo propertyInfo)
         {
@@ -25,6 +25,7 @@ namespace Ao.ObjectDesign
         public static object GetValue(object instance, PropertyIdentity identity)
         {
             PropertyGetter getter = CompiledPropertyInfo.GetGetter(identity);
+            Debug.Assert(getter != null);
             return getter(instance);
         }
         public static void SetValue(object instance, object value, PropertyInfo propertyInfo)
@@ -35,6 +36,7 @@ namespace Ao.ObjectDesign
         public static void SetValue(object instance, object value, PropertyIdentity identity)
         {
             PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
+            Debug.Assert(setter != null);
             setter(instance, value);
         }
         public static T Clone<T>(T source)

@@ -60,7 +60,7 @@ namespace ObjectDesign.Wpf
         {
             wpfObjectDesigner = new WpfObjectDesigner(true);
             wpfObjectDesigner.UIBuilder.AddWpfCondition();
-            wpfObjectDesigner.UIBuilder.Add(new DateTimeBrushForViewCondition());
+            wpfObjectDesigner.Add(new DateTimeBrushForViewCondition());
             settingTypes = KnowControlTypes.SettingTypes
                 .Where(x => !x.ClrType.IsAbstract && !x.UIType.IsAbstract && !ignoreTypes.Contains(x.UIType))
                 .ToList();
@@ -77,10 +77,11 @@ namespace ObjectDesign.Wpf
             };
 
 
-            wpfObjectDesigner.DataTemplateBuilder.AddRange(coditions);
+            wpfObjectDesigner.AddRange(coditions);
 
             forViewDataTemplateSelector = wpfObjectDesigner.CreateTemplateSelector();
             sequencer = (PropertySequencer)wpfObjectDesigner.Sequencer;
+            Design.ItemTemplateSelector = forViewDataTemplateSelector;
         }
         public MainWindow()
         {
@@ -154,13 +155,12 @@ namespace ObjectDesign.Wpf
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignMapping item)
             {
                 long bg = Stopwatch.GetTimestamp();
-                INotifyPropertyChangeTo obj = null;
                 designs.Clear();
                 disposable?.Dispose();
                 disposable = null;
                 sequencer.StripAll();
                 sequencer.CleanAllRecords();
-                if (!uics.TryGetValue(item.ClrType, out obj))
+                if (!uics.TryGetValue(item.ClrType, out var obj))
                 {
                     string fn = item.ClrType.Name + ".json";
                     if (File.Exists(fn))
@@ -180,23 +180,12 @@ namespace ObjectDesign.Wpf
                 }
                 DependencyObject ui = (DependencyObject)ReflectionHelper.Create(item.UIType);
                 IEnumerable<BindingUnit> drawing = DesignerManager.CreateBindings(obj, ui, BindingMode.TwoWay, UpdateSourceTrigger.Default);
-                if (ui is FrameworkElement fe)
-                {
-                    fe.SetBindings(drawing);
-                }
-                else if (ui is FrameworkContentElement fce)
-                {
-                    fce.SetBindings(drawing);
-                }
+                ui.SetBindings(drawing);
                 currentObject = obj;
                 if (mode == GenerateMode.DataTemplate)
                 {
-                    var res = wpfObjectDesigner.BuildDataTemplate(obj, AttackModes.VisitorAndDeclared);
+                    var res = wpfObjectDesigner.BuildDataTemplate(obj);
                     disposable = res.Subjected;
-                    if (Design.ItemTemplateSelector is null)
-                    {
-                        Design.ItemTemplateSelector = forViewDataTemplateSelector;
-                    }
                     foreach (WpfTemplateForViewBuildContext prop in res.GetEqualsInstanceContexts(obj))
                     {
                         designs.Add(prop);
@@ -204,26 +193,18 @@ namespace ObjectDesign.Wpf
                 }
                 else
                 {
-                    var res = wpfObjectDesigner.BuildUI(obj, AttackModes.NativeAndDeclared);
+                    var res = wpfObjectDesigner.BuildUI(obj);
                     disposable = res.Subjected;
                     foreach (IWpfUISpirit ctx in res.Contexts)
                     {
                         Grid grid = new Grid();
-                        grid.ColumnDefinitions.Add(new ColumnDefinition
-                        {
-                            Width = GridLength.Auto
-                        });
-                        grid.ColumnDefinitions.Add(new ColumnDefinition
-                        {
-                            Width = new GridLength(1, GridUnitType.Star)
-                        });
+                        grid.ColumnDefinitions.Add(new ColumnDefinition{Width = GridLength.Auto});
+                        grid.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(1, GridUnitType.Star)});
                         Grid.SetColumn(ctx.View, 1);
-                        TextBlock tbx = new TextBlock { Text = ctx.Context.PropertyProxy.PropertyInfo.Name };
-                        grid.Children.Add(tbx);
+                        grid.Children.Add(new TextBlock { Text = ctx.Context.PropertyProxy.PropertyInfo.Name });
                         grid.Children.Add(ctx.View);
                         designs.Add(grid);
                     }
-                    //Design.ItemsSource = designs;
                 }
                 Sv.Child = (UIElement)ui;
                 long ed = Stopwatch.GetTimestamp();

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-
-namespace Ao.ObjectDesign.Designing
+﻿namespace Ao.ObjectDesign.Designing
 {
     public class UISpirit<TView, TContext> : IUISpirit<TView, TContext>
         where TView : class

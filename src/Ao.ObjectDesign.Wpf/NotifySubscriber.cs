@@ -1,8 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Designing.Annotations;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Ao.ObjectDesign.Wpf
 {

@@ -31,24 +31,22 @@ namespace Ao.ObjectDesign.Wpf.Data
             BindingMode mode,
             UpdateSourceTrigger updateSourceTrigger)
         {
-            return drawing.Analysis().Where(x => x.HasPropertyBind)
-                .Select(x =>
+            foreach (var item in drawing.Analysis().Where(x => x.HasPropertyBind))
+            {
+                Binding binding = new Binding(item.Path)
                 {
-                    var binding = new Binding(x.Path)
-                    {
-                        Source = source,
-                        Mode = mode,
-                        UpdateSourceTrigger = updateSourceTrigger
-                    };
-                    if (x.ConverterType != null)
-                    {
-                        var converter = (IValueConverter)ReflectionHelper.Create(x.ConverterType);
-                        binding.Converter = converter;
-                        binding.ConverterParameter = x.ConverterParamter;
-                    }
-                    var unit = new BindingUnit(binding, x.DependencyProperty);
-                    return unit;
-                });
+                    Source = source,
+                    Mode = mode,
+                    UpdateSourceTrigger = updateSourceTrigger
+                };
+                if (item.ConverterType != null)
+                {
+                    var converter = (IValueConverter)ReflectionHelper.Create(item.ConverterType);
+                    binding.Converter = converter;
+                    binding.ConverterParameter = item.ConverterParamter;
+                }
+                yield return new BindingUnit(binding, item.DependencyProperty);
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Ao.ObjectDesign.Designing.Data
 {
     public abstract class BindingDrawing<TDrawingItem, TDescriptor> : IBindingDrawing<TDrawingItem>
         where TDrawingItem : IBindingDrawingItem
+        where TDescriptor: PropertyDescriptor
     {
         public BindingDrawing(Type clrType)
             : this(clrType, AttributeBindForGetter.Instance)
