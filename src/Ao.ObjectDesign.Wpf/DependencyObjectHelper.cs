@@ -35,10 +35,10 @@ namespace Ao.ObjectDesign.Wpf
             Type t = type;
             while (t != depObjType)
             {
-                Type e = t;
-                ret = ret.Concat(TypeDescriptor.GetProperties(e, dependencyAttributes)
+                Type w = t;//Dot't remove me
+                ret = ret.Concat(TypeDescriptor.GetProperties(w, dependencyAttributes)
                     .OfType<PropertyDescriptor>()
-                    .Where(x => x.ComponentType == e));
+                    .Where(x => x.ComponentType == w));
                 t = t.BaseType;
             }
 

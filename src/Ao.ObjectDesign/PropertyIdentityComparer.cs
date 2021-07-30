@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Ao.ObjectDesign
 {
@@ -21,6 +22,11 @@ namespace Ao.ObjectDesign
 
         public int GetHashCode(PropertyIdentity obj)
         {
+            if (obj is null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
             return obj.GetHashCode();
         }
     }

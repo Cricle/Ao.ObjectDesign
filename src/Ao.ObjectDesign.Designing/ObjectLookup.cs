@@ -21,16 +21,11 @@ namespace Ao.ObjectDesign.Designing
         }
         private static bool NotifyableChangeToCanStepInCondition(IPropertyProxy proxy)
         {
-            if (proxy is null)
-            {
-                throw new ArgumentNullException(nameof(proxy));
-            }
-
             return proxy.Type.GetInterface(INotifyPropertyChangeToName) != null;
         }
         private static INotifyPropertyChangeTo NotifyableChangeToValueFactory(IPropertyProxy proxy, IPropertyVisitor visitor)
         {
-            return visitor as INotifyPropertyChangeTo;
+            return visitor.Value as INotifyPropertyChangeTo;
         }
         public static IEnumerable<T> Lookup<T>(IObjectProxy proxy,
             Func<IPropertyProxy, bool> canStepInCondition,

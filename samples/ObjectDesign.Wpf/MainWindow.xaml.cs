@@ -10,6 +10,8 @@ using Ao.ObjectDesign.Wpf.Xml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using ObjectDesign.Wpf.Controls;
 using ObjectDesign.Wpf.Views;
 using System;
@@ -35,14 +37,6 @@ namespace ObjectDesign.Wpf
     {
         Direct,
         DataTemplate
-    }
-    public class Objx
-    {
-        public string Name { get; set; }
-
-        public string Name2 { get; set; }
-
-        public int Age { get; set; }
     }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -119,10 +113,6 @@ namespace ObjectDesign.Wpf
                     {
                         DesignBsonHelper.Serialize(fs, currentObject, t);
                     }
-                    using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Open))
-                    {
-                        var obj=DesignBsonHelper.Deserialize(fs, t);
-                    }
                     this.ShowMessageAsync(string.Empty, "保存为bson成功");
                 }
                 else if (e.Key == Key.Y)
@@ -130,11 +120,9 @@ namespace ObjectDesign.Wpf
                     Type t = currentObject.GetType();
                     string str = DeisgnYamlSerializer.Serialize(currentObject);
                     File.WriteAllText(t.Name + ".yaml", str);
-
-                    object xa = DeisgnYamlSerializer.Deserializer(str, t);
                     this.ShowMessageAsync(string.Empty, "保存为yaml成功");
                 }
-                else if (e.Key == Key.K)
+                else if (e.Key == Key.X)
                 {
                     Type t = currentObject.GetType();
                     string s = DeisgnXmlSerializer.Serialize(currentObject);
@@ -155,12 +143,12 @@ namespace ObjectDesign.Wpf
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignMapping item)
             {
                 long bg = Stopwatch.GetTimestamp();
-                designs.Clear();
+                designs.BatchClear();
                 disposable?.Dispose();
                 disposable = null;
                 sequencer.StripAll();
                 sequencer.CleanAllRecords();
-                if (!uics.TryGetValue(item.ClrType, out var obj))
+                if (!uics.TryGetValue(item.ClrType, out INotifyPropertyChangeTo obj))
                 {
                     string fn = item.ClrType.Name + ".json";
                     if (File.Exists(fn))
@@ -186,25 +174,29 @@ namespace ObjectDesign.Wpf
                 {
                     var res = wpfObjectDesigner.BuildDataTemplate(obj);
                     disposable = res.Subjected;
-                    foreach (WpfTemplateForViewBuildContext prop in res.GetEqualsInstanceContexts(obj))
-                    {
-                        designs.Add(prop);
-                    }
+                    var ctxs = res.GetEqualsInstanceContexts(obj);
+                    designs.AddRangeNotifyReset(ctxs);
+                    //foreach (WpfTemplateForViewBuildContext prop in ctxs)
+                    //{
+                    //    designs.Add(prop);
+                    //}
                 }
                 else
                 {
                     var res = wpfObjectDesigner.BuildUI(obj);
                     disposable = res.Subjected;
-                    foreach (IWpfUISpirit ctx in res.Contexts)
+                    var gids = new List<Grid>();
+                    foreach (IWpfUISpirit ctx in res.Contexts.Where(x=>x.View!=null))
                     {
                         Grid grid = new Grid();
-                        grid.ColumnDefinitions.Add(new ColumnDefinition{Width = GridLength.Auto});
-                        grid.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(1, GridUnitType.Star)});
+                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
+                        grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
                         Grid.SetColumn(ctx.View, 1);
                         grid.Children.Add(new TextBlock { Text = ctx.Context.PropertyProxy.PropertyInfo.Name });
                         grid.Children.Add(ctx.View);
-                        designs.Add(grid);
+                        gids.Add(grid);
                     }
+                    designs.AddRangeNotifyReset(gids);
                 }
                 Sv.Child = (UIElement)ui;
                 long ed = Stopwatch.GetTimestamp();

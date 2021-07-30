@@ -17,8 +17,9 @@ namespace Ao.ObjectDesign.Test
         public void GivenTypeInit_TypeMustEqualInput()
         {
             Type t = GetType();
-            ObjectDeclaring delcar = new ObjectDeclaring(t);
-            Assert.AreEqual(t, delcar.Type);
+            ObjectDeclaring declcar = new ObjectDeclaring(t);
+            Assert.AreEqual(t, declcar.Type);
+            Assert.IsTrue(declcar.ToString().Contains(declcar.Type.FullName));
         }
         struct MyStruct
         {

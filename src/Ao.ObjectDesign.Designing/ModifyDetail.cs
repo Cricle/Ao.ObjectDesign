@@ -23,7 +23,7 @@ namespace Ao.ObjectDesign.Designing
 
         public FallbackMode Mode { get; protected set; }
 
-        public virtual IFallbackable Copy(FallbackMode? mode)
+        public virtual IModifyDetail Copy(FallbackMode? mode)
         {
             return new ModifyDetail(Instance, PropertyName, From, To) { Mode = mode ?? Mode };
         }
@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Designing
             return new IgnoreIdentity(Instance, PropertyName);
         }
 
-        public virtual ModifyDetail Reverse()
+        public virtual IModifyDetail Reverse()
         {
             return new ModifyDetail(Instance, PropertyName, To, From) 
             {
@@ -47,9 +47,15 @@ namespace Ao.ObjectDesign.Designing
             };
         }
 
+        IFallbackable IFallbackable.Copy(FallbackMode? mode)
+        {
+            return Copy(mode);
+        }
+
         IFallbackable IFallbackable.Reverse()
         {
             return Reverse();
         }
+
     }
 }

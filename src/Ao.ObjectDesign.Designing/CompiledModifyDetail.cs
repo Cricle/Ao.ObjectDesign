@@ -4,7 +4,8 @@ namespace Ao.ObjectDesign.Designing
 {
     public class CompiledModifyDetail : ModifyDetail
     {
-        public CompiledModifyDetail(object instance, string propertyName, object from, object to) : base(instance, propertyName, from, to)
+        public CompiledModifyDetail(object instance, string propertyName, object from, object to)
+            : base(instance, propertyName, from, to)
         {
         }
 
@@ -15,13 +16,13 @@ namespace Ao.ObjectDesign.Designing
             PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
             setter(Instance, From);
         }
-        public override IFallbackable Copy(FallbackMode? mode)
+        public override IModifyDetail Copy(FallbackMode? mode)
         {
-            return new CompiledModifyDetail(Instance, PropertyName, From, To) { Mode = mode??Mode };
+            return new CompiledModifyDetail(Instance, PropertyName, From, To) { Mode = mode ?? Mode };
         }
-        public override ModifyDetail Reverse()
+        public override IModifyDetail Reverse()
         {
-            return new CompiledModifyDetail(Instance, PropertyName, To, From) { Mode= FallbackMode.Reverse};
+            return new CompiledModifyDetail(Instance, PropertyName, To, From) { Mode = FallbackMode.Reverse };
         }
     }
 }

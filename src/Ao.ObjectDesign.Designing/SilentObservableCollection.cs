@@ -29,26 +29,34 @@ namespace System.Collections.ObjectModel
             internal static readonly PropertyChangedEventArgs IndexerPropertyChanged = new PropertyChangedEventArgs("Item[]");
             internal static readonly NotifyCollectionChangedEventArgs ResetCollectionChanged = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset);
         }
-        /// <summary>
-        /// Adds a range of items to the observable collection.
-        /// Instead of iterating through all elements and adding them
-        /// one by one (which causes OnPropertyChanged events), all
-        /// the items gets added instantly without firing events.
-        /// After adding all elements, the OnPropertyChanged event will be fired.
-        /// </summary>
-        /// <param name="enumerable"></param>
-        public void AddRange(IEnumerable<T> enumerable)
+        public void AddRangeNotifyReset(IEnumerable<T> items)
+        {
+            CoreAddRange(items);
+            OnCollectionChanged(EventArgsCache.ResetCollectionChanged);
+        }
+
+        public void AddRange(IEnumerable<T> items)
+        {
+            int startIndex = Count;
+            CoreAddRange(items);
+            var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(items), startIndex);
+            OnCollectionChanged(args);
+        }
+        private void CoreAddRange(IEnumerable<T> items)
         {
             CheckReentrancy();
 
-            int startIndex = Count;
-
-            foreach (T item in enumerable)
+            if (Items is List<T> list)
             {
-                Items.Add(item);
+                list.AddRange(items);
             }
-
-            OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(enumerable), startIndex));
+            else
+            {
+                foreach (T item in items)
+                {
+                    Items.Add(item);
+                }
+            }
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
         }
@@ -58,9 +66,8 @@ namespace System.Collections.ObjectModel
 
             if (Count != 0)
             {
-                List<T> its = this.ToList();
                 Items.Clear();
-                OnCollectionChanged(new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, its, -1));
+                OnCollectionChanged(EventArgsCache.ResetCollectionChanged);
                 OnPropertyChanged(EventArgsCache.CountPropertyChanged);
                 OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
             }

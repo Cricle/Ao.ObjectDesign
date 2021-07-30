@@ -7,6 +7,7 @@
         string PropertyName { get; }
         object To { get; }
 
-        new ModifyDetail Reverse();
+        new IModifyDetail Reverse();
+        new IModifyDetail Copy(FallbackMode? mode);
     }
 }

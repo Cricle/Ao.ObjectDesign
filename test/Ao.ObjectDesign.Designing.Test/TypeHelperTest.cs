@@ -21,6 +21,7 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.ThrowsException<ArgumentNullException>(() => TypeHelper.IsBaseType(null));
             Assert.ThrowsException<ArgumentNullException>(() => TypeHelper.IsNullable(null));
             Assert.ThrowsException<ArgumentNullException>(() => TypeHelper.SafeChangeType(1, null));
+            Assert.ThrowsException<ArgumentNullException>(() => TypeHelper.SafeChangeType(1, null));
             Assert.ThrowsException<ArgumentNullException>(() => TypeHelper.TryChangeType(1, null, out _, out _));
         }
         [TestMethod]
@@ -83,6 +84,37 @@ namespace Ao.ObjectDesign.Designing.Test
         {
             var obj = new object();
             Assert.ThrowsException<InvalidCastException>(() => TypeHelper.ChangeType(obj, type));
+        }
+        [TestMethod]
+        [DataRow("Red", Colors.Red)]
+        [DataRow("Blue", Colors.Blue)]
+        [DataRow("Green", Colors.Green)]
+        public void ConvertEnum_MustGotEnumValue(string value, Colors color)
+        {
+            var val = TypeHelper.ChangeType(value, typeof(Colors));
+            Assert.AreEqual(color, val);
+        }
+        [TestMethod]
+        public void ConvertEnumFail_MustThrowException()
+        {
+            Assert.ThrowsException<ArgumentException>(() => TypeHelper.ChangeType("wewq", typeof(Colors)));
+        }
+        [TestMethod]
+        [DataRow(typeof(string))]
+        [DataRow(typeof(decimal))]
+        [DataRow(typeof(long))]
+        [DataRow(typeof(long?))]
+        [DataRow(typeof(decimal?))]
+        [DataRow(typeof(byte?))]
+        public void GivenConvableOrNullBaseType_MustReturnTrue(Type type)
+        {
+            Assert.IsTrue(TypeHelper.IsBaseType(type));
+        }
+        public enum Colors
+        {
+            Red,
+            Blue,
+            Green
         }
     }
 }

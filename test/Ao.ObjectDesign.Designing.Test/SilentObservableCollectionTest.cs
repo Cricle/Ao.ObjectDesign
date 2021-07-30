@@ -92,9 +92,7 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.AreEqual(0, coll.Count);
             Assert.AreEqual(coll, sender);
             Assert.IsNotNull(eg);
-            Assert.AreEqual(NotifyCollectionChangedAction.Remove, eg.Action);
-            Assert.IsNull(eg.NewItems);
-            Assert.AreEqual(6, eg.OldItems.Count);
+            Assert.AreEqual(NotifyCollectionChangedAction.Reset,eg.Action);
         }
         [TestMethod]
         public void Sort_MustSortedByProperty()

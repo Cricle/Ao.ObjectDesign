@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +26,29 @@ namespace Ao.ObjectDesign.Test
         {
             [DefaultValue("world")]
             public string Name { get; set; }
+        }
+        [TestMethod]
+        public void GivenNullCall_MustThrowException()
+        {
+            var inst = new object();
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone((Type)null, inst));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone((object)null, inst));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(typeof(object), null));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(1, null));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone<object>(null));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone<object>(1, null));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(null, 1, ReadOnlyHashSet<Type>.Empty));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(1, null, ReadOnlyHashSet<Type>.Empty));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(1, 1, null));
+
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetDefaultValueMap(null, false));
+
+            var propInfo = typeof(Class).GetProperty(nameof(Class.Student1));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, propInfo));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyInfo)null));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyIdentity)null));
+
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Create(null));
         }
 
         [TestMethod]

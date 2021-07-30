@@ -51,6 +51,17 @@ namespace Ao.ObjectDesign.Test
             Assert.ThrowsException<ArgumentException>(() => new PropertyVisitor(inst, ageProp));
         }
         [TestMethod]
+        public void ConvertSetValue_MustSetted()
+        {
+            Class inst = new Class { Age = 11 };
+            System.Reflection.PropertyInfo ageProp = typeof(Class).GetProperty(nameof(Class.Age));
+
+            PropertyVisitor visitor = new PropertyVisitor(inst, ageProp);
+
+            visitor.SetValue("22");
+            Assert.AreEqual(22, inst.Age);
+        }
+        [TestMethod]
         public void GivenHasTypeConvertProperty_MustCreateConverter()
         {
             Class inst = new Class { Age = 11 };

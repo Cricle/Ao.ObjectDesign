@@ -28,6 +28,12 @@ namespace Ao.ObjectDesign.Test
             PropertyProxy proxy = new PropertyProxy(inst, propInfo);
             Assert.AreEqual(inst, proxy.DeclaringInstance);
             Assert.AreEqual(inst.Name, proxy.Instance);
+
+            proxy.Instance = "world";
+            Assert.AreEqual(inst.Name, proxy.Instance);
+
+            var proxy2 = new PropertyProxy(inst, propInfo);
+            Assert.AreEqual(proxy.ToString(), proxy2.ToString());
         }
         class InnerProxy
         {

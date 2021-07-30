@@ -6,6 +6,22 @@ namespace Ao.ObjectDesign.Test
     [TestClass]
     public class CompiledPropertyVisitorTest
     {
+        class PrivateGet
+        {
+            private string name="hello";
+            public string Name
+            {
+                set { name = value; }
+            }
+        }
+        [TestMethod]
+        public void PrivateGet_GetValuMustThrowException()
+        {
+            PrivateGet obj = new PrivateGet();
+            System.Reflection.PropertyInfo prop = obj.GetType().GetProperty(nameof(PrivateGet.Name));
+            CompiledPropertyVisitor c = new CompiledPropertyVisitor(obj, prop);
+            Assert.ThrowsException<InvalidOperationException>(() => c.GetValue());
+        }
         [TestMethod]
         public void GetSetValue()
         {

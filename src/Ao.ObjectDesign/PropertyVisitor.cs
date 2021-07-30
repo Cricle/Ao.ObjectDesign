@@ -10,6 +10,7 @@ namespace Ao.ObjectDesign
     public class PropertyVisitor : ObjectProxy, IPropertyVisitor, INotifyPropertyChanged
     {
         private static readonly ConcurrentDictionary<Type, TypeConverter> typeConverterMap = new ConcurrentDictionary<Type, TypeConverter>();
+        private static readonly PropertyChangedEventArgs valueCHangedEventArgs = new PropertyChangedEventArgs(nameof(Value));
 
         public PropertyVisitor(object declaringInstance, PropertyInfo propertyInfo)
         {
@@ -49,10 +50,6 @@ namespace Ao.ObjectDesign
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string name = null)
-        {
-            RaisePropertyChanged(this, name);
-        }
         protected virtual void RaisePropertyChanged(object instance, [CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(instance, new PropertyChangedEventArgs(name));
@@ -96,7 +93,6 @@ namespace Ao.ObjectDesign
             PropertyInfo.SetValue(DeclaringInstance, ConvertValue(value));
             RaiseValueChanged();
         }
-        private static readonly PropertyChangedEventArgs valueCHangedEventArgs = new PropertyChangedEventArgs(nameof(Value));
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaiseValueChanged()
         {

@@ -22,26 +22,27 @@ namespace Ao.ObjectDesign.Designing
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object SafeChangeType(object value, Type type)
         {
+            if (type is null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             if (TryChangeType(value, type, out _, out object res))
             {
                 return res;
             }
 
-            if (type is null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
 
             return null;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ChangeType(object value, Type type)
         {
-
             if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
+
             if (TryChangeType(value, type, out Exception ex, out object res))
             {
                 return res;
