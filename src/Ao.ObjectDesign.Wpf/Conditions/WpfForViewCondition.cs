@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             FrameworkElement e,
             Binding binding);
 
-        protected Binding CreateWpfBinding(IPropertyProxy propertyProxy, BindingMode mode, UpdateSourceTrigger updateSourceTrigger, out DependencyProperty bindProperty)
+        protected static Binding CreateWpfBinding(IPropertyProxy propertyProxy, BindingMode mode, UpdateSourceTrigger updateSourceTrigger, out DependencyProperty bindProperty)
         {
             System.Collections.Generic.IReadOnlyDictionary<string, System.ComponentModel.DependencyPropertyDescriptor> descriptorMap = DependencyObjectHelper.GetDependencyPropertyDescriptors(propertyProxy.DeclaringInstance.GetType());
             bindProperty = descriptorMap[propertyProxy.PropertyInfo.Name].DependencyProperty;
@@ -28,7 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             };
             return binding;
         }
-        protected Binding CreateClrBinding(WpfForViewBuildContext context)
+        protected static Binding CreateClrBinding(WpfForViewBuildContext context)
         {
             Binding binding = new Binding(context.PropertyProxy.PropertyInfo.Name)
             {
@@ -38,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             };
             return binding;
         }
-        protected bool IsDependencyProperty(object instance, string propertyName)
+        protected static bool IsDependencyProperty(object instance, string propertyName)
         {
             if (instance is DependencyObject)
             {
@@ -73,7 +73,6 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             }
             else
             {
-                //IPropertyVisitor visitor = context.PropertyVisitor;
                 binding = CreateClrBinding(context);
             }
             Bind(context, view, binding);

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
@@ -19,7 +20,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 if (value is null)
                 {
-                    scaleX = scaleY = centerY = centerX = 0;
+                    ScaleX = ScaleY = 1;
+                    CenterY = CenterX = 0;
                 }
                 else
                 {
@@ -31,6 +33,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public double ScaleX
         {
             get => scaleX;
@@ -40,6 +43,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRotateTransformChanged();
             }
         }
+        [DefaultValue(1d)]
         public double ScaleY
         {
             get => scaleY;
@@ -49,6 +53,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRotateTransformChanged();
             }
         }
+        [DefaultValue(0d)]
         public double CenterX
         {
             get => centerX;
@@ -59,6 +64,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public double CenterY
         {
             get => centerY;

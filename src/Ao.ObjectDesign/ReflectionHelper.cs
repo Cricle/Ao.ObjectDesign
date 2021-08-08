@@ -157,9 +157,9 @@ namespace Ao.ObjectDesign
 
             Type destType = dest.GetType();
             Type sourceType = source.GetType();
-            if (destType != sourceType)
+            if (destType != sourceType && !sourceType.IsAssignableFrom(destType))
             {
-                throw new InvalidOperationException("Dest and source type must equals!");
+                throw new InvalidOperationException("Dest and source type must equals or base on!");
             }
             IEnumerable<PropertyInfo> props = destType.GetProperties()
                 .Where(x => x.CanWrite && !ignoreTypes.Contains(x.PropertyType));

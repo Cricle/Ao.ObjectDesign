@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Designing
 {
     public interface IFallbackable
     {
-        FallbackMode Mode { get; }
+        FallbackModes Mode { get; }
 
         void Fallback();
 
+        bool IsReverse(IFallbackable fallbackable);
+
         IFallbackable Reverse();
 
-        IFallbackable Copy(FallbackMode? mode);
+        IFallbackable Copy(FallbackModes? mode);
     }
 }

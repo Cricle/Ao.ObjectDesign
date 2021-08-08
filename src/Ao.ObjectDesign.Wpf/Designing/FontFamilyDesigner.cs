@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing.Text;
 using System.Linq;
 using System.Windows.Media;
@@ -55,6 +56,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(null)]
         public string FontName
         {
             get => fontName;

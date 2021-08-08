@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
@@ -60,6 +61,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
+        [DefaultValue(false)]
         public bool IsBold
         {
             get => isBold;
@@ -69,6 +71,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 PenFontWeight = value ? PenFontWeights.Bold : PenFontWeights.Normal;
             }
         }
+        [DefaultValue(PenFontWeights.Normal)]
         public PenFontWeights PenFontWeight
         {
             get => penFontWeight;

@@ -8,6 +8,6 @@ namespace Ao.ObjectDesign.Designing.Data
     {
         BindForAttribute Get(PropertyInfo info);
 
-        BindForAttribute Get(Type info);
+        BindForAttribute Get(Type type);
     }
 }

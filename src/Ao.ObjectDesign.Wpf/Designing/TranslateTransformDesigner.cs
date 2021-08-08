@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
@@ -26,6 +27,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public double X
         {
             get => x;
@@ -36,6 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public double Y
         {
             get => y;

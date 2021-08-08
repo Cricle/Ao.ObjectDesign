@@ -6,10 +6,10 @@ using System.Linq;
 
 namespace Ao.ObjectDesign.Designing
 {
-    [DebuggerDisplay("Count={Count}")]
-    public class CommandWays<T> : IEnumerable<T>, ICommandWays<T>
+    [DebuggerDisplay("Count = {Count}")]
+    public class CommandWays<T> : ICommandWays<T>
     {
-        public const int DefaultMaxSize = 100;
+        public const int DefaultMaxSize = 1000;
 
         private readonly LinkedList<T> ways = new LinkedList<T>();
 
@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign.Designing
             {
                 if (value < 0)
                 {
-                    throw new ArgumentOutOfRangeException($"Max undo size must more or equal zero");
+                    throw new IndexOutOfRangeException($"Max undo size must more or equal zero");
                 }
                 int origin = maxSize;
                 maxSize = value;

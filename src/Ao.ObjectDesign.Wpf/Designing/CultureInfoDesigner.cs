@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -9,6 +10,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     {
         private string name;
 
+        [DefaultValue(null)]
         public virtual string Name
         {
             get => name;

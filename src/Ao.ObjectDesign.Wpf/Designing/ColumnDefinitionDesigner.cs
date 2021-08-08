@@ -36,6 +36,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RaiseColumnDefinitionChanged();
         }
 
+        [DefaultValue(double.PositiveInfinity)]
         public virtual double MaxWidth
         {
             get => maxWidth;
@@ -46,7 +47,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-
+        [DefaultValue(0d)]
         public virtual double MinWidth
         {
             get => minWidth;

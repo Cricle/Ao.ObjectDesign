@@ -8,6 +8,6 @@
         object To { get; }
 
         new IModifyDetail Reverse();
-        new IModifyDetail Copy(FallbackMode? mode);
+        new IModifyDetail Copy(FallbackModes? mode);
     }
 }

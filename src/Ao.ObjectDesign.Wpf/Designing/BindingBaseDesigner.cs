@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -19,6 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private string bindingGroupName;
         private int delay;
 
+        [DefaultValue(0)]
         public virtual int Delay
         {
             get => delay;
@@ -28,6 +30,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue("")]
         public virtual string BindingGroupName
         {
             get => bindingGroupName;
@@ -37,6 +40,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(null)]
         public virtual string StringFormat
         {
             get => stringFormat;

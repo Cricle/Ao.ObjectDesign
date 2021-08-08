@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
@@ -15,6 +16,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private bool isOverLine;
         private bool isBaseline;
 
+        [DefaultValue(false)]
         public virtual bool IsBaseline
         {
             get => isBaseline;
@@ -25,6 +27,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool IsOverLine
         {
             get => isOverLine;
@@ -35,6 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool IsStrikethrough
         {
             get => isStrikethrough;
@@ -44,6 +48,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseTextDecorationCollectionChanged();
             }
         }
+        [DefaultValue(false)]
         public virtual bool IsUnderline
         {
             get => isUnderline;

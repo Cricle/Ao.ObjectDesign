@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -15,6 +16,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double minHeight;
         private double maxHeight = double.PositiveInfinity;
 
+        [DefaultValue(0d)]
         public virtual double MinHeight
         {
             get => minHeight;
@@ -25,6 +27,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(double.PositiveInfinity)]
         public virtual double MaxHeight
         {
             get => maxHeight;
@@ -36,6 +39,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
+        [DefaultValue(double.PositiveInfinity)]
         public virtual double MaxWidth
         {
             get => maxWidth;
@@ -46,6 +50,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double MinWidth
         {
             get => minWidth;
@@ -56,6 +61,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(double.NaN)]
         public virtual double Height
         {
             get => height;
@@ -65,6 +71,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseSizeChanged();
             }
         }
+        [DefaultValue(double.NaN)]
         public virtual double Width
         {
             get => width;

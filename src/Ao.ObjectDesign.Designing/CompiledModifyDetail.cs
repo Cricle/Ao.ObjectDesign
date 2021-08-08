@@ -16,13 +16,13 @@ namespace Ao.ObjectDesign.Designing
             PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
             setter(Instance, From);
         }
-        public override IModifyDetail Copy(FallbackMode? mode)
+        public override IModifyDetail Copy(FallbackModes? mode)
         {
             return new CompiledModifyDetail(Instance, PropertyName, From, To) { Mode = mode ?? Mode };
         }
         public override IModifyDetail Reverse()
         {
-            return new CompiledModifyDetail(Instance, PropertyName, To, From) { Mode = FallbackMode.Reverse };
+            return new CompiledModifyDetail(Instance, PropertyName, To, From) { Mode = FallbackModes.Reverse };
         }
     }
 }

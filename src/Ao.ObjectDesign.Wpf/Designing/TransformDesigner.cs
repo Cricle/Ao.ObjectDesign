@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
@@ -13,6 +14,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private SkewTransformDesigner skewTransform;
         private TransformTypes transformType;
 
+        [DefaultValue(TransformTypes.None)]
         public virtual TransformTypes TransformType
         {
             get => transformType;

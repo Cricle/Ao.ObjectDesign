@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -25,6 +26,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double Bottom
         {
             get => bottom;
@@ -34,6 +36,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseThicknessChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Right
         {
             get => right;
@@ -43,6 +46,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseThicknessChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Top
         {
             get => top;
@@ -52,6 +56,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseThicknessChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Left
         {
             get => left;

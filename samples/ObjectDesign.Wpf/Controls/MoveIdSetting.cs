@@ -33,7 +33,6 @@ namespace ObjectDesign.Wpf.Controls
         }
         public void SetDefault()
         {
-            //base.SetDefault();
             IdFontSize = 12;
             IdBrush = new BrushDesigner { Brush = Brushes.Black };
             Text = null;
@@ -47,7 +46,6 @@ namespace ObjectDesign.Wpf.Controls
             }
             else
             {
-                //Apply((Control)value);
                 IdFontSize = value.IdFontSize;
                 IdBrush = new BrushDesigner { Brush = value.IdBrush };
                 Text = value.Text;
@@ -59,7 +57,6 @@ namespace ObjectDesign.Wpf.Controls
         {
             if (value != null)
             {
-                //WriteTo((Control)value);
                 value.IdFontSize = idFontSize;
                 value.IdBrush = idBrush?.Brush;
                 value.Text = text;

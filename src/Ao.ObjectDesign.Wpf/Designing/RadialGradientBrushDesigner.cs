@@ -22,21 +22,31 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        private Point center;
+        private PointDesigner center;
         private double radiusX;
         private double radiusY;
-        private Point gradientOrigin;
+        private PointDesigner gradientOrigin;
 
-        public virtual Point GradientOrigin
+        [DefaultValue(null)]
+        public virtual PointDesigner GradientOrigin
         {
             get => gradientOrigin;
             set
             {
+                if (gradientOrigin != null)
+                {
+                    gradientOrigin.PropertyChanged -= OnPointPropertyChanged;
+                }
+                if (value != null)
+                {
+                    value.PropertyChanged += OnPointPropertyChanged;
+                }
                 Set(ref gradientOrigin, value);
                 RaiseRadialGradientBrushChange();
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double RadiusY
         {
             get => radiusY;
@@ -47,6 +57,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double RadiusX
         {
             get => radiusX;
@@ -57,14 +68,28 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        public virtual Point Center
+        [DefaultValue(null)]
+        public virtual PointDesigner Center
         {
             get => center;
             set
             {
+                if (center != null)
+                {
+                    center.PropertyChanged -= OnPointPropertyChanged;
+                }
+                if (value != null)
+                {
+                    value.PropertyChanged += OnPointPropertyChanged;
+                }
                 Set(ref center, value);
                 RaiseRadialGradientBrushChange();
             }
+        }
+
+        private void OnPointPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaiseRadialGradientBrushChange();
         }
 
         [PlatformTargetProperty]
@@ -74,8 +99,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 RadialGradientBrush brush = new RadialGradientBrush
                 {
-                    GradientOrigin = gradientOrigin,
-                    Center = center,
+                    GradientOrigin = gradientOrigin?.Point ?? default,
+                    Center = center?.Point ?? default,
                     RadiusY = radiusY,
                     RadiusX = radiusX
                 };
@@ -86,18 +111,18 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 if (value is null)
                 {
-                    GradientOrigin = new Point();
-                    Center = new Point();
+                    GradientOrigin = new PointDesigner();
+                    Center = new PointDesigner();
                     RadiusX = RadiusY = 0;
                 }
                 else
                 {
-                    GradientOrigin = value.GradientOrigin;
-                    Center = value.Center;
+                    GradientOrigin = new PointDesigner { Point = value.GradientOrigin };
+                    Center = new PointDesigner { Point = value.Center };
                     RadiusX = value.RadiusX;
                     RadiusY = value.RadiusY;
                 }
-                Apply(null);
+                Apply(value);
             }
         }
         protected void RaiseRadialGradientBrushChange()

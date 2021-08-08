@@ -70,7 +70,6 @@ namespace ObjectDesign.Wpf
                 new FontFamilyCondition()
             };
 
-
             wpfObjectDesigner.AddRange(coditions);
 
             forViewDataTemplateSelector = wpfObjectDesigner.CreateTemplateSelector();
@@ -176,10 +175,6 @@ namespace ObjectDesign.Wpf
                     disposable = res.Subjected;
                     var ctxs = res.GetEqualsInstanceContexts(obj);
                     designs.AddRangeNotifyReset(ctxs);
-                    //foreach (WpfTemplateForViewBuildContext prop in ctxs)
-                    //{
-                    //    designs.Add(prop);
-                    //}
                 }
                 else
                 {

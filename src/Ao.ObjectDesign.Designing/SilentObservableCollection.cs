@@ -9,7 +9,7 @@ namespace System.Collections.ObjectModel
     /// SilentObservableCollection is a ObservableCollection with some extensions.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class SilentObservableCollection<T> : ObservableCollection<T>, ICollection<T>
+    public class SilentObservableCollection<T> : ObservableCollection<T>
     {
         public SilentObservableCollection()
         {
@@ -31,12 +31,62 @@ namespace System.Collections.ObjectModel
         }
         public void AddRangeNotifyReset(IEnumerable<T> items)
         {
+            if (!items.Any())
+            {
+                return;
+            }
             CoreAddRange(items);
             OnCollectionChanged(EventArgsCache.ResetCollectionChanged);
         }
+        public void RemoveRange(IEnumerable<T> items)
+        {
+            if (!items.Any())
+            {
+                return;
+            }
 
+            int startIndex = Count;
+            CoreRemoveRange(items);
+            var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, new List<T>(items), startIndex);
+            OnCollectionChanged(args);
+        }
+        public void RemoveRangeNotifyReset(IEnumerable<T> items)
+        {
+            if (!items.Any())
+            {
+                return;
+            }
+
+            CoreRemoveRange(items);
+            OnCollectionChanged(EventArgsCache.ResetCollectionChanged);
+        }
+        private void CoreRemoveRange(IEnumerable<T> items)
+        {
+
+            CheckReentrancy();
+
+            if (Items is List<T> list)
+            {
+                var set = new HashSet<T>(items);
+                list.RemoveAll(x => set.Contains(x));
+            }
+            else
+            {
+                foreach (T item in items)
+                {
+                    Items.Remove(item);
+                }
+            }
+            OnPropertyChanged(EventArgsCache.CountPropertyChanged);
+            OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
+        }
         public void AddRange(IEnumerable<T> items)
         {
+            if (!items.Any())
+            {
+                return;
+            }
+
             int startIndex = Count;
             CoreAddRange(items);
             var args = new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, new List<T>(items), startIndex);

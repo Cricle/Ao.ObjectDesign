@@ -23,8 +23,8 @@ namespace Ao.ObjectDesign.Wpf
         public UIGenerator(IObjectDesigner designer,
             IForViewBuilder<FrameworkElement, WpfForViewBuildContext> builder)
         {
-            Designer = designer;
-            Builder = builder;
+            Designer = designer ?? throw new System.ArgumentNullException(nameof(designer));
+            Builder = builder ?? throw new System.ArgumentNullException(nameof(builder));
 
             Mode = BindingMode.TwoWay;
             UpdateSourceTrigger = UpdateSourceTrigger.Default;

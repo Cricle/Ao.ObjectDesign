@@ -13,15 +13,15 @@ namespace Ao.ObjectDesign.Designing.Data
         where TDrawingItem : IBindingDrawingItem
         where TDescriptor: PropertyDescriptor
     {
-        public BindingDrawing(Type clrType)
+        protected BindingDrawing(Type clrType)
             : this(clrType, AttributeBindForGetter.Instance)
         {
         }
-        public BindingDrawing(Type clrType, IBindForGetter bindForGetter)
+        protected BindingDrawing(Type clrType, IBindForGetter bindForGetter)
             : this(clrType, null, bindForGetter)
         {
         }
-        public BindingDrawing(Type clrType, Type dependencyObjectType, IBindForGetter bindForGetter)
+        protected BindingDrawing(Type clrType, Type dependencyObjectType, IBindForGetter bindForGetter)
         {
             ClrType = clrType ?? throw new ArgumentNullException(nameof(clrType));
             DependencyObjectType = dependencyObjectType;

@@ -57,24 +57,27 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double opacity = 1;
         private SilentObservableCollection<GradientStopDesigner> penGradientStops;
 
+        [DefaultValue(0d)]
         public virtual double Opacity
         {
             get => opacity;
             set => Set(ref opacity, value);
         }
 
+        [DefaultValue(GradientSpreadMethod.Pad)]
         public virtual GradientSpreadMethod SpreadMethod
         {
             get => spreadMethod;
             set => Set(ref spreadMethod, value);
         }
-
+        [DefaultValue(BrushMappingMode.RelativeToBoundingBox)]
         public virtual BrushMappingMode MappingMode
         {
             get => mappingMode;
             set => Set(ref mappingMode, value);
         }
 
+        [DefaultValue(ColorInterpolationMode.SRgbLinearInterpolation)]
         public virtual ColorInterpolationMode ColorInterpolationMode
         {
             get => colorInterpolationMode;

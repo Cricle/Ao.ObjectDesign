@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
+using System.ComponentModel;
 using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -12,6 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private string ancestorType;
         private int ancestorLevel;
 
+        [DefaultValue(RelativeSourceMode.Self)]
         public virtual RelativeSourceMode Mode
         {
             get => mode;
@@ -20,6 +22,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref mode, value);
             }
         }
+        [DefaultValue(null)]
         [TransferOrigin(typeof(Type))]
         public virtual string AncestorType
         {
@@ -29,6 +32,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref ancestorType, value);
             }
         }
+        [DefaultValue(1)]
         public virtual int AncestorLevel
         {
             get => ancestorLevel;

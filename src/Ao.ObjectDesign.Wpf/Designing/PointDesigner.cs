@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -10,6 +11,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double x;
         private double y;
 
+        [DefaultValue(0d)]
         public virtual double X
         {
             get => x;
@@ -19,6 +21,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaisePointChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Y
         {
             get => y;

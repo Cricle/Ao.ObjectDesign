@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -12,6 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double right;
         private double bottom;
 
+        [DefaultValue(0d)]
         public virtual double Left
         {
             get => left;
@@ -21,6 +23,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseCornerRadiusChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Top
         {
             get => top;
@@ -30,6 +33,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseCornerRadiusChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Right
         {
             get => right;
@@ -39,6 +43,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseCornerRadiusChanged();
             }
         }
+        [DefaultValue(0d)]
         public virtual double Bottom
         {
             get => bottom;

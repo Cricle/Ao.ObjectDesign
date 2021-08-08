@@ -36,7 +36,7 @@ namespace ObjectDesignRW
                 objProxys = ps.Where(x => !ignoreType.Contains(x.Type))
                     .Select(x => x.CreateVisitor())
                     .ToArray();
-                break;
+                return;
             }
 
         }

@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
@@ -27,6 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private FontStretchTypes fontStretchType;
 
+        [DefaultValue(FontStretchTypes.Normal)]
         public virtual FontStretchTypes FontStretchType
         {
             get => fontStretchType;

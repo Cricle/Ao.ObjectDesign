@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private ImageSourceDesigner source;
 
-
+        [DefaultValue(null)]
         public virtual ImageSourceDesigner Source
         {
             get => source;

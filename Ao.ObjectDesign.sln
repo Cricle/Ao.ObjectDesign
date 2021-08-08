@@ -31,9 +31,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Xml", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Yaml", "src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj", "{F0995A19-F3CE-4F49-BF50-93B39997DFF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Designing", "src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj", "{762DCC67-B3BC-4602-9C60-BF024ED0AAE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Designing", "src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj", "{762DCC67-B3BC-4602-9C60-BF024ED0AAE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Designing.Test", "test\Ao.ObjectDesign.Designing.Test\Ao.ObjectDesign.Designing.Test.csproj", "{54ECB04E-7557-46A4-B7DB-D01E592135D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Designing.Test", "test\Ao.ObjectDesign.Designing.Test\Ao.ObjectDesign.Designing.Test.csproj", "{54ECB04E-7557-46A4-B7DB-D01E592135D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.WpfDesign", "src\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj", "{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -213,6 +215,18 @@ Global
 		{54ECB04E-7557-46A4-B7DB-D01E592135D5}.Release|x64.Build.0 = Release|Any CPU
 		{54ECB04E-7557-46A4-B7DB-D01E592135D5}.Release|x86.ActiveCfg = Release|Any CPU
 		{54ECB04E-7557-46A4-B7DB-D01E592135D5}.Release|x86.Build.0 = Release|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Debug|x64.Build.0 = Debug|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Debug|x86.Build.0 = Debug|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Release|x64.ActiveCfg = Release|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Release|x64.Build.0 = Release|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Release|x86.ActiveCfg = Release|Any CPU
+		{A6A3945D-10A2-4CF4-8009-C7D5DDF9B581}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

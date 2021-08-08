@@ -438,3 +438,4 @@ uploadtest.cmd
 uploadmyget.ps1
 
 .codacy-coverage/*.*
+.sonarqube/**/*.*

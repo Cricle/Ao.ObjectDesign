@@ -56,7 +56,6 @@ namespace Ao.ObjectDesign.Designing.Test
         }
 
         [TestMethod]
-        [DataRow(new int[] { })]
         [DataRow(new int[] { 1 })]
         [DataRow(new int[] { 1, 2, 3 })]
         [DataRow(new int[] { 1, 1, 0, 34, 1, 2, 4 })]
@@ -114,6 +113,68 @@ namespace Ao.ObjectDesign.Designing.Test
             {
                 Assert.AreEqual(coll[i], orderDesc[i], $"Fail to equal order desc {i}");
             }
+        }
+        [TestMethod]
+        public void AddRangeNotifyReset_MustRaiseReset()
+        {
+            var coll = new SilentObservableCollection<int>();
+            var addeds = new int[] { 1, 2, 3, 4, 5 };
+            object sender=null;
+            NotifyCollectionChangedEventArgs args = null;
+            coll.CollectionChanged += (o, e) =>
+            {
+                sender = o;
+                args = e;
+            };
+            coll.AddRangeNotifyReset(addeds);
+            Assert.AreEqual(coll, sender);
+            Assert.AreEqual(NotifyCollectionChangedAction.Reset,args.Action);
+
+            for (int i = 0; i < addeds.Length; i++)
+            {
+                if (!coll.Contains(addeds[i]))
+                {
+                    Assert.Fail("Fail to add index {0}", i);
+                }
+            }
+        }
+        [TestMethod]
+        public void AddRangeNotifyResetWithNothing_MustNothingTodo()
+        {
+            var coll = new SilentObservableCollection<int>();
+
+            var addeds = new int[0];
+            object sender = null;
+            NotifyCollectionChangedEventArgs args = null;
+            coll.CollectionChanged += (o, e) =>
+            {
+                sender = o;
+                args = e;
+            };
+            coll.AddRangeNotifyReset(addeds);
+            Assert.IsNull(sender);
+            Assert.IsNull(args);
+        }
+        [TestMethod]
+        public void RemoveRange_MustRemovedAndRaiseRemoved()
+        {
+            var coll = new SilentObservableCollection<int>();
+            var datas = new int[] { 1, 2, 3, 4, 5 };
+            coll.AddRange(datas);
+            object sender = null;
+            NotifyCollectionChangedEventArgs args = null;
+            coll.CollectionChanged += (o, e) =>
+            {
+                sender = o;
+                args = e;
+            };
+            coll.RemoveRange(datas);
+            Assert.AreEqual(0, coll.Count);
+            Assert.AreEqual(coll, sender);
+            Assert.IsNotNull(args);
+            Assert.AreEqual(NotifyCollectionChangedAction.Remove, args.Action);
+            Assert.IsNotNull(args.OldItems);
+                        
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -30,6 +31,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double CenterX
         {
             get => centerX;
@@ -40,6 +42,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(0d)]
         public virtual double CenterY
         {
             get => centerY;
@@ -51,6 +54,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
+        [DefaultValue(0d)]
         public virtual double Angle
         {
             get => angle;

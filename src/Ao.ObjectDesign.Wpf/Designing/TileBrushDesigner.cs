@@ -36,6 +36,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private AlignmentX alignmentX;
         private BrushMappingMode viewboxUnits;
 
+        [DefaultValue(BrushMappingMode.RelativeToBoundingBox)]
         public virtual BrushMappingMode ViewboxUnits
         {
             get => viewboxUnits;
@@ -45,6 +46,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(AlignmentX.Center)]
         public virtual AlignmentX AlignmentX
         {
             get => alignmentX;
@@ -54,6 +56,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(BrushMappingMode.RelativeToBoundingBox)]
         public virtual BrushMappingMode ViewportUnits
         {
             get => viewportUnits;
@@ -63,6 +66,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(AlignmentX.Center)]
         public virtual AlignmentY AlignmentY
         {
             get => alignmentY;
@@ -116,6 +120,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RaisePropertyChanged(ViewboxPropertyName);
         }
 
+        [DefaultValue(Stretch.None)]
         public virtual Stretch Stretch
         {
             get => stretch;
@@ -125,6 +130,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(TileMode.None)]
         public virtual TileMode TileMode
         {
             get => tileMode;

@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
+using System.ComponentModel;
 using System.Net.Cache;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -17,6 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private BitmapCreateOptions createOptions;
         private RequestCacheLevel requestCacheLevel;
 
+        [DefaultValue(RequestCacheLevel.Default)]
         public virtual RequestCacheLevel RequestCacheLevel
         {
             get => requestCacheLevel;
@@ -26,6 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseImageSourceChanged();
             }
         }
+        [DefaultValue(BitmapCreateOptions.None)]
         public virtual BitmapCreateOptions CreateOptions
         {
             get => createOptions;
@@ -35,6 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseImageSourceChanged();
             }
         }
+        [DefaultValue(BitmapCacheOption.None)]
         public virtual BitmapCacheOption CacheOption
         {
             get => cacheOption;
@@ -44,6 +48,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseImageSourceChanged();
             }
         }
+        [DefaultValue(null)]
         public virtual int? DecodePixelWidth
         {
             get => decodePixelWidth;
@@ -53,6 +58,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseImageSourceChanged();
             }
         }
+        [DefaultValue(null)]
         public virtual int? DecodePixelHeight
         {
             get => decodePixelHeight;
@@ -63,6 +69,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(null)]
         public virtual string Uri
         {
             get => uri;

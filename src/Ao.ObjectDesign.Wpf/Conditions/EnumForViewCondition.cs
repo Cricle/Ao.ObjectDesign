@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ao.ObjectDesign.Wpf.Converters;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -16,6 +17,8 @@ namespace Ao.ObjectDesign.Wpf.Conditions
 
         class EnumValueConverter : IValueConverter
         {
+            public static readonly EnumValueConverter Instance = new EnumValueConverter();
+
             public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
             {
                 TypeConverter convert = TypeDescriptor.GetConverter((Type)parameter);
@@ -31,7 +34,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
 
         protected override void Bind(WpfForViewBuildContext context, FrameworkElement e, Binding binding)
         {
-            binding.Converter = new EnumValueConverter();
+            binding.Converter = EnumValueConverter.Instance;
             binding.ConverterParameter = context.PropertyProxy.Type;
 
             e.SetBinding(ComboBox.SelectedItemProperty, binding);

@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing
 {
-    public interface IUISpirit<out TView, TContext>
+    public interface IUISpirit<out TView, out TContext>
     {
         TContext Context { get; }
         TView View { get; }

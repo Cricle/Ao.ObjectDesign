@@ -10,10 +10,15 @@ namespace Ao.ObjectDesign.Wpf.Converters
     {
         public static readonly TypeEnumConverter Instance = new TypeEnumConverter();
 
-        private static readonly Dictionary<Type, WeakReference<Array>> enumCaches = new Dictionary<Type, WeakReference<Array>>();
+        protected static readonly Dictionary<Type, WeakReference<Array>> enumCaches = new Dictionary<Type, WeakReference<Array>>();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Type t)
+            Type t = value as Type;
+            if (t is null)
+            {
+                t = parameter as Type;
+            }
+            if (t != null)
             {
                 Array values;
                 if (enumCaches.TryGetValue(t, out WeakReference<Array> enumValuesRef))

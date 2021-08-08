@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
                 if (value != null)
                 {
-                    gridLengthSetting.PropertyChanged += OnGridLengthSettingPropertyChanged;
+                    value.PropertyChanged += OnGridLengthSettingPropertyChanged;
                 }
                 Set(ref gridLengthSetting, value);
                 RaiseRowDefinitionChanged();
@@ -36,6 +36,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RaiseRowDefinitionChanged();
         }
 
+        [DefaultValue(double.PositiveInfinity)]
         public virtual double MaxHeight
         {
             get => maxHeight;
@@ -47,6 +48,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
+        [DefaultValue(0d)]
         public virtual double MinHeight
         {
             get => minHeight;

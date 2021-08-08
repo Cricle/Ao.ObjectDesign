@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -11,7 +12,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private byte g;
         private byte b;
         private byte a;
-
+        
+        [DefaultValue((byte)0xFF)]
         public virtual byte A
         {
             get => a;
@@ -21,6 +23,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseColorChanged();
             }
         }
+        [DefaultValue((byte)0)]
         public virtual byte B
         {
             get => b;
@@ -31,6 +34,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue((byte)0)]
         public virtual byte G
         {
             get => g;
@@ -40,6 +44,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseColorChanged();
             }
         }
+        [DefaultValue((byte)0)]
         public virtual byte R
         {
             get => r;

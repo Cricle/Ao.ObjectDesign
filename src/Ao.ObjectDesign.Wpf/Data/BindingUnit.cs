@@ -42,5 +42,13 @@ namespace Ao.ObjectDesign.Wpf.Data
         {
             return new BindingUnit(Binding, prop);
         }
+        public static bool operator ==(BindingUnit left, BindingUnit right)
+        {
+            return left.Equals(right);
+        }
+        public static bool operator !=(BindingUnit left, BindingUnit right)
+        {
+            return !left.Equals(right);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -19,6 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public bool IsUnderLine
         {
             get => isUnerline;
@@ -28,6 +30,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public bool IsItalic
         {
             get => isItalic;

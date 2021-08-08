@@ -9,19 +9,18 @@ namespace Ao.ObjectDesign.Wpf.Json
 {
     public static class DesignJsonHelper
     {
-        internal static readonly JsonSerializerSettings settings;
+        internal static readonly JsonSerializerSettings settings= CreateSettings();
 
-        static DesignJsonHelper()
+        static JsonSerializerSettings CreateSettings()
         {
-            settings = CreateSerializeSettings();
+            return CreateSerializeSettings();
         }
         public static JsonSerializerSettings CreateSerializeSettings()
         {
-            JsonSerializerSettings settings = new JsonSerializerSettings
+            return new JsonSerializerSettings
             {
                 ContractResolver = CreateIgnoresContractResolver()
             };
-            return settings;
         }
         public static IgnoreContractResolver CreateIgnoresContractResolver()
         {

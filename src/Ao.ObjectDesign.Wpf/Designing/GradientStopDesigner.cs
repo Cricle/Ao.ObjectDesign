@@ -26,6 +26,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             Offset = offset;
         }
 
+        [DefaultValue(0d)]
         public virtual double Offset
         {
             get => offset;
@@ -36,6 +37,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(null)]
         public virtual ColorDesigner Color
         {
             get => color;

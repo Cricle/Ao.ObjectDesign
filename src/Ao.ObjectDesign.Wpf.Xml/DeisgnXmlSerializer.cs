@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace Ao.ObjectDesign.Wpf.Xml
 {
-    public class DeisgnXmlSerializer
+    public static class DeisgnXmlSerializer
     {
         public static XmlAttributeOverrides CreateDesignIgnores()
         {

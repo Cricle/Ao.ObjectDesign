@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -10,6 +11,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private GridUnitType type;
         private double value = 1;
 
+        [DefaultValue(1d)]
         public virtual double Value
         {
             get => value;
@@ -19,6 +21,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseGridLengthChanged();
             }
         }
+        [DefaultValue(GridUnitType.Star)]
         public virtual GridUnitType Type
         {
             get => type;

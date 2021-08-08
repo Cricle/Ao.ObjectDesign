@@ -10,7 +10,7 @@ namespace Ao.ObjectDesign
     public class PropertyVisitor : ObjectProxy, IPropertyVisitor, INotifyPropertyChanged
     {
         private static readonly ConcurrentDictionary<Type, TypeConverter> typeConverterMap = new ConcurrentDictionary<Type, TypeConverter>();
-        private static readonly PropertyChangedEventArgs valueCHangedEventArgs = new PropertyChangedEventArgs(nameof(Value));
+        private static readonly PropertyChangedEventArgs valueHandledEventArgs = new PropertyChangedEventArgs(nameof(Value));
 
         public PropertyVisitor(object declaringInstance, PropertyInfo propertyInfo)
         {
@@ -98,7 +98,7 @@ namespace Ao.ObjectDesign
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged.Invoke(this, valueCHangedEventArgs);
+                PropertyChanged.Invoke(this, valueHandledEventArgs);
             }
         }
     }

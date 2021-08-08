@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,14 +13,19 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(Cursor))]
     public class CursorDesigner : NotifyableObject
     {
-        public static readonly IReadOnlyDictionary<string, Cursor> CursorMap;
-        public static readonly IReadOnlyDictionary<Cursor, string> CursorRevMap;
-
-        static CursorDesigner()
+        public static readonly IReadOnlyDictionary<string, Cursor> CursorMap = GetCursorMap();
+        public static readonly IReadOnlyDictionary<Cursor, string> CursorRevMap = GetCursorRevMap();
+        private static PropertyInfo[] GetCursorProperties()
         {
-            PropertyInfo[] cursorType = typeof(Cursors).GetProperties(BindingFlags.Static | BindingFlags.Public);
-            CursorMap = cursorType.ToDictionary(x => x.Name, x => (Cursor)x.GetValue(null));
-            CursorRevMap = CursorMap.ToDictionary(x => x.Value, x => x.Key);
+            return typeof(Cursors).GetProperties(BindingFlags.Static | BindingFlags.Public);
+        }
+        private static IReadOnlyDictionary<string, Cursor> GetCursorMap()
+        {
+            return GetCursorProperties().ToDictionary(x => x.Name, x => (Cursor)x.GetValue(null));
+        }
+        private static IReadOnlyDictionary<Cursor, string> GetCursorRevMap()
+        {
+            return GetCursorProperties().ToDictionary(x => (Cursor)x.GetValue(null), x => x.Name);
         }
 
         private string name;
@@ -47,6 +53,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(CursorTypes.None)]
         public CursorTypes CursorType
         {
             get => cursorType;

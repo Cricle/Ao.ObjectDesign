@@ -21,9 +21,9 @@ namespace Ao.ObjectDesign.Designing
 
         public object To { get; }
 
-        public FallbackMode Mode { get; protected set; }
+        public FallbackModes Mode { get; protected set; }
 
-        public virtual IModifyDetail Copy(FallbackMode? mode)
+        public virtual IModifyDetail Copy(FallbackModes? mode)
         {
             return new ModifyDetail(Instance, PropertyName, From, To) { Mode = mode ?? Mode };
         }
@@ -38,16 +38,50 @@ namespace Ao.ObjectDesign.Designing
         {
             return new IgnoreIdentity(Instance, PropertyName);
         }
+        public bool IsReverse(IModifyDetail fallbackable)
+        {
+            return IsReverse((IFallbackable)fallbackable);
+        }
+        public bool IsReverse(IFallbackable fallbackable)
+        {
+            if (fallbackable is IModifyDetail detail)
+            {
+                if (detail.Instance != Instance ||
+                    detail.PropertyName != PropertyName)
+                {
+                    return false;
+                }
+                if (detail.From is null && To != null ||
+                    detail.To is null && From != null)
+                {
+                    return false;
+                }
+                if (detail.From is null&&To is null&&
+                    detail.To is null&&From is null)
+                {
+                    return true;
+                }
+                var a = detail.From?.Equals(To);
+                var b = detail.To?.Equals(From);
+                if (a is null|| b is null)
+                {
+                    return true;
+                }
+                return a is null || a.Value &&
+                    b is null || b.Value;
+            }
+            return false;
+        }
 
         public virtual IModifyDetail Reverse()
         {
-            return new ModifyDetail(Instance, PropertyName, To, From) 
+            return new ModifyDetail(Instance, PropertyName, To, From)
             {
-                Mode= FallbackMode.Reverse
+                Mode = FallbackModes.Reverse
             };
         }
 
-        IFallbackable IFallbackable.Copy(FallbackMode? mode)
+        IFallbackable IFallbackable.Copy(FallbackModes? mode)
         {
             return Copy(mode);
         }

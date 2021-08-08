@@ -4,18 +4,39 @@ using System.Diagnostics;
 namespace Ao.ObjectDesign.Designing
 {
     [DebuggerDisplay("Undos = {Undos.Count}, Redos = {Redos.Count}, ListeningCount = {ListeningCount}")]
-    public abstract class Sequencer<TFallback> : NotifyObjectManager, IActionSequencer<TFallback>, IUndoRedo
+    public abstract class Sequencer<TFallback> : NotifyObjectManager, IActionSequencer<TFallback>
         where TFallback : IFallbackable
     {
-        public Sequencer()
+        protected Sequencer()
         {
-            Undos = CreateCommandWays();
-            Redos = CreateCommandWays();
         }
 
-        public ICommandWays<TFallback> Undos { get; }
+        private ICommandWays<TFallback> undos;
+        private ICommandWays<TFallback> redos;
 
-        public ICommandWays<TFallback> Redos { get; }
+        public ICommandWays<TFallback> Undos
+        {
+            get
+            {
+                if (undos is null)
+                {
+                    undos = CreateCommandWays();
+                }
+                return undos;
+            }
+        }
+
+        public ICommandWays<TFallback> Redos
+        {
+            get
+            {
+                if (redos is null)
+                {
+                    redos = CreateCommandWays();
+                }
+                return redos;
+            }
+        }
 
         public bool CanUndo => Undos.Count > 0;
 
@@ -69,7 +90,12 @@ namespace Ao.ObjectDesign.Designing
         }
         protected virtual void EndUndo(TFallback fallback, bool succeed)
         {
-
+            if (succeed &&
+                Undos.First != null &&
+                Undos.First.IsReverse(fallback))
+            {
+                Undos.Pop(false);
+            }
         }
         protected virtual void UndoFail(TFallback fallback, Exception exception)
         {
@@ -86,27 +112,23 @@ namespace Ao.ObjectDesign.Designing
             {
                 TFallback l = Redos.Pop(true);
                 Debug.Assert(l != null);
-                CoreRedo(l, pushUndo);
-            }
-        }
-        private void CoreRedo(TFallback detail, bool pushUndo)
-        {
-            BeginRedo(detail);
-            bool succeed = false;
-            try
-            {
-                detail.Fallback();
-                succeed = false;
-            }
-            catch (Exception ex)
-            {
-                RedoFail(detail, ex);
-            }
-            EndRedo(detail, succeed);
-            if (pushUndo)
-            {
-                TFallback rev = Reverse(detail);
-                Undos.Push(rev, false);
+                BeginRedo(l);
+                bool succeed = false;
+                try
+                {
+                    l.Fallback();
+                    succeed = false;
+                }
+                catch (Exception ex)
+                {
+                    RedoFail(l, ex);
+                }
+                EndRedo(l, succeed);
+                if (pushUndo)
+                {
+                    TFallback rev = Reverse(l);
+                    Undos.Push(rev, false);
+                }
             }
         }
         protected virtual void BeginRedo(TFallback fallback)
@@ -115,7 +137,12 @@ namespace Ao.ObjectDesign.Designing
         }
         protected virtual void EndRedo(TFallback fallback, bool succeed)
         {
-
+            if (succeed &&
+                Redos.First != null &&
+                Redos.First.IsReverse(fallback))
+            {
+                Redos.Pop(false);
+            }
         }
         protected virtual void RedoFail(TFallback fallback, Exception exception)
         {

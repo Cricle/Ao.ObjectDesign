@@ -186,7 +186,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
-
+        [DefaultValue(PenBrushTypes.None)]
         public virtual PenBrushTypes Type
         {
             get => type;

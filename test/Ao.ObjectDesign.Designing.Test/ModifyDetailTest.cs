@@ -54,21 +54,21 @@ namespace Ao.ObjectDesign.Designing.Test
             object from = new object();
             object to = new object();
             ModifyDetail detail = new ModifyDetail(instance, propertyName, from, to);
-            var cloned = detail.Copy(FallbackMode.Forward);
+            var cloned = detail.Copy(FallbackModes.Forward);
             Assert.AreNotEqual(detail, cloned);
             Assert.AreEqual(instance, cloned.Instance);
             Assert.AreEqual(propertyName, cloned.PropertyName);
             Assert.AreEqual(from, cloned.From);
             Assert.AreEqual(to, cloned.To);
-            Assert.AreEqual(FallbackMode.Forward, cloned.Mode);
+            Assert.AreEqual(FallbackModes.Forward, cloned.Mode);
 
-            cloned = (IModifyDetail)((IFallbackable)detail).Copy(FallbackMode.Forward);
+            cloned = (IModifyDetail)((IFallbackable)detail).Copy(FallbackModes.Forward);
             Assert.AreNotEqual(detail, cloned);
             Assert.AreEqual(instance, cloned.Instance);
             Assert.AreEqual(propertyName, cloned.PropertyName);
             Assert.AreEqual(from, cloned.From);
             Assert.AreEqual(to, cloned.To);
-            Assert.AreEqual(FallbackMode.Forward, cloned.Mode);
+            Assert.AreEqual(FallbackModes.Forward, cloned.Mode);
         }
         [TestMethod]
         public void GetIdentity()

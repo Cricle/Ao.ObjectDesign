@@ -3,7 +3,7 @@
 namespace Ao.ObjectDesign.Designing
 {
     [Flags]
-    public enum FallbackMode
+    public enum FallbackModes
     {
         Forward = 0,
         Reverse = 1

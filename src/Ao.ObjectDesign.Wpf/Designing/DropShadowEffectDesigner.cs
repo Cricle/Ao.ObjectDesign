@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
@@ -54,7 +55,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
-
+        [DefaultValue(RenderingBias.Performance)]
         public virtual RenderingBias RenderingBias
         {
             get => renderingBias;
@@ -63,6 +64,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref renderingBias, value);
             }
         }
+        [DefaultValue(0d)]
         public virtual double BlurRadius
         {
             get => blurRadius;
@@ -71,6 +73,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref blurRadius, value);
             }
         }
+        [DefaultValue(0d)]
         public virtual double Opacity
         {
             get => opacity;
@@ -79,6 +82,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref opacity, value);
             }
         }
+        [DefaultValue(0d)]
         public virtual double Direction
         {
             get => direction;
@@ -87,6 +91,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref direction, value);
             }
         }
+        [DefaultValue(null)]
         public virtual ColorDesigner Color
         {
             get => color;
@@ -95,6 +100,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Set(ref color, value);
             }
         }
+        [DefaultValue(0d)]
         public virtual double ShadowDepth
         {
             get => shadowDepth;

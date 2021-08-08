@@ -21,24 +21,44 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        private Point startPoint;
-        private Point endPoint;
+        private PointDesigner startPoint;
+        private PointDesigner endPoint;
 
-        public virtual Point EndPoint
+        [DefaultValue(null)]
+        public virtual PointDesigner EndPoint
         {
             get => endPoint;
             set
             {
+                if (endPoint != null)
+                {
+                    endPoint.PropertyChanged -= OnPointPropertyChanged;
+                }
+
+                if (value != null)
+                {
+                    value.PropertyChanged -= OnPointPropertyChanged;
+                }
                 Set(ref endPoint, value);
                 RaiseLinearGradientBrushChange();
             }
         }
 
-        public virtual Point StartPoint
+        [DefaultValue(null)]
+        public virtual PointDesigner StartPoint
         {
             get => startPoint;
             set
             {
+                if (startPoint != null)
+                {
+                    startPoint.PropertyChanged -= OnPointPropertyChanged;
+                }
+
+                if (value != null)
+                {
+                    value.PropertyChanged -= OnPointPropertyChanged;
+                }
                 Set(ref startPoint, value);
                 RaiseLinearGradientBrushChange();
             }
@@ -50,8 +70,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 LinearGradientBrush brush = new LinearGradientBrush
                 {
-                    StartPoint = startPoint,
-                    EndPoint = endPoint
+                    StartPoint = startPoint?.Point ?? default(Point),
+                    EndPoint = endPoint?.Point ?? default(Point)
                 };
                 WriteTo(brush);
                 return brush;
@@ -60,17 +80,22 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 if (value is null)
                 {
-                    StartPoint = new Point();
-                    EndPoint = new Point();
+                    StartPoint = new PointDesigner();
+                    EndPoint = new PointDesigner();
                 }
                 else
                 {
-                    StartPoint = value.StartPoint;
-                    EndPoint = value.EndPoint;
+                    StartPoint = new PointDesigner { Point = value.StartPoint };
+                    EndPoint = new PointDesigner { Point = value.EndPoint };
                 }
                 Apply(null);
             }
         }
+        private void OnPointPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaiseLinearGradientBrushChange();
+        }
+
         protected void RaiseLinearGradientBrushChange()
         {
             RaisePropertyChanged(nameof(LinearGradientBrush));

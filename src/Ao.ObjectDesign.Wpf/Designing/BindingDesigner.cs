@@ -67,6 +67,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
+        [DefaultValue(false)]
         public virtual bool ValidatesOnExceptions
         {
             get => validatesOnExceptions;
@@ -76,6 +77,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseBindingChanged();
             }
         }
+        [DefaultValue(false)]
         public virtual bool BindsDirectlyToSource
         {
             get => bindsDirectlyToSource;
@@ -86,6 +88,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(true)]
         public virtual bool ValidatesOnNotifyDataErrors
         {
             get => validatesOnNotifyDataErrors;
@@ -96,6 +99,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool ValidatesOnDataErrors
         {
             get => validatesOnDataErrors;
@@ -106,6 +110,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(null)]
         public virtual string XPath
         {
             get => xPath;
@@ -116,6 +121,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(BindingMode.Default)]
         public virtual BindingMode Mode
         {
             get => mode;
@@ -126,6 +132,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool IsAsync
         {
             get => isAsync;
@@ -164,6 +171,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool NotifyOnValidationError
         {
             get => notifyOnValidationError;
@@ -174,6 +182,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool NotifyOnTargetUpdated
         {
             get => notifyOnTargetUpdated;
@@ -184,6 +193,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(false)]
         public virtual bool NotifyOnSourceUpdated
         {
             get => notifyOnSourceUpdated;
@@ -194,6 +204,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        [DefaultValue(UpdateSourceTrigger.Default)]
         public virtual UpdateSourceTrigger UpdateSourceTrigger
         {
             get => updateSourceTrigger;
