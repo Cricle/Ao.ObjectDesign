@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.WpfDesign.Input;
+using Ao.ObjectDesign.WpfDesign.Level;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,40 +11,75 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class DesignEngine<TDesignObject>
+    public abstract class DesignEngine<TScene,TDesignObject>
+        where TScene:IDeisgnScene<TDesignObject>
     {
-        public WpfObjectDesigner WpfObjectDesigner { get; }
+        private WpfObjectDesigner wpfObjectDesigner;
+        private IActionSequencer<IModifyDetail> sequencer;
+        private KeyboardBindings keyboardBindings;
+        private UIDesignMap uiDesignMap;
+        private SceneManager<TScene, TDesignObject> sceneManager;
 
-        public IActionSequencer<IModifyDetail> Sequencer { get; }
+        public WpfObjectDesigner WpfObjectDesigner => wpfObjectDesigner;
 
-        public KeyboardBindings KeyboardBindings { get; }
+        public IActionSequencer<IModifyDetail> Sequencer => sequencer;
+
+        public KeyboardBindings KeyboardBindings => keyboardBindings;
 
         public IInputElement InputElement { get; }
 
-        public UIDesignMap UIDesignMap { get; }
+        public UIDesignMap UIDesignMap => uiDesignMap;
 
-        public SceneManager<TDesignObject> SceneManager { get; }
+        public SceneManager<TScene, TDesignObject> SceneManager => sceneManager;
 
-        public DesignEngine(IInputElement inputElement, SceneManager<TDesignObject> sceneManager)
+        public DesignEngine(IInputElement inputElement)
         {
             InputElement = inputElement ?? throw new ArgumentNullException(nameof(inputElement));
-            SceneManager = sceneManager;
-            WpfObjectDesigner = CreateObjectDesigner();
-            Sequencer = WpfObjectDesigner.Sequencer;
-            KeyboardBindings = new KeyboardBindings(inputElement);
-            UIDesignMap = new UIDesignMap();
         }
 
-        protected virtual WpfObjectDesigner CreateObjectDesigner()
+        public void Initialize()
+        {
+            keyboardBindings = CreateKeyboardBindings();
+            uiDesignMap = CreateUIDesignMap();
+            wpfObjectDesigner = CreateWpfObjectDesigner();
+            sequencer = CreateSequencer(wpfObjectDesigner);
+            sceneManager = CreateSceneManager(wpfObjectDesigner, uiDesignMap);
+            OnInitialize();
+        }
+
+        protected virtual void OnInitialize()
+        {
+
+        }
+
+        protected virtual IActionSequencer<IModifyDetail> CreateSequencer(WpfObjectDesigner designer)
+        {
+            return designer.Sequencer;
+        }
+
+        protected virtual WpfObjectDesigner CreateWpfObjectDesigner()
         {
             return new WpfObjectDesigner(true);
         }
+
+        protected virtual KeyboardBindings CreateKeyboardBindings()
+        {
+            return new KeyboardBindings(InputElement);
+        }
+
+        protected virtual UIDesignMap CreateUIDesignMap()
+        {
+            return new UIDesignMap();
+        }
+
+        protected abstract SceneManager<TScene, TDesignObject> CreateSceneManager(WpfObjectDesigner designer, UIDesignMap designMap);
 
         public void Dispose()
         {
             KeyboardBindings.Dispose();
             OnDispose();
         }
+
         protected virtual void OnDispose()
         {
 

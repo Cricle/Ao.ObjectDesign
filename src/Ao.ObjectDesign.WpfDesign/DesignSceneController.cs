@@ -62,6 +62,19 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 RemoveUnits(e.OldItems.OfType<TDesignObject>());
             }
+            else if (e.Action== NotifyCollectionChangedAction.Reset)
+            {
+                foreach (var item in designUnits)
+                {
+                    RemoveUIElement(item);
+                }
+                designUnits.Clear();
+                designUnitMap.Clear();
+            }
+            else if (e.Action== NotifyCollectionChangedAction.Move)
+            {
+                designUnits.Move(e.OldStartingIndex, e.NewStartingIndex);
+            }
         }
         protected virtual void RemoveUnits(IEnumerable<TDesignObject> designingObjects)
         {

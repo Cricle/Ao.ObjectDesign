@@ -437,5 +437,5 @@ results.xml
 uploadtest.cmd
 uploadmyget.ps1
 
-.codacy-coverage/*.*
+.codacy-coverage/**/*.*
 .sonarqube/**/*.*
