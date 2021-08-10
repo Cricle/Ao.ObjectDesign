@@ -20,6 +20,10 @@ namespace Ao.ObjectDesign.Data
         public DataView(IDictionary<TKey, VarValue> map) : base(map)
         {
         }
+        
+        public DataView(IEqualityComparer<TKey> comparer) : base(comparer)
+        {
+        }
 
         public DataView(int concurrencyLevel, int capacity) : base(concurrencyLevel, capacity)
         {

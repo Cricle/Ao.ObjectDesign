@@ -4,15 +4,15 @@ namespace Ao.ObjectDesign.Data
 {
     public class DataChangedEventArgs<TKey,TData> : EventArgs
     {
-        public DataChangedEventArgs(TKey name, TData old, TData @new,ChangeModes mode)
+        public DataChangedEventArgs(TKey key, TData old, TData @new,ChangeModes mode)
         {
-            Name = name;
+            Key = key;
             Old = old;
             New = @new;
             Mode = mode;
         }
 
-        public TKey Name { get; }
+        public TKey Key { get; }
 
         public TData Old { get; }
 

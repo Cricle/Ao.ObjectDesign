@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace Ao.ObjectDesign.Data
 {
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public class NotifyableMap<TKey, TValue> : ExternalReadOnlyDictionary<TKey,TValue>
+    public class NotifyableMap<TKey, TValue> : ExternalReadOnlyDictionary<TKey, TValue>
     {
         public NotifyableMap()
         {
@@ -25,70 +25,80 @@ namespace Ao.ObjectDesign.Data
         {
         }
 
-        public event EventHandler<DataChangedEventArgs<TKey,TValue>> DataChanged;
+        public event EventHandler<DataChangedEventArgs<TKey, TValue>> DataChanged;
         public event EventHandler Clean;
 
-        public TValue AddOrUpdate(TKey key, TValue value)
+        public virtual TValue AddOrUpdate(TKey key, TValue value)
         {
             return AddOrUpdate(key, value, value);
         }
 
-        public TValue AddOrUpdate(TKey key, TValue addValue, TValue updateValue)
+        public virtual TValue AddOrUpdate(TKey key, TValue addValue, TValue updateValue)
         {
             return AddOrUpdate(key, addValue, (_, __) => updateValue);
         }
 
-        public TValue AddOrUpdate(TKey key, TValue addValue, Func<TKey, TValue, TValue> updateFactory)
+        public virtual TValue AddOrUpdate(TKey key, TValue addValue, Func<TKey, TValue, TValue> updateFactory)
         {
             return AddOrUpdate(key, _ => addValue, updateFactory);
         }
 
-        public TValue AddOrUpdate(TKey key,Func<TKey,TValue> addFactory, Func<TKey,TValue,TValue> updateFactory)
+        public virtual TValue AddOrUpdate(TKey key, Func<TKey, TValue> addFactory, Func<TKey, TValue, TValue> updateFactory)
         {
             return innerMap.AddOrUpdate(key, x =>
             {
                 var val = addFactory(x);
-                if (DataChanged != null)
-                {
-                    DataChanged(this, new DataChangedEventArgs<TKey,TValue>(x,default, val, ChangeModes.New));
-                }
+                var e = new DataChangedEventArgs<TKey, TValue>(x, default, val, ChangeModes.New);
+                OnWritingData(e);
+                DataChanged?.Invoke(this, e);
+                OnWritedData(e);
                 return val;
             }, (x, old) =>
              {
                  var val = updateFactory(x, old);
-                 if (DataChanged != null)
-                 {
-                     DataChanged(this, new DataChangedEventArgs<TKey,TValue>(x,old, val, ChangeModes.Change));
-                 }
+                 var e = new DataChangedEventArgs<TKey, TValue>(x, old, val, ChangeModes.Change);
+                 OnWritingData(e);
+                 DataChanged?.Invoke(this, e);
+                 OnWritedData(e);
                  return val;
              });
         }
-        public TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
+
+        protected virtual void OnWritingData(DataChangedEventArgs<TKey, TValue> e)
+        {
+
+        }
+        protected virtual void OnWritedData(DataChangedEventArgs<TKey, TValue> e)
+        {
+
+        }
+
+        public virtual TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
             return innerMap.GetOrAdd(key, x =>
              {
                  var value = valueFactory(x);
-                 if (DataChanged != null)
-                 {
-                     DataChanged(this, new DataChangedEventArgs<TKey,TValue>(x, default, value, ChangeModes.New));
-                 }
+                 var e = new DataChangedEventArgs<TKey, TValue>(x, default, value, ChangeModes.New);
+                 OnWritingData(e);
+                 DataChanged?.Invoke(this, e);
+                 OnWritedData(e);
                  return value;
              });
         }
-        public bool Remove(TKey key)
+        public virtual bool Remove(TKey key)
         {
             if (innerMap.TryRemove(key, out var value))
             {
-                if (DataChanged != null)
-                {
-                    DataChanged(this, new DataChangedEventArgs<TKey, TValue>(key, value, default, ChangeModes.Reset));
-                }
+                var e = new DataChangedEventArgs<TKey, TValue>(key, value, default, ChangeModes.Reset);
+                OnWritingData(e);
+                DataChanged?.Invoke(this, e);
+                OnWritedData(e);
                 return true;
             }
             return false;
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             innerMap.Clear();
             Clean?.Invoke(this, EventArgs.Empty);

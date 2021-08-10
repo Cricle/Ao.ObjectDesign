@@ -123,7 +123,7 @@ namespace Ao.ObjectDesign.Data
 
             private void OnDataViewDataChanged(object sender, DataChangedEventArgs<TKey, VarValue> e)
             {
-                if (e.Name!=null &&e.Name.Equals(Name))
+                if (e.Key!=null &&e.Key.Equals(Name))
                 {
                     foreach (var item in Subscribers)
                     {
