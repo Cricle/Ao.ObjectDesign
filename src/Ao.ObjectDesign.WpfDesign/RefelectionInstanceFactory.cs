@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class RefelectionInstanceFactory : InstanceFactory<RefelectionInstanceFactory>
+    public class RefelectionInstanceFactory : InstanceFactory
     {
         public RefelectionInstanceFactory(Type targetType)
             : base(targetType)

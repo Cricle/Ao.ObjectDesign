@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class DelegateInstanceFactory : InstanceFactory<DelegateInstanceFactory>
+    public class DelegateInstanceFactory : InstanceFactory
     {
         public DelegateInstanceFactory(Type targetType, Func<object> creator)
             : base(targetType)

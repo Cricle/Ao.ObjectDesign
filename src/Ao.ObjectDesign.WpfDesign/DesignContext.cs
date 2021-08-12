@@ -12,61 +12,27 @@ namespace Ao.ObjectDesign.WpfDesign
     public partial class DesignContext : DesignInitContext
     {
         public DesignContext(IServiceProvider provider,
-            Visual target,
+            IEnumerable<UIElement> target,
             IActionSequencer<IModifyDetail> sequencer)
             : base(provider)
         {
-            Target = target;
+            DesignMetedatas = target.Select(x => new DesignMetedata(this, x)).ToList();
             Sequencer = sequencer;
-            Container = GetContainer(target);
-            Parent = (Visual)VisualTreeHelper.GetParent(target);
         }
         public DesignContext(IServiceProvider provider,
-            Visual target,
-            Visual parent,
-            Visual container,
+            DesignMetedata[] metedatas,
             IActionSequencer<IModifyDetail> sequencer)
             : base(provider)
         {
-            Target = target;
-            Parent = parent;
-            Container = container;
+            DesignMetedatas = metedatas;
             Sequencer = sequencer;
         }
 
         public virtual DesignSuface DesignPanel { get; set; }
 
-        public virtual Visual Target { get; }
-
-        public virtual Visual Parent { get; }
-
-        public virtual Visual Container { get; }
+        public virtual IReadOnlyList<DesignMetedata> DesignMetedatas { get; }
 
         public virtual IActionSequencer<IModifyDetail> Sequencer { get; }
-
-        public virtual IEnumerable<Visual> GetAllTargets()
-        {
-            if (Target is Panel panel)
-            {
-                foreach (var item in panel.Children.OfType<Visual>())
-                {
-                    yield return item;
-                }
-            }
-            else if (Target is Decorator dec)
-            {
-                yield return dec.Child;
-            }
-            else if (Target is ContentControl cc && cc is Visual ccdo)
-            {
-                yield return ccdo;
-            }
-            else
-            {
-                yield return Target;
-            }
-        }
-
 
         public static readonly IReadOnlyHashSet<Type> containerSet = new ReadOnlyHashSet<Type>(new Type[]
         {
@@ -79,7 +45,7 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 if (equals)
                 {
-                    if (type == d.GetType())
+                    if (type.IsEquivalentTo(d.GetType()))
                     {
                         return d as Visual;
                     }
@@ -102,7 +68,7 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 foreach (var item in containerSet)
                 {
-                    if (item.IsInstanceOfType(d)&&
+                    if (item.IsInstanceOfType(d) &&
                         d is Visual v)
                     {
                         return v;

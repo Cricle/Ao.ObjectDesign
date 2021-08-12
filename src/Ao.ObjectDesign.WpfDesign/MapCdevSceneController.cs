@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.WpfDesign
             if (factory is null)
             {
                 var t = DesignMap.GetUIType(type);
-                factory = new EmitInstanceFactory(t);
+                return (UIElement)ReflectionHelper.Create(t);
             }
             return (UIElement)factory.Create();
         }

@@ -13,9 +13,11 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public class DesignSuface : Canvas
     {
-        public UIElement DesigningObject
+        public static readonly UIElement[] EmptyElements = new UIElement[0];
+
+        public UIElement[] DesigningObjects
         {
-            get { return (UIElement)GetValue(DesigningObjectProperty); }
+            get { return (UIElement[])GetValue(DesigningObjectProperty); }
             set { SetValue(DesigningObjectProperty, value); }
         }
 
@@ -38,23 +40,32 @@ namespace Ao.ObjectDesign.WpfDesign
             DependencyProperty.Register("ServiceProvider", typeof(IServiceProvider), typeof(DesignSuface), new PropertyMetadata(null));
 
         public static readonly DependencyProperty DesigningObjectProperty =
-            DependencyProperty.Register("DesigningObject", typeof(UIElement), typeof(DesignSuface), new PropertyMetadata(null, OnDesigningObjectChanged));
+            DependencyProperty.Register("DesigningObjects", typeof(UIElement[]), typeof(DesignSuface), new PropertyMetadata(null, OnDesigningObjectChanged));
 
         private static void OnDesigningObjectChanged(DependencyObject @object, DependencyPropertyChangedEventArgs e)
         {
-            if (e.NewValue is UIElement newEle)
+            var newEle = e.NewValue as UIElement[];
+            var oldEle = e.OldValue as UIElement[];
+
+            if (oldEle != null)
             {
-                DesignerProperties.SetIsInDesignMode(newEle, true);
+                foreach (var item in oldEle)
+                {
+                    DesignerProperties.SetIsInDesignMode(item, false);
+                }
             }
-            if (e.OldValue is UIElement oldEle)
+            if (newEle != null)
             {
-                DesignerProperties.SetIsInDesignMode(oldEle, false);
+                foreach (var item in newEle)
+                {
+                    DesignerProperties.SetIsInDesignMode(item, true);
+                }
             }
             if (@object is DesignSuface suface)
             {
                 foreach (var item in suface.Children.OfType<IDesignHelper>())
                 {
-                    item.AttackObject(e.OldValue, e.NewValue);
+                    item.AttackObject(newEle, newEle);
                 }
             }
         }
@@ -78,20 +89,26 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 return;
             }
+
             foreach (var item in Children.OfType<IDesignHelper>())
             {
                 item.UpdateDesign(ctx);
             }
         }
 
+        public void ClearDesignObjects()
+        {
+            DesigningObjects = EmptyElements;
+        }
+
         public DesignContext GetContext()
         {
-            if (DesigningObject is null)
+            if (DesigningObjects is null)
             {
                 return null;
             }
             var ctx = new DesignContext(ServiceProvider,
-                DesigningObject,
+                DesigningObjects,
                 Sequencer);
             ctx.DesignPanel = this;
             return ctx;

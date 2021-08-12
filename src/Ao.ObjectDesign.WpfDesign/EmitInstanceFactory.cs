@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class EmitInstanceFactory : InstanceFactory<EmitInstanceFactory>
+    public class EmitInstanceFactory : InstanceFactory
     {
         public EmitInstanceFactory(Type targetType)
             :base(targetType)

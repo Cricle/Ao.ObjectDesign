@@ -3,8 +3,7 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public abstract class InstanceFactory<T> : IInstanceFactory, IEquatable<T>
-        where T:IInstanceFactory
+    public abstract class InstanceFactory : IInstanceFactory
     {
         protected InstanceFactory(Type targetType)
         {
@@ -17,9 +16,9 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public override bool Equals(object obj)
         {
-            if (obj is T)
+            if (obj is InstanceFactory factory)
             {
-                return Equals((T)obj);
+                return factory.TargetType == TargetType;
             }
             return false;
         }
@@ -27,15 +26,6 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             Debug.Assert(TargetType != null);
             return TargetType.GetHashCode();
-        }
-
-        public bool Equals(T other)
-        {
-            if (other == null)
-            {
-                return false;
-            }
-            return other.TargetType == TargetType;
         }
     }
 }

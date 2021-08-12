@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign.Data
             Value = value;
             Convertible = value as IConvertible;
 
-            if (Convertible is null && value is null)
+            if (Convertible is null)
             {
                 if (value is null)
                 {

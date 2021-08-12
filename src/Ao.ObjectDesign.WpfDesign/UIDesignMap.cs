@@ -12,21 +12,26 @@ namespace Ao.ObjectDesign.WpfDesign
     public class UIDesignMap : IEnumerable<KeyValuePair<Type, IReadOnlyHashSet<Type>>>
     {
         private readonly Dictionary<Type, HashSet<Type>> designTypeMap;
-        private readonly Dictionary<Type, IInstanceFactory> instanceFactory;
+        private readonly Dictionary<Type, IInstanceFactory> instanceFactoryMap;
 
         public UIDesignMap()
         {
             designTypeMap = new Dictionary<Type, HashSet<Type>>();
-            instanceFactory = new Dictionary<Type, IInstanceFactory>();
+            instanceFactoryMap = new Dictionary<Type, IInstanceFactory>();
         }
 
         public int UITypeCount => designTypeMap.Count;
 
-        public int InstanceFactoryCount => instanceFactory.Count;
+        public int InstanceFactoryCount => instanceFactoryMap.Count;
 
         public IEnumerable<Type> UITypes => designTypeMap.Keys;
 
-        public IReadOnlyDictionary<Type, IInstanceFactory> InstanceFactory => instanceFactory;
+        public IReadOnlyDictionary<Type, IInstanceFactory> InstanceFactory => instanceFactoryMap;
+
+        public event EventHandler<UIDesignMapActionInstanceFactoryEventArgs> ActionInstanceFactory;
+        public event EventHandler<UIDesignMapActionDeisgnTypeEventArgs> ActionDeisgnType;
+        public event EventHandler CleanInstanceFactories;
+        public event EventHandler CleanDeisgnTypes;
 
         public IInstanceFactory GetInstanceFactory(Type type)
         {
@@ -35,17 +40,27 @@ namespace Ao.ObjectDesign.WpfDesign
                 throw new ArgumentNullException(nameof(type));
             }
 
-            instanceFactory.TryGetValue(type, out var factory);
+            instanceFactoryMap.TryGetValue(type, out var factory);
             return factory;
         }
-        public void UnRegistInstanceFactory(Type type)
+        public bool UnRegistInstanceFactory(Type type)
         {
             if (type is null)
             {
                 throw new ArgumentNullException(nameof(type));
             }
-
-            instanceFactory.Remove(type);
+            var ev = ActionInstanceFactory;
+            if (ev is null)
+            {
+                return instanceFactoryMap.Remove(type);
+            }
+            if (instanceFactoryMap.TryGetValue(type,out var factory))
+            {
+                instanceFactoryMap.Remove(type);
+                ev(this, new UIDesignMapActionInstanceFactoryEventArgs(type, factory,null, UIDesignMapActionTypes.Removed));
+                return true;
+            }
+            return false;   
         }
         public void RegistInstanceFactory(Type type, IInstanceFactory factory)
         {
@@ -53,11 +68,26 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 throw new ArgumentNullException(nameof(type));
             }
-
-            instanceFactory[type] = factory;
+            var ev = ActionInstanceFactory;
+            if (ev is null)
+            {
+                instanceFactoryMap[type] = factory;
+                return;
+            }
+            UIDesignMapActionTypes actionType= UIDesignMapActionTypes.New;
+            if (instanceFactoryMap.TryGetValue(type,out var old))
+            {
+                instanceFactoryMap[type] = factory;
+                actionType = UIDesignMapActionTypes.Replaced;
+            }
+            else
+            {
+                instanceFactoryMap.Add(type, factory);
+            }
+            ev(this, new UIDesignMapActionInstanceFactoryEventArgs(type, old, factory, actionType));
         }
 
-        public bool RegistDesignType(Type uiType, Type designType)
+        public void RegistDesignType(Type uiType, Type designType)
         {
             if (!designTypeMap.TryGetValue(uiType, out var map))
             {
@@ -65,7 +95,16 @@ namespace Ao.ObjectDesign.WpfDesign
                 designTypeMap.Add(uiType, map);
             }
 
-            return map.Add(designType);
+            var changeType = map.Contains(designType) ? UIDesignMapActionTypes.Replaced : UIDesignMapActionTypes.New;
+            if (changeType == UIDesignMapActionTypes.New)
+            {
+                map.Add(designType);
+            }
+            var ev = ActionDeisgnType;
+            if (ev != null)
+            {
+                ev(this, new UIDesignMapActionDeisgnTypeEventArgs(uiType, designType, changeType));
+            }
         }
         public IReadOnlyHashSet<Type> GetDesignTypes(Type uiType)
         {
@@ -96,11 +135,17 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             return GetUIType(designType) != null;
         }
-        public void Clear()
+        public void ClearDesignTypeMaps()
         {
             designTypeMap.Clear();
+            CleanDeisgnTypes?.Invoke(this, EventArgs.Empty);
         }
-        public bool UnRegist(Type uiType, Type designType)
+        public void ClearDesignInstanceFactories()
+        {
+            instanceFactoryMap.Clear();
+            CleanInstanceFactories?.Invoke(this, EventArgs.Empty);
+        }
+        public bool UnRegistDesignType(Type uiType, Type designType)
         {
             if (designTypeMap.TryGetValue(uiType, out var map))
             {
@@ -108,6 +153,11 @@ namespace Ao.ObjectDesign.WpfDesign
                 if (map.Count == 0)
                 {
                     designTypeMap.Remove(uiType);
+                }
+                var ev = ActionDeisgnType;
+                if (ok && ev != null)
+                {
+                    ev(this, new UIDesignMapActionDeisgnTypeEventArgs(uiType, designType, UIDesignMapActionTypes.Removed));
                 }
                 return ok;
             }

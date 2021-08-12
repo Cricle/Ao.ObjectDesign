@@ -1,4 +1,6 @@
-﻿namespace Ao.ObjectDesign.WpfDesign.Designers
+﻿using System.Windows;
+
+namespace Ao.ObjectDesign.WpfDesign.Designers
 {
     public interface IDesignHelper
     {
@@ -8,6 +10,6 @@
 
         void UpdateDesign(DesignContext context);
 
-        void AttackObject(object old, object @new);
+        void AttackObject(UIElement[] old, UIElement[] @new);
     }
 }
