@@ -34,14 +34,12 @@ namespace Ao.ObjectDesign.WpfDesign
 
         protected override UIElement CreateUI(TDesignObject designingObject)
         {
-            var type = designingObject.GetType();
-            var factory = DesignMap.GetInstanceFactory(type);
-            if (factory is null)
+            var t = DesignMap.GetUIType(designingObject.GetType());
+            if (t is null)
             {
-                var t = DesignMap.GetUIType(type);
-                return (UIElement)ReflectionHelper.Create(t);
+                return null;
             }
-            return (UIElement)factory.Create();
+            return (UIElement)DesignMap.CreateByFactoryOrEmit(t);
         }
     }
 }

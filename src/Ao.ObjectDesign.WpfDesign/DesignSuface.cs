@@ -100,7 +100,10 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             DesigningObjects = EmptyElements;
         }
-
+        public void SetDesigningObjects(params UIElement[] elements)
+        {
+            DesigningObjects = elements;
+        }
         public DesignContext GetContext()
         {
             if (DesigningObjects is null)

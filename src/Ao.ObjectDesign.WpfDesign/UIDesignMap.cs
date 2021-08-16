@@ -62,29 +62,30 @@ namespace Ao.ObjectDesign.WpfDesign
             }
             return false;   
         }
-        public void RegistInstanceFactory(Type type, IInstanceFactory factory)
+        public void RegistInstanceFactory(IInstanceFactory factory)
         {
-            if (type is null)
+            if (factory is null)
             {
-                throw new ArgumentNullException(nameof(type));
+                throw new ArgumentNullException(nameof(factory));
             }
+
             var ev = ActionInstanceFactory;
             if (ev is null)
             {
-                instanceFactoryMap[type] = factory;
+                instanceFactoryMap[factory.TargetType] = factory;
                 return;
             }
             UIDesignMapActionTypes actionType= UIDesignMapActionTypes.New;
-            if (instanceFactoryMap.TryGetValue(type,out var old))
+            if (instanceFactoryMap.TryGetValue(factory.TargetType, out var old))
             {
-                instanceFactoryMap[type] = factory;
+                instanceFactoryMap[factory.TargetType] = factory;
                 actionType = UIDesignMapActionTypes.Replaced;
             }
             else
             {
-                instanceFactoryMap.Add(type, factory);
+                instanceFactoryMap.Add(factory.TargetType, factory);
             }
-            ev(this, new UIDesignMapActionInstanceFactoryEventArgs(type, old, factory, actionType));
+            ev(this, new UIDesignMapActionInstanceFactoryEventArgs(factory.TargetType, old, factory, actionType));
         }
 
         public void RegistDesignType(Type uiType, Type designType)

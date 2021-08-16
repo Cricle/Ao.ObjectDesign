@@ -3,7 +3,7 @@
 namespace Ao.ObjectDesign.WpfDesign
 {
     [Flags]
-    public enum SceneActions
+    public enum ResourceActions
     {
         Unknow = 0,
         Created = 1,

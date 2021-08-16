@@ -18,6 +18,7 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             designUnits = new SilentObservableCollection<IDesignUnit<TDesignObject>>();
             designUnitMap = new Dictionary<UIElement, IDesignUnit<TDesignObject>>();
+            designObjectUnitMap = new Dictionary<TDesignObject, IDesignUnit<TDesignObject>>();
         }
 
         private bool isInitialized;
@@ -26,12 +27,15 @@ namespace Ao.ObjectDesign.WpfDesign
         private readonly SilentObservableCollection<IDesignUnit<TDesignObject>> designUnits;
 
         private readonly Dictionary<UIElement, IDesignUnit<TDesignObject>> designUnitMap;
+        private readonly Dictionary<TDesignObject, IDesignUnit<TDesignObject>> designObjectUnitMap;
 
         public IDeisgnScene<TDesignObject> Scene => scene;
 
         public bool IsInitialized => isInitialized;
 
         public IReadOnlyDictionary<UIElement, IDesignUnit<TDesignObject>> DesignUnitMap => designUnitMap;
+        
+        public IReadOnlyDictionary<TDesignObject, IDesignUnit<TDesignObject>> DesignObjectUnitMap => designObjectUnitMap;
 
         public IReadOnlyList<IDesignUnit<TDesignObject>> DesignUnits => designUnits;
 
@@ -70,6 +74,7 @@ namespace Ao.ObjectDesign.WpfDesign
                 }
                 designUnits.Clear();
                 designUnitMap.Clear();
+                designObjectUnitMap.Clear();
             }
             else if (e.Action== NotifyCollectionChangedAction.Move)
             {
@@ -84,6 +89,7 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 designUnits.Remove(item);
                 designUnitMap.Remove(item.UI);
+                designObjectUnitMap.Remove(item.DesigningObject);
                 RemoveUIElement(item);
             }
         }
@@ -97,6 +103,7 @@ namespace Ao.ObjectDesign.WpfDesign
                 unit.Bind();
                 designUnits.Add(unit);
                 designUnitMap.Add(ui, unit);
+                designObjectUnitMap.Add(item, unit);
                 AddUIElement(unit);
             }
         }

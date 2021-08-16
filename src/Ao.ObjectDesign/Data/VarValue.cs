@@ -65,11 +65,6 @@ namespace Ao.ObjectDesign.Data
             return $"{{{TypeCode}, {Value}}}";
         }
 
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
-
         object ICloneable.Clone()
         {
             return Clone();

@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign.WpfDesign
     {
         private WpfObjectDesigner wpfObjectDesigner;
         private IActionSequencer<IModifyDetail> sequencer;
-        private KeyboardBindings keyboardBindings;
+        private AccessInputBindings keyboardBindings;
         private UIDesignMap uiDesignMap;
         private SceneManager<TScene, TDesignObject> sceneManager;
 
@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public IActionSequencer<IModifyDetail> Sequencer => sequencer;
 
-        public KeyboardBindings KeyboardBindings => keyboardBindings;
+        public AccessInputBindings KeyboardBindings => keyboardBindings;
 
         public IInputElement InputElement { get; }
 
@@ -62,9 +62,9 @@ namespace Ao.ObjectDesign.WpfDesign
             return new WpfObjectDesigner(true);
         }
 
-        protected virtual KeyboardBindings CreateKeyboardBindings()
+        protected virtual AccessInputBindings CreateKeyboardBindings()
         {
-            return new KeyboardBindings(InputElement);
+            return new AccessInputBindings(InputElement);
         }
 
         protected virtual UIDesignMap CreateUIDesignMap()

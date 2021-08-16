@@ -1,9 +1,11 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.ForView;
+using Ao.ObjectDesign.Wpf.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,10 @@ namespace Ao.ObjectDesign.Wpf
 {
     public class WpfObjectDesigner : IWpfObjectDesignerSettings, IWpfObjectDesigner
     {
+        private static readonly Type ignoreDesignAttributeType = typeof(IgnoreDesignAttribute);
+        private static readonly Func<IPropertyProxy,bool> defaultFilter=
+            p => p.PropertyInfo.GetCustomAttribute(ignoreDesignAttributeType) == null;
+
         public IForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext> DataTemplateBuilder { get; }
 
         public IForViewBuilder<FrameworkElement, WpfForViewBuildContext> UIBuilder { get; }
@@ -57,7 +63,8 @@ namespace Ao.ObjectDesign.Wpf
         {
             return ReflectionHelper.Create(type);
         }
-        protected object CreateFromMapping(DesignMapping mapping, DesignLevels designLevel)
+        protected object CreateFromMapping(DesignMapping mapping, 
+            DesignLevels designLevel)
         {
             if (designLevel == DesignLevels.Setting)
             {
@@ -72,21 +79,44 @@ namespace Ao.ObjectDesign.Wpf
         public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
             DesignLevels designLevel)
         {
-            return BuildUI(mapping, designLevel, AttackModes.NativeAndDeclared);
+            return BuildUI(mapping, designLevel, null);
+        }
+        public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
+            DesignLevels designLevel,
+            Func<IPropertyProxy, bool> proxiesFilter)
+        {
+            return BuildUI(mapping, designLevel, AttackModes.NativeAndDeclared,proxiesFilter);
         }
         public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
             DesignLevels designLevel,
             AttackModes attackMode)
         {
+            return BuildUI(mapping, designLevel, attackMode, null);
+        }
+        public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
+            DesignLevels designLevel,
+            AttackModes attackMode,
+            Func<IPropertyProxy, bool> proxiesFilter)
+        {
             var instance = CreateFromMapping(mapping, designLevel);
-            return BuildUI(instance, attackMode);
+            return BuildUI(instance, attackMode,proxiesFilter);
         }
         public IWpfDesignBuildUIResult BuildUI(object instance)
         {
-            return BuildUI(instance, AttackModes.NativeAndDeclared);
+            return BuildUI(instance, null);
+        }
+        public IWpfDesignBuildUIResult BuildUI(object instance, Func<IPropertyProxy, bool> proxiesFilter)
+        {
+            return BuildUI(instance, AttackModes.NativeAndDeclared, proxiesFilter);
         }
         public IWpfDesignBuildUIResult BuildUI(object instance,
             AttackModes attackMode)
+        {
+            return BuildUI(instance, attackMode, null);
+        }
+        public IWpfDesignBuildUIResult BuildUI(object instance,
+            AttackModes attackMode,
+            Func<IPropertyProxy, bool> proxiesFilter)
         {
             if (instance is null)
             {
@@ -94,7 +124,8 @@ namespace Ao.ObjectDesign.Wpf
             }
 
             var proxy = Designer.CreateProxy(instance, instance.GetType());
-            IEnumerable<IPropertyProxy> props = proxy.GetPropertyProxies();
+            IEnumerable<IPropertyProxy> props = proxy.GetPropertyProxies()
+                .Where(proxiesFilter ?? defaultFilter);
             IEnumerable<IWpfUISpirit> ds = UIGenerator.Generate(props);
             IEnumerable<IWpfUISpirit> ctxs = ds.Where(x => x.View != null);
             IDisposable disposable = null;
@@ -115,21 +146,45 @@ namespace Ao.ObjectDesign.Wpf
         public IWpfDesignDataTemplateBuildResult BuildDataTemplate(DesignMapping mapping,
             DesignLevels designLevel)
         {
-            return BuildDataTemplate(mapping, designLevel, AttackModes.VisitorAndDeclared);
+            return BuildDataTemplate(mapping, designLevel, null);
+        }
+        public IWpfDesignDataTemplateBuildResult BuildDataTemplate(DesignMapping mapping,
+            DesignLevels designLevel,
+            Func<IPropertyProxy, bool> proxiesFilter)
+        {
+            return BuildDataTemplate(mapping, designLevel, AttackModes.VisitorAndDeclared, proxiesFilter);
         }
         public IWpfDesignDataTemplateBuildResult BuildDataTemplate(DesignMapping mapping,
             DesignLevels designLevel,
             AttackModes attackMode)
         {
+            return BuildDataTemplate(mapping, designLevel, attackMode, null);
+        }
+        public IWpfDesignDataTemplateBuildResult BuildDataTemplate(DesignMapping mapping,
+            DesignLevels designLevel,
+            AttackModes attackMode,
+            Func<IPropertyProxy, bool> proxiesFilter)
+        {
             var instance = CreateFromMapping(mapping, designLevel);
-            return BuildDataTemplate(instance, attackMode);
+            return BuildDataTemplate(instance, attackMode, proxiesFilter);
         }
         public IWpfDesignDataTemplateBuildResult BuildDataTemplate(object instance)
         {
-            return BuildDataTemplate(instance, AttackModes.VisitorAndDeclared);
+            return BuildDataTemplate(instance, null);
+        }
+        public IWpfDesignDataTemplateBuildResult BuildDataTemplate(object instance,
+            Func<IPropertyProxy, bool> proxiesFilter)
+        {
+            return BuildDataTemplate(instance, AttackModes.VisitorAndDeclared, proxiesFilter);
         }
         public IWpfDesignDataTemplateBuildResult BuildDataTemplate(object instance,
             AttackModes attackMode)
+        {
+            return BuildDataTemplate(instance, attackMode, null);
+        }
+        public IWpfDesignDataTemplateBuildResult BuildDataTemplate(object instance,
+            AttackModes attackMode,
+            Func<IPropertyProxy, bool> proxiesFilter)
         {
             if (instance is null)
             {
@@ -137,7 +192,10 @@ namespace Ao.ObjectDesign.Wpf
             }
 
             var proxy = Designer.CreateProxy(instance, instance.GetType());
-            var ctxs = NotifySubscriber.Lookup(proxy).Select(x => new WpfTemplateForViewBuildContext
+            var proxiesProperty = NotifySubscriber.Lookup(proxy)
+                .Where(proxiesFilter ?? defaultFilter);
+
+            var ctxs = proxiesProperty.Select(x => new WpfTemplateForViewBuildContext
             {
                 Designer = ObjectDesigner.Instance,
                 ForViewBuilder = DataTemplateBuilder,

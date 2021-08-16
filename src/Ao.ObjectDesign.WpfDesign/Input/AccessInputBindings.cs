@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Ao.ObjectDesign.WpfDesign.Input
 {
-    public class KeyboardBindings : IDisposable
+    public class AccessInputBindings : IDisposable
     {
         private bool listening;
 
@@ -30,7 +30,7 @@ namespace Ao.ObjectDesign.WpfDesign.Input
 
         public IInputElement InputElement { get; }
 
-        public KeyboardBindings(IInputElement inputElement)
+        public AccessInputBindings(IInputElement inputElement)
         {
             InputElement = inputElement ?? throw new ArgumentNullException(nameof(inputElement));
 

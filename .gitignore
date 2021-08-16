@@ -436,6 +436,7 @@ nuget.config
 results.xml
 uploadtest.cmd
 uploadmyget.ps1
+uploadcodacytest.sh
 
 .codacy-coverage/**/*.*
 .sonarqube/**/*.*

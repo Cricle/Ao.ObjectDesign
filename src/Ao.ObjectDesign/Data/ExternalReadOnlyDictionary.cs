@@ -59,10 +59,5 @@ namespace Ao.ObjectDesign.Data
         {
             return $"{{Count = {Count}}}";
         }
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
-        }
     }
 }

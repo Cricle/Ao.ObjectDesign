@@ -20,6 +20,20 @@ namespace Ao.ObjectDesign
 
             this.set = new HashSet<T>(set);
         }
+        public ReadOnlyHashSet(IEnumerable<T> set, IEqualityComparer<T> comparer)
+        {
+            if (set is null)
+            {
+                throw new ArgumentNullException(nameof(set));
+            }
+
+            if (comparer is null)
+            {
+                throw new ArgumentNullException(nameof(comparer));
+            }
+
+            this.set = new HashSet<T>(set, comparer);
+        }
         public ReadOnlyHashSet(HashSet<T> set)
         {
             if (set is null)
@@ -27,7 +41,7 @@ namespace Ao.ObjectDesign
                 throw new ArgumentNullException(nameof(set));
             }
 
-            this.set = new HashSet<T>(set);
+            this.set = new HashSet<T>(set, set.Comparer);
         }
 
         public int Count => set.Count;

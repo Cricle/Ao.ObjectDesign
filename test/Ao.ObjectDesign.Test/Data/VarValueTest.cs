@@ -23,7 +23,7 @@ namespace Ao.ObjectDesign.Test.Data
 
             public override VarValue Clone()
             {
-                return null;
+                return new NullVarValue(Value,TypeCode);
             }
         }
         [TestMethod]
@@ -39,6 +39,14 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual(i, val.Value);
             Assert.AreEqual(TypeCode.Int64, val.TypeCode);
             Assert.IsNotNull(val.Convertible);
+        }
+        [TestMethod]
+        public void Clone()
+        {
+            var val = new NullVarValue(null);
+            var val2 = val.Clone();
+
+            Assert.IsNotNull(val2);
         }
         [TestMethod]
         public void GivenNullInit_MustTagEmpty()
@@ -59,6 +67,17 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsFalse(v1.Equals(v4));
             Assert.IsFalse(v1.Equals((object)null));
             Assert.IsFalse(v1.Equals((VarValue)null));
+
+            Assert.IsTrue(v1 == v2);
+            Assert.IsTrue((VarValue)null == (VarValue)null);
+            Assert.IsTrue(v1 != v3);
+            Assert.IsTrue(v1 != null);
+            Assert.IsTrue(null != v1);
+
+            Assert.IsFalse(v1 == null);
+            Assert.IsFalse(null == v1);
+            Assert.IsFalse(v1 != v2);
+            Assert.IsFalse((VarValue)null != (VarValue)null);
 
             Assert.AreEqual(v1.GetHashCode(), v2.GetHashCode());
             Assert.AreNotEqual(v1.GetHashCode(), v3.GetHashCode());
