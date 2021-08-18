@@ -1,17 +1,11 @@
-﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Level;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public abstract class MapCdevSceneController<TDesignObject> : DesignSceneController<TDesignObject>
+    public abstract class MapCdevSceneController<TDesignObject> : DesignSceneController<UIElement,TDesignObject>
     {
         protected MapCdevSceneController(UIDesignMap designMap, UIElementCollection uiElements)
         {
@@ -23,11 +17,15 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public UIElementCollection UIElements { get; }
 
-        protected override void AddUIElement(IDesignUnit<TDesignObject> unit)
+        protected override void AddUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
+            var wpfUnit = (IDesignUnit<TDesignObject>)unit;
+            wpfUnit.Build();
+            wpfUnit.Bind();
             UIElements.Add(unit.UI);
         }
-        protected override void RemoveUIElement(IDesignUnit<TDesignObject> unit)
+
+        protected override void RemoveUIElement(IDesignPair<UIElement,TDesignObject> unit)
         {
             UIElements.Remove(unit.UI);
         }

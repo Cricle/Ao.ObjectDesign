@@ -8,25 +8,25 @@ using System.Windows.Input;
 
 namespace Ao.ObjectDesign.WpfDesign.Input
 {
-    public class AccessInputBindings : IDisposable
+    public class AccessInputBindings : IDisposable, IAccessInputBindings
     {
         private bool listening;
 
         public bool Listening => listening;
 
-        public List<ITextInput> TextInputs { get; }
+        public IList<ITextInput> TextInputs { get; }
 
-        public List<IPreviewKeyboardInput> PreviewKeyboardInputs { get; }
+        public IList<IPreviewKeyboardInput> PreviewKeyboardInputs { get; }
 
-        public List<IKeyboardInput> KeyboardInputs { get; }
+        public IList<IKeyboardInput> KeyboardInputs { get; }
 
-        public List<IPreviewMouseInput> PreviewMouseInputs { get; }
+        public IList<IPreviewMouseInput> PreviewMouseInputs { get; }
 
-        public List<IMouseInput> MouseInputs { get; }
+        public IList<IMouseInput> MouseInputs { get; }
 
-        public List<IStylusInput> StylusInputs { get; }
+        public IList<IStylusInput> StylusInputs { get; }
 
-        public List<IPreviewStylusInput> PreviewStylusInputs { get; }
+        public IList<IPreviewStylusInput> PreviewStylusInputs { get; }
 
         public IInputElement InputElement { get; }
 
@@ -756,47 +756,6 @@ namespace Ao.ObjectDesign.WpfDesign.Input
                 }
             }
 
-        }
-
-        public bool Remove(ITextInput input)
-        {
-            return TextInputs.Remove(input);
-        }
-        public bool Remove(IPreviewKeyboardInput input)
-        {
-            return PreviewKeyboardInputs.Remove(input);
-        }
-        public bool Remove(IKeyboardInput input)
-        {
-            return KeyboardInputs.Remove(input);
-        }
-        public bool Remove(IPreviewMouseInput input)
-        {
-            return PreviewMouseInputs.Remove(input);
-        }
-        public bool Remove(IMouseInput input)
-        {
-            return MouseInputs.Remove(input);
-        }
-        public void Add(ITextInput input)
-        {
-            TextInputs.Add(input);
-        }
-        public void Add(IPreviewKeyboardInput input)
-        {
-            PreviewKeyboardInputs.Add(input);
-        }
-        public void Add(IKeyboardInput input)
-        {
-            KeyboardInputs.Add(input);
-        }
-        public void Add(IPreviewMouseInput input)
-        {
-            PreviewMouseInputs.Add(input);
-        }
-        public void Add(IMouseInput input)
-        {
-            MouseInputs.Add(input);
         }
 
         public virtual void Dispose()

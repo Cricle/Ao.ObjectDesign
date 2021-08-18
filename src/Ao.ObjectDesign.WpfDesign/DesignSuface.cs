@@ -89,22 +89,32 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 return;
             }
-
+            BeginUpdate(ctx);
             foreach (var item in Children.OfType<IDesignHelper>())
             {
                 item.UpdateDesign(ctx);
             }
+            EndUpdate(ctx);
         }
 
-        public void ClearDesignObjects()
+        protected virtual void BeginUpdate(DesignContext context)
+        {
+
+        }
+        protected virtual void EndUpdate(DesignContext context)
+        {
+
+        }
+
+        public virtual void ClearDesignObjects()
         {
             DesigningObjects = EmptyElements;
         }
-        public void SetDesigningObjects(params UIElement[] elements)
+        public virtual void SetDesigningObjects(params UIElement[] elements)
         {
             DesigningObjects = elements;
         }
-        public DesignContext GetContext()
+        public virtual DesignContext GetContext()
         {
             if (DesigningObjects is null)
             {
@@ -112,8 +122,8 @@ namespace Ao.ObjectDesign.WpfDesign
             }
             var ctx = new DesignContext(ServiceProvider,
                 DesigningObjects,
-                Sequencer);
-            ctx.DesignPanel = this;
+                Sequencer,
+                this);
             return ctx;
         }
     }

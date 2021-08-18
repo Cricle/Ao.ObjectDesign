@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 if (!loadedContainer)
                 {
-                    container = (UIElement)DesignContext.GetContainer(Target);
+                    container = DesignContext.GetContainer(Target as FrameworkElement);
                     loadedContainer = true;
                 }
                 return container;

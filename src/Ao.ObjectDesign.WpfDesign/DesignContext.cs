@@ -13,22 +13,26 @@ namespace Ao.ObjectDesign.WpfDesign
     {
         public DesignContext(IServiceProvider provider,
             IEnumerable<UIElement> target,
-            IActionSequencer<IModifyDetail> sequencer)
+            IActionSequencer<IModifyDetail> sequencer,
+            DesignSuface designSuface)
             : base(provider)
         {
+            DesignSuface = designSuface;
             DesignMetedatas = target.Select(x => new DesignMetedata(this, x)).ToList();
             Sequencer = sequencer;
         }
         public DesignContext(IServiceProvider provider,
             DesignMetedata[] metedatas,
-            IActionSequencer<IModifyDetail> sequencer)
+            IActionSequencer<IModifyDetail> sequencer,
+            DesignSuface designSuface)
             : base(provider)
         {
             DesignMetedatas = metedatas;
             Sequencer = sequencer;
+            DesignSuface = designSuface;
         }
 
-        public virtual DesignSuface DesignPanel { get; set; }
+        public virtual DesignSuface DesignSuface { get; }
 
         public virtual IReadOnlyList<DesignMetedata> DesignMetedatas { get; }
 
@@ -38,43 +42,43 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             typeof(Panel),typeof(Decorator)
         });
-        public static Visual GetParent(DependencyObject begin, Type type, bool equals)
+        public static FrameworkElement GetParent(FrameworkElement begin, Type type, bool equals)
         {
-            var d = VisualTreeHelper.GetParent(begin);
+            FrameworkElement d = begin?.Parent as FrameworkElement;
             while (d != null)
             {
                 if (equals)
                 {
-                    if (type.IsEquivalentTo(d.GetType()))
+                    if (type==d.GetType())
                     {
-                        return d as Visual;
+                        return d;
                     }
                 }
                 else
                 {
                     if (type.IsInstanceOfType(d))
                     {
-                        return d as Visual;
+                        return d;
                     }
                 }
-                d = VisualTreeHelper.GetParent(d);
+                d = d.Parent as FrameworkElement;
             }
             return null;
         }
-        public static Visual GetContainer(DependencyObject begin)
+        public static FrameworkElement GetContainer(FrameworkElement begin)
         {
-            var d = VisualTreeHelper.GetParent(begin);
+            //新增直接取
+            FrameworkElement d = begin?.Parent as FrameworkElement;
             while (d != null)
             {
                 foreach (var item in containerSet)
                 {
-                    if (item.IsInstanceOfType(d) &&
-                        d is Visual v)
+                    if (item.IsInstanceOfType(d))
                     {
-                        return v;
+                        return d;
                     }
                 }
-                d = VisualTreeHelper.GetParent(d);
+                d = d.Parent as FrameworkElement;
             }
             return null;
         }

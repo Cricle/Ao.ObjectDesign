@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Data
 {
@@ -22,7 +18,7 @@ namespace Ao.ObjectDesign.Data
                 }
                 else
                 {
-                    throw new ArgumentException($"Not null, Type {value?.GetType()} can't convert to IConvertible");
+                    throw new ArgumentException($"Not null, Type {value.GetType()} can't convert to IConvertible");
                 }
             }
             else
@@ -95,9 +91,78 @@ namespace Ao.ObjectDesign.Data
             }
             return !a.Equals(b);
         }
+        public bool TryTo(Type type,out Exception exception,out object result)
+        {
+            exception = null;
+            result = null;
+
+            if (Value is null || type == typeof(void))
+            {
+                return true;
+            }
+            else if (type.IsPrimitive || type == typeof(string) || type == typeof(decimal))
+            {
+                try
+                {
+                    result = Convert.ChangeType(Value, type);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    exception = ex;
+                    return false;
+                }
+            }
+            else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                TryTo(Nullable.GetUnderlyingType(type), out _, out result);
+                return true;
+            }
+            exception = new InvalidCastException($"Can't case {Value} to {type}");
+            return false;
+        }
+        public object To(Type type)
+        {
+            TryTo(type, out _, out var result);
+            return result;
+        }
+
+        public static VarValue FromObject(object value)
+        {
+            if (value is null)
+            {
+                return NullValue;
+            }
+            if (value is VarValue var)
+            {
+                return var;
+            }
+            var type = value.GetType();
+            if (type.IsPrimitive)
+            {
+                return new StructValue((ValueType)value);
+            }
+            else if (type == typeof(string))
+            {
+                return new RefValue(value.ToString(), TypeCode.String);
+            }
+            else if (type == typeof(decimal))
+            {
+                return new StructValue((decimal)value, TypeCode.Decimal);
+            }
+            else if (type == typeof(DateTime))
+            {
+                return new StructValue((ValueType)value, TypeCode.DateTime);
+            }
+            else if (value==DBNull.Value)
+            {
+                return VarValue.DBNullValue;
+            }
+            return new RefValue(value, TypeCode.Object);
+        }
     }
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public abstract partial class VarValue<T> : VarValue, IEquatable<VarValue<T>>, IVarValue<T>
+    public abstract partial class VarValue<T> : VarValue, IVarValue<T>
     {
         protected VarValue(T value) : base(value)
         {
@@ -108,10 +173,5 @@ namespace Ao.ObjectDesign.Data
         }
 
         public new T Value => (T)base.Value;
-
-        public bool Equals(VarValue<T> other)
-        {
-            return base.Equals(other);
-        }
     }
 }
