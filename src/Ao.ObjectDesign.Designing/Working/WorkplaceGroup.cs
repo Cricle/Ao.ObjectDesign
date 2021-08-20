@@ -48,7 +48,7 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public abstract IWithGroupWorkplace<TKey, TResource> Get(TKey key);
         public abstract bool Remove(TKey key);
-        public abstract void Copy(TKey key, TKey destkey);
+        public abstract void Copy(TKey sourceKey, TKey destkey);
         public abstract IWithGroupWorkplace<TKey, TResource> Create(TKey key);
         public abstract void Rename(TKey oldKey, TKey newKey);
         public abstract bool Has(TKey key);

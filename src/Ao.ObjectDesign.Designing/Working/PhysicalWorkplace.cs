@@ -36,7 +36,7 @@ namespace Ao.ObjectDesign.Designing.Working
                     var accepts = AcceptExtensions;
                     files = files.Where(x => accepts.Contains(Path.GetExtension(x)));
                 }
-                return files.Select(x => ToKey(Path.GetFileName(x))); ;
+                return files.Select(x => ToKey(Path.GetFileName(x)));
             }
         }
 

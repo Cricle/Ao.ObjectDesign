@@ -56,7 +56,11 @@ namespace Ao.ObjectDesign.Designing
             {
                 return obj.Select(copyFactory).ToList();
             }
-            return null;
+#if NET45
+            return new TDesignObject[0];
+#else
+            return Array.Empty<TDesignObject>();
+#endif
         }
     }
 }

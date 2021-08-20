@@ -37,7 +37,7 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual("a1", map["a"]);
             Assert.AreEqual(4, map.Keys.Count());
             Assert.AreEqual(4, map.Values.Count());
-            Assert.AreEqual(4, map.Count());
+            Assert.AreEqual(4, map.Count);
             Assert.IsTrue(map.TryGetValue("a", out var aval));
             Assert.AreEqual("a1", aval);
             Assert.IsNotNull(map.ToString());

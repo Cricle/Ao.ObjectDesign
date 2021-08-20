@@ -1,6 +1,6 @@
 ﻿namespace Ao.ObjectDesign.Designing.Level
 {
-    public interface IDesignPair<TUI, TDesignObject>
+    public interface IDesignPair<out TUI,out TDesignObject>
     {
         TUI UI { get; }
 

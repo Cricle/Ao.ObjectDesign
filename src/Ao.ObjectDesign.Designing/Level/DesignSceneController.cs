@@ -106,7 +106,10 @@ namespace Ao.ObjectDesign.Designing.Level
 
         protected abstract void RemoveUIElement(IDesignPair<TUI, TDesignObject> unit);
 
-        protected abstract IDesignPair<TUI, TDesignObject> CreatetDesignUnit(TUI ui, TDesignObject @object);
+        protected virtual IDesignPair<TUI, TDesignObject> CreatetDesignUnit(TUI ui, TDesignObject @object)
+        {
+            return new DesignPair<TUI, TDesignObject>(ui, @object);
+        }
 
         protected abstract TUI CreateUI(TDesignObject designingObject);
 

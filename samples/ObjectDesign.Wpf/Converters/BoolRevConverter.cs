@@ -10,7 +10,7 @@ namespace ObjectDesign.Wpf.Converters
         {
             return ConvertCore(value);
         }
-        private object ConvertCore(object value)
+        private static object ConvertCore(object value)
         {
             if (value is bool b)
             {

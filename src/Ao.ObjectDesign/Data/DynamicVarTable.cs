@@ -218,7 +218,7 @@ namespace Ao.ObjectDesign.Data
             UnListen();
             OnDispose();
         }
-        protected void OnDispose()
+        protected virtual void OnDispose()
         {
 
         }

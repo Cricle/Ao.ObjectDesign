@@ -33,7 +33,7 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public override TResource Get(TKey key)
         {
-            return (TResource)origin[key];
+            return origin[key];
         }
 
         public override bool Has(TKey key)

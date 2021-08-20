@@ -10,7 +10,7 @@ namespace Ao.ObjectDesign.Designing.Working
 
         bool Remove(TKey key);
 
-        void Copy(TKey key, TKey destkey);
+        void Copy(TKey sourceKey, TKey destkey);
 
         IWithGroupWorkplace<TKey, TResource> Create(TKey key);
 

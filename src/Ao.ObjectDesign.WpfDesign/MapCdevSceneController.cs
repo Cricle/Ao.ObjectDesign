@@ -1,33 +1,59 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
+using Ao.ObjectDesign.Wpf.Data;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public abstract class MapCdevSceneController<TDesignObject> : DesignSceneController<UIElement,TDesignObject>
+    public abstract class MapCdevSceneController<TDesignObject> : DesignSceneController<UIElement, TDesignObject>
     {
-        protected MapCdevSceneController(UIDesignMap designMap, UIElementCollection uiElements)
+        protected MapCdevSceneController(IDesignPackage<TDesignObject> designMap, UIElementCollection uiElements)
         {
-            DesignMap = designMap;
-            UIElements = uiElements;
+            DesignPackage = designMap ?? throw new ArgumentNullException(nameof(designMap));
+            UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));
+            DesignMap = designMap.UIDesinMap;
+            UseUnitDesignAttribute = true;
         }
 
         public UIDesignMap DesignMap { get; }
 
+        public IDesignPackage<TDesignObject> DesignPackage { get; }
+
         public UIElementCollection UIElements { get; }
+
+        public bool UseUnitDesignAttribute { get; set; }
 
         protected override void AddUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
-            var wpfUnit = (IDesignUnit<TDesignObject>)unit;
-            wpfUnit.Build();
-            wpfUnit.Bind();
+            BindDesignUnit(unit);
             UIElements.Add(unit.UI);
         }
 
-        protected override void RemoveUIElement(IDesignPair<UIElement,TDesignObject> unit)
+        protected override void RemoveUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
             UIElements.Remove(unit.UI);
+        }
+        protected virtual void BindDesignUnit(IDesignPair<UIElement, TDesignObject> unit)
+        {
+            IEnumerable<IBindingScope> bindingScopes;
+            if (UseUnitDesignAttribute&& unit.HasCreateAttributes())
+            {
+                var state = DesignPackage.CreateBindingCreatorState(unit);
+                bindingScopes = unit.CreateFromAttribute(state);
+            }
+            else
+            {
+                bindingScopes = DesignPackage.CreateBindingScopes(unit);
+            }
+            Debug.Assert(bindingScopes != null);
+            foreach (var item in bindingScopes)
+            {
+                item.Bind(unit.UI, unit.DesigningObject);
+            }
         }
 
         protected override UIElement CreateUI(TDesignObject designingObject)

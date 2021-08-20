@@ -11,15 +11,16 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public abstract class DesignEngine<TScene,TDesignObject>
-        where TScene:IObservableDeisgnScene<TDesignObject>
+    public abstract class DesignEngine<TScene, TDesignObject>
+        where TScene : IObservableDeisgnScene<TDesignObject>
     {
         private bool isInitialized;
         private WpfObjectDesigner wpfObjectDesigner;
         private IActionSequencer<IModifyDetail> sequencer;
         private AccessInputBindings keyboardBindings;
+        private IDesignPackage<TDesignObject> designPackage;
         private UIDesignMap uiDesignMap;
-        private SceneManager<UIElement,TScene, TDesignObject> sceneManager;
+        private SceneManager<UIElement, TScene, TDesignObject> sceneManager;
 
 
         public bool IsInitialized => isInitialized;
@@ -33,6 +34,8 @@ namespace Ao.ObjectDesign.WpfDesign
         public IInputElement InputElement { get; }
 
         public UIDesignMap UIDesignMap => uiDesignMap;
+
+        public IDesignPackage<TDesignObject> DesignPackage => designPackage;
 
         public SceneManager<UIElement, TScene, TDesignObject> SceneManager => sceneManager;
 
@@ -48,10 +51,11 @@ namespace Ao.ObjectDesign.WpfDesign
                 return;
             }
             keyboardBindings = CreateKeyboardBindings();
-            uiDesignMap = CreateUIDesignMap();
+            designPackage = CreateUIDesignMap();
+            uiDesignMap = designPackage.UIDesinMap;
             wpfObjectDesigner = CreateWpfObjectDesigner();
             sequencer = CreateSequencer(wpfObjectDesigner);
-            sceneManager = CreateSceneManager(wpfObjectDesigner, uiDesignMap);
+            sceneManager = CreateSceneManager(wpfObjectDesigner, designPackage);
             OnInitialize();
             isInitialized = true;
         }
@@ -76,12 +80,9 @@ namespace Ao.ObjectDesign.WpfDesign
             return new AccessInputBindings(InputElement);
         }
 
-        protected virtual UIDesignMap CreateUIDesignMap()
-        {
-            return new UIDesignMap();
-        }
+        protected abstract IDesignPackage<TDesignObject> CreateUIDesignMap();
 
-        protected abstract SceneManager<UIElement, TScene, TDesignObject> CreateSceneManager(WpfObjectDesigner designer, UIDesignMap designMap);
+        protected abstract SceneManager<UIElement, TScene, TDesignObject> CreateSceneManager(WpfObjectDesigner designer, IDesignPackage<TDesignObject> designMap);
 
         public void Dispose()
         {
