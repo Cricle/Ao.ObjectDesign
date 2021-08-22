@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public bool SkipWhenTrigger { get; set; }
 
-        public virtual IEnumerable<IBindingScope> CreateBindingScopes(IDesignPair<UIElement, TDesignObject> unit)
+        public virtual IEnumerable<IWithSourceBindingScope> CreateBindingScopes(IDesignPair<UIElement, TDesignObject> unit)
         {
             var skipWhenTrigger = SkipWhenTrigger;
             var state = CreateBindingCreatorState(unit);

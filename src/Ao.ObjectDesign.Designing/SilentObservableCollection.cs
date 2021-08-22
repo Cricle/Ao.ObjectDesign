@@ -65,18 +65,11 @@ namespace System.Collections.ObjectModel
 
             CheckReentrancy();
 
-            if (Items is List<T> list)
+            foreach (T item in items)
             {
-                var set = new HashSet<T>(items);
-                list.RemoveAll(x => set.Contains(x));
+                Items.Remove(item);
             }
-            else
-            {
-                foreach (T item in items)
-                {
-                    Items.Remove(item);
-                }
-            }
+
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
         }
@@ -109,18 +102,6 @@ namespace System.Collections.ObjectModel
             }
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
-        }
-        public void BatchClear()
-        {
-            CheckReentrancy();
-
-            if (Count != 0)
-            {
-                Items.Clear();
-                OnCollectionChanged(EventArgsCache.ResetCollectionChanged);
-                OnPropertyChanged(EventArgsCache.CountPropertyChanged);
-                OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
-            }
         }
         private void Reset(Func<IList<T>> v)
         {

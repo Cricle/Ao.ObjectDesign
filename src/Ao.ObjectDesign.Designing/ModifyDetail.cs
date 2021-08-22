@@ -31,6 +31,10 @@ namespace Ao.ObjectDesign.Designing
         public virtual void Fallback()
         {
             PropertyInfo prop = Instance.GetType().GetProperty(PropertyName);
+            if (prop is null)
+            {
+                throw new InvalidOperationException($"Instance {Instance} has not property {PropertyName}");
+            }
             prop.SetValue(Instance, From);
         }
 

@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.WpfDesign
         }
         protected virtual void BindDesignUnit(IDesignPair<UIElement, TDesignObject> unit)
         {
-            IEnumerable<IBindingScope> bindingScopes;
+            IEnumerable<IWithSourceBindingScope> bindingScopes;
             if (UseUnitDesignAttribute&& unit.HasCreateAttributes())
             {
                 var state = DesignPackage.CreateBindingCreatorState(unit);
@@ -52,7 +52,7 @@ namespace Ao.ObjectDesign.WpfDesign
             Debug.Assert(bindingScopes != null);
             foreach (var item in bindingScopes)
             {
-                item.Bind(unit.UI, unit.DesigningObject);
+                item.Bind(unit.UI);
             }
         }
 

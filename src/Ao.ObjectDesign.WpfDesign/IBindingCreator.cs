@@ -14,6 +14,6 @@ namespace Ao.ObjectDesign.WpfDesign
 
         bool IsAccept(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state);
 
-        IEnumerable<IBindingScope> Create(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state);
+        IEnumerable<IWithSourceBindingScope> Create(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state);
     }
 }

@@ -15,12 +15,12 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             return unit.DesigningObject.GetType().IsDefined(typeof(BindingCreatorAttribute));
         }
-        public static IEnumerable<IBindingScope> CreateFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
+        public static IEnumerable<IWithSourceBindingScope> CreateFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
             IBindingCreatorState state)
         {
             return CreateFromAttribute(unit, state, x => (IBindingCreator<TDesignObject>)Activator.CreateInstance(x));
         }
-        public static IEnumerable<IBindingScope> CreateFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
+        public static IEnumerable<IWithSourceBindingScope> CreateFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
             IBindingCreatorState state,
             Func<Type, IBindingCreator<TDesignObject>> creatorFactory)
         {

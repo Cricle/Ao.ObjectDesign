@@ -44,11 +44,21 @@ namespace Ao.ObjectDesign.Test
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetDefaultValueMap(null, false));
 
             var propInfo = typeof(Class).GetProperty(nameof(Class.Student1));
+            var identity = new PropertyIdentity(typeof(Class),nameof(Class.Student1));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, propInfo));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, identity));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyInfo)null));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyIdentity)null));
 
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Create(null));
+
+            var type = typeof(object);
+            var dents = new Dictionary<Type, IReadOnlyDictionary<PropertyIdentity, object>>();
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.SetDefault(null, type, SetDefaultOptions.ClassGenerateNew));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.SetDefault(inst, (Type)null, SetDefaultOptions.ClassGenerateNew));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.SetDefault(null, SetDefaultOptions.ClassGenerateNew));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.SetDefault(inst, (IReadOnlyDictionary<Type, IReadOnlyDictionary<PropertyIdentity, object>>)null, SetDefaultOptions.ClassGenerateNew));
+            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.SetDefault(null, dents, SetDefaultOptions.ClassGenerateNew));
         }
 
         [TestMethod]

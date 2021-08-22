@@ -143,7 +143,7 @@ namespace ObjectDesign.Wpf
             if (e.AddedItems != null && e.AddedItems.Count != 0 && e.AddedItems[0] is DesignMapping item)
             {
                 long bg = Stopwatch.GetTimestamp();
-                designs.BatchClear();
+                designs.Clear();
                 disposable?.Dispose();
                 disposable = null;
                 sequencer.StripAll();

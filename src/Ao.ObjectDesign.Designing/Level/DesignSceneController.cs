@@ -115,6 +115,7 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public void Dispose()
         {
+            isInitialized = false;
             Scene.DesigningObjects.CollectionChanged -= OnDesigningObjectsCollectionChanged;
             OnDispose();
         }

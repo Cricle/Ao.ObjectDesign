@@ -42,5 +42,26 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual("a1", aval);
             Assert.IsNotNull(map.ToString());
         }
+        [TestMethod]
+        public void GetEnumerator()
+        {
+            var map = new ExternalReadOnlyDictionary<string, string>(new Dictionary<string, string>
+            {
+                ["a"] = "a1"
+            });
+
+            var enu = map.GetEnumerator();
+            Assert.IsTrue(enu.MoveNext());
+            Assert.AreEqual("a", enu.Current.Key);
+            Assert.AreEqual("a1", enu.Current.Value);
+            Assert.IsFalse(enu.MoveNext());
+
+            var enu1 = ((IEnumerable)map).GetEnumerator();
+            Assert.IsTrue(enu1.MoveNext());
+            var val = (KeyValuePair<string, string>)enu1.Current;
+            Assert.AreEqual("a", val.Key);
+            Assert.AreEqual("a1", val.Value);
+            Assert.IsFalse(enu1.MoveNext());
+        }
     }
 }

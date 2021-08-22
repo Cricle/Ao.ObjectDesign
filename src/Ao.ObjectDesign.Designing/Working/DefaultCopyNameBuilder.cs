@@ -7,8 +7,8 @@ namespace Ao.ObjectDesign.Designing.Working
         public static readonly string ENLeftBrackets = "(";
         public static readonly string ENRightBrackets = ")";
 
-        public static readonly string CNLeftBrackets = "）";
-        public static readonly string CNRightBrackets = "（";
+        public static readonly string CNLeftBrackets = "（";
+        public static readonly string CNRightBrackets = "）";
 
         public static readonly DefaultCopyNameBuilder ENBrackets = new DefaultCopyNameBuilder(ENLeftBrackets, ENRightBrackets);
         public static readonly DefaultCopyNameBuilder CENBrackets = new DefaultCopyNameBuilder(CNLeftBrackets, CNRightBrackets);

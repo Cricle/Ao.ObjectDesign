@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign
     {
         public static readonly ReadOnlyHashSet<T> Empty = new ReadOnlyHashSet<T>(Enumerable.Empty<T>());
 
-        private readonly HashSet<T> set;
+        protected readonly HashSet<T> set;
 
         public ReadOnlyHashSet(IEnumerable<T> set)
         {
@@ -49,6 +49,31 @@ namespace Ao.ObjectDesign
         public bool Contains(T value)
         {
             return set.Contains(value);
+        }
+
+        public bool IsProperSubsetOf(IEnumerable<T> other)
+        {
+            return set.IsProperSubsetOf(other);
+        }
+        public bool IsProperSupersetOf(IEnumerable<T> other)
+        {
+            return set.IsProperSupersetOf(other);
+        }
+        public bool IsSubsetOf(IEnumerable<T> other)
+        {
+            return set.IsSubsetOf(other);
+        }
+        public bool IsSupersetOf(IEnumerable<T> other)
+        {
+            return set.IsSupersetOf(other);
+        }
+        public bool Overlaps(IEnumerable<T> other)
+        {
+            return set.Overlaps(other);
+        }
+        public bool SetEquals(IEnumerable<T> other)
+        {
+            return set.SetEquals(other);
         }
 
         public IEnumerator<T> GetEnumerator()

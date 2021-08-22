@@ -87,7 +87,7 @@ namespace Ao.ObjectDesign.Designing.Test
                 sender = o;
                 eg = e;
             };
-            coll.BatchClear();
+            coll.Clear();
             Assert.AreEqual(0, coll.Count);
             Assert.AreEqual(coll, sender);
             Assert.IsNotNull(eg);

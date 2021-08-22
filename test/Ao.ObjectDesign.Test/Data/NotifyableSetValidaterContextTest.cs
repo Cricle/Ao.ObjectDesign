@@ -67,6 +67,12 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsTrue(d.Equals(d1));
             Assert.IsTrue(e.Equals(e1));
 
+            Assert.IsTrue(a.Equals((object)a1));
+            Assert.IsTrue(b.Equals((object)b1));
+            Assert.IsTrue(c.Equals((object)c1));
+            Assert.IsTrue(d.Equals((object)d1));
+            Assert.IsTrue(e.Equals((object)e1));
+
             Assert.IsFalse(a.Equals(b1));
             Assert.IsFalse(a.Equals(new object()));
             Assert.IsFalse(a.Equals(c1));

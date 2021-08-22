@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Designing
 
         public FallbackableGroup(FallbackModes mode)
         {
-            Mode= mode;
+            Mode = mode;
         }
 
         public FallbackableGroup(FallbackModes mode, int capacity) : base(capacity)
@@ -25,7 +25,7 @@ namespace Ao.ObjectDesign.Designing
         {
             Mode = mode;
         }
-        
+
         public FallbackModes Mode { get; }
 
         public IFallbackable Copy(FallbackModes? mode)
@@ -54,9 +54,18 @@ namespace Ao.ObjectDesign.Designing
 
         public bool IsReverse(IFallbackable fallbackable)
         {
-            if (fallbackable is FallbackableGroup group &&
-                group.Count == Count)
+            if (fallbackable is FallbackableGroup group)
             {
+                if (group.Mode == Mode)
+                {
+                    return false;
+                }
+
+                if (group.Count != Count)
+                {
+                    return false;
+                }
+
                 for (int i = 0; i < Count; i++)
                 {
                     var me = this[i];
@@ -70,19 +79,24 @@ namespace Ao.ObjectDesign.Designing
             }
             return false;
         }
-        public void ListReverse()
+        public void ReverseList()
         {
             base.Reverse();
         }
-        public new IFallbackable Reverse()
+        public new FallbackableGroup Reverse()
         {
-            var group = new FallbackableGroup(FallbackModes.Reverse, Count);
+            var mode = Mode == FallbackModes.Forward ? FallbackModes.Reverse : FallbackModes.Forward;
+            var group = new FallbackableGroup(mode, Count);
             foreach (var item in this)
             {
                 var copied = item.Reverse();
                 group.Add(copied);
             }
             return group;
+        }
+        IFallbackable IFallbackable.Reverse()
+        {
+            return Reverse();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace Ao.ObjectDesign
         {
             Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<int>((IEnumerable<int>)null));
             Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<int>((HashSet<int>)null));
+            Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<string>(null,StringComparer.OrdinalIgnoreCase));
+            Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<string>(new string[0], null));
         }
         private ReadOnlyHashSet<T> CreateReadOnlyHashSet<T>(T[] datas, bool useHashSet)
         {
@@ -71,6 +73,38 @@ namespace Ao.ObjectDesign
                 bool exists = datas.Contains((int)nenu.Current);
                 Assert.IsTrue(exists, $"Fail to contains {enu.Current}");
             }
+        }
+
+        [TestMethod]
+        public void OtherMethods()
+        {
+            var set = new HashSet<int> { 1, 2, 3, 4, 5, 6, 7, 8 };
+            var readonlySet = new ReadOnlyHashSet<int>(set);
+            var arr = new int[] { 3, 4, 5, 6, 7 };
+
+            var res = set.IsProperSubsetOf(arr);
+            var res1 = readonlySet.IsProperSubsetOf(arr);
+            Assert.AreEqual(res, res1);
+
+            res = set.IsProperSupersetOf(arr);
+            res1 = readonlySet.IsProperSupersetOf(arr);
+            Assert.AreEqual(res, res1);
+
+            res = set.IsSubsetOf(arr);
+            res1 = readonlySet.IsSubsetOf(arr);
+            Assert.AreEqual(res, res1);
+
+            res = set.IsSupersetOf(arr);
+            res1 = readonlySet.IsSupersetOf(arr);
+            Assert.AreEqual(res, res1);
+
+            res = set.Overlaps(arr);
+            res1 = readonlySet.Overlaps(arr);
+            Assert.AreEqual(res, res1);
+
+            res = set.SetEquals(arr);
+            res1 = readonlySet.SetEquals(arr);
+            Assert.AreEqual(res, res1);
         }
     }
 }
