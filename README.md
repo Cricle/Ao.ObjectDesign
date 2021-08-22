@@ -8,7 +8,8 @@
 
 <div align='center'>
 
-[![codecov](https://codecov.io/gh/Cricle/Ao.ObjectDesign/branch/master/graph/badge.svg?token=jyQaSxhCz2)](https://codecov.io/gh/Cricle/Ao.ObjectDesign)
+[![codecov](https://codecov.io/gh/Cricle/Ao.ObjectDesign/branch/master/graph/badge.svg?token=jyQaSxhCz2)](https://codecov.io/gh/Cricle/Ao.ObjectDesign)[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCricle%2FAo.ObjectDesign.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FCricle%2FAo.ObjectDesign?ref=badge_shield)
+
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/54617be52d464795bddb2af0c91eadc3)](https://www.codacy.com/gh/Cricle/Ao.ObjectDesign/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cricle/Ao.ObjectDesign&amp;utm_campaign=Badge_Grade)
 
 </div>
@@ -63,3 +64,6 @@ var propProxies=proxy.GetPropertyProxies()
 
 - [ ] 添加更多的单元测试
 - [ ] 提供步骤记录器，提供顺序器
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCricle%2FAo.ObjectDesign.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCricle%2FAo.ObjectDesign?ref=badge_large)
