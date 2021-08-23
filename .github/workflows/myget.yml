@@ -1,0 +1,35 @@
+name: Publish to nuget
+on:
+  push:
+    branches:
+      - myget
+jobs:
+  build:
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Setup .NET
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: 5.0.x
+        - name: Restore dependencies
+          run: dotnet restore
+        - name: Build release
+          run: dotnet build -c Release
+        - name: Publish to myget 
+          shell: powershell
+          env:
+            MYGET_TOKEN: ${{ secrets.MYGET_TOKEN }}
+            RUN_NUMBER: ${{ github.run_number }}
+            PUBLISH_MYGET_ADDRESS: ${{ secrets.PUBLISH_MYGET_ADDRESS }}
+          run: |
+            $version="0.2.${{ RUN_NUMBER }}"
+            $accessToken="${{ MYGET_TOKEN }}"
+            $paths=@("Ao.ObjectDesign","Ao.ObjectDesign.Abstract","Ao.ObjectDesign.Wpf","Ao.ObjectDesign.Controls","Ao.ObjectDesign.Wpf.Json","Ao.ObjectDesign.Wpf.Xml","Ao.ObjectDesign.Wpf.Yaml","Ao.ObjectDesign.Designing","Ao.ObjectDesign.WpfDesign");
+            for($x=0;$x -lt $paths.length; $x=$x+1)
+            {
+              $fp=-join ("src\",$paths[$x],"\bin\Release\",$paths[$x],".",$version,".nupkg");
+              nuget push $fp -ApiKey $accessToken -Source ${{ PUBLISH_MYGET_ADDRESS }}
+            }
+
+
