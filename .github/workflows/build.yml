@@ -60,11 +60,11 @@ jobs:
         shell: powershell
         run: |
           codecov --version
-          codecov -f "results.xml" -t "{{ secrets.CODECOV }}"
+          codecov -f "results.xml" -t "${{ secrets.CODECOV }}"
       - name: Upload to codacy
         shell: bash
         run: |
-          export CODACY_PROJECT_TOKEN={{ secrets.CODACY_PROJECT_TOKEN }};
+          export CODACY_PROJECT_TOKEN="${{ secrets.CODACY_PROJECT_TOKEN }}";
           bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r results.xml
 
 
