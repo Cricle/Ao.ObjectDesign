@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Test.Data
     {
         class NullDataNotifyer : IDataNotifyer<string>
         {
-            public void OnDataChanged(object sender, DataChangedEventArgs<string, VarValue> e)
+            public void OnDataChanged(object sender, DataChangedEventArgs<string, IVarValue> e)
             {
             }
         }
@@ -21,9 +21,9 @@ namespace Ao.ObjectDesign.Test.Data
         {
             public object Sender { get; set; }
 
-            public DataChangedEventArgs<string, VarValue> Args { get; set; }
+            public DataChangedEventArgs<string, IVarValue> Args { get; set; }
 
-            public void OnDataChanged(object sender, DataChangedEventArgs<string, VarValue> e)
+            public void OnDataChanged(object sender, DataChangedEventArgs<string, IVarValue> e)
             {
                 Sender = sender;
                 Args = e;

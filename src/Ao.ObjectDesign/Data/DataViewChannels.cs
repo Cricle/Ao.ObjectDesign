@@ -121,7 +121,7 @@ namespace Ao.ObjectDesign.Data
                 DataView.DataChanged += OnDataViewDataChanged;
             }
 
-            private void OnDataViewDataChanged(object sender, DataChangedEventArgs<TKey, VarValue> e)
+            private void OnDataViewDataChanged(object sender, DataChangedEventArgs<TKey, IVarValue> e)
             {
                 if (e.Key!=null &&e.Key.Equals(Name))
                 {

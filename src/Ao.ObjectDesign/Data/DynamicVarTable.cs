@@ -9,12 +9,12 @@ namespace Ao.ObjectDesign.Data
 {
     public class DynamicVarTable : DynamicVarTable<string>
     {
-        public DynamicVarTable(NotifyableMap<string, VarValue> dataMap)
+        public DynamicVarTable(NotifyableMap<string, IVarValue> dataMap)
             : base(dataMap)
         {
         }
 
-        public DynamicVarTable(NotifyableMap<string, VarValue> dataMap, IReadOnlyHashSet<string> acceptKeys)
+        public DynamicVarTable(NotifyableMap<string, IVarValue> dataMap, IReadOnlyHashSet<string> acceptKeys)
             : base(dataMap, acceptKeys)
         {
         }
@@ -32,12 +32,12 @@ namespace Ao.ObjectDesign.Data
 
     public abstract class DynamicVarTable<TKey> : DynamicObject, INotifyPropertyChanged, IDisposable
     {
-        protected DynamicVarTable(NotifyableMap<TKey, VarValue> dataMap)
+        protected DynamicVarTable(NotifyableMap<TKey, IVarValue> dataMap)
             : this(dataMap, ReadOnlyHashSet<TKey>.Empty)
         {
             AllAccept = true;
         }
-        protected DynamicVarTable(NotifyableMap<TKey, VarValue> dataMap, IReadOnlyHashSet<TKey> acceptKeys)
+        protected DynamicVarTable(NotifyableMap<TKey, IVarValue> dataMap, IReadOnlyHashSet<TKey> acceptKeys)
         {
             DataMap = dataMap ?? throw new ArgumentNullException(nameof(dataMap));
             AcceptKeys = acceptKeys ?? throw new ArgumentNullException(nameof(acceptKeys));
@@ -52,9 +52,9 @@ namespace Ao.ObjectDesign.Data
 
         public IReadOnlyHashSet<TKey> AcceptKeys { get; }
 
-        public NotifyableMap<TKey, VarValue> DataMap { get; }
+        public NotifyableMap<TKey, IVarValue> DataMap { get; }
 
-        public VarValue NoneValue { get; set; }
+        public IVarValue NoneValue { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -109,7 +109,7 @@ namespace Ao.ObjectDesign.Data
             var var = ToVarValue(value);
             return SetValue(name, var);
         }
-        public bool SetValue(string name, VarValue value)
+        public bool SetValue(string name, IVarValue value)
         {
             var key = ToKey(name);
             return SetValue(key, value);
@@ -119,7 +119,7 @@ namespace Ao.ObjectDesign.Data
             var var = ToVarValue(value);
             return SetValue(key, var);
         }
-        public bool SetValue(TKey key, VarValue value)
+        public bool SetValue(TKey key, IVarValue value)
         {
             if (IsAccept(key))
             {
@@ -136,12 +136,12 @@ namespace Ao.ObjectDesign.Data
         {
             return SetValue(binder.Name, value);
         }
-        public bool TryGetValue(string name, out VarValue result)
+        public bool TryGetValue(string name, out IVarValue result)
         {
             var key = ToKey(name);
             return TryGetValue(key, out result);
         }
-        public bool TryGetValue(TKey key, out VarValue result)
+        public bool TryGetValue(TKey key, out IVarValue result)
         {
             result = null;
             if (IsAccept(key))
@@ -161,7 +161,7 @@ namespace Ao.ObjectDesign.Data
             }
             return false;
         }
-        protected virtual object VisitValue(VarValue value)
+        protected virtual object VisitValue(IVarValue value)
         {
             return value?.Value ?? NoneValue;
         }
@@ -187,7 +187,7 @@ namespace Ao.ObjectDesign.Data
             }
             return base.TryGetIndex(binder, indexes, out result);
         }
-        protected void OnDataChanged(object sender, DataChangedEventArgs<TKey, VarValue> e)
+        protected void OnDataChanged(object sender, DataChangedEventArgs<TKey, IVarValue> e)
         {
             if (IsAccept(e.Key))
             {
@@ -208,7 +208,7 @@ namespace Ao.ObjectDesign.Data
         protected abstract string ToName(TKey key);
         protected abstract TKey ToKey(string name);
 
-        protected virtual VarValue ToVarValue(object value)
+        protected virtual IVarValue ToVarValue(object value)
         {
             return VarValue.FromObject(value);
         }

@@ -11,13 +11,13 @@ using System.Threading;
 namespace Ao.ObjectDesign.Data
 {
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public class DataView<TKey> : NotifyableMap<TKey, VarValue>
+    public class DataView<TKey> : NotifyableMap<TKey, IVarValue>
     {
         public DataView()
         {
         }
 
-        public DataView(IDictionary<TKey, VarValue> map) : base(map)
+        public DataView(IDictionary<TKey, IVarValue> map) : base(map)
         {
         }
         

@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Test.Data
             new ValidDataView<string>();
             new ValidDataView<string>(100,10);
             new ValidDataView<string>(StringComparer.OrdinalIgnoreCase);
-            var map = new ValidDataView<string>(new Dictionary<string, VarValue>
+            var map = new ValidDataView<string>(new Dictionary<string, IVarValue>
             {
                 ["a"] = VarValue.Byte0Value
             });

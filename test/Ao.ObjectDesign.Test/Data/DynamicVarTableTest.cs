@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
-            var map = new NotifyableMap<string, VarValue>();
+            var map = new NotifyableMap<string, IVarValue>();
             var set = ReadOnlyHashSet<string>.Empty;
 
             Assert.ThrowsException<ArgumentNullException>(() => new DynamicVarTable(null));
@@ -25,7 +25,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void ListenChange()
         {
-            var map = new NotifyableMap<string, VarValue>();
+            var map = new NotifyableMap<string, IVarValue>();
             var tb = new DynamicVarTable(map);
 
             Assert.AreEqual(map, tb.DataMap);
@@ -55,7 +55,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void SetValue()
         {
-            var map = new NotifyableMap<string, VarValue>();
+            var map = new NotifyableMap<string, IVarValue>();
             var tb = new DynamicVarTable(map);
 
             tb.SetValue("a", "aaa");
@@ -73,7 +73,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void UseageTest()
         {
-            var map = new NotifyableMap<string, VarValue>();
+            var map = new NotifyableMap<string, IVarValue>();
             var tb = new DynamicVarTable(map);
 
             tb.Listen();

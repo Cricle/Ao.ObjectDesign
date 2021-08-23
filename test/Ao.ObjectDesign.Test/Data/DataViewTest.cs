@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Test.Data
             var dv = new DataView<string>();
             var comparer = StringComparer.OrdinalIgnoreCase;
             dv = new DataView<string>(comparer);
-            dv = new DataView<string>(new Dictionary<string, VarValue> { ["a"] = VarValue.FalseValue });
+            dv = new DataView<string>(new Dictionary<string, IVarValue> { ["a"] = VarValue.FalseValue });
 
             Assert.AreEqual("a", dv.Keys.Single());
             Assert.AreEqual(VarValue.FalseValue, dv.Values.Single());

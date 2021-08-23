@@ -2,6 +2,6 @@
 {
     public interface IDataNotifyer<TKey>
     {
-        void OnDataChanged(object sender,DataChangedEventArgs<TKey, VarValue> e);
+        void OnDataChanged(object sender,DataChangedEventArgs<TKey, IVarValue> e);
     }
 }
