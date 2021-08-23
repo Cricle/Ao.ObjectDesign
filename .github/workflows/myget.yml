@@ -23,13 +23,13 @@ jobs:
             RUN_NUMBER: ${{ github.run_number }}
             PUBLISH_MYGET_ADDRESS: ${{ secrets.PUBLISH_MYGET_ADDRESS }}
           run: |
-            $version="0.2.${{ RUN_NUMBER }}"
-            $accessToken="${{ MYGET_TOKEN }}"
+            $version="0.2.${{ env.RUN_NUMBER }}"
+            $accessToken="${{ env.MYGET_TOKEN }}"
             $paths=@("Ao.ObjectDesign","Ao.ObjectDesign.Abstract","Ao.ObjectDesign.Wpf","Ao.ObjectDesign.Controls","Ao.ObjectDesign.Wpf.Json","Ao.ObjectDesign.Wpf.Xml","Ao.ObjectDesign.Wpf.Yaml","Ao.ObjectDesign.Designing","Ao.ObjectDesign.WpfDesign");
             for($x=0;$x -lt $paths.length; $x=$x+1)
             {
               $fp=-join ("src\",$paths[$x],"\bin\Release\",$paths[$x],".",$version,".nupkg");
-              nuget push $fp -ApiKey $accessToken -Source ${{ PUBLISH_MYGET_ADDRESS }}
+              nuget push $fp -ApiKey $accessToken -Source ${{ env.PUBLISH_MYGET_ADDRESS }}
             }
 
 
