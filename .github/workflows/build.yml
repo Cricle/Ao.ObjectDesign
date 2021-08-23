@@ -54,13 +54,13 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"Cricle_Ao.ObjectDesign" /o:"cricle" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.opencover.reportsPaths="results.xml"
           dotnet build Ao.ObjectDesign.sln -c Release 
-          "dotnet test -c Release Ao.ObjectDesign.sln" > testrp.bat
-          OpenCover.Console.exe -target:testrp.bat -register:user
+          OpenCover.Console.exe -target:test.bat -register:user
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
       - name: Upload to codecov
         shell: powershell
         run: |
-          codecov -f "results.xml" -t {{ secrets.CODECOV }}
+          codecov --version
+          codecov -f "results.xml" -t "{{ secrets.CODECOV }}"
       - name: Upload to codacy
         run: |
           export CODACY_PROJECT_TOKEN={{ secrets.CODACY_PROJECT_TOKEN }};
