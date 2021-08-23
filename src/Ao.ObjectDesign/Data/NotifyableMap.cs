@@ -46,23 +46,24 @@ namespace Ao.ObjectDesign.Data
 
         public virtual TValue AddOrUpdate(TKey key, Func<TKey, TValue> addFactory, Func<TKey, TValue, TValue> updateFactory)
         {
-            return innerMap.AddOrUpdate(key, x =>
+            DataChangedEventArgs<TKey, TValue> args = null;
+            var res= innerMap.AddOrUpdate(key, x =>
             {
                 var val = addFactory(x);
-                var e = new DataChangedEventArgs<TKey, TValue>(x, default, val, ChangeModes.New);
-                OnWritingData(e);
-                DataChanged?.Invoke(this, e);
-                OnWritedData(e);
+                args = new DataChangedEventArgs<TKey, TValue>(x, default, val, ChangeModes.New);
+                OnWritingData(args);
                 return val;
             }, (x, old) =>
              {
                  var val = updateFactory(x, old);
-                 var e = new DataChangedEventArgs<TKey, TValue>(x, old, val, ChangeModes.Change);
-                 OnWritingData(e);
-                 DataChanged?.Invoke(this, e);
-                 OnWritedData(e);
+                 args = new DataChangedEventArgs<TKey, TValue>(x, old, val, ChangeModes.Change);
+                 OnWritingData(args);
                  return val;
              });
+            Debug.Assert(args != null);
+            DataChanged?.Invoke(this, args);
+            OnWritedData(args);
+            return res;
         }
 
         protected virtual void OnWritingData(DataChangedEventArgs<TKey, TValue> e)

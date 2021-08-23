@@ -10,17 +10,85 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public partial class DesignContext
     {
-        public virtual Vector TargetOffset => CreatePosition(x => x.TargetOffset);
+        private Vector? targetOffset;
+        private Vector? parentOffset;
+        private Vector? containerOffset;
 
-        public virtual Rect TargetBounds => CreateBounds(x => x.TargetBounds);
+        private Rect? targetBounds;
+        private Rect? parentBounds;
+        private Rect? containerBounds;
 
-        public virtual Vector ParentOffset => CreatePosition(x => x.ParentOffset);
+        public virtual Vector TargetOffset
+        {
+            get
+            {
+                if (targetOffset is null)
+                {
+                    targetOffset = CreatePosition(x => x.TargetOffset);
+                }
+                return targetOffset.Value;
+            }
+        }
 
-        public virtual Rect ParentBounds => CreateBounds(x => x.ParentBounds);
+        public virtual Rect TargetBounds
+        {
+            get
+            {
+                if (targetBounds is null)
+                {
+                    targetBounds = CreateBounds(x => x.TargetBounds);
+                }
+                return targetBounds.Value;
+            }
+        }
 
-        public virtual Vector ContainerOffset => CreatePosition(x => x.ContainerOffset);
+        public virtual Vector ParentOffset
+        {
+            get
+            {
+                if (parentOffset is null)
+                {
+                    parentOffset = CreatePosition(x => x.ParentOffset);
+                }
+                return parentOffset.Value;
+            }
+        }
 
-        public virtual Rect ContainerBounds => CreateBounds(x => x.ContainerBounds);
+        public virtual Rect ParentBounds
+        {
+            get
+            {
+                if (parentBounds is null)
+                {
+                    parentBounds = CreateBounds(x => x.ParentBounds);
+                }
+                return parentBounds.Value;
+            }
+        }
+
+        public virtual Vector ContainerOffset
+        {
+            get
+            {
+                if (containerOffset is null)
+                {
+                    containerOffset = CreatePosition(x => x.ContainerOffset);
+                }
+                return containerOffset.Value;
+            }
+        }
+
+        public virtual Rect ContainerBounds
+        {
+            get
+            {
+                if (containerBounds is null)
+                {
+                    containerBounds = CreateBounds(x => x.ContainerBounds);
+                }
+                return containerBounds.Value;
+            }
+        }
 
         private Vector CreatePosition(Func<DesignMetedata, Vector> selector)
         {

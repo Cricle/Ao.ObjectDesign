@@ -70,5 +70,62 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual("a", map.Keys.Single());
             Assert.AreEqual(val,map.Values.Single());
         }
+        [TestMethod]
+        public void UseageTest()
+        {
+            var map = new NotifyableMap<string, VarValue>();
+            var tb = new DynamicVarTable(map);
+
+            tb.Listen();
+
+            object sender = null;
+            PropertyChangedEventArgs args = null;
+            tb.PropertyChanged += (o, e) =>
+            {
+                sender = o;
+                args = e;
+            };
+
+            tb.SetValue("a", 1);
+
+            Assert.AreEqual(tb, sender);
+            Assert.AreEqual("a", args.PropertyName);
+
+            sender = null;
+            args = null;
+
+            tb.SetValue("a", 2);
+
+            Assert.AreEqual(tb, sender);
+            Assert.AreEqual("a", args.PropertyName);
+
+            sender = null;
+            args = null;
+
+            map.Remove("a");
+
+            Assert.AreEqual(tb, sender);
+            Assert.AreEqual("a", args.PropertyName);
+
+            sender = null;
+            args = null;
+
+            dynamic dn = tb;
+
+            dn["b"] = 222;
+
+            Assert.AreEqual(tb, sender);
+            Assert.AreEqual("b", args.PropertyName);
+
+            sender = null;
+            args = null;
+
+            dn.b = 333;
+
+            Assert.AreEqual(tb, sender);
+            Assert.AreEqual("b", args.PropertyName);
+
+            tb.UnListen();
+        }
     }
 }

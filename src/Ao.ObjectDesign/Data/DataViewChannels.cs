@@ -165,7 +165,6 @@ namespace Ao.ObjectDesign.Data
             {
                 if (IsSubscribed)
                 {
-
                     Debug.Assert(Channel != null);
                     Debug.Assert(Key != null);
                     Debug.Assert(Notifyer != null);

@@ -32,6 +32,9 @@ namespace Ao.ObjectDesign.Test
 
             proxy = ObjectDesigner.CreateDefaultProxy(new Student(), typeof(Student));
             Assert.IsNotNull(proxy);
+
+            proxy = ObjectDesigner.CreateDefaultProxy(new Student());
+            Assert.IsNotNull(proxy);
         }
     }
 }
