@@ -50,7 +50,7 @@ namespace Ao.ObjectDesign.Designing
                 throw new ArgumentNullException(nameof(copyFactory));
             }
 
-            manager.UploadFromClipboard(canNull, copy);
+            manager.UpdateFromClipboard(canNull, copy);
             IReadOnlyList<TDesignObject> obj = manager.CopiedObjects;
             if (obj != null)
             {

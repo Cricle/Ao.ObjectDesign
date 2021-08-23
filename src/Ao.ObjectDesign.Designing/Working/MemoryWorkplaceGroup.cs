@@ -19,12 +19,12 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public MemoryWorkplaceGroup(IDictionary<TKey, IDictionary<TKey, TResource>> resources)
         {
-            this.resources = resources;
+            this.resources = resources ?? throw new ArgumentNullException(nameof(resources));
         }
-        public MemoryWorkplaceGroup(TKey key,IDictionary<TKey, IDictionary<TKey, TResource>> resources)
+        public MemoryWorkplaceGroup(TKey key, IDictionary<TKey, IDictionary<TKey, TResource>> resources)
             :base(key)
         {
-            this.resources = resources;
+            this.resources = resources ?? throw new ArgumentNullException(nameof(resources));
         }
 
         public override void Clear()

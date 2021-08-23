@@ -37,16 +37,16 @@ namespace Ao.ObjectDesign.Designing
             SetToClipboard(objects);
             var e = new DesignClipboardCopiedResetEventArgs<TDesignObject>(oldCopiedObject,
                 oldOriginObject,
-                originObjects,
+                copiedObjects,
                 objects);
             CopiedObjectChanged?.Invoke(this, e);
             OnCopiedObjectChanged(e);
         }
 
-        public void UploadFromClipboard(bool canNull, bool copy)
+        public void UpdateFromClipboard(bool canNull, bool copy)
         {
             var val = GetFromClipboard();
-            if (val is null && canNull)
+            if (val != null || canNull)
             {
                 SetCopiedObject(val, copy);
             }

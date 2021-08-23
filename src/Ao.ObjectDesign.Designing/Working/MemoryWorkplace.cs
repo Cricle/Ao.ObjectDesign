@@ -12,7 +12,7 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public MemoryWorkplace(IDictionary<TKey, TResource> origin)
         {
-            this.origin = origin;
+            this.origin = origin ?? throw new ArgumentNullException(nameof(origin));
         }
 
         public override IEnumerable<TKey> Resources => origin.Keys;
@@ -62,8 +62,14 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public override void Store(TKey key, TResource resource)
         {
-            ThrowIfKeyExists(key);
-            origin.Add(key, resource);
+            if (origin.ContainsKey(key))
+            {
+                origin[key] = resource;
+            }
+            else
+            {
+                origin.Add(key, resource);
+            }
             RaiseStoredResource(new StoredResourceEventArgs<TKey, TResource>(key, resource));
         }
 

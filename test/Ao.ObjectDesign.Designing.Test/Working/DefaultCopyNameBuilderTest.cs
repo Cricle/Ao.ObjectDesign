@@ -12,13 +12,21 @@ namespace Ao.ObjectDesign.Designing.Test.Working
     public class DefaultCopyNameBuilderTest
     {
         [TestMethod]
-        public void GivenNullInit_MustThrowException()
+        public void GivenNullInitOrCall_MustThrowException()
         {
             var left = "[";
             var right = "]";
 
             Assert.ThrowsException<ArgumentException>(() => new DefaultCopyNameBuilder(left, null));
             Assert.ThrowsException<ArgumentException>(() => new DefaultCopyNameBuilder(null, right));
+
+            var builder = DefaultCopyNameBuilder.CENBrackets;
+            var name = "adsa";
+            var enu = Enumerable.Empty<string>();
+
+            Assert.ThrowsException<ArgumentNullException>(() => CopyNameBuilderExtensions.GenerateCopyName(null, name, enu));
+            Assert.ThrowsException<ArgumentNullException>(() => CopyNameBuilderExtensions.GenerateCopyName(builder, null, enu));
+            Assert.ThrowsException<ArgumentNullException>(() => CopyNameBuilderExtensions.GenerateCopyName(builder, name, null));
         }
         [TestMethod]
         public void Consts()
