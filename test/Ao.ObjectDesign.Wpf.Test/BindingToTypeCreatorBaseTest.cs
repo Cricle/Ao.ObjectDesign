@@ -17,6 +17,10 @@ namespace Ao.ObjectDesign.Wpf.Test
             {
             }
 
+            public NullBindingToTypeCreatorBase(IReadOnlyHashSet<Type> supportCreateBindTypes) : base(supportCreateBindTypes)
+            {
+            }
+
             public override IEnumerable<BindingUnit> CreateBindings(Type type)
             {
                 return null;
@@ -42,7 +46,6 @@ namespace Ao.ObjectDesign.Wpf.Test
 
             IReadOnlyHashSet<Type> set = new ReadOnlyHashSet<Type>(new Type[] { typeof(object) });
             val = new NullBindingToTypeCreatorBase(set);
-            Assert.AreEqual(set, val);
             Assert.AreEqual(1, val.SupportCreateBindTypes.Count);
             Assert.AreEqual(set, val.SupportCreateBindTypes);
 
