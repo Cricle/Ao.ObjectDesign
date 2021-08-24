@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Designing.Working
 {
@@ -14,6 +15,8 @@ namespace Ao.ObjectDesign.Designing.Working
         }
 
         public TKey Key { get; }
+
+        public abstract IEnumerable<TKey> Resources { get; }
 
         public event EventHandler<ActionResouceResultEventArgs<TKey>> CreatedGroup;
         public event EventHandler<ActionResouceResultEventArgs<TKey>> RemovedGroup;

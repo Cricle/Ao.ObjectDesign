@@ -43,5 +43,19 @@ namespace Ao.ObjectDesign.Designing.Test.Working
             Assert.IsNotNull(group.Get("a"));
             Assert.AreEqual(1, group.Get("a").Get("b"));
         }
+        [TestMethod]
+        public void Clear_AllMustClean()
+        {
+            var group = new MemoryWorkplaceGroup<string, int>();
+            group.Create("aaa");
+            group.Create("bbb");
+            group.Create("ccc");
+
+            Assert.AreEqual(3, group.Resources.Count());
+
+            group.Clear();
+
+            Assert.AreEqual(0, group.Resources.Count());
+        }
     }
 }

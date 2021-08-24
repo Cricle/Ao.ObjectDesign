@@ -28,9 +28,18 @@ namespace Ao.ObjectDesign.Designing.Test
             var res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr);
             Assert.AreNotEqual(val, res);
 
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, true);
+            Assert.AreNotEqual(val, res);
+
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, true, true);
+            Assert.AreNotEqual(val, res);
+
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x, true, true);
+            Assert.AreNotEqual(val, res);
+
             mgr.SetCopiedObject(null, false);
 
-            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr,true);
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, true);
             Assert.AreEqual(0, res.Count);
         }
     }

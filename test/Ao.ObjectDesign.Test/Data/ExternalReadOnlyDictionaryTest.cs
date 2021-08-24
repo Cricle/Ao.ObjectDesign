@@ -12,13 +12,31 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class ExternalReadOnlyDictionaryTest
     {
+        class MyExternalReadOnlyDictionary : ExternalReadOnlyDictionary<string, string>
+        {
+            public MyExternalReadOnlyDictionary(IEqualityComparer<string> comparer) : base(comparer)
+            {
+            }
+            public void Add(string key,string value)
+            {
+                base.innerMap.AddOrUpdate(key, value,(_,__)=>value);
+            }
+        }
         [TestMethod]
         public void New()
         {
             new ExternalReadOnlyDictionary<string, string>();
-            new ExternalReadOnlyDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            var res = new MyExternalReadOnlyDictionary(StringComparer.OrdinalIgnoreCase);
+            res.Add("a", "1");
+            res.Add("A", "2");
+            Assert.AreEqual(1, res.Count);
+            Assert.AreEqual("a", res.Keys.Single());
+            Assert.AreEqual("2", res.Values.Single());
             new ExternalReadOnlyDictionary<string, string>(100,10);
-            new ExternalReadOnlyDictionary<string, string>(new Dictionary<string,string>());
+            var res1=new ExternalReadOnlyDictionary<string, string>(new Dictionary<string, string> { ["a"]="1"});
+            Assert.AreEqual(1, res1.Count);
+            Assert.AreEqual("a", res1.Keys.Single());
+            Assert.AreEqual("1", res1.Values.Single());
         }
         [TestMethod]
         public void ReadOnlyMethods()

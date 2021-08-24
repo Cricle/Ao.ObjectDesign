@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 
 namespace Ao.ObjectDesign.Designing
@@ -28,10 +29,7 @@ namespace Ao.ObjectDesign.Designing
 
         public override int GetHashCode()
         {
-            if (ClrType is null)
-            {
-                return 0;
-            }
+            Debug.Assert(ClrType != null);
 #if NET5_0
             return HashCode.Combine(ClrType, UIType);
 #else

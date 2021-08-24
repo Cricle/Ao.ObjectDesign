@@ -8,23 +8,11 @@ using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Working
 {
-    public interface IWorkplace<TKey, TResource>
+    public interface IWorkplace<TKey, TResource>: IWorking<TKey>
     {
-        IEnumerable<TKey> Resources { get; }
-
         TResource Get(TKey key);
 
-        bool Remove(TKey key);
-
-        void Copy(TKey sourceKey, TKey destKey);
-
         void Store(TKey key,TResource resource);
-
-        void Rename(TKey oldKey, TKey newKey);
-
-        bool Has(TKey key);
-
-        void Clear();
 
         event EventHandler<ActionResouceResultEventArgs<TKey>> CreatedResource;
         event EventHandler<ActionResouceResultEventArgs<TKey>> RemovedResource;

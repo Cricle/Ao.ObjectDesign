@@ -7,6 +7,8 @@ namespace Ao.ObjectDesign.Designing.Working
     {
         private readonly IDictionary<TKey, IDictionary<TKey, TResource>> resources;
 
+        public override IEnumerable<TKey> Resources => resources.Keys;
+
         public MemoryWorkplaceGroup()
         {
             resources = new Dictionary<TKey, IDictionary<TKey, TResource>>();

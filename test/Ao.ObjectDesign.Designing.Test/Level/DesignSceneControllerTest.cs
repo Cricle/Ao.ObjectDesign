@@ -9,45 +9,6 @@ using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test.Level
 {
-    internal class ValueScene<T> : IObservableDeisgnScene<T>
-    {
-        public ValueScene()
-        {
-            DesigningObjects = new SilentObservableCollection<T>();
-        }
-
-        public SilentObservableCollection<T> DesigningObjects { get; }
-
-        IList<T> IDeisgnScene<T>.DesigningObjects => DesigningObjects;
-    }
-    internal class ValueDesignSceneController : DesignSceneController<string, int>
-    {
-        public ValueDesignSceneController()
-        {
-            UIElements = new List<IDesignPair<string, int>>();
-        }
-
-        public List<IDesignPair<string, int>> UIElements { get; }
-        public override IObservableDeisgnScene<int> GetScene()
-        {
-            return new ValueScene<int>();
-        }
-
-        protected override void AddUIElement(IDesignPair<string, int> unit)
-        {
-            UIElements.Add(unit);
-        }
-
-        protected override string CreateUI(int designingObject)
-        {
-            return designingObject.ToString();
-        }
-
-        protected override void RemoveUIElement(IDesignPair<string, int> unit)
-        {
-            UIElements.Remove(unit);
-        }
-    }
     [TestClass]
     public class DesignSceneControllerTest
     {
@@ -84,7 +45,11 @@ namespace Ao.ObjectDesign.Designing.Test.Level
         public void Reset()
         {
             var controller = new ValueDesignSceneController();
+            
             controller.Initialize();
+            Assert.IsTrue(controller.IsInitialized);
+            controller.Initialize();
+            Assert.IsTrue(controller.IsInitialized);
 
             controller.Scene.DesigningObjects.Add(1);
             controller.Scene.DesigningObjects.Clear();

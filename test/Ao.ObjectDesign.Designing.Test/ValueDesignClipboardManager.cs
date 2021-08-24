@@ -2,22 +2,25 @@
 
 namespace Ao.ObjectDesign.Designing.Test
 {
-    internal class ValueDesignClipboardManager : DesignClipboardManager<int>
+    internal class ValueDesignClipboardManager : ValueDesignClipboardManager<int>
     {
-        public IReadOnlyList<int> Values { get; set; }
+        public override int Clone(int @object)
+        {
+            return @object;
+        }
+    }
+    internal class ValueDesignClipboardManager<T> : DesignClipboardManager<T>
+    {
+        public IReadOnlyList<T> Values { get; set; }
 
-        protected override IReadOnlyList<int> GetFromClipboard()
+        protected override IReadOnlyList<T> GetFromClipboard()
         {
             return Values;
         }
 
-        protected override void SetToClipboard(IReadOnlyList<int> @object)
+        protected override void SetToClipboard(IReadOnlyList<T> @object)
         {
             Values = @object;
-        }
-        public override int Clone(int @object)
-        {
-            return @object;
         }
     }
 }

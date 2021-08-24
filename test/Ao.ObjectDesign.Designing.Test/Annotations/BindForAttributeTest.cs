@@ -26,6 +26,8 @@ namespace Ao.ObjectDesign.Designing.Test.Annotations
         {
             var name = "dsadsa";
             var t = typeof(object);
+            var convert = typeof(ValueType);
+
             var attr = new BindForAttribute(name);
             Assert.IsNull(attr.DependencyObjectType);
             Assert.AreEqual(name, attr.PropertyName);
@@ -33,6 +35,15 @@ namespace Ao.ObjectDesign.Designing.Test.Annotations
             attr = new BindForAttribute(t, name);
             Assert.AreEqual(t, attr.DependencyObjectType);
             Assert.AreEqual(name, attr.PropertyName);
+
+            attr = new BindForAttribute(name)
+            {
+                ConverterType = convert,
+                ConverterParamer = name
+            };
+
+            Assert.AreEqual(name,attr.ConverterParamer);
+            Assert.AreEqual(convert, attr.ConverterType);
         }
     }
 }

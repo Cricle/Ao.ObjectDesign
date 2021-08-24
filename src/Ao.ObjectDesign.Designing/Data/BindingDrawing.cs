@@ -26,6 +26,16 @@ namespace Ao.ObjectDesign.Designing.Data
             ClrType = clrType ?? throw new ArgumentNullException(nameof(clrType));
             DependencyObjectType = dependencyObjectType;
             BindForGetter = bindForGetter ?? throw new ArgumentNullException(nameof(bindForGetter));
+            if (dependencyObjectType is null)
+            {
+                var mapFor = clrType.GetCustomAttribute<MappingForAttribute>()?.Type;
+                if (mapFor is null)
+                {
+                    throw new ArgumentException($"Unknow mapping for type type {clrType.FullName}, the type must contains MappingForAttribute or provde DependencyObjectType!");
+                }
+                DependencyObjectType = mapFor;
+            }
+            Debug.Assert(DependencyObjectType != null);
         }
 
         public Type ClrType { get; }
@@ -40,52 +50,42 @@ namespace Ao.ObjectDesign.Designing.Data
         }
         private IEnumerable<TDrawingItem> Analysis(Type clrType, Type dependencyObjectType, string basePath)
         {
-            if (clrType is null)
-            {
-                throw new ArgumentNullException(nameof(clrType));
-            }
+            Debug.Assert(clrType != null);
+            Debug.Assert(DependencyObjectType != null);
 
-            Type mapFor = clrType.GetCustomAttribute<MappingForAttribute>()?.Type ?? dependencyObjectType;
-            if (mapFor is null)
-            {
-                throw new InvalidOperationException($"Unknow mapping for type from root type {clrType.FullName}!");
-            }
-
-            return Analysis(clrType, mapFor, dependencyObjectType, basePath);
+            return Analysis(clrType, DependencyObjectType, dependencyObjectType, basePath);
         }
         private IEnumerable<TDrawingItem> Analysis(Type clrType, Type mappingForType, Type dependencyObjectType, string basePath)
         {
-            if (clrType is null)
-            {
-                throw new ArgumentNullException(nameof(clrType));
-            }
-
-            if (mappingForType is null)
-            {
-                throw new ArgumentNullException(nameof(mappingForType));
-            }
+            Debug.Assert(clrType != null);
+            Debug.Assert(mappingForType != null);
 
 
             IReadOnlyDictionary<string, TDescriptor> dep = GetDependencyPropertyDescriptorMap(mappingForType);
             IEnumerable<PropertyInfo> clrPropertys = clrType.GetProperties().Where(CanMap);
             foreach (PropertyInfo item in clrPropertys)
             {
-                bool isUnfold = item.GetCustomAttribute<UnfoldMappingAttribute>() != null;
-                if (isUnfold)
+                UnfoldMappingAttribute unfoldAttr = item.GetCustomAttribute<UnfoldMappingAttribute>();
+                if (unfoldAttr!=null)
                 {
                     Type innerType = item.PropertyType;
-                    DesignForAttribute innerDp = innerType.GetCustomAttribute<DesignForAttribute>();
-                    if (innerDp != null)
+                    Type innerDpType = innerType.GetCustomAttribute<DesignForAttribute>()?.Type;
+                    if (innerDpType is null)
                     {
-                        BindForAttribute mFor = BindForGetter.Get(item);
-                        Type dpType = mFor?.DependencyObjectType ?? innerDp.Type;
-                        if (CanStepAnalysis(item,dpType))
+                        innerDpType = mappingForType;
+                    }
+                    BindForAttribute mFor = BindForGetter.Get(item);
+                    Type dpType = mFor?.DependencyObjectType ?? innerDpType;
+                    if (CanStepAnalysis(item, dpType))
+                    {
+                        foreach (TDrawingItem innerItem in Analysis(innerType, dpType, item.Name))
                         {
-                            foreach (TDrawingItem innerItem in Analysis(innerType, dpType, item.Name))
-                            {
-                                yield return innerItem;
-                            }
+                            yield return innerItem;
                         }
+                    }
+                    if (unfoldAttr.SkipSelft)
+                    {
+                        continue;
                     }
                 }
                 yield return MakeItem(clrType, dependencyObjectType, item, dep, basePath);
@@ -101,7 +101,7 @@ namespace Ao.ObjectDesign.Designing.Data
             BindForAttribute mapFor = BindForGetter.Get(info);
             string name = mapFor?.PropertyName ?? info.Name;
             string depName = name;
-            string path = info.Name;
+            string path = mapFor?.VisitPath ?? info.Name;
             if (!string.IsNullOrEmpty(basePath))
             {
                 path = string.Concat(basePath, ".", path);
@@ -121,7 +121,7 @@ namespace Ao.ObjectDesign.Designing.Data
                 ClrType = clrType,
                 DependencyObjectType = dependencyObjectType,
                 PropertyInfo = info,
-                Path = info.Name,
+                Path = path,
                 ConverterParamter = mapFor?.ConverterParamer,
                 ConverterType = mapFor?.ConverterType,
             };

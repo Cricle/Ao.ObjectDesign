@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Ao.ObjectDesign.Designing.Working
 {
@@ -36,6 +38,15 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public IReadOnlyHashSet<string> AcceptExtensions { get; }
 
+        public override IEnumerable<TKey> Resources
+        {
+            get
+            {
+                return Directory.EnumerateDirectories(Folder.FullName)
+                    .Select(x => ToKey(x));
+            }
+        }
+
         public override void Clear()
         {
             foreach (var item in Folder.EnumerateDirectories())
@@ -46,6 +57,7 @@ namespace Ao.ObjectDesign.Designing.Working
         }
 
         protected abstract string ToRelativePath(TKey key);
+        protected abstract TKey ToKey(string folderPath);
 
         protected string GetAbsolutePath(TKey key)
         {
@@ -124,6 +136,10 @@ namespace Ao.ObjectDesign.Designing.Working
             var path = GetAbsolutePath(key);
             var k = CombineKey(relativePath);
             var folder = new DirectoryInfo(path);
+            if (!folder.Exists)
+            {
+                folder.Create();
+            }
             return CreateWorkplace(k, folder);
 
         }

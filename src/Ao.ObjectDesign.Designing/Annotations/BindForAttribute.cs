@@ -24,30 +24,16 @@ namespace Ao.ObjectDesign.Designing.Annotations
             }
 
             DependencyObjectType = dependencyObjectType ?? throw new ArgumentNullException(nameof(dependencyObjectType));
-            //if (!DependencyObjectTypeValue.IsAssignableFrom(dependencyObjectType))
-            //{
-            //    throw new ArgumentException($"Type {dependencyObjectType} is not base on DependencyObject");
-            //}
             PropertyName = propertyName;
         }
-        private Type converterType;
 
         public Type DependencyObjectType { get; }
 
-        public virtual Type ConverterType
-        {
-            get => converterType;
-            set
-            {
-                //if (value != null && value.GetInterface(IValueConverterName) == null)
-                //{
-                //    throw new ArgumentException("ConverterType must implement interface IValueConverter");
-                //}
-                converterType = value;
-            }
-        }
+        public virtual Type ConverterType { get; set; }
 
         public object ConverterParamer { get; set; }
+
+        public string VisitPath { get; set; }
 
         public string PropertyName { get; }
 

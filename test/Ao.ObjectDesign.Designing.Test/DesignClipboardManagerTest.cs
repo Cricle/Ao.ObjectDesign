@@ -96,5 +96,14 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.IsNull(mgr.OriginObjects);
 
         }
+        [TestMethod]
+        public void Clone()
+        {
+            var mgr = new ValueDesignClipboardManager<object>();
+            var v = new object();
+            var val=mgr.Clone(v);
+            Assert.AreNotEqual(v, val);
+            Assert.IsInstanceOfType(val, typeof(object));
+        }
     }
 }

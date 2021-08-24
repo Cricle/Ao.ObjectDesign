@@ -23,6 +23,60 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.ThrowsException<ArgumentNullException>(() => new DynamicVarTable(null, set));
         }
         [TestMethod]
+        public void ListenOrUnListenTwice_NothingTodo()
+        {
+            var map = new NotifyableMap<string, IVarValue>();
+            var tb = new DynamicVarTable(map);
+
+            tb.Listen();
+            Assert.IsTrue(tb.IsListening);
+            tb.Listen();
+            Assert.IsTrue(tb.IsListening);
+
+            tb.UnListen();
+            Assert.IsFalse(tb.IsListening);
+            tb.UnListen();
+            Assert.IsFalse(tb.IsListening);
+        }
+        [TestMethod]
+        public void GetDynamicMemberNames_AllAcceptWasReturnAll_NotReturlInputs()
+        {
+            var map = new NotifyableMap<string, IVarValue>();
+            map.AddOrUpdate("a", VarValue.Byte0Value);
+            map.AddOrUpdate("b", VarValue.Byte0Value);
+            map.AddOrUpdate("c", VarValue.Byte0Value);
+            map.AddOrUpdate("d", VarValue.Byte0Value);
+            map.AddOrUpdate("e", VarValue.Byte0Value);
+            map.AddOrUpdate("f", VarValue.Byte0Value);
+            map.AddOrUpdate("g", VarValue.Byte0Value);
+            var tb = new DynamicVarTable(map);
+
+            var vals = tb.GetDynamicMemberNames();
+
+            foreach (var item in vals)
+            {
+                if (!map.ContainsKey(item))
+                {
+                    Assert.Fail("{0} is not return",item);
+                }
+            }
+            var set = new ReadOnlyHashSet<string>(new string[]
+            {
+                "a","c","qweqw"
+            });
+            tb = new DynamicVarTable(map, set);
+
+            vals = tb.GetDynamicMemberNames();
+            Assert.AreEqual(set.Count, vals.Count());
+            foreach (var item in vals)
+            {
+                if (!set.Contains(item))
+                {
+                    Assert.Fail("{0} is not return", item);
+                }
+            }
+        }
+        [TestMethod]
         public void ListenChange()
         {
             var map = new NotifyableMap<string, IVarValue>();

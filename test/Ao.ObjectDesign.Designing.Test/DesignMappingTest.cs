@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace Ao.ObjectDesign.Designing.Test
@@ -42,6 +43,25 @@ namespace Ao.ObjectDesign.Designing.Test
 
             Assert.AreEqual(mapping1.GetHashCode(), mapping2.GetHashCode());
             Assert.AreNotEqual(mapping1.GetHashCode(), mapping3.GetHashCode());
+        }
+        [MappingFor(typeof(OtherType))]
+        class AnyMappingFor
+        {
+
+        }
+        class OtherType
+        {
+
+        }
+        [TestMethod]
+        public void FromMapping_WasCreatedByAttribute()
+        {
+            var val = DesignMapping.FromMapping(typeof(AnyMappingFor));
+
+            Assert.AreEqual(typeof(AnyMappingFor), val.ClrType);
+            Assert.AreEqual(typeof(OtherType), val.UIType);
+
+            Assert.ThrowsException<ArgumentException>(() => DesignMapping.FromMapping(typeof(OtherType)));
         }
     }
 }
