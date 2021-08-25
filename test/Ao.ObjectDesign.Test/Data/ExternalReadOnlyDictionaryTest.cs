@@ -19,7 +19,14 @@ namespace Ao.ObjectDesign.Test.Data
             }
             public void Add(string key,string value)
             {
-                base.innerMap.AddOrUpdate(key, value,(_,__)=>value);
+                if (originMap.ContainsKey(key))
+                {
+                    originMap[key] = value;
+                }
+                else
+                {
+                    originMap.Add(key, value);
+                }
             }
         }
         [TestMethod]

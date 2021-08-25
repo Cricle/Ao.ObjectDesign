@@ -89,18 +89,14 @@ namespace Ao.ObjectDesign.Data
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string name = null)
         {
-            var pc = PropertyChanged;
-            if (pc != null)
-            {
-                pc(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public override IEnumerable<string> GetDynamicMemberNames()
         {
             if (AllAccept)
             {
-                return DataMap.Keys.Select(x=>ToName(x));
+                return DataMap.Keys.Select(x => ToName(x));
             }
             return AcceptKeys.Select(x => ToName(x));
         }
@@ -177,13 +173,31 @@ namespace Ao.ObjectDesign.Data
         }
         public override bool TryGetIndex(GetIndexBinder binder, object[] indexes, out object result)
         {
-            if (indexes.Length == 1 &&
-                indexes[0] is string str &&
-                IsAccept(ToKey(str)) &&
-                TryGetValue(str, out var val))
+            if (indexes.Length == 1)
             {
-                result = VisitValue(val);
-                return true;
+                var index = indexes[0];
+                string name = null;
+                TKey key = default;
+                bool succeed = false;
+                if (index is TKey)
+                {
+                    key = (TKey)index;
+                    name = ToName(key);
+                    succeed = true;
+                }
+                else if (index is string)
+                {
+                    name = (string)index;
+                    key = ToKey(name);
+                    succeed = true;
+                }
+                if (succeed &&
+                    IsAccept(key) &&
+                    TryGetValue(name, out var val))
+                {
+                    result = VisitValue(val);
+                    return true;
+                }
             }
             return base.TryGetIndex(binder, indexes, out result);
         }

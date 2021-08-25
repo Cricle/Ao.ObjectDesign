@@ -37,6 +37,12 @@ namespace Ao.ObjectDesign.Designing.Test
             res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x, true, true);
             Assert.AreNotEqual(val, res);
 
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x);
+            Assert.AreNotEqual(val, res);
+
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x,true);
+            Assert.AreNotEqual(val, res);
+
             mgr.SetCopiedObject(null, false);
 
             res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, true);

@@ -77,6 +77,14 @@ namespace Ao.ObjectDesign.Wpf.Data
                 {
                     bd.Source = source;
                 }
+                if (@object is FrameworkElement fe)
+                {
+                   return fe.SetBinding(Creator.DependencyProperty, bd);
+                }
+                else if (@object is FrameworkContentElement fce)
+                {
+                    return fce.SetBinding(Creator.DependencyProperty, bd);
+                }
                 return BindingOperations.SetBinding(@object, Creator.DependencyProperty, bd);
             }
         }

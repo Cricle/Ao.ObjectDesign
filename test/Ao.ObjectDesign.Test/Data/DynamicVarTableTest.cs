@@ -12,6 +12,26 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class DynamicVarTableTest
     {
+        class IntDynamicVarTable : DynamicVarTable<int>
+        {
+            public IntDynamicVarTable(NotifyableMap<int, IVarValue> dataMap) : base(dataMap)
+            {
+            }
+
+            protected override int ToKey(string name)
+            {
+                return int.Parse(name);
+            }
+
+            protected override string ToName(int key)
+            {
+                return key.ToString();
+            }
+            protected override object VisitValue(IVarValue value)
+            {
+                return value;
+            }
+        }
         [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
@@ -111,11 +131,15 @@ namespace Ao.ObjectDesign.Test.Data
         {
             var map = new NotifyableMap<string, IVarValue>();
             var tb = new DynamicVarTable(map);
+            dynamic dtb = tb;
 
             tb.SetValue("a", "aaa");
 
             Assert.AreEqual("a", map.Keys.Single());
             Assert.AreEqual("aaa", map.Values.Single().Value);
+
+            dtb.a = 123;
+            Assert.AreEqual(123, dtb.a);
 
             var val = new RefValue("bbb");
 
@@ -123,6 +147,17 @@ namespace Ao.ObjectDesign.Test.Data
 
             Assert.AreEqual("a", map.Keys.Single());
             Assert.AreEqual(val,map.Values.Single());
+
+            var map1 = new NotifyableMap<int, IVarValue>();
+            var tb1 = new IntDynamicVarTable(map1);
+            dynamic dtb1 = tb1;
+
+            tb1.SetValue(1, VarValue.Char0Value);
+
+            Assert.AreEqual(VarValue.Char0Value, dtb1[1]);
+            Assert.AreEqual(VarValue.Char0Value, dtb1["1"]);
+            Assert.AreEqual(VarValue.Char0Value, dtb1["1"]);
+
         }
         [TestMethod]
         public void UseageTest()

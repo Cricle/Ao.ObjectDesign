@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Designing
 {
-    [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
+    [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public readonly struct IgnoreIdentity : IEquatable<IgnoreIdentity>
     {
         public readonly object Instance;
@@ -54,11 +54,6 @@ namespace Ao.ObjectDesign.Designing
                 }
             }
             return h;
-        }
-
-        private string GetDebuggerDisplay()
-        {
-            return ToString();
         }
     }
 }

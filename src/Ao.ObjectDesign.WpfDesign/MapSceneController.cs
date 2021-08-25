@@ -9,9 +9,9 @@ using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public abstract class MapCdevSceneController<TDesignObject> : DesignSceneController<UIElement, TDesignObject>
+    public abstract class MapSceneController<TDesignObject> : DesignSceneController<UIElement, TDesignObject>
     {
-        protected MapCdevSceneController(IDesignPackage<TDesignObject> designMap, UIElementCollection uiElements)
+        protected MapSceneController(IDesignPackage<TDesignObject> designMap, UIElementCollection uiElements)
         {
             DesignPackage = designMap ?? throw new ArgumentNullException(nameof(designMap));
             UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));

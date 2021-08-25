@@ -47,23 +47,46 @@ namespace Ao.ObjectDesign.Data
         public virtual TValue AddOrUpdate(TKey key, Func<TKey, TValue> addFactory, Func<TKey, TValue, TValue> updateFactory)
         {
             DataChangedEventArgs<TKey, TValue> args = null;
-            var res= innerMap.AddOrUpdate(key, x =>
+            TValue newValue = default;
+            if (innerMap is null)
             {
-                var val = addFactory(x);
-                args = new DataChangedEventArgs<TKey, TValue>(x, default, val, ChangeModes.New);
-                OnWritingData(args);
-                return val;
-            }, (x, old) =>
-             {
-                 var val = updateFactory(x, old);
-                 args = new DataChangedEventArgs<TKey, TValue>(x, old, val, ChangeModes.Change);
-                 OnWritingData(args);
-                 return val;
-             });
+                if (originMap.TryGetValue(key, out var old))
+                {
+                    var val = updateFactory(key, old);
+                    args = new DataChangedEventArgs<TKey, TValue>(key, old, val, ChangeModes.Change);
+                    OnWritingData(args);
+                    originMap[key] = val;
+                    newValue = val;
+                }
+                else
+                {
+                    var val = addFactory(key);
+                    args = new DataChangedEventArgs<TKey, TValue>(key, default, val, ChangeModes.New);
+                    OnWritingData(args);
+                    originMap.Add(key, val);
+                    newValue = val;
+                }
+            }
+            else
+            {
+                newValue = innerMap.AddOrUpdate(key, x =>
+                 {
+                     var val = addFactory(x);
+                     args = new DataChangedEventArgs<TKey, TValue>(x, default, val, ChangeModes.New);
+                     OnWritingData(args);
+                     return val;
+                 }, (x, old) =>
+                  {
+                      var val = updateFactory(x, old);
+                      args = new DataChangedEventArgs<TKey, TValue>(x, old, val, ChangeModes.Change);
+                      OnWritingData(args);
+                      return val;
+                  });
+            }
             Debug.Assert(args != null);
             DataChanged?.Invoke(this, args);
             OnWritedData(args);
-            return res;
+            return newValue;
         }
 
         protected virtual void OnWritingData(DataChangedEventArgs<TKey, TValue> e)
@@ -77,32 +100,62 @@ namespace Ao.ObjectDesign.Data
 
         public virtual TValue GetOrAdd(TKey key, Func<TKey, TValue> valueFactory)
         {
-            return innerMap.GetOrAdd(key, x =>
-             {
-                 var value = valueFactory(x);
-                 var e = new DataChangedEventArgs<TKey, TValue>(x, default, value, ChangeModes.New);
-                 OnWritingData(e);
-                 DataChanged?.Invoke(this, e);
-                 OnWritedData(e);
-                 return value;
-             });
+            DataChangedEventArgs<TKey, TValue> args = null;
+            TValue value = default;
+            if (innerMap is null)
+            {
+                if (originMap.TryGetValue(key, out var val))
+                {
+                    return val;
+                }
+                var newValue = valueFactory(key);
+                args = new DataChangedEventArgs<TKey, TValue>(key, default, newValue, ChangeModes.New);
+                OnWritingData(args);
+                originMap.Add(key, newValue);
+            }
+            else
+            {
+                value = innerMap.GetOrAdd(key, x =>
+                  {
+                      var v = valueFactory(x);
+                      args = new DataChangedEventArgs<TKey, TValue>(x, default, v, ChangeModes.New);
+                      OnWritingData(args);
+                      return value;
+                  });
+            }
+            DataChanged?.Invoke(this, args);
+            OnWritedData(args);
+            return value;
         }
         public virtual bool Remove(TKey key)
         {
-            if (innerMap.TryRemove(key, out var value))
+            TValue value;
+            bool succeed;
+            if (innerMap is null)
+            {
+                succeed = originMap.TryGetValue(key, out value);
+                if (succeed)
+                {
+                    originMap.Remove(key);
+                }
+            }
+            else
+            {
+                succeed = innerMap.TryRemove(key, out value);
+            }
+            if (succeed)
             {
                 var e = new DataChangedEventArgs<TKey, TValue>(key, value, default, ChangeModes.Reset);
                 OnWritingData(e);
                 DataChanged?.Invoke(this, e);
                 OnWritedData(e);
-                return true;
             }
-            return false;
+            return succeed;
         }
 
         public virtual void Clear()
         {
-            innerMap.Clear();
+            originMap.Clear();
             Clean?.Invoke(this, EventArgs.Empty);
         }
 

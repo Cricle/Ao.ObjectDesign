@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,13 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class NotifyableMapTest
     {
+        
         [TestMethod]
-        public void AddOrUpdate()
+        [DataRow(true)]
+        [DataRow(false)]
+        public void AddOrUpdate(bool concurrent)
         {
-            var m = new NotifyableMap<int,int>();
+            var m = new MyNotifyableMap<int, int> { Concurrent = concurrent };
             object sender = null;
             DataChangedEventArgs<int, int> args = null;
             m.DataChanged += (o, e) =>
@@ -37,9 +41,11 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual(ChangeModes.Change, args.Mode);
         }
         [TestMethod]
-        public void GetOrAdd()
+        [DataRow(true)]
+        [DataRow(false)]
+        public void GetOrAdd(bool concurrent)
         {
-            var m = new NotifyableMap<int, int>();
+            var m = new MyNotifyableMap<int, int> { Concurrent = concurrent };
             object sender = null;
             DataChangedEventArgs<int, int> args = null;
             m.DataChanged += (o, e) =>
@@ -62,9 +68,11 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsNull(args);
         }
         [TestMethod]
-        public void Remove()
+        [DataRow(true)]
+        [DataRow(false)]
+        public void Remove(bool concurrent)
         {
-            var m = new NotifyableMap<int, int>();
+            var m = new MyNotifyableMap<int, int> { Concurrent = concurrent };
             m.AddOrUpdate(1, 100);
             object sender = null;
             DataChangedEventArgs<int, int> args = null;
@@ -88,9 +96,11 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsNull(args);
         }
         [TestMethod]
-        public void Clear()
+        [DataRow(true)]
+        [DataRow(false)]
+        public void Clear(bool concurrent)
         {
-            var m = new NotifyableMap<int, int>();
+            var m = new MyNotifyableMap<int, int> { Concurrent = concurrent };
             m.AddOrUpdate(1, 100);
             m.AddOrUpdate(1, 100);
             m.AddOrUpdate(1, 100);

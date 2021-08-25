@@ -37,7 +37,7 @@ namespace Ao.ObjectDesign.Designing.Working
 
         public override void Copy(TKey key, TKey destkey)
         {
-            ThrowIfKeyExists(key);
+            ThrowIfKeyExists(destkey);
             var val =new Dictionary<TKey, TResource>(resources[key]);
             resources.Add(destkey, val);
             RaiseCopiedGroup(new CopyResourceResultEventArgs<TKey>(key, destkey));

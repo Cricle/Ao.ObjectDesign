@@ -112,5 +112,173 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.AreEqual(CommandWaysOperatorTypes.Remove, args.Type);
             Assert.AreEqual(5, args.Items.Count());
         }
+        [TestMethod]
+        public void PushRange_Empty_WasDoNothing()
+        {
+            var ways = new CommandWays<int>();
+
+            ways.PushRange(Enumerable.Empty<int>());
+
+            Assert.AreEqual(0, ways.Count);
+        }
+
+        [TestMethod]
+        [DataRow(new int[] { 1, 2, 3, 4 }, 5)]
+        [DataRow(new int[] { 1 }, 1)]
+        [DataRow(new int[] { 1, 2 }, 100)]
+        [DataRow(new int[] { 1, 2, 3, 4, 1, 2, 5, 6, 8, 9 }, 20)]
+        [DataRow(new int[] { 1, 2, 3, 4 }, 4)]
+        [DataRow(new int[] { -1, -3 }, 2)]
+        [DataRow(new int[] { 0, 0, 0 }, 4)]
+        public void PushRange_AtLimited_NothingRemoved(int[] datas, int count)
+        {
+            var ways = new CommandWays<int>();
+            ways.MaxSize = count;
+
+            ways.PushRange(datas);
+
+            Assert.AreEqual(datas.Length, ways.Count);
+
+            var res = ways.Reverse().ToList();
+            Assert.AreEqual(datas.Length, res.Count);
+            for (int i = 0; i < res.Count; i++)
+            {
+                Assert.AreEqual(datas[i], res[i], $"{datas[i]} is not equals");
+            }
+        }
+        [TestMethod]
+        [DataRow(new int[] { 1, 2, 3, 4 }, 3)]
+        [DataRow(new int[] { 1, 2, 3, 4 }, 1)]
+        [DataRow(new int[] { 1, 2, 3, 4 }, 0)]
+        [DataRow(new int[] { 1 }, 0)]
+        [DataRow(new int[] { 1, 2 }, 1)]
+        public void PushRange_OutOfLimited_WasRemoveHeads(int[] datas, int count)
+        {
+            var ways = new CommandWays<int>();
+            ways.MaxSize = count;
+            ways.PushRange(datas);
+
+            var usingDatas = datas.Reverse().Skip(datas.Length-count).ToList();
+
+            var res = ways.ToList();
+            Assert.AreEqual(usingDatas.Count, res.Count);
+            for (int i = 0; i < res.Count; i++)
+            {
+                Assert.AreEqual(usingDatas[i], res[i], $"{datas[i]} is not equals");
+            }
+        }
+        [TestMethod]
+        [DataRow(new int[] { -1,-2,-3,-4 }, 1)]
+        [DataRow(new int[] { }, 1)]
+        [DataRow(new int[] { 11 }, 1)]
+        [DataRow(new int[] { 12,314,111}, 10)]
+        [DataRow(new int[] { 1 }, 20)]
+        public void PushRange_OriginHasLimited_WasRemoveOrigins(int[] datas,int outterCount)
+        {
+            var ways = new CommandWays<int>();
+            ways.MaxSize = datas.Length;
+            for (int i = 0; i < outterCount; i++)
+            {
+                ways.Push(i);
+            }
+            ways.PushRange(datas);
+
+            var res = ways.Reverse().ToList();
+            Assert.AreEqual(datas.Length, res.Count);
+
+            for (int i = 0; i < datas.Length; i++)
+            {
+                Assert.AreEqual(datas[i], res[i], $"{datas[i]} is not equals");
+            }
+        }
+        [TestMethod]
+        public void Contains()
+        {
+            var ways = new CommandWays<int>();
+            Assert.IsFalse(ways.Contains(-1));
+            ways.Push(1);
+            ways.Push(2);
+            ways.Push(3);
+
+            Assert.IsFalse(ways.Contains(-1));
+            Assert.IsFalse(ways.Contains(99));
+            Assert.IsTrue(ways.Contains(1));
+            Assert.IsTrue(ways.Contains(2));
+            Assert.IsTrue(ways.Contains(3));
+        }
+        [TestMethod]
+        public void CopyTo()
+        {
+            var ways = new CommandWays<int>();
+            ways.Push(1);
+            ways.Push(2);
+            ways.Push(3);
+            var arr = new int[3];
+
+            ways.CopyTo(arr, 0);
+
+            Assert.AreEqual(1, arr[2]);
+            Assert.AreEqual(2, arr[1]);
+            Assert.AreEqual(3, arr[0]);
+        }
+        [TestMethod]
+        public void PopWidthEmpty()
+        {
+            var ways = new CommandWays<int>();
+            Assert.AreEqual(0, ways.Pop());
+
+            var ways1 = new CommandWays<object>();
+            Assert.IsNull(ways1.Pop());
+        }
+        [TestMethod]
+        public void EmptyCalling()
+        {
+            var ways = new CommandWays<int>();
+            Assert.AreEqual(0, ways.First);
+            Assert.AreEqual(0, ways.Last);
+
+            var ways1 = new CommandWays<object>();
+            Assert.IsNull(ways1.First);
+            Assert.IsNull(ways1.Last);
+        }
+        [TestMethod]
+        public void Peek()
+        {
+            var ways = new CommandWays<int>();
+            Assert.AreEqual(0, ways.Peek());
+            ways.Push(1);
+            Assert.AreEqual(1, ways.Peek());
+            ways.Push(2);
+            Assert.AreEqual(2, ways.Peek());
+
+            var ways1 = new CommandWays<object>();
+            Assert.IsNull(ways1.Peek());
+            var obj = new object();
+            ways1.Push(obj);
+            Assert.AreEqual(obj, ways1.Peek());
+            obj = new object();
+            ways1.Push(obj);
+            Assert.AreEqual(obj, ways1.Peek());
+        }
+        [TestMethod]
+        public void Clear()
+        {
+            var ways = new CommandWays<int>();
+            ways.Clear(true);
+            Assert.AreEqual(0, ways.Count);
+
+
+            ways = new CommandWays<int>();
+            ways.Push(1);
+            ways.Push(1);
+            ways.Push(1);
+            ways.Push(1);
+            ways.Push(1);
+            ways.Push(1);
+            ways.Push(1);
+            ways.Push(1);
+            ways.Clear(true);
+            Assert.AreEqual(0, ways.Count);
+        }
     }
 }

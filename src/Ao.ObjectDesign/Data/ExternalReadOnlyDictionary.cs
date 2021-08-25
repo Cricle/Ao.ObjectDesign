@@ -8,51 +8,71 @@ namespace Ao.ObjectDesign.Data
     {
         public ExternalReadOnlyDictionary()
         {
-            innerMap = new ConcurrentDictionary<TKey, TValue>();
+            originMap = CreateMap();
+            innerMap =originMap as ConcurrentDictionary<TKey, TValue>;
         }
         public ExternalReadOnlyDictionary(int concurrencyLevel, int capacity)
         {
-            innerMap = new ConcurrentDictionary<TKey, TValue>(concurrencyLevel, capacity);
+            originMap = CreateMap(concurrencyLevel,capacity);
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
         public ExternalReadOnlyDictionary(IDictionary<TKey, TValue> map)
         {
-            innerMap = new ConcurrentDictionary<TKey, TValue>(map);
+            originMap = CreateMap(map);
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
 
         public ExternalReadOnlyDictionary(IEqualityComparer<TKey> comparer)
         {
-            innerMap = new ConcurrentDictionary<TKey, TValue>(comparer);
+            originMap = CreateMap(comparer);
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
-
+        protected readonly IDictionary<TKey, TValue> originMap;
         protected readonly ConcurrentDictionary<TKey, TValue> innerMap;
 
-        public TValue this[TKey key] => innerMap[key];
+        public TValue this[TKey key] => originMap[key];
 
-        public IEnumerable<TKey> Keys => innerMap.Keys;
+        public IEnumerable<TKey> Keys => originMap.Keys;
 
-        public IEnumerable<TValue> Values => innerMap.Values;
+        public IEnumerable<TValue> Values => originMap.Values;
 
-        public int Count => innerMap.Count;
+        public int Count => originMap.Count;
 
+        protected virtual IDictionary<TKey,TValue> CreateMap()
+        {
+            return new Dictionary<TKey, TValue>();
+        }
+        protected virtual IDictionary<TKey, TValue> CreateMap(int concurrencyLevel, int capacity)
+        {
+            return new Dictionary<TKey, TValue>(capacity);
+        }
+        protected virtual IDictionary<TKey, TValue> CreateMap(IDictionary<TKey, TValue> map)
+        {
+            return new Dictionary<TKey, TValue>(map);
+        }
+        protected virtual IDictionary<TKey, TValue> CreateMap(IEqualityComparer<TKey> comparer)
+        {
+            return new Dictionary<TKey, TValue>(comparer);
+        }
 
         public bool ContainsKey(TKey key)
         {
-            return innerMap.ContainsKey(key);
+            return originMap.ContainsKey(key);
         }
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return innerMap.GetEnumerator();
+            return originMap.GetEnumerator();
         }
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return innerMap.TryGetValue(key, out value);
+            return originMap.TryGetValue(key, out value);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return innerMap.GetEnumerator();
+            return originMap.GetEnumerator();
         }
 
         public override string ToString()

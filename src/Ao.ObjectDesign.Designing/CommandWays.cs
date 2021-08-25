@@ -119,8 +119,13 @@ namespace Ao.ObjectDesign.Designing
             {
                 return;
             }
-            List<T> arr = items.ToList();
+            IList<T> arr = items as IList<T>;
+            if (arr is null)
+            {
+                arr = items.ToList();
+            }
             int popCount = ways.Count + arr.Count - MaxSize;
+            popCount = Math.Min(popCount, ways.Count);
             if (popCount > 0)
             {
                 T[] sub = new T[popCount];
@@ -137,6 +142,10 @@ namespace Ao.ObjectDesign.Designing
             foreach (T item in arr)
             {
                 ways.AddFirst(item);
+                if (ways.Count > MaxSize)
+                {
+                    Pop(notify);
+                }
             }
             if (notify)
             {

@@ -58,9 +58,16 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.IsTrue(a2.Equals(a22));
             Assert.IsTrue(a3.Equals(a33));
 
+            Assert.IsTrue(a1.Equals((object)a11));
+            Assert.IsTrue(a2.Equals((object)a22));
+            Assert.IsTrue(a3.Equals((object)a33));
+            Assert.IsFalse(a3.Equals(new object()));
+            Assert.IsFalse(a3.Equals(null));
+
             Assert.AreEqual(a1.GetHashCode(), a11.GetHashCode());
             Assert.AreEqual(a2.GetHashCode(), a22.GetHashCode());
             Assert.AreEqual(a3.GetHashCode(), a33.GetHashCode());
+            Assert.AreEqual(a3.ToString(), a33.ToString());
         }
     }
 }

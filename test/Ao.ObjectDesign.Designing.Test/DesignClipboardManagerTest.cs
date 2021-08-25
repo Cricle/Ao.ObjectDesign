@@ -12,6 +12,12 @@ namespace Ao.ObjectDesign.Designing.Test
     public class DesignClipboardManagerTest
     {
         [TestMethod]
+        public void GivenNullCall_MustReturnDefault()
+        { 
+            var mgr = new ValueDesignClipboardManager<object>();
+            Assert.IsNull(mgr.Clone(null));
+        }
+        [TestMethod]
         public void SetCopiedObject()
         {
             var mgr = new ValueDesignClipboardManager();

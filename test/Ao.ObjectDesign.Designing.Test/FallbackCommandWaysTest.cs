@@ -98,6 +98,25 @@ namespace Ao.ObjectDesign.Designing.Test
         [DataRow(1)]
         [DataRow(5)]
         [DataRow(10)]
+        public void Undo_InterfaceMethod_AllMustFallback(int count)
+        {
+            var ways = new FallbackCommandWays<ValueFallBack>();
+            var fb = Enumerable.Range(0, count).Select(x => new ValueFallBack()).ToArray();
+            for (int i = 0; i < count; i++)
+            {
+                ways.Push(fb[i]);
+            }
+            ((IUndoRedo)ways).Undo(true);
+            for (int i = 0; i < fb.Length; i++)
+            {
+                Assert.IsTrue(fb[i].IsFallback, "Fail to true fallback {0}", i);
+            }
+        }
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(1)]
+        [DataRow(5)]
+        [DataRow(10)]
         public void Redo_AllMustReverseFallback(int count)
         {
             var ways = new FallbackCommandWays<ValueFallBack>();
@@ -107,6 +126,26 @@ namespace Ao.ObjectDesign.Designing.Test
                 ways.Push(fb[i]);
             }
             ways.Redo();
+            for (int i = 0; i < fb.Length; i++)
+            {
+                Assert.IsFalse(fb[i].IsFallback, "Fail to false fallback {0}", i);
+                Assert.IsTrue(fb[i].IsDoReverse, "Fail to true reverse fallback {0}", i);
+            }
+        }
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(1)]
+        [DataRow(5)]
+        [DataRow(10)]
+        public void Redo_InterfaceMethod_AllMustReverseFallback(int count)
+        {
+            var ways = new FallbackCommandWays<ValueFallBack>();
+            var fb = Enumerable.Range(0, count).Select(x => new ValueFallBack()).ToArray();
+            for (int i = 0; i < count; i++)
+            {
+                ways.Push(fb[i]);
+            }
+            ((IUndoRedo)ways).Redo(true);
             for (int i = 0; i < fb.Length; i++)
             {
                 Assert.IsFalse(fb[i].IsFallback, "Fail to false fallback {0}", i);

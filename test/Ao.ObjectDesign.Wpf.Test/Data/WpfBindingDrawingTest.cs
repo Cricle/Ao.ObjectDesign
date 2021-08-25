@@ -116,6 +116,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
             Assert.AreEqual(typeof(Button), isDefaultItem.DependencyObjectType);
             Assert.AreEqual(typeof(Pkg), isDefaultItem.ClrType);
             Assert.IsTrue(isDefaultItem.HasPropertyBind);
+
+            Assert.IsNotNull(isDefaultItem.ToString());
         }
     }
 }
