@@ -58,20 +58,28 @@ namespace Ao.ObjectDesign.WpfDesign
         }
         public IReadOnlyList<BindingExpressionBase> ExecuteBinding(int batch, bool usingDoEvents)
         {
-            var currentCount = 0;
             var count = bindingTasks.Count;
             var exp = new BindingExpressionBase[count];
-            for (int i = 0; i < count; i++)
+
+            if (usingDoEvents)
             {
-                exp[i] = bindingTasks[i]();
-                if (usingDoEvents)
+                var currentCount = 0;
+                for (int i = 0; i < count; i++)
                 {
+                    exp[i] = bindingTasks[i]();
                     currentCount++;
                     if (currentCount > batch)
                     {
                         DoEventsHelper.DoEvents();
                         currentCount = 0;
                     }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    exp[i] = bindingTasks[i]();
                 }
             }
             return exp;
