@@ -4,8 +4,10 @@ using Ao.ObjectDesign.Wpf.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
@@ -17,7 +19,13 @@ namespace Ao.ObjectDesign.WpfDesign
             UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));
             DesignMap = designMap.UIDesinMap;
             UseUnitDesignAttribute = true;
+            bindingTasks = new List<Func<BindingExpressionBase>>();
         }
+        private readonly List<Func<BindingExpressionBase>> bindingTasks;
+
+        public bool LazyBinding { get; set; }
+
+        public List<Func<BindingExpressionBase>> BindingTasks => bindingTasks;
 
         public UIDesignMap DesignMap { get; }
 
@@ -37,10 +45,44 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             UIElements.Remove(unit.UI);
         }
+        
+        public IReadOnlyList<BindingExpressionBase> ExecuteBinding()
+        {
+            var datas = bindingTasks.Select(x => x()).ToList();
+            bindingTasks.Clear();
+            return datas;
+        }
+        public IReadOnlyList<BindingExpressionBase> ExecuteBinding(int batch)
+        {
+            return ExecuteBinding(batch, true);
+        }
+        public IReadOnlyList<BindingExpressionBase> ExecuteBinding(int batch, bool usingDoEvents)
+        {
+            var currentCount = 0;
+            var count = bindingTasks.Count;
+            var exp = new BindingExpressionBase[count];
+            for (int i = 0; i < count; i++)
+            {
+                exp[i] = bindingTasks[i]();
+                if (usingDoEvents)
+                {
+                    currentCount++;
+                    if (currentCount > batch)
+                    {
+                        DoEventsHelper.DoEvents();
+                        currentCount = 0;
+                    }
+                }
+            }
+            return exp;
+
+        }
+
         protected virtual void BindDesignUnit(IDesignPair<UIElement, TDesignObject> unit)
         {
+            var lazy = LazyBinding;
             IEnumerable<IWithSourceBindingScope> bindingScopes;
-            if (UseUnitDesignAttribute&& unit.HasCreateAttributes())
+            if (UseUnitDesignAttribute && unit.HasCreateAttributes())
             {
                 var state = DesignPackage.CreateBindingCreatorState(unit);
                 bindingScopes = unit.CreateFromAttribute(state);
@@ -50,10 +92,20 @@ namespace Ao.ObjectDesign.WpfDesign
                 bindingScopes = DesignPackage.CreateBindingScopes(unit);
             }
             Debug.Assert(bindingScopes != null);
-            foreach (var item in bindingScopes)
+            if (lazy)
             {
-                item.Bind(unit.UI);
+                var funcs = bindingScopes.Select(x => new Func<BindingExpressionBase>(
+                    () => x.Bind(unit.UI)));
+                bindingTasks.AddRange(funcs);
             }
+            else
+            {
+                foreach (var item in bindingScopes)
+                {
+                    item.Bind(unit.UI);
+                }
+            }
+            
         }
 
         protected override UIElement CreateUI(TDesignObject designingObject)

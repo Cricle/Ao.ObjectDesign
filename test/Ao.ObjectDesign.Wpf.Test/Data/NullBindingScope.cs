@@ -10,6 +10,11 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
         {
             return null;
         }
+
+        public BindingBase CreateBinding(object source)
+        {
+            return null;
+        }
     }
     class ValueBindingScope : IBindingScope
     {
@@ -18,6 +23,11 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
         {
             IsBind = true;
             return null;
+        }
+
+        public BindingBase CreateBinding(object source)
+        {
+            return new Binding { Source = source };
         }
     }
 }

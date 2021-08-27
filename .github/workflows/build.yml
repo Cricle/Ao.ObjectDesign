@@ -56,15 +56,4 @@ jobs:
           dotnet build Ao.ObjectDesign.sln -c Release 
           OpenCover.Console.exe -target:test.bat -register:user
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-      - name: Upload to codecov
-        shell: powershell
-        run: |
-          codecov --version
-          codecov -f "results.xml" -t "${{ secrets.CODECOV }}"
-      - name: Upload to codacy
-        shell: bash
-        run: |
-          export CODACY_PROJECT_TOKEN="${{ secrets.CODACY_PROJECT_TOKEN }}";
-          bash <(curl -Ls https://coverage.codacy.com/get.sh) report -r results.xml
-
 

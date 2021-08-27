@@ -7,9 +7,9 @@ namespace Ao.ObjectDesign.Wpf.Data
 {
     public static class DependencyPropertyBuilders
     {
-        public static IBindingCreator Creator(this DependencyProperty property, string name)
+        public static IBindingMaker Creator(this DependencyProperty property, string name)
         {
-            return new BindingCreator(property).AddSetPath(name);
+            return new BindingMaker(property).AddSetPath(name);
         }
         public static IBindingScope Scope(this DependencyProperty property, string name)
         {

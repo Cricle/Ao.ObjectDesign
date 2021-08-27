@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(BindingBase))]
     public abstract class BindingBaseDesigner : NotifyableObject
     {
-        protected static readonly IReadOnlyHashSet<string> IncludePropertyNames = new ReadOnlyHashSet<string>(new string[]
+        protected static readonly IReadOnlyHashSet<string> IncludePropertyNames = new ReadOnlyHashSet<string>(new []
         {
             nameof(StringFormat),
             nameof(BindingGroupName),

@@ -15,5 +15,10 @@ namespace Ao.ObjectDesign.WpfDesign.Test
         {
             return null;
         }
+
+        public BindingBase CreateBinding(object source)
+        {
+            return null;
+        }
     }
 }

@@ -37,9 +37,9 @@ namespace Ao.ObjectDesign.Designing.Level
                 var old = currentSceneController;
                 var controller = CreateSceneController(scene);
                 currentSceneController = controller;
-                controller.Initialize();
                 var e = new CurrentSceneControllerChangedEventArgs<TUI, TDesignObject>(old, controller);
                 OnCurrentSceneControllerChanged(e);
+                controller.Initialize();
                 CurrentSceneControllerChanged?.Invoke(this, e);
             }
         }

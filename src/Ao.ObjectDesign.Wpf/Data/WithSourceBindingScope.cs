@@ -33,5 +33,10 @@ namespace Ao.ObjectDesign.Wpf.Data
         {
             return Scope.Bind(@object, source);
         }
+
+        public BindingBase CreateBinding(object source)
+        {
+            return Scope.CreateBinding(source);
+        }
     }
 }

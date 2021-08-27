@@ -6,7 +6,7 @@ namespace Ao.ObjectDesign.Wpf.Data
 {
     public static class BindingCreatorAddExtensions
     {
-        public static IBindingCreator AddSetConfig(this IBindingCreator creator, BindingMode mode, UpdateSourceTrigger trigger)
+        public static IBindingMaker AddSetConfig(this IBindingMaker creator, BindingMode mode, UpdateSourceTrigger trigger)
         {
             if (creator is null)
             {
@@ -19,7 +19,7 @@ namespace Ao.ObjectDesign.Wpf.Data
                 x.UpdateSourceTrigger = trigger;
             });
         }
-        public static IBindingCreator AddSetPath(this IBindingCreator creator, string path)
+        public static IBindingMaker AddSetPath(this IBindingMaker creator, string path)
         {
             if (creator is null)
             {
