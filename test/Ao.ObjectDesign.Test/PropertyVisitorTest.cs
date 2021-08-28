@@ -96,6 +96,42 @@ namespace Ao.ObjectDesign.Test
             visitor.TypeConverter = typeConvert;
             Assert.AreEqual(typeConvert, visitor.TypeConverter);
         }
+        [TestMethod]
+        public void ConvertValue_ValueEqualNull_MustValue()
+        {
+            var c=new Class();
+            var prop = typeof(Class).GetProperty("Name");
+            PropertyVisitor pv = new PropertyVisitor(c,prop);
+
+            c.Name = "asd";
+
+            pv.SetValue(null);
+
+            Assert.IsNull(c.Name);
+
+
+        }
+        [TestMethod]
+        public void RaiseValueChanged_NotNull_MustRaise()
+        {
+            var c = new Class();
+            var prop = typeof(Class).GetProperty("Name");
+            PropertyVisitor pv = new PropertyVisitor(c, prop);
+            object sender = null;
+            PropertyChangedEventArgs args = null;
+            pv.PropertyChanged += (o, e) =>
+            {
+                sender = o;
+                args = e;
+            };
+
+            pv.SetValue("123");
+
+            Assert.AreEqual(pv, sender);
+            Assert.AreEqual("Value",args.PropertyName);
+            
+
+        }
 
     }
 }
