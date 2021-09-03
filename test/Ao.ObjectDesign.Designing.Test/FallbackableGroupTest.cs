@@ -156,5 +156,37 @@ namespace Ao.ObjectDesign.Designing.Test
 
             Assert.IsInstanceOfType(val, typeof(FallbackableGroup));
         }
+        [TestMethod]
+        public void Copy_ModeNoNull()
+        {
+            FallbackableGroup fg = new FallbackableGroup();
+            FallbackModes fallback = FallbackModes.Forward;
+            var groups = fg.Copy(fallback);
+
+            Assert.AreEqual(fallback, groups.Mode);
+        }
+
+        [TestMethod]
+        [DataRow(0,1)]
+        [DataRow(1, 2)]
+        [DataRow(2, 0)]
+        [DataRow(2, 3)]
+        public void IsReverse_NotEqualCount_MustFalse(int leftCount, int rightCount)
+        {
+            //NullFallbackable
+            FallbackableGroup fg = new FallbackableGroup(FallbackModes.Forward);
+            for (int i = 0; i < leftCount; i++)
+            {
+                fg.Add(new NullFallbackable());
+            }
+            FallbackableGroup fallback = new FallbackableGroup( FallbackModes.Reverse);
+            for (int i = 0; i < rightCount; i++)
+            {
+                fallback.Add(new NullFallbackable());
+            }
+            var g = fg.IsReverse(fallback);
+
+            Assert.IsFalse(g);
+        }
     }
 }
