@@ -50,7 +50,8 @@ namespace Ao.ObjectDesign.Designing.Level
         }
         protected virtual void OnCurrentSceneControllerChanged(CurrentSceneControllerChangedEventArgs<TUI, TDesignObject> e)
         {
-
+            e.Old?.Dispose();
+            e.New?.Initialize();
         }
     }
 }

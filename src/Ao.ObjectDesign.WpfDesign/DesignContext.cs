@@ -18,11 +18,11 @@ namespace Ao.ObjectDesign.WpfDesign
             : base(provider)
         {
             DesignSuface = designSuface;
-            DesignMetedatas = target.Select(x => new DesignMetedata(this, x)).ToList();
+            DesignMetedatas = target.Select(x => CreateDesignMetedata(x)).ToList();
             Sequencer = sequencer;
         }
         public DesignContext(IServiceProvider provider,
-            DesignMetedata[] metedatas,
+            IDesignMetedata[] metedatas,
             IActionSequencer<IModifyDetail> sequencer,
             DesignSuface designSuface)
             : base(provider)
@@ -34,14 +34,19 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public virtual DesignSuface DesignSuface { get; }
 
-        public virtual IReadOnlyList<DesignMetedata> DesignMetedatas { get; }
+        public virtual IReadOnlyList<IDesignMetedata> DesignMetedatas { get; }
 
         public virtual IActionSequencer<IModifyDetail> Sequencer { get; }
 
-        public static readonly IReadOnlyHashSet<Type> containerSet = new ReadOnlyHashSet<Type>(new Type[]
+        protected virtual IDesignMetedata CreateDesignMetedata(UIElement element)
+        {
+            return new DesignMetedata(this, element);
+        }
+
+        public static readonly IReadOnlyList<Type> containerSet = new Type[]
         {
             typeof(Panel),typeof(Decorator)
-        });
+        };
         public static FrameworkElement GetParent(FrameworkElement begin, Type type, bool equals)
         {
             FrameworkElement d = begin?.Parent as FrameworkElement;
@@ -49,7 +54,7 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 if (equals)
                 {
-                    if (type==d.GetType())
+                    if (type == d.GetType())
                     {
                         return d;
                     }
@@ -67,7 +72,6 @@ namespace Ao.ObjectDesign.WpfDesign
         }
         public static FrameworkElement GetContainer(FrameworkElement begin)
         {
-            //新增直接取
             FrameworkElement d = begin?.Parent as FrameworkElement;
             while (d != null)
             {

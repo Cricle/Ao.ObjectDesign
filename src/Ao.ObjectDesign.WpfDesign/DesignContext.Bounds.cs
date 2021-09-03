@@ -90,7 +90,7 @@ namespace Ao.ObjectDesign.WpfDesign
             }
         }
 
-        private Vector CreatePosition(Func<DesignMetedata, Vector> selector)
+        protected virtual Vector CreatePosition(Func<IDesignMetedata, Vector> selector)
         {
             if (DesignMetedatas.Count == 0)
             {
@@ -100,13 +100,21 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 return selector(DesignMetedatas[0]);
             }
-            var offsetGroups = DesignMetedatas.Select(selector).ToList();
-            var x = offsetGroups.Min(q => q.X);
-            var y = offsetGroups.Min(q => q.Y);
+            if (!DesignMetedatas.Select(selector).Any())
+            {
+                return default;
+            }
+            double x = double.PositiveInfinity;
+            double y = double.PositiveInfinity;
+            foreach (var item in DesignMetedatas.Select(selector))
+            {
+                x = Math.Min(x, item.X);
+                y = Math.Min(y, item.Y);
+            }
             return new Vector(x, y);
         }
 
-        private Rect CreateBounds(Func<DesignMetedata, Rect> selector)
+        protected virtual Rect CreateBounds(Func<IDesignMetedata, Rect> selector)
         {
             if (DesignMetedatas.Count == 0)
             {
@@ -116,11 +124,21 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 return selector(DesignMetedatas[0]);
             }
-            var offsetGroups = DesignMetedatas.Select(selector).ToList();
-            var left = offsetGroups.Min(q => q.Left);
-            var top = offsetGroups.Min(q => q.Top);
-            var right = offsetGroups.Max(q => q.Right);
-            var bottom = offsetGroups.Max(q => q.Bottom);
+            if (!DesignMetedatas.Select(selector).Any())
+            {
+                return Rect.Empty;
+            }
+            double left = double.PositiveInfinity;
+            double top = double.PositiveInfinity;
+            double right = 0;
+            double bottom = 0;
+            foreach (var g in DesignMetedatas.Select(selector))
+            {
+                left = Math.Min(left, g.Left);
+                top = Math.Min(top, g.Top);
+                right = Math.Max(right, g.Right);
+                bottom = Math.Max(bottom, g.Bottom);
+            }
             var width = Math.Max(0, right - left);
             var height = Math.Max(0, bottom - top);
             return new Rect(left, top, width, height);

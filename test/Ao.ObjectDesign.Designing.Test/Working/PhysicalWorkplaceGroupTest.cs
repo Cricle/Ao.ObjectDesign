@@ -128,5 +128,35 @@ namespace Ao.ObjectDesign.Designing.Test.Working
             Assert.AreEqual(0, wp.Resources.Count());
             Assert.AreEqual(0, folder.GetFiles().Length);
         }
+        [TestMethod]
+        public void GetTwice()
+        {
+            var group = new ValuePhysicalWorkplaceGroup(folder);
+
+            var relate1 = "twice/aa/bb/cc";
+
+            var targetFolder = Path.Combine(folder.FullName, relate1);
+            if (Directory.Exists(targetFolder))
+            {
+                Directory.Delete(targetFolder, true);
+            }
+            var g1 = group.Group(relate1);
+
+            Assert.IsTrue(Directory.Exists(targetFolder));
+
+            var relate2 = "dd/ee";
+            var targetFolder2 = Path.Combine(targetFolder, relate2);
+
+            if (Directory.Exists(targetFolder2))
+            {
+                Directory.Delete(targetFolder2, true);
+            }
+            g1.Group(relate2);
+            Assert.IsTrue(Directory.Exists(targetFolder2));
+
+            var t = Path.Combine(folder.FullName, "twice");
+
+            Directory.Delete(t, true);
+        }
     }
 }

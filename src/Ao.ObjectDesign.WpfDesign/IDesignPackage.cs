@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.WpfDesign
     {
         UIDesignMap UIDesinMap { get; }
 
-        IEnumerable<IWithSourceBindingScope> CreateBindingScopes(IDesignPair<UIElement, TDesignObject> unit);
+        IEnumerable<IBindingCreatorFactory<TDesignObject>> GetBindingCreatorFactorys(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state);
 
         IBindingCreatorState CreateBindingCreatorState(IDesignPair<UIElement, TDesignObject> unit);
     }

@@ -3,6 +3,7 @@ using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.WpfDesign.Annotations;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 
@@ -10,10 +11,14 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public interface IBindingCreator<TDesignObject>
     {
-        int Order { get; }
+        IDesignPair<UIElement, TDesignObject> DesignUnit { get; }
 
-        bool IsAccept(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state);
+        IBindingCreatorState State { get; }
 
-        IEnumerable<IWithSourceBindingScope> Create(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state);
+        IEnumerable<IWithSourceBindingScope> BindingScopes { get; }
+
+        void Attack();
+
+        void Detack();
     }
 }

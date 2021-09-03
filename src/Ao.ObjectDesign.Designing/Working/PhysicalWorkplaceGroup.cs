@@ -6,6 +6,44 @@ using System.Linq;
 
 namespace Ao.ObjectDesign.Designing.Working
 {
+    public class PhysicalWorkplaceGroup : PhysicalWorkplaceGroup<string, Stream>
+    {
+        public PhysicalWorkplaceGroup(DirectoryInfo folder) : base(folder)
+        {
+        }
+
+        public PhysicalWorkplaceGroup(string key, DirectoryInfo folder) : base(key, folder)
+        {
+        }
+
+        public PhysicalWorkplaceGroup(DirectoryInfo folder, IReadOnlyHashSet<string> acceptExtensions) : base(folder, acceptExtensions)
+        {
+        }
+
+        public PhysicalWorkplaceGroup(string key, DirectoryInfo folder, IReadOnlyHashSet<string> acceptExtensions) : base(key, folder, acceptExtensions)
+        {
+        }
+
+        protected override IWorkplaceGroup<string, Stream> CreateGroup(string key, DirectoryInfo folder)
+        {
+            return new PhysicalWorkplaceGroup(key, folder);
+        }
+
+        protected override IWithGroupWorkplace<string, Stream> CreateWorkplace(string key, DirectoryInfo folder)
+        {
+            return new PhysicalWorkplace(key,this,folder);
+        }
+
+        protected override string ToKey(string folderPath)
+        {
+            return folderPath;
+        }
+
+        protected override string ToRelativePath(string key)
+        {
+            return key;
+        }
+    }
     public abstract class PhysicalWorkplaceGroup<TKey, TResource> : WorkplaceGroup<TKey, TResource>
     {
         protected PhysicalWorkplaceGroup(DirectoryInfo folder)
@@ -119,6 +157,10 @@ namespace Ao.ObjectDesign.Designing.Working
             var path = Path.Combine(Folder.FullName, relativePath);
             var k = CombineKey(relativePath);
             var folder = new DirectoryInfo(path);
+            if (!folder.Exists)
+            {
+                folder.Create();
+            }
             return CreateGroup(k, folder);
         }
 
@@ -130,10 +172,22 @@ namespace Ao.ObjectDesign.Designing.Working
             return Get(key);
 
         }
+        protected string CombinePath(string path)
+        {
+            var combine = path;
+            if (Key != null)
+            {
+                var origin = ToRelativePath(Key);
+                combine = Path.Combine(origin, path);
+            }
+            return combine;
+        }
+
         public override IWithGroupWorkplace<TKey, TResource> Get(TKey key)
         {
             var relativePath = ToRelativePath(key);
-            var path = GetAbsolutePath(key);
+            var combine = CombinePath(relativePath);
+            var path = GetAbsolutePath(ToKey(combine));
             var k = CombineKey(relativePath);
             var folder = new DirectoryInfo(path);
             if (!folder.Exists)

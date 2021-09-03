@@ -3,6 +3,18 @@ using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Data
 {
+    public static class ToAnyValueExtensions
+    {
+        public static AnyValue ToAny(this IVarValue value)
+        {
+            if (value is null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            return new AnyValue(value.Value, value.TypeCode);
+        }
+    }
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public class StructValue : VarValue<ValueType>,IVarValue<ValueType>
     {

@@ -7,11 +7,8 @@ using System.Windows.Media;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class DesignMetedata
+    public class DesignMetedata: IDesignMetedata
     {
-        private bool loadedContainer;
-        private UIElement container;
-
         public DesignMetedata(DesignContext designContext, UIElement target, UIElement parent, UIElement container)
         {
             DesignContext = designContext;
@@ -27,13 +24,16 @@ namespace Ao.ObjectDesign.WpfDesign
             Parent = (UIElement)VisualTreeHelper.GetParent(target);
         }
 
+        private bool loadedContainer;
+        private UIElement container;
+
         public DesignContext DesignContext { get; }
 
         public UIElement Target { get; }
 
         public UIElement Parent { get; }
 
-        public UIElement Container
+        public virtual UIElement Container
         {
             get
             {
@@ -46,9 +46,10 @@ namespace Ao.ObjectDesign.WpfDesign
             }
         }
 
-        public bool IsContainerCanvas => Container is Canvas;
+        public virtual bool IsContainerCanvas => Container is Canvas;
 
-        public Vector InCanvasPosition
+
+        public virtual Vector InCanvasPosition
         {
             get
             {
@@ -70,79 +71,46 @@ namespace Ao.ObjectDesign.WpfDesign
                 {
                     return InCanvasPosition;
                 }
-                return VisualTreeHelper.GetOffset(Target);
+                return TargetOffset;
             }
         }
 
-        public virtual Vector IgnoreCanvasTargetOffset => VisualTreeHelper.GetOffset(Target);
+        public virtual Vector IgnoreCanvasTargetOffset => GetPosition(Target);
 
         public virtual Rect TargetBounds
         {
             get
             {
-                if (Target != null)
-                {
-                    var offset = TargetOffset;
-                    return new Rect(new Point(offset.X, offset.Y), Target.RenderSize);
-                }
-                return Rect.Empty;
+                var offset = TargetOffset;
+                var size = GetSize(Target);
+                return new Rect(new Point(offset.X, offset.Y), size);
             }
         }
-        public virtual Vector ParentOffset => VisualTreeHelper.GetOffset(Parent);
+        public virtual Vector ParentOffset => GetPosition(Parent);
 
         public virtual Rect ParentBounds
         {
             get
             {
-                if (Parent != null)
-                {
-                    var offset = ParentOffset;
-                    return new Rect(new Point(offset.X, offset.Y), Parent.RenderSize);
-                }
-                return Rect.Empty;
+                var offset = ParentOffset;
+                var size = GetSize(Parent);
+                return new Rect(new Point(offset.X, offset.Y), size);
             }
         }
 
-        public virtual Vector ContainerOffset => VisualTreeHelper.GetOffset(Container);
+        public virtual Vector ContainerOffset => GetPosition(Container);
 
         public virtual Rect ContainerBounds
         {
             get
             {
-                if (Container != null)
-                {
-                    var offset = ContainerOffset;
-                    return new Rect(new Point(offset.X, offset.Y), Container.RenderSize);
-                }
-                return Rect.Empty;
+                var offset = ContainerOffset;
+                var size = GetSize(container);
+                return new Rect(new Point(offset.X, offset.Y), size);
             }
         }
 
-        public IEnumerable<DependencyObject> GetBrothersWithContainer()
-        {
-            return GetBrothersWithContainer(_ => true);
-        }
 
-        public virtual IEnumerable<DependencyObject> GetBrothersWithContainer(Predicate<DependencyObject> childFilter)
-        {
-            if (Container != null)
-            {
-                var count = VisualTreeHelper.GetChildrenCount(Container);
-                for (int i = 0; i < count; i++)
-                {
-                    var val = VisualTreeHelper.GetChild(Container, i);
-                    if (childFilter(val))
-                    {
-                        yield return val;
-                    }
-                }
-            }
-        }
-        public T GetOrAddTransform<T>()
-            where T : Transform, new()
-        {
-            return GetOrAddTransform<T>(Target);
-        }
         public static T GetOrAddTransform<T>(UIElement target)
             where T : Transform, new()
         {
@@ -181,5 +149,57 @@ namespace Ao.ObjectDesign.WpfDesign
                 return transform;
             }
         }
+
+        public virtual Vector GetPosition(UIElement element)
+        {
+            return VisualTreeHelper.GetOffset(element);
+        }
+
+        public virtual Size GetSize(UIElement element)
+        {
+            if (element is null)
+            {
+                return Size.Empty;
+            }
+            return element.DesiredSize;
+        }
+
+        public virtual Vector GetInCanvaPosition(UIElement element)
+        {
+            var x = Canvas.GetLeft(element);
+            var y = Canvas.GetTop(element);
+            return new Vector(x, y);
+        }
+    }
+    public abstract class DirectDesignMetedata : DesignMetedata
+    {
+        public DirectDesignMetedata(DesignContext designContext, UIElement target) : base(designContext, target)
+        {
+        }
+
+        public DirectDesignMetedata(DesignContext designContext, UIElement target, UIElement parent, UIElement container) : base(designContext, target, parent, container)
+        {
+        }
+
+        public override Size GetSize(UIElement element)
+        {
+            var ps = GetPositionSize(element);
+            if (ps is null)
+            {
+                return Size.Empty;
+            }
+            return Size.Empty;
+        }
+        public override Vector GetPosition(UIElement element)
+        {
+            var ps = GetPositionSize(element);
+            if (ps is null)
+            {
+                return new Vector();
+            }
+            return ps.Position;
+        }
+
+        protected abstract IPositionSize GetPositionSize(UIElement element);
     }
 }

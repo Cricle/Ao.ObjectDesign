@@ -18,7 +18,7 @@ namespace Ao.ObjectDesign.WpfDesign
                 {
                     return t;
                 }
-                throw new InvalidCastException($"Key {key} value can't case to {typeof(T)}");
+                throw new InvalidCastException($"Key {key} value {val} can't case to {typeof(T)}");
             }
             return default;
         }

@@ -13,12 +13,30 @@ namespace Ao.ObjectDesign.WpfDesign
     {
         public static bool HasCreateAttributes<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit)
         {
-            return unit.DesigningObject.GetType().IsDefined(typeof(BindingCreatorAttribute));
+            return unit.DesigningObject.GetType().IsDefined(typeof(BindingCreatorFactoryAttribute));
         }
         public static IEnumerable<IWithSourceBindingScope> CreateFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
             IBindingCreatorState state)
         {
             return CreateFromAttribute(unit, state, x => (IBindingCreator<TDesignObject>)Activator.CreateInstance(x));
+        }
+        public static IEnumerable<IBindingCreator<TDesignObject>> CreateBindingCreatorFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit)
+        {
+            return CreateBindingCreatorFromAttribute(unit, x => (IBindingCreator<TDesignObject>)ReflectionHelper.Create(x));
+        }
+        public static IEnumerable<IBindingCreator<TDesignObject>> CreateBindingCreatorFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
+            Func<Type, IBindingCreator<TDesignObject>> creatorFactory)
+        {
+            if (unit is null)
+            {
+                throw new ArgumentNullException(nameof(unit));
+            }
+
+            return unit.DesigningObject.GetType()
+                .GetCustomAttributes(typeof(BindingCreatorFactoryAttribute))
+                .OfType<BindingCreatorFactoryAttribute>()
+                .Select(x => x.CreatorType)
+                .Select(creatorFactory);
         }
         public static IEnumerable<IWithSourceBindingScope> CreateFromAttribute<TDesignObject>(this IDesignPair<UIElement, TDesignObject> unit,
             IBindingCreatorState state,
@@ -29,12 +47,8 @@ namespace Ao.ObjectDesign.WpfDesign
                 throw new ArgumentNullException(nameof(unit));
             }
 
-            return unit.DesigningObject.GetType()
-                .GetCustomAttributes(typeof(BindingCreatorAttribute))
-                .OfType<BindingCreatorAttribute>()
-                .Select(x => x.CreatorType)
-                .Select(creatorFactory)
-                .SelectMany(x => x.Create(unit, state));
+            return CreateBindingCreatorFromAttribute(unit,creatorFactory)
+                .SelectMany(x => x.BindingScopes);
         }
     }
 }

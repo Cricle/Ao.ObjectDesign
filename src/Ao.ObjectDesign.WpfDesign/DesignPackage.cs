@@ -12,36 +12,34 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public abstract class DesignPackage<TDesignObject> : IDesignPackage<TDesignObject>
     {
-        public DesignPackage(BindingCreatorCollection<TDesignObject> bindingCreators, UIDesignMap uIDesinMap)
+        public DesignPackage(BindingCreatorFactoryCollection<TDesignObject> bindingCreators, UIDesignMap uIDesinMap)
         {
             BindingCreators = bindingCreators;
             UIDesinMap = uIDesinMap;
         }
 
-        public BindingCreatorCollection<TDesignObject> BindingCreators { get; }
+        public BindingCreatorFactoryCollection<TDesignObject> BindingCreators { get; }
 
         public UIDesignMap UIDesinMap { get; }
 
         public bool SkipWhenTrigger { get; set; }
 
-        public virtual IEnumerable<IWithSourceBindingScope> CreateBindingScopes(IDesignPair<UIElement, TDesignObject> unit)
+        public virtual IEnumerable<IBindingCreatorFactory<TDesignObject>> GetBindingCreatorFactorys(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state)
         {
             var skipWhenTrigger = SkipWhenTrigger;
-            var state = CreateBindingCreatorState(unit);
-            foreach (var item in BindingCreators)
+            foreach (var item in BindingCreators.FindBindingCreatorFactorys(unit, state))
             {
-                if (item.IsAccept(unit, state))
+                yield return item;
+                if (skipWhenTrigger)
                 {
-                    foreach (var scope in item.Create(unit, state))
-                    {
-                        yield return scope;
-                    }
-                    if (skipWhenTrigger)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
+        }
+        public virtual IEnumerable<IBindingCreator<TDesignObject>> GetBindingCreators(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state)
+        {
+            return GetBindingCreatorFactorys(unit, state)
+                .SelectMany(x => x.Create(unit,state));
         }
 
         public abstract IBindingCreatorState CreateBindingCreatorState(IDesignPair<UIElement, TDesignObject> unit);

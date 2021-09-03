@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Ao.ObjectDesign.WpfDesign.Annotations
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
-    public class BindingCreatorAttribute : Attribute
+    public class BindingCreatorFactoryAttribute : Attribute
     {
-        public BindingCreatorAttribute(Type creatorType)
+        public BindingCreatorFactoryAttribute(Type creatorType)
         {
             CreatorType = creatorType ?? throw new ArgumentNullException(nameof(creatorType));
         }

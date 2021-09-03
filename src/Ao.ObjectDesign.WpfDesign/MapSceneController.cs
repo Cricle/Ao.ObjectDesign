@@ -2,6 +2,7 @@
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Data;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,16 +14,19 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public abstract class MapSceneController<TDesignObject> : DesignSceneController<UIElement, TDesignObject>
     {
-        protected MapSceneController(IDesignPackage<TDesignObject> designMap, UIElementCollection uiElements)
+        protected MapSceneController(IDesignPackage<TDesignObject> designMap, IList uiElements)
         {
             DesignPackage = designMap ?? throw new ArgumentNullException(nameof(designMap));
             UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));
             DesignMap = designMap.UIDesinMap;
-            UseUnitDesignAttribute = true;
+            UseUnitDesignAttribute = false;
             bindingTasks = new List<Func<BindingExpressionBase>>();
+            bindingCreatorMap = new Dictionary<IDesignPair<UIElement, TDesignObject>, IEnumerable<IBindingCreator<TDesignObject>>>();
         }
         private readonly List<Func<BindingExpressionBase>> bindingTasks;
 
+        private readonly Dictionary<IDesignPair<UIElement, TDesignObject>, IEnumerable<IBindingCreator<TDesignObject>>> bindingCreatorMap; 
+       
         public bool LazyBinding { get; set; }
 
         public List<Func<BindingExpressionBase>> BindingTasks => bindingTasks;
@@ -31,21 +35,33 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public IDesignPackage<TDesignObject> DesignPackage { get; }
 
-        public UIElementCollection UIElements { get; }
+        public IList UIElements { get; }
 
         public bool UseUnitDesignAttribute { get; set; }
 
         protected override void AddUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
-            BindDesignUnit(unit);
             UIElements.Add(unit.UI);
+            var creators = BindDesignUnit(unit);
+            Debug.Assert(!bindingCreatorMap.ContainsKey(unit));
+            bindingCreatorMap.Add(unit, creators);
+            foreach (var item in creators)
+            {
+                item.Attack();
+            }
         }
 
         protected override void RemoveUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
             UIElements.Remove(unit.UI);
+            var val = bindingCreatorMap[unit];
+            bindingCreatorMap.Remove(unit);
+            foreach (var item in val)
+            {
+                item.Detack();
+            }
         }
-        
+
         public IReadOnlyList<BindingExpressionBase> ExecuteBinding()
         {
             var datas = bindingTasks.Select(x => x()).ToList();
@@ -86,36 +102,38 @@ namespace Ao.ObjectDesign.WpfDesign
 
         }
 
-        protected virtual void BindDesignUnit(IDesignPair<UIElement, TDesignObject> unit)
+        protected virtual IEnumerable<IBindingCreator<TDesignObject>> BindDesignUnit(IDesignPair<UIElement, TDesignObject> unit)
         {
             var lazy = LazyBinding;
-            IEnumerable<IWithSourceBindingScope> bindingScopes;
-            if (UseUnitDesignAttribute && unit.HasCreateAttributes())
-            {
-                var state = DesignPackage.CreateBindingCreatorState(unit);
-                bindingScopes = unit.CreateFromAttribute(state);
-            }
-            else
-            {
-                bindingScopes = DesignPackage.CreateBindingScopes(unit);
-            }
-            Debug.Assert(bindingScopes != null);
+
+            var state = DesignPackage.CreateBindingCreatorState(unit);
+            var creators = Compile(unit, state);
+            var scopes = creators.SelectMany(x => x.BindingScopes);
+
             if (lazy)
             {
-                var funcs = bindingScopes.Select(x => new Func<BindingExpressionBase>(
+                var funcs = scopes.Select(x => new Func<BindingExpressionBase>(
                     () => x.Bind(unit.UI)));
                 bindingTasks.AddRange(funcs);
             }
             else
             {
-                foreach (var item in bindingScopes)
+                foreach (var item in scopes)
                 {
                     item.Bind(unit.UI);
                 }
             }
-            
+            return creators;
         }
-
+        protected virtual IEnumerable<IBindingCreator<TDesignObject>> Compile(IDesignPair<UIElement, TDesignObject> unit,IBindingCreatorState state)
+        {
+            if (UseUnitDesignAttribute && unit.HasCreateAttributes())
+            {
+                return unit.CreateBindingCreatorFromAttribute();
+            }
+            return DesignPackage.GetBindingCreatorFactorys(unit, state)
+                .SelectMany(x => x.Create(unit,state));
+        }
         protected override UIElement CreateUI(TDesignObject designingObject)
         {
             var t = DesignMap.GetUIType(designingObject.GetType());
