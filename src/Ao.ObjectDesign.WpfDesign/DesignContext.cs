@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign;
 using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Level;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,16 @@ using System.Windows.Media;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
+    public static class DesignContextFindExtensions
+    {
+        public static IEnumerable<IElementBounds<UIElement, TDesignObject>> Lookup<TDesignObject>(this DesignContext context,
+            DesignSceneController<UIElement,TDesignObject> controller,
+            Func<TDesignObject, IRect> rectSelector)
+        {
+            var set = new ReadOnlyHashSet<UIElement>(context.DesignMetedatas.Select(x => x.Target));
+            return controller.Lookup(set,rectSelector);
+        }
+    }
     public partial class DesignContext : DesignInitContext
     {
         public DesignContext(IServiceProvider provider,

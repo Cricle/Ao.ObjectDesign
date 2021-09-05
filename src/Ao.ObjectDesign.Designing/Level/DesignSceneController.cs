@@ -6,13 +6,17 @@ using System.Linq;
 
 namespace Ao.ObjectDesign.Designing.Level
 {
-    public abstract class DesignSceneController<TUI, TDesignObject> : IDisposable
+    public abstract class DesignSceneController<TUI, TDesignObject> : IDisposable, IDesignSceneController<TUI, TDesignObject>
     {
         protected DesignSceneController()
         {
-            designUnits = new SilentObservableCollection<IDesignPair<TUI, TDesignObject>>();
             designUnitMap = new Dictionary<TUI, IDesignPair<TUI, TDesignObject>>();
+            designUnits = new SilentObservableCollection<IDesignPair<TUI, TDesignObject>>();
             designObjectUnitMap = new Dictionary<TDesignObject, IDesignPair<TUI, TDesignObject>>();
+
+            nexts = new SceneMap<TUI, TDesignObject>();
+            designUnitNextMap = new Dictionary<TUI, DesignSceneController<TUI, TDesignObject>>();
+            designObjectUnitNextMap = new Dictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>>();
         }
 
         private bool isInitialized;
@@ -23,6 +27,10 @@ namespace Ao.ObjectDesign.Designing.Level
         private readonly Dictionary<TUI, IDesignPair<TUI, TDesignObject>> designUnitMap;
         private readonly Dictionary<TDesignObject, IDesignPair<TUI, TDesignObject>> designObjectUnitMap;
 
+        private readonly SceneMap<TUI, TDesignObject> nexts;
+        private readonly Dictionary<TUI, DesignSceneController<TUI, TDesignObject>> designUnitNextMap;
+        private readonly Dictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>> designObjectUnitNextMap;
+
         public IObservableDeisgnScene<TDesignObject> Scene => scene;
 
         public bool IsInitialized => isInitialized;
@@ -32,6 +40,12 @@ namespace Ao.ObjectDesign.Designing.Level
         public IReadOnlyDictionary<TDesignObject, IDesignPair<TUI, TDesignObject>> DesignObjectUnitMap => designObjectUnitMap;
 
         public IReadOnlyList<IDesignPair<TUI, TDesignObject>> DesignUnits => designUnits;
+
+        public IReadOnlySceneMap<TUI, TDesignObject> Nexts => nexts;
+
+        public IReadOnlyDictionary<TUI, DesignSceneController<TUI, TDesignObject>> DesignUnitNextMap => designUnitNextMap;
+
+        public IReadOnlyDictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>> DesignObjectUnitNextMap => designObjectUnitNextMap;
 
         public void Initialize()
         {
@@ -85,6 +99,14 @@ namespace Ao.ObjectDesign.Designing.Level
                 designUnitMap.Remove(item.UI);
                 designObjectUnitMap.Remove(item.DesigningObject);
                 RemoveUIElement(item);
+
+                if (nexts.TryGetValue(item,out var controller))
+                {
+                    nexts.Remove(item);
+                    designUnitNextMap.Remove(item.UI);
+                    designObjectUnitNextMap.Remove(item.DesigningObject);
+                    controller.Dispose();
+                }
             }
         }
         protected virtual void AddUnits(IEnumerable<TDesignObject> designingObjects)
@@ -97,7 +119,25 @@ namespace Ao.ObjectDesign.Designing.Level
                 designUnitMap.Add(ui, unit);
                 designObjectUnitMap.Add(item, unit);
                 AddUIElement(unit);
+
+                if (CanBuildNext(unit))
+                {
+                    var controller = CreateController(unit);
+                    controller.Initialize();
+                    nexts.Add(unit,controller);
+                    designUnitNextMap.Add(ui, controller);
+                    designObjectUnitNextMap.Add(item, controller);
+                }
             }
+        }
+
+        protected virtual DesignSceneController<TUI, TDesignObject> CreateController(IDesignPair<TUI, TDesignObject> pair)
+        {
+            throw new NotImplementedException();
+        }
+        protected virtual bool CanBuildNext(IDesignPair<TUI,TDesignObject> pair)
+        {
+            return false;
         }
 
         public abstract IObservableDeisgnScene<TDesignObject> GetScene();
@@ -117,6 +157,15 @@ namespace Ao.ObjectDesign.Designing.Level
         {
             isInitialized = false;
             Scene.DesigningObjects.CollectionChanged -= OnDesigningObjectsCollectionChanged;
+            foreach (var item in nexts.Values)
+            {
+                item.Dispose();
+            }
+            nexts.Clear();
+            designObjectUnitNextMap.Clear();
+            designUnitNextMap.Clear();
+            designUnits.Clear();
+            designUnitMap.Clear();
             OnDispose();
         }
         protected virtual void OnDispose()

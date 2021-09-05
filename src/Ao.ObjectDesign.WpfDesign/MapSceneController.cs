@@ -4,6 +4,7 @@ using Ao.ObjectDesign.Wpf.Data;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
@@ -12,12 +13,56 @@ using System.Windows.Data;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
+    public abstract class ItemsSceneController<TDesignObject> : MapSceneController<TDesignObject>
+    {
+        public ItemsSceneController(IDesignPackage<TDesignObject> designMap, IList uiElements) 
+            : base(designMap)
+        {
+            UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));
+        }
+
+        public IList UIElements { get; }
+
+        protected override void RemoveFromContainer(IDesignPair<UIElement, TDesignObject> unit)
+        {
+            UIElements.Remove(unit.UI);
+        }
+        protected override void AddToContainer(IDesignPair<UIElement, TDesignObject> unit)
+        {
+            UIElements.Add(unit.UI);
+        }
+    }
+    public abstract class ObservableSceneController<TDesignObject> : MapSceneController<TDesignObject>
+    {
+        protected ObservableSceneController(IDesignPackage<TDesignObject> designMap)
+            : this(designMap, new SilentObservableCollection<object>())
+        {
+
+        }
+
+        protected ObservableSceneController(IDesignPackage<TDesignObject> designMap, SilentObservableCollection<object> items)
+            : base(designMap)
+        {
+            Items = items;
+        }
+
+        public SilentObservableCollection<object> Items { get; }
+
+        protected override void AddToContainer(IDesignPair<UIElement, TDesignObject> unit)
+        {
+            Items.Add(unit.UI);
+        }
+
+        protected override void RemoveFromContainer(IDesignPair<UIElement, TDesignObject> unit)
+        {
+            Items.Remove(unit.UI);
+        }
+    }
     public abstract class MapSceneController<TDesignObject> : DesignSceneController<UIElement, TDesignObject>
     {
-        protected MapSceneController(IDesignPackage<TDesignObject> designMap, IList uiElements)
+        protected MapSceneController(IDesignPackage<TDesignObject> designMap)
         {
             DesignPackage = designMap ?? throw new ArgumentNullException(nameof(designMap));
-            UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));
             DesignMap = designMap.UIDesinMap;
             UseUnitDesignAttribute = false;
             bindingTasks = new List<Func<BindingExpressionBase>>();
@@ -35,13 +80,11 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public IDesignPackage<TDesignObject> DesignPackage { get; }
 
-        public IList UIElements { get; }
-
         public bool UseUnitDesignAttribute { get; set; }
 
         protected override void AddUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
-            UIElements.Add(unit.UI);
+            AddToContainer(unit);
             var creators = BindDesignUnit(unit);
             Debug.Assert(!bindingCreatorMap.ContainsKey(unit));
             bindingCreatorMap.Add(unit, creators);
@@ -50,10 +93,12 @@ namespace Ao.ObjectDesign.WpfDesign
                 item.Attack();
             }
         }
+        protected abstract void RemoveFromContainer(IDesignPair<UIElement, TDesignObject> unit);
+        protected abstract void AddToContainer(IDesignPair<UIElement, TDesignObject> unit);
 
         protected override void RemoveUIElement(IDesignPair<UIElement, TDesignObject> unit)
         {
-            UIElements.Remove(unit.UI);
+            RemoveFromContainer(unit);
             var val = bindingCreatorMap[unit];
             bindingCreatorMap.Remove(unit);
             foreach (var item in val)

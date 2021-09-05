@@ -71,7 +71,7 @@ namespace Ao.ObjectDesign.WpfDesign
                 {
                     return InCanvasPosition;
                 }
-                return TargetOffset;
+                return IgnoreCanvasTargetOffset;
             }
         }
 
@@ -152,6 +152,10 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public virtual Vector GetPosition(UIElement element)
         {
+            if (element is null)
+            {
+                return new Vector();
+            }
             return VisualTreeHelper.GetOffset(element);
         }
 
@@ -166,6 +170,10 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public virtual Vector GetInCanvaPosition(UIElement element)
         {
+            if (element is null)
+            {
+                return new Vector();
+            }
             var x = Canvas.GetLeft(element);
             var y = Canvas.GetTop(element);
             return new Vector(x, y);
