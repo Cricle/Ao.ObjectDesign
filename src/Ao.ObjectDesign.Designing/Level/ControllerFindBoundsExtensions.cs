@@ -145,21 +145,6 @@ namespace Ao.ObjectDesign.Designing.Level
                 }
             }
         }
-        public class OffsetInfo<TUI, TDesignObject>
-        {
-            public OffsetInfo(IVector offset, IReadOnlyList<DesignSceneController<TUI, TDesignObject>> passingController, bool succeed)
-            {
-                Offset = offset;
-                PassingController = passingController;
-                Succeed = succeed;
-            }
-
-            public IVector Offset { get; }
-
-            public IReadOnlyList<DesignSceneController<TUI,TDesignObject>> PassingController { get; }
-
-            public bool Succeed { get; }
-        }
         private static IEnumerable<IElementBounds<TUI, TDesignObject>> LookupCore<TUI, TDesignObject>(this DesignSceneController<TUI, TDesignObject> controller,
            IReadOnlyHashSet<TUI> elements,
            Func<TDesignObject, IRect> rectSelector,

@@ -163,6 +163,7 @@ namespace Ao.ObjectDesign.Designing.Level
             }
             nexts.Clear();
             designObjectUnitNextMap.Clear();
+            designObjectUnitMap.Clear();
             designUnitNextMap.Clear();
             designUnits.Clear();
             designUnitMap.Clear();

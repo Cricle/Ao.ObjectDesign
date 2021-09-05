@@ -37,9 +37,9 @@ namespace Ao.ObjectDesign.Designing.Test.Level
 
             controller.Scene.DesigningObjects.Add(2);
 
-            Assert.AreEqual(1, controller.DesignUnits.Count);
-            Assert.AreEqual(1, controller.DesignObjectUnitMap.Count);
-            Assert.AreEqual(1, controller.DesignUnitMap.Count);
+            Assert.AreEqual(0, controller.DesignUnits.Count);
+            Assert.AreEqual(0, controller.DesignObjectUnitMap.Count);
+            Assert.AreEqual(0, controller.DesignUnitMap.Count);
         }
         [TestMethod]
         public void Reset()
