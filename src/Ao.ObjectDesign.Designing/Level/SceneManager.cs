@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Ao.ObjectDesign.Designing.Level
 {
@@ -52,6 +54,67 @@ namespace Ao.ObjectDesign.Designing.Level
         {
             e.Old?.Dispose();
             e.New?.Initialize();
+        }
+
+        public IEnumerable<IDesignPair<TUI, TDesignObject>> EnumerableHitTest(Func<TDesignObject, IRect> boundGetter, IVector point)
+        {
+            if (boundGetter is null)
+            {
+                throw new ArgumentNullException(nameof(boundGetter));
+            }
+
+            DesignSceneController<TUI, TDesignObject> controller = CurrentSceneController;
+            if (controller is null)
+            {
+                return Enumerable.Empty<IDesignPair<TUI, TDesignObject>>();
+            }
+            return controller.Lookup(x => true, x => boundGetter(x))
+                .Where(x => x.ActualBounds.Contains(point.X, point.Y))
+                .Select(x => x.Pair);
+        }
+        private IEnumerable<IDesignPair<TUI, TDesignObject>> HitTestCore(IEnumerable<DesignSceneController<TUI, TDesignObject>> controllers,
+            Func<TDesignObject, IRect> boundGetter,
+            IVector point, IVector offset)
+        {
+            foreach (var item in controllers)
+            {
+                var sc = (TDesignObject)item.Scene;
+                var v = boundGetter(sc);
+                var voffset = new DefaultVector(v.Left, v.Top);
+                foreach (var n in HitTestCore(item.Nexts.Values, boundGetter, point, voffset))
+                {
+                    yield return n;
+                }
+                var units = item.DesignUnits;
+                var count = units.Count;
+                for (int i = count - 1; i >= 0; i--)
+                {
+                    IDesignPair<TUI, TDesignObject> unit = units[i];
+                    var size = boundGetter(unit.DesigningObject);
+                    if (size != null)
+                    {
+                        var bounds = new DefaultRect(size.Left + offset.X, size.Top + offset.Y, size.Right - size.Left, size.Bottom - size.Top);
+                        if (bounds.Contains(point.X, point.Y))
+                        {
+                            yield return unit;
+                        }
+                    }
+                }
+            }
+        }
+        public IDesignPair<TUI, TDesignObject> HitTest(Func<TDesignObject, IRect> boundGetter,
+            IVector point)
+        {
+            if (boundGetter is null)
+            {
+                throw new ArgumentNullException(nameof(boundGetter));
+            }
+
+            if (CurrentSceneController is null)
+            {
+                return null;
+            }
+            return EnumerableHitTest(boundGetter, point).FirstOrDefault();
         }
     }
 }

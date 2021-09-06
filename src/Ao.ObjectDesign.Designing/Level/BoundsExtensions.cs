@@ -22,8 +22,8 @@ namespace Ao.ObjectDesign.Designing.Level
             }
             double left = double.PositiveInfinity;
             double top = double.PositiveInfinity;
-            double right = 0;
-            double bottom = 0;
+            double right = double.NegativeInfinity;
+            double bottom = double.NegativeInfinity;
 
             foreach (var item in rects)
             {

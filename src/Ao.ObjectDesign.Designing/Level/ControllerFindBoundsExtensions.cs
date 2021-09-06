@@ -12,6 +12,18 @@ namespace Ao.ObjectDesign.Designing.Level
 
             public IDesignPair<TUI, TDesignObject> Pair;
         }
+        public static IReadOnlyList<IDesignPair<TUI, TDesignObject>> GetAll<TUI, TDesignObject>(this DesignSceneController<TUI, TDesignObject> controller)
+        {
+            var lst = new List<IDesignPair<TUI, TDesignObject>>();
+            var current = new List<DesignSceneController<TUI, TDesignObject>> { controller };
+            while (current.Count != 0)
+            {
+                lst.AddRange(current.SelectMany(x => x.DesignUnits));
+                current = current.SelectMany(x => x.Nexts.Values).ToList();
+            }
+            return lst;
+        }
+
         public static IReadOnlyList<IDesignPair<TUI, TDesignObject>> Remove<TUI, TDesignObject>(this DesignSceneController<TUI, TDesignObject> controller,
             IReadOnlyHashSet<TUI> uis)
         {
@@ -29,7 +41,7 @@ namespace Ao.ObjectDesign.Designing.Level
             {
                 Controller = x,
                 Pair = y
-            });
+            }).ToList();
             foreach (var item in pairs)
             {
                 item.Controller.Scene.DesigningObjects.Remove(item.Pair.DesigningObject);

@@ -19,8 +19,10 @@ namespace Ao.ObjectDesign.Designing.Level
             designObjectUnitNextMap = new Dictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>>();
         }
 
+        private DesignSceneController<TUI, TDesignObject> parent;
         private bool isInitialized;
         private IObservableDeisgnScene<TDesignObject> scene;
+        private TUI ui;
 
         private readonly SilentObservableCollection<IDesignPair<TUI, TDesignObject>> designUnits;
 
@@ -31,7 +33,13 @@ namespace Ao.ObjectDesign.Designing.Level
         private readonly Dictionary<TUI, DesignSceneController<TUI, TDesignObject>> designUnitNextMap;
         private readonly Dictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>> designObjectUnitNextMap;
 
+        public TUI UI => ui;
+
         public IObservableDeisgnScene<TDesignObject> Scene => scene;
+
+        public DesignSceneController<TUI, TDesignObject> Parent => parent;
+
+        IDesignSceneController<TUI, TDesignObject> IDesignSceneController<TUI, TDesignObject>.Parent => parent;
 
         public bool IsInitialized => isInitialized;
 
@@ -46,6 +54,7 @@ namespace Ao.ObjectDesign.Designing.Level
         public IReadOnlyDictionary<TUI, DesignSceneController<TUI, TDesignObject>> DesignUnitNextMap => designUnitNextMap;
 
         public IReadOnlyDictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>> DesignObjectUnitNextMap => designObjectUnitNextMap;
+
 
         public void Initialize()
         {
@@ -89,8 +98,9 @@ namespace Ao.ObjectDesign.Designing.Level
                 designUnits.Move(e.OldStartingIndex, e.NewStartingIndex);
             }
         }
-        protected virtual void RemoveUnits(IEnumerable<TDesignObject> designingObjects)
+        protected void RemoveUnits(IEnumerable<TDesignObject> designingObjects)
         {
+            OnRemovingUnits(designingObjects);
             var designObjs = new HashSet<TDesignObject>(designingObjects);
             var units = designUnits.Where(x => designObjs.Contains(x.DesigningObject)).ToList();
             foreach (var item in units)
@@ -105,12 +115,31 @@ namespace Ao.ObjectDesign.Designing.Level
                     nexts.Remove(item);
                     designUnitNextMap.Remove(item.UI);
                     designObjectUnitNextMap.Remove(item.DesigningObject);
+                    controller.parent = null;
                     controller.Dispose();
                 }
             }
+            OnRemovedUnits(designingObjects);
         }
-        protected virtual void AddUnits(IEnumerable<TDesignObject> designingObjects)
+        protected virtual void OnRemovingUnits(IEnumerable<TDesignObject> designingObjects)
         {
+
+        }
+        protected virtual void OnRemovedUnits(IEnumerable<TDesignObject> designingObjects)
+        {
+
+        }
+        protected virtual void OnAddingUnits(IEnumerable<TDesignObject> designingObjects)
+        {
+
+        }
+        protected virtual void OnAddedUnits(IEnumerable<TDesignObject> designingObjects)
+        {
+
+        }
+        protected void AddUnits(IEnumerable<TDesignObject> designingObjects)
+        {
+            OnAddingUnits(designingObjects);
             foreach (var item in designingObjects)
             {
                 var ui = CreateUI(item);
@@ -123,12 +152,15 @@ namespace Ao.ObjectDesign.Designing.Level
                 if (CanBuildNext(unit))
                 {
                     var controller = CreateController(unit);
+                    controller.parent = this;
+                    controller.ui = ui;
                     controller.Initialize();
                     nexts.Add(unit,controller);
                     designUnitNextMap.Add(ui, controller);
                     designObjectUnitNextMap.Add(item, controller);
                 }
             }
+            OnAddedUnits(designingObjects);
         }
 
         protected virtual DesignSceneController<TUI, TDesignObject> CreateController(IDesignPair<TUI, TDesignObject> pair)

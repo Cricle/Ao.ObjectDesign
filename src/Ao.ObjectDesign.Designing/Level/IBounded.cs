@@ -8,7 +8,7 @@ namespace Ao.ObjectDesign.Designing.Level
 {
     public interface IPositionBounded
     {
-        IVector Position { get; }
+        IVector GetPosition();
 
         IRect GetBounds();
     }

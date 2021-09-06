@@ -109,7 +109,9 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public IReadOnlyList<BindingExpressionBase> ExecuteBinding()
         {
-            var datas = bindingTasks.Select(x => x()).ToList();
+            var inners = Nexts.OfType<MapSceneController<TDesignObject>>().SelectMany(x => x.ExecuteBinding());
+            var datas = bindingTasks.Select(x => x())
+                .Concat(inners).ToList();
             bindingTasks.Clear();
             return datas;
         }
@@ -143,7 +145,10 @@ namespace Ao.ObjectDesign.WpfDesign
                     exp[i] = bindingTasks[i]();
                 }
             }
-            return exp;
+            bindingTasks.Clear();
+            var inners = Nexts.Values.OfType<MapSceneController<TDesignObject>>()
+                .SelectMany(x => x.ExecuteBinding(batch, usingDoEvents));
+            return exp.Concat(inners).ToList();
 
         }
 
