@@ -26,15 +26,11 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public virtual IEnumerable<IBindingCreatorFactory<TDesignObject>> GetBindingCreatorFactorys(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state)
         {
-            var skipWhenTrigger = SkipWhenTrigger;
-            foreach (var item in BindingCreators.FindBindingCreatorFactorys(unit, state))
+            if (SkipWhenTrigger)
             {
-                yield return item;
-                if (skipWhenTrigger)
-                {
-                    break;
-                }
+                return BindingCreators.FindBindingCreatorFactorys(unit, state).Take(1);
             }
+            return BindingCreators.FindBindingCreatorFactorys(unit, state);
         }
         public virtual IEnumerable<IBindingCreator<TDesignObject>> GetBindingCreators(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state)
         {

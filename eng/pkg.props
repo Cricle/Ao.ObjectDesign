@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>0.1.5</Version>
+    <Version>0.1.6</Version>
     <Authors>Cricle</Authors>
     <Description>An object designer, you can use it to design any object ,or generate ui to provide design interface.</Description>
   </PropertyGroup>

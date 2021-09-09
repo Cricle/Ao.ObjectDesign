@@ -4,14 +4,14 @@ namespace Ao.ObjectDesign.Designing.Level
 {
     public class CurrentSceneChangedEventArgs<TDesignObject> : EventArgs
     {
-        public CurrentSceneChangedEventArgs(IDeisgnScene<TDesignObject> old, IDeisgnScene<TDesignObject> @new)
+        public CurrentSceneChangedEventArgs(IDesignScene<TDesignObject> old, IDesignScene<TDesignObject> @new)
         {
             Old = old;
             New = @new;
         }
 
-        public IDeisgnScene<TDesignObject> Old { get; }
+        public IDesignScene<TDesignObject> Old { get; }
 
-        public IDeisgnScene<TDesignObject> New { get; }
+        public IDesignScene<TDesignObject> New { get; }
     }
 }

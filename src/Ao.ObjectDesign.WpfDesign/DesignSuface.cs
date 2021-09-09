@@ -68,6 +68,7 @@ namespace Ao.ObjectDesign.WpfDesign
                     item.AttackObject(newEle, newEle);
                 }
             }
+            
         }
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {

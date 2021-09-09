@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.WpfDesign
     public static class DesignContextFindExtensions
     {
         public static IEnumerable<IElementBounds<UIElement, TDesignObject>> Lookup<TDesignObject>(this DesignContext context,
-            DesignSceneController<UIElement,TDesignObject> controller,
+            IDesignSceneController<UIElement,TDesignObject> controller,
             Func<TDesignObject, IRect> rectSelector)
         {
             var set = new ReadOnlyHashSet<UIElement>(context.DesignMetedatas.Select(x => x.Target));

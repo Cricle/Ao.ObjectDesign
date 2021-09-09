@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign.WpfDesign
     {
         public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata metedata)
         {
-            return GetBrothersWithContainer(metedata,_ => true);
+            return GetBrothersWithContainer(metedata, null);
         }
 
         public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata metedata,Predicate<DependencyObject> childFilter)
@@ -20,7 +20,11 @@ namespace Ao.ObjectDesign.WpfDesign
                 for (int i = 0; i < count; i++)
                 {
                     var val = VisualTreeHelper.GetChild(metedata.Container, i);
-                    if (childFilter(val))
+                    if (childFilter is null)
+                    {
+                        yield return val;
+                    }
+                    else if (childFilter(val))
                     {
                         yield return val;
                     }

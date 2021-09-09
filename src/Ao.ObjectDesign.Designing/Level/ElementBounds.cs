@@ -2,7 +2,7 @@
 {
     public class ElementBounds<TUI, TDesignObject> : IElementBounds<TUI, TDesignObject>
     {
-        public DesignSceneController<TUI, TDesignObject> Controller { get; set; }
+        public IDesignSceneController<TUI, TDesignObject> Controller { get; set; }
 
         public IRect Bounds { get; set; }
 

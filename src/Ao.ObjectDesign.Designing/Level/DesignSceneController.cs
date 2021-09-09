@@ -15,13 +15,13 @@ namespace Ao.ObjectDesign.Designing.Level
             designObjectUnitMap = new Dictionary<TDesignObject, IDesignPair<TUI, TDesignObject>>();
 
             nexts = new SceneMap<TUI, TDesignObject>();
-            designUnitNextMap = new Dictionary<TUI, DesignSceneController<TUI, TDesignObject>>();
-            designObjectUnitNextMap = new Dictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>>();
+            designUnitNextMap = new Dictionary<TUI, IDesignSceneController<TUI, TDesignObject>>();
+            designObjectUnitNextMap = new Dictionary<TDesignObject, IDesignSceneController<TUI, TDesignObject>>();
         }
 
         private DesignSceneController<TUI, TDesignObject> parent;
         private bool isInitialized;
-        private IObservableDeisgnScene<TDesignObject> scene;
+        private IObservableDesignScene<TDesignObject> scene;
         private TUI ui;
 
         private readonly SilentObservableCollection<IDesignPair<TUI, TDesignObject>> designUnits;
@@ -30,14 +30,14 @@ namespace Ao.ObjectDesign.Designing.Level
         private readonly Dictionary<TDesignObject, IDesignPair<TUI, TDesignObject>> designObjectUnitMap;
 
         private readonly SceneMap<TUI, TDesignObject> nexts;
-        private readonly Dictionary<TUI, DesignSceneController<TUI, TDesignObject>> designUnitNextMap;
-        private readonly Dictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>> designObjectUnitNextMap;
+        private readonly Dictionary<TUI, IDesignSceneController<TUI, TDesignObject>> designUnitNextMap;
+        private readonly Dictionary<TDesignObject, IDesignSceneController<TUI, TDesignObject>> designObjectUnitNextMap;
 
         public TUI UI => ui;
 
-        public IObservableDeisgnScene<TDesignObject> Scene => scene;
+        public IObservableDesignScene<TDesignObject> Scene => scene;
 
-        public DesignSceneController<TUI, TDesignObject> Parent => parent;
+        public IDesignSceneController<TUI, TDesignObject> Parent => parent;
 
         IDesignSceneController<TUI, TDesignObject> IDesignSceneController<TUI, TDesignObject>.Parent => parent;
 
@@ -51,9 +51,9 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public IReadOnlySceneMap<TUI, TDesignObject> Nexts => nexts;
 
-        public IReadOnlyDictionary<TUI, DesignSceneController<TUI, TDesignObject>> DesignUnitNextMap => designUnitNextMap;
+        public IReadOnlyDictionary<TUI, IDesignSceneController<TUI, TDesignObject>> DesignUnitNextMap => designUnitNextMap;
 
-        public IReadOnlyDictionary<TDesignObject, DesignSceneController<TUI, TDesignObject>> DesignObjectUnitNextMap => designObjectUnitNextMap;
+        public IReadOnlyDictionary<TDesignObject, IDesignSceneController<TUI, TDesignObject>> DesignObjectUnitNextMap => designObjectUnitNextMap;
 
 
         public void Initialize()
@@ -97,6 +97,14 @@ namespace Ao.ObjectDesign.Designing.Level
             {
                 designUnits.Move(e.OldStartingIndex, e.NewStartingIndex);
             }
+            else if (e.Action== NotifyCollectionChangedAction.Replace)
+            {
+                RemoveUnits(e.OldItems.OfType<TDesignObject>());
+                for (int i = 0; i < e.NewItems.Count; i++)
+                {
+                    CoreAddUnit((TDesignObject)e.NewItems[i], e.NewStartingIndex + i);
+                }
+            }
         }
         protected void RemoveUnits(IEnumerable<TDesignObject> designingObjects)
         {
@@ -115,7 +123,10 @@ namespace Ao.ObjectDesign.Designing.Level
                     nexts.Remove(item);
                     designUnitNextMap.Remove(item.UI);
                     designObjectUnitNextMap.Remove(item.DesigningObject);
-                    controller.parent = null;
+                    if (controller is DesignSceneController<TUI,TDesignObject> dsc)
+                    {
+                        dsc.parent = null;
+                    }
                     controller.Dispose();
                 }
             }
@@ -137,33 +148,49 @@ namespace Ao.ObjectDesign.Designing.Level
         {
 
         }
+
+        private void CoreAddUnit(TDesignObject item,int? position)
+        {
+            var ui = CreateUI(item);
+            var unit = CreatetDesignUnit(ui, item);
+            if (position is null)
+            {
+                designUnits.Add(unit);
+            }
+            else
+            {
+                designUnits.Insert(position.Value, unit);
+            }
+            designUnitMap.Add(ui, unit);
+            designObjectUnitMap.Add(item, unit);
+            AddUIElement(unit);
+
+            if (CanBuildNext(unit))
+            {
+                var controller = CreateController(unit);
+                if (controller is DesignSceneController<TUI, TDesignObject> dsc)
+                {
+                    dsc.parent = this;
+                    dsc.ui = ui;
+                }
+                controller.Initialize();
+                nexts.Add(unit, controller);
+                designUnitNextMap.Add(ui, controller);
+                designObjectUnitNextMap.Add(item, controller);
+            }
+        }
+
         protected void AddUnits(IEnumerable<TDesignObject> designingObjects)
         {
             OnAddingUnits(designingObjects);
             foreach (var item in designingObjects)
             {
-                var ui = CreateUI(item);
-                var unit = CreatetDesignUnit(ui, item);
-                designUnits.Add(unit);
-                designUnitMap.Add(ui, unit);
-                designObjectUnitMap.Add(item, unit);
-                AddUIElement(unit);
-
-                if (CanBuildNext(unit))
-                {
-                    var controller = CreateController(unit);
-                    controller.parent = this;
-                    controller.ui = ui;
-                    controller.Initialize();
-                    nexts.Add(unit,controller);
-                    designUnitNextMap.Add(ui, controller);
-                    designObjectUnitNextMap.Add(item, controller);
-                }
+                CoreAddUnit(item, null);
             }
             OnAddedUnits(designingObjects);
         }
 
-        protected virtual DesignSceneController<TUI, TDesignObject> CreateController(IDesignPair<TUI, TDesignObject> pair)
+        protected virtual IDesignSceneController<TUI, TDesignObject> CreateController(IDesignPair<TUI, TDesignObject> pair)
         {
             throw new NotImplementedException();
         }
@@ -172,7 +199,7 @@ namespace Ao.ObjectDesign.Designing.Level
             return false;
         }
 
-        public abstract IObservableDeisgnScene<TDesignObject> GetScene();
+        public abstract IObservableDesignScene<TDesignObject> GetScene();
 
         protected abstract void AddUIElement(IDesignPair<TUI, TDesignObject> unit);
 

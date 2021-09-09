@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing.Level
 {
-    public class SceneMap<TUI, TDesignObject> : Dictionary<IDesignPair<TUI, TDesignObject>, DesignSceneController<TUI, TDesignObject>>, ISceneMap<TUI, TDesignObject>, IReadOnlySceneMap<TUI, TDesignObject>
+    public class SceneMap<TUI, TDesignObject> : Dictionary<IDesignPair<TUI, TDesignObject>, IDesignSceneController<TUI, TDesignObject>>, ISceneMap<TUI, TDesignObject>, IReadOnlySceneMap<TUI, TDesignObject>
     {
 
     }

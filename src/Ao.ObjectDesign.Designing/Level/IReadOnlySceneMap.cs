@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing.Level
 {
-    public interface IReadOnlySceneMap<TUI, TDesignObject> : IReadOnlyDictionary<IDesignPair<TUI, TDesignObject>, DesignSceneController<TUI, TDesignObject>>
+    public interface IReadOnlySceneMap<TUI, TDesignObject> : IReadOnlyDictionary<IDesignPair<TUI, TDesignObject>, IDesignSceneController<TUI, TDesignObject>>
     {
 
     }

@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace Ao.ObjectDesign.Designing.Level
 {
-    public interface IDeisgnScene<TDesignObject>
+    public interface IDesignScene<TDesignObject>
     {
         IList<TDesignObject> DesigningObjects { get; }
     }

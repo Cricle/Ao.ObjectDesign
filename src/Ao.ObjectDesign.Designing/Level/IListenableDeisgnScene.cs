@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing.Level
 {
-    public interface IObservableDeisgnScene<TDesignObject> : IDeisgnScene<TDesignObject>
+    public interface IObservableDesignScene<TDesignObject> : IDesignScene<TDesignObject>
     {
         new SilentObservableCollection<TDesignObject> DesigningObjects { get; }
     }

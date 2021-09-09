@@ -5,12 +5,12 @@ using System.Linq;
 namespace Ao.ObjectDesign.Designing.Level
 {
     public abstract class SceneManager<TUI, TScene, TDesignObject>
-        where TScene : IDeisgnScene<TDesignObject>
+        where TScene : IDesignScene<TDesignObject>
     {
         private TScene currentScene;
-        private DesignSceneController<TUI, TDesignObject> currentSceneController;
+        private IDesignSceneController<TUI, TDesignObject> currentSceneController;
 
-        public virtual DesignSceneController<TUI, TDesignObject> CurrentSceneController => currentSceneController;
+        public virtual IDesignSceneController<TUI, TDesignObject> CurrentSceneController => currentSceneController;
 
         public virtual TScene CurrentScene
         {
@@ -63,19 +63,25 @@ namespace Ao.ObjectDesign.Designing.Level
                 throw new ArgumentNullException(nameof(boundGetter));
             }
 
-            DesignSceneController<TUI, TDesignObject> controller = CurrentSceneController;
+            IDesignSceneController<TUI, TDesignObject> controller = CurrentSceneController;
             if (controller is null)
             {
                 return Enumerable.Empty<IDesignPair<TUI, TDesignObject>>();
             }
-            return controller.Lookup(x => true, x => boundGetter(x))
+            return controller.Lookup(x => boundGetter(x))
                 .Where(x => x.ActualBounds.Contains(point.X, point.Y))
                 .Select(x => x.Pair);
         }
-        private IEnumerable<IDesignPair<TUI, TDesignObject>> HitTestCore(IEnumerable<DesignSceneController<TUI, TDesignObject>> controllers,
+        private IEnumerable<IDesignPair<TUI, TDesignObject>> HitTestCore(IEnumerable<IDesignSceneController<TUI, TDesignObject>> controllers,
             Func<TDesignObject, IRect> boundGetter,
-            IVector point, IVector offset)
+            IVector point, 
+            IVector offset)
         {
+            if (boundGetter is null)
+            {
+                throw new ArgumentNullException(nameof(boundGetter));
+            }
+
             foreach (var item in controllers)
             {
                 var sc = (TDesignObject)item.Scene;

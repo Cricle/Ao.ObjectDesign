@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace Ao.ObjectDesign.Designing.Test.Level
 {
-    internal class ValueScene<T> : IObservableDeisgnScene<T>
+    internal class ValueScene<T> : IObservableDesignScene<T>
     {
         public ValueScene()
         {
@@ -13,6 +13,6 @@ namespace Ao.ObjectDesign.Designing.Test.Level
 
         public SilentObservableCollection<T> DesigningObjects { get; }
 
-        IList<T> IDeisgnScene<T>.DesigningObjects => DesigningObjects;
+        IList<T> IDesignScene<T>.DesigningObjects => DesigningObjects;
     }
 }

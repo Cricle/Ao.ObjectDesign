@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.Designing.Test.Level
         }
 
         public List<IDesignPair<string, int>> UIElements { get; }
-        public override IObservableDeisgnScene<int> GetScene()
+        public override IObservableDesignScene<int> GetScene()
         {
             return new ValueScene<int>();
         }

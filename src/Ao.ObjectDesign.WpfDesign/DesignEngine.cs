@@ -12,7 +12,7 @@ using System.Windows;
 namespace Ao.ObjectDesign.WpfDesign
 {
     public abstract class DesignEngine<TScene, TDesignObject>
-        where TScene : IObservableDeisgnScene<TDesignObject>
+        where TScene : IObservableDesignScene<TDesignObject>
     {
         private bool isInitialized;
         private WpfObjectDesigner wpfObjectDesigner;

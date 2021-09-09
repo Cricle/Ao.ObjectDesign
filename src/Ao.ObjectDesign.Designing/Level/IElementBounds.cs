@@ -2,7 +2,7 @@
 {
     public interface IElementBounds<TUI, TDesignObject>
     {
-        DesignSceneController<TUI, TDesignObject> Controller { get; }
+        IDesignSceneController<TUI, TDesignObject> Controller { get; }
 
         IRect Bounds { get; }
 
