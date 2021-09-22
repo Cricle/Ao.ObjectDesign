@@ -13,72 +13,26 @@ using System.Windows.Data;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public abstract class ItemsSceneController<TDesignObject> : MapSceneController<TDesignObject>
-    {
-        public ItemsSceneController(IDesignPackage<TDesignObject> designMap, IList uiElements) 
-            : base(designMap)
-        {
-            UIElements = uiElements ?? throw new ArgumentNullException(nameof(uiElements));
-        }
-
-        public IList UIElements { get; }
-
-        protected override void RemoveFromContainer(IDesignPair<UIElement, TDesignObject> unit)
-        {
-            UIElements.Remove(unit.UI);
-        }
-        protected override void AddToContainer(IDesignPair<UIElement, TDesignObject> unit)
-        {
-            UIElements.Add(unit.UI);
-        }
-    }
-    public abstract class ObservableSceneController<TDesignObject> : MapSceneController<TDesignObject>
-    {
-        protected ObservableSceneController(IDesignPackage<TDesignObject> designMap)
-            : this(designMap, new SilentObservableCollection<object>())
-        {
-
-        }
-
-        protected ObservableSceneController(IDesignPackage<TDesignObject> designMap, SilentObservableCollection<object> items)
-            : base(designMap)
-        {
-            Items = items;
-        }
-
-        public SilentObservableCollection<object> Items { get; }
-
-        protected override void AddToContainer(IDesignPair<UIElement, TDesignObject> unit)
-        {
-            Items.Add(unit.UI);
-        }
-
-        protected override void RemoveFromContainer(IDesignPair<UIElement, TDesignObject> unit)
-        {
-            Items.Remove(unit.UI);
-        }
-    }
     public abstract class MapSceneController<TDesignObject> : DesignSceneController<UIElement, TDesignObject>
     {
+        private static readonly IBindingCreator<TDesignObject>[] emptyCreator = new IBindingCreator<TDesignObject>[0];
+
         protected MapSceneController(IDesignPackage<TDesignObject> designMap)
         {
             DesignPackage = designMap ?? throw new ArgumentNullException(nameof(designMap));
             DesignMap = designMap.UIDesinMap;
             UseUnitDesignAttribute = false;
-            bindingTasks = new List<Func<BindingExpressionBase>>();
+            IgnoreBinding = false;
             bindingCreatorMap = new Dictionary<IDesignPair<UIElement, TDesignObject>, IEnumerable<IBindingCreator<TDesignObject>>>();
         }
-        private readonly List<Func<BindingExpressionBase>> bindingTasks;
 
         private readonly Dictionary<IDesignPair<UIElement, TDesignObject>, IEnumerable<IBindingCreator<TDesignObject>>> bindingCreatorMap; 
        
-        public bool LazyBinding { get; set; }
-
-        public List<Func<BindingExpressionBase>> BindingTasks => bindingTasks;
-
         public UIDesignMap DesignMap { get; }
 
         public IDesignPackage<TDesignObject> DesignPackage { get; }
+
+        public bool IgnoreBinding { get; set; }
 
         public bool UseUnitDesignAttribute { get; set; }
 
@@ -107,73 +61,27 @@ namespace Ao.ObjectDesign.WpfDesign
             }
         }
 
-        public IReadOnlyList<BindingExpressionBase> ExecuteBinding()
-        {
-            var inners = Nexts.OfType<MapSceneController<TDesignObject>>().SelectMany(x => x.ExecuteBinding());
-            var datas = bindingTasks.Select(x => x())
-                .Concat(inners).ToList();
-            bindingTasks.Clear();
-            return datas;
-        }
-        public IReadOnlyList<BindingExpressionBase> ExecuteBinding(int batch)
-        {
-            return ExecuteBinding(batch, true);
-        }
-        public IReadOnlyList<BindingExpressionBase> ExecuteBinding(int batch, bool usingDoEvents)
-        {
-            var count = bindingTasks.Count;
-            var exp = new BindingExpressionBase[count];
-
-            if (usingDoEvents)
-            {
-                var currentCount = 0;
-                for (int i = 0; i < count; i++)
-                {
-                    exp[i] = bindingTasks[i]();
-                    currentCount++;
-                    if (currentCount > batch)
-                    {
-                        DoEventsHelper.DoEvents();
-                        currentCount = 0;
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < count; i++)
-                {
-                    exp[i] = bindingTasks[i]();
-                }
-            }
-            bindingTasks.Clear();
-            var inners = Nexts.Values.OfType<MapSceneController<TDesignObject>>()
-                .SelectMany(x => x.ExecuteBinding(batch, usingDoEvents));
-            return exp.Concat(inners).ToList();
-
-        }
 
         protected virtual IEnumerable<IBindingCreator<TDesignObject>> BindDesignUnit(IDesignPair<UIElement, TDesignObject> unit)
         {
-            var lazy = LazyBinding;
-
+            if (IgnoreBinding)
+            {
+                return emptyCreator;
+            }
             var state = DesignPackage.CreateBindingCreatorState(unit);
             var creators = Compile(unit, state);
             var scopes = creators.SelectMany(x => x.BindingScopes);
 
-            if (lazy)
-            {
-                var funcs = scopes.Select(x => new Func<BindingExpressionBase>(
-                    () => x.Bind(unit.UI)));
-                bindingTasks.AddRange(funcs);
-            }
-            else
-            {
-                foreach (var item in scopes)
-                {
-                    item.Bind(unit.UI);
-                }
-            }
+            RunBinding(unit, scopes);
+
             return creators;
+        }
+        protected virtual void RunBinding(IDesignPair<UIElement, TDesignObject> unit,IEnumerable<IWithSourceBindingScope> scopes)
+        {
+            foreach (var item in scopes)
+            {
+                item.Bind(unit.UI);
+            }
         }
         protected virtual IEnumerable<IBindingCreator<TDesignObject>> Compile(IDesignPair<UIElement, TDesignObject> unit,IBindingCreatorState state)
         {

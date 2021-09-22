@@ -6,6 +6,8 @@ namespace Ao.ObjectDesign.WpfDesign.Test
 {
     class NullWithSourceBindingScope : IWithSourceBindingScope
     {
+        public object Source => null;
+
         public BindingExpressionBase Bind(DependencyObject @object)
         {
             return null;

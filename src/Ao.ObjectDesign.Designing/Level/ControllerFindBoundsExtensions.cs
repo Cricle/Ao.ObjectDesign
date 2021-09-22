@@ -198,14 +198,14 @@ namespace Ao.ObjectDesign.Designing.Level
                     v = new DefaultVector(rect.Left + offset.X, rect.Top + offset.Y);
                 }
             }
-            foreach (var item in controller.Nexts.Values)
+            foreach (var item in controller.Nexts.Values.Reverse())
             {
                 foreach (var val in LookupCore(item, condition, rectSelector, v))
                 {
                     yield return val;
                 }
             }
-            IEnumerable<IDesignPair<TUI, TDesignObject>> query = controller.DesignUnits;
+            IEnumerable<IDesignPair<TUI, TDesignObject>> query = controller.DesignUnits.Reverse();
             if (condition != null)
             {
                 query = query.Where(condition);

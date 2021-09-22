@@ -5,6 +5,8 @@ namespace Ao.ObjectDesign.Wpf.Data
 {
     public interface IWithSourceBindingScope : IBindingScope
     {
+        object Source { get; }
+
         BindingExpressionBase Bind(DependencyObject @object);
     }
 }
