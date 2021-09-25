@@ -13,12 +13,7 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public object GetService(Type serviceType)
         {
-            var provider = Provider;
-            if (provider is null)
-            {
-                return null;
-            }
-            return provider.GetService(serviceType);
+            return Provider?.GetService(serviceType);
         }
     }
 }

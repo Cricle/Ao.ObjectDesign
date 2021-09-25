@@ -2,13 +2,13 @@
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class DoEventsClock
+    public struct DoEventsClock
     {
         private int currentTimes;
 
         public int CurrentTimes => currentTimes;
 
-        public int DoEventTimes { get; set; }
+        public int DoEventTimes;
 
         public bool Do()
         {

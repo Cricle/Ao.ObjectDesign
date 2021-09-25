@@ -20,9 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
 
         public override IEnumerable<IPropertyDescriptor> GetProperties(Type type, object container)
         {
-            IEnumerable<IPropertyDescriptor> props = _innerTypeDescriptor.GetProperties(type, container);
-            props = props.Where(x => !ignoreTypes.Contains(x.Type));
-            return props;
+            return _innerTypeDescriptor.GetProperties(type, container).Where(x => !ignoreTypes.Contains(x.Type));
         }
 
     }

@@ -49,23 +49,31 @@ namespace Ao.ObjectDesign.WpfDesign
 
             if (oldEle != null)
             {
-                foreach (var item in oldEle)
+                var len = oldEle.Length;
+                for (int i = 0; i < len; i++)
                 {
-                    DesignerProperties.SetIsInDesignMode(item, false);
+                    DesignerProperties.SetIsInDesignMode(oldEle[i], false);
                 }
             }
             if (newEle != null)
             {
-                foreach (var item in newEle)
+                var len = newEle.Length;
+                for (int i = 0; i < len; i++)
                 {
-                    DesignerProperties.SetIsInDesignMode(item, true);
+                    DesignerProperties.SetIsInDesignMode(newEle[i], true);
                 }
             }
             if (@object is DesignSuface suface)
             {
-                foreach (var item in suface.Children.OfType<IDesignHelper>())
+                var children = suface.Children;
+                var len = children.Count;
+                for (int i = 0; i < len; i++)
                 {
-                    item.AttackObject(newEle, newEle);
+                    var child = children[i];
+                    if (child is IDesignHelper helper)
+                    {
+                        helper.AttackObject(oldEle, newEle);
+                    }
                 }
             }
             
@@ -91,9 +99,13 @@ namespace Ao.ObjectDesign.WpfDesign
                 return;
             }
             BeginUpdate(ctx);
-            foreach (var item in Children.OfType<IDesignHelper>())
+            var len = Children.Count;
+            for (int i = 0; i < len; i++)
             {
-                item.UpdateDesign(ctx);
+                if (Children[i] is IDesignHelper helper)
+                {
+                    helper.UpdateDesign(ctx);
+                }
             }
             EndUpdate(ctx);
         }

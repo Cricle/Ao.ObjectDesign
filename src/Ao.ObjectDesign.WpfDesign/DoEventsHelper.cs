@@ -4,10 +4,11 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public static class DoEventsHelper
     {
+        private static readonly DispatcherOperationCallback operationCallback = new DispatcherOperationCallback(ExitFrame);
         public static void DoEvents()
         {
             DispatcherFrame frame = new DispatcherFrame();
-            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ExitFrame), frame);
+            Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, operationCallback, frame);
             Dispatcher.PushFrame(frame);
         }
         private static object ExitFrame(object state)

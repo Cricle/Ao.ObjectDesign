@@ -91,7 +91,7 @@ namespace Ao.ObjectDesign.Data
             }
             return !a.Equals(b);
         }
-        public bool TryTo(Type type,out Exception exception,out object result)
+        public bool TryTo(Type type, out Exception exception, out object result)
         {
             exception = null;
             result = null;
@@ -154,9 +154,9 @@ namespace Ao.ObjectDesign.Data
             {
                 return new StructValue((ValueType)value, TypeCode.DateTime);
             }
-            else if (value==DBNull.Value)
+            else if (value == DBNull.Value)
             {
-                return VarValue.DBNullValue;
+                return DBNullValue;
             }
             return new RefValue(value, TypeCode.Object);
         }
@@ -166,12 +166,14 @@ namespace Ao.ObjectDesign.Data
     {
         protected VarValue(T value) : base(value)
         {
+            Value = value;
         }
 
         protected VarValue(T value, TypeCode typeCode) : base(value, typeCode)
         {
+            Value = value;
         }
 
-        public new T Value => (T)base.Value;
+        public new T Value { get; }
     }
 }

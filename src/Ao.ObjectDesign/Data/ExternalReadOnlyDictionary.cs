@@ -9,26 +9,21 @@ namespace Ao.ObjectDesign.Data
         public ExternalReadOnlyDictionary()
         {
             originMap = CreateMap();
-            innerMap =originMap as ConcurrentDictionary<TKey, TValue>;
         }
         public ExternalReadOnlyDictionary(int concurrencyLevel, int capacity)
         {
             originMap = CreateMap(concurrencyLevel,capacity);
-            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
         public ExternalReadOnlyDictionary(IDictionary<TKey, TValue> map)
         {
             originMap = CreateMap(map);
-            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
 
         public ExternalReadOnlyDictionary(IEqualityComparer<TKey> comparer)
         {
             originMap = CreateMap(comparer);
-            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
         protected readonly IDictionary<TKey, TValue> originMap;
-        protected readonly ConcurrentDictionary<TKey, TValue> innerMap;
 
         public TValue this[TKey key] => originMap[key];
 

@@ -18,26 +18,17 @@ namespace Ao.ObjectDesign.Designing
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaisePropertyChanged([CallerMemberName] string name = null)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaisePropertyChanging([CallerMemberName] string name = null)
         {
-            if (PropertyChanging != null)
-            {
-                PropertyChanging.Invoke(this, new PropertyChangingEventArgs(name));
-            }
+            PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(name));
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaisePropertyChangeTo(object from, object to, [CallerMemberName] string name = null)
         {
-            if (PropertyChangeTo != null)
-            {
-                PropertyChangeTo.Invoke(this, new PropertyChangeToEventArgs(name, from, to));
-            }
+            PropertyChangeTo?.Invoke(this, new PropertyChangeToEventArgs(name, from, to));
         }
         protected void Set<T>(ref T prop, T value, [CallerMemberName] string name = null)
         {

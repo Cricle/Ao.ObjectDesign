@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.WpfDesign
             var c = BindingScopes.Count;
             for (int i = 0; i < c; i++)
             {
-                BindingScopes[c].Bind(Pair.UI);
+                BindingScopes[i].Bind(Pair.UI);
             }
         }
         public IReadOnlyList<BindingExpressionBase> ExecuteBinding()
@@ -33,7 +33,7 @@ namespace Ao.ObjectDesign.WpfDesign
             var res = new BindingExpressionBase[c];
             for (int i = 0; i < c; i++)
             {
-                res[i] = BindingScopes[c].Bind(Pair.UI);
+                res[i] = BindingScopes[i].Bind(Pair.UI);
             }
             return res;
         }

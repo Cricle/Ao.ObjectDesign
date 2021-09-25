@@ -1,6 +1,8 @@
-﻿namespace Ao.ObjectDesign.Designing
+﻿using System;
+
+namespace Ao.ObjectDesign.Designing
 {
-    public class UISpirit<TView, TContext> : IUISpirit<TView, TContext>
+    public class UISpirit<TView, TContext> : IUISpirit<TView, TContext>,IEquatable<UISpirit<TView, TContext>>
         where TView : class
         where TContext : class
     {
@@ -10,7 +12,7 @@
             Context = context;
         }
         public UISpirit(TContext context)
-            : this(default, context)
+            : this(null, context)
         {
         }
 
@@ -22,9 +24,7 @@
         {
             if (obj is UISpirit<TView, TContext> b)
             {
-                var h1 = GetHashCode();
-                var h2 = b.GetHashCode();
-                return h1 == h2;
+                return Equals(b);
             }
             return false;
         }
@@ -35,15 +35,25 @@
         public override int GetHashCode()
         {
             var h = 0;
-            if (View!=null)
+            if (View != null)
             {
                 h = View.GetHashCode();
             }
-            if (Context!=null)
+            if (Context != null)
             {
                 h ^= Context.GetHashCode();
             }
             return h;
+        }
+
+        public bool Equals(UISpirit<TView, TContext> other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+            return other.Context == Context &&
+                other.View == View;
         }
     }
 }

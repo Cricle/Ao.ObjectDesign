@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
@@ -18,6 +19,9 @@ namespace Ao.ObjectDesign
         private static readonly Type PropertyGetterType = typeof(PropertyGetter);
         private static readonly Type PropertySetterType = typeof(PropertySetter);
 
+        private static readonly Func<PropertyIdentity, PropertySetter> setterFunc = CreateSetter;
+        private static readonly Func<PropertyIdentity, PropertyGetter> getterFunc = CreateGetter;
+
         private static readonly ConcurrentDictionary<PropertyIdentity, PropertySetter> propertySetters =
             new ConcurrentDictionary<PropertyIdentity, PropertySetter>(PropertyIdentityComparer.Instance);
 
@@ -26,6 +30,21 @@ namespace Ao.ObjectDesign
 
         private static readonly ConcurrentDictionary<Type, TypeCreator> typeCreators =
             new ConcurrentDictionary<Type, TypeCreator>();
+
+        private static PropertySetter CreateSetter(PropertyIdentity x)
+        {
+            PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
+            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
+            Debug.Assert(dn != null);
+            return (PropertySetter)dn.CreateDelegate(PropertySetterType);
+        }
+        private static PropertyGetter CreateGetter(PropertyIdentity x)
+        {
+            PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
+            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
+            Debug.Assert(dn != null);
+            return (PropertyGetter)dn.CreateDelegate(PropertyGetterType);
+        }
 
         public static TypeCreator GetCreator(Type type)
         {
@@ -56,12 +75,7 @@ namespace Ao.ObjectDesign
                 throw new ArgumentNullException(nameof(identity));
             }
 
-            return propertySetters.GetOrAdd(identity, x =>
-            {
-                PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
-                DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
-                return (PropertySetter)dn.CreateDelegate(PropertySetterType);
-            });
+            return propertySetters.GetOrAdd(identity, setterFunc);
         }
         public static PropertyGetter GetGetter(PropertyIdentity identity)
         {
@@ -70,13 +84,7 @@ namespace Ao.ObjectDesign
                 throw new ArgumentNullException(nameof(identity));
             }
 
-            return propertyGetters.GetOrAdd(identity, x =>
-            {
-                PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
-                DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
-                return (PropertyGetter)dn.CreateDelegate(PropertyGetterType);
-            });
+            return propertyGetters.GetOrAdd(identity, getterFunc);
         }
-
     }
 }

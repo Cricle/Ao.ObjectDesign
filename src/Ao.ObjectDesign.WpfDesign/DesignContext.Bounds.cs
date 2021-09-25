@@ -100,13 +100,14 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 return selector(DesignMetedatas[0]);
             }
-            if (!DesignMetedatas.Select(selector).Any())
+            var query = DesignMetedatas.Select(selector);
+            if (!query.Any())
             {
                 return default;
             }
             double x = double.PositiveInfinity;
             double y = double.PositiveInfinity;
-            foreach (var item in DesignMetedatas.Select(selector))
+            foreach (var item in query)
             {
                 x = Math.Min(x, item.X);
                 y = Math.Min(y, item.Y);
@@ -124,7 +125,8 @@ namespace Ao.ObjectDesign.WpfDesign
             {
                 return selector(DesignMetedatas[0]);
             }
-            if (!DesignMetedatas.Select(selector).Any())
+            var query = DesignMetedatas.Select(selector);
+            if (!query.Any())
             {
                 return Rect.Empty;
             }
@@ -132,7 +134,7 @@ namespace Ao.ObjectDesign.WpfDesign
             double top = double.PositiveInfinity;
             double right = 0;
             double bottom = 0;
-            foreach (var g in DesignMetedatas.Select(selector))
+            foreach (var g in query)
             {
                 left = Math.Min(left, g.Left);
                 top = Math.Min(top, g.Top);

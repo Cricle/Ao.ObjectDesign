@@ -12,20 +12,25 @@ namespace Ao.ObjectDesign.Data
     {
         public NotifyableMap()
         {
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
 
         public NotifyableMap(int concurrencyLevel, int capacity) : base(concurrencyLevel, capacity)
         {
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
 
         public NotifyableMap(IDictionary<TKey, TValue> map) : base(map)
         {
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
 
         public NotifyableMap(IEqualityComparer<TKey> comparer) : base(comparer)
         {
+            innerMap = originMap as ConcurrentDictionary<TKey, TValue>;
         }
 
+        protected readonly ConcurrentDictionary<TKey, TValue> innerMap;
         public event EventHandler<DataChangedEventArgs<TKey, TValue>> DataChanged;
         public event EventHandler Clean;
 

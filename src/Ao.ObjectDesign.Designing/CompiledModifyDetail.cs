@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Designing
 {
@@ -14,6 +15,7 @@ namespace Ao.ObjectDesign.Designing
             Type instanceType = Instance.GetType();
             PropertyIdentity identity = new PropertyIdentity(instanceType, PropertyName);
             PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
+            Debug.Assert(setter != null);
             setter(Instance, From);
         }
         public override IModifyDetail Copy(FallbackModes? mode)
