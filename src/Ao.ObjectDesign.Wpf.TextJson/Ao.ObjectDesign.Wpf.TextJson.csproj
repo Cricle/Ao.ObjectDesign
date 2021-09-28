@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\eng\pkg.props" />
+    <PropertyGroup>
+        <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="System.Text.Json" Version="5.0.2" />
+        <PackageReference Include="Dahomey.Json" Version="1.11.3" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
+    </ItemGroup>
+</Project>

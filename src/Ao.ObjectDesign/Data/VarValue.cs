@@ -127,20 +127,21 @@ namespace Ao.ObjectDesign.Data
             return result;
         }
 
-        public static VarValue FromObject(object value)
+        public static IVarValue FromObject(object value)
         {
             if (value is null)
             {
                 return NullValue;
             }
-            if (value is VarValue var)
+            if (value is IVarValue var)
             {
                 return var;
             }
             var type = value.GetType();
             if (type.IsPrimitive)
             {
-                return new StructValue((ValueType)value);
+                var val = (IConvertible)value;
+                return new AnyValue(value, val.GetTypeCode());
             }
             else if (type == typeof(string))
             {
@@ -148,11 +149,11 @@ namespace Ao.ObjectDesign.Data
             }
             else if (type == typeof(decimal))
             {
-                return new StructValue((decimal)value, TypeCode.Decimal);
+                return new AnyValue(value, TypeCode.Decimal);
             }
             else if (type == typeof(DateTime))
             {
-                return new StructValue((ValueType)value, TypeCode.DateTime);
+                return new AnyValue(value, TypeCode.DateTime);
             }
             else if (value == DBNull.Value)
             {
@@ -160,20 +161,5 @@ namespace Ao.ObjectDesign.Data
             }
             return new RefValue(value, TypeCode.Object);
         }
-    }
-    [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public abstract partial class VarValue<T> : VarValue, IVarValue<T>
-    {
-        protected VarValue(T value) : base(value)
-        {
-            Value = value;
-        }
-
-        protected VarValue(T value, TypeCode typeCode) : base(value, typeCode)
-        {
-            Value = value;
-        }
-
-        public new T Value { get; }
     }
 }

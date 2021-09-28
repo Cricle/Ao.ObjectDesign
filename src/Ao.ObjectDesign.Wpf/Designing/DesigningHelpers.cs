@@ -45,16 +45,16 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     DesignForAttribute attr = x.GetCustomAttribute<DesignForAttribute>();
                     if (attr is null)
                     {
-                        return null;
+                        return PropertyIdentity.Empty;
                     }
                     PropertyInfo prop = x.GetProperties().Where(y => y.PropertyType == attr.Type).FirstOrDefault();
                     if (prop is null)
                     {
-                        return null;
+                        return PropertyIdentity.Empty;
                     }
                     return new PropertyIdentity(x, prop.Name);
                 })
-                .Where(x => x != null);
+                .Where(x => x !=PropertyIdentity.Empty);
             return new ReadOnlyHashSet<PropertyIdentity>(types);
         }
         public static IReadOnlyHashSet<Type> GetDesigningTypes(Assembly assembly)

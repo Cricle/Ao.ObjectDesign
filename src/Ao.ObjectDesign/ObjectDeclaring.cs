@@ -34,8 +34,10 @@ namespace Ao.ObjectDesign
                 yield break;
             }
             PropertyInfo[] properties = Type.GetProperties();
-            foreach (PropertyInfo item in properties)
+            var len = properties.Length;
+            for (int i = 0; i < len; i++)
             {
+                var item = properties[i];
                 if (CanProxy(item))
                 {
                     yield return valueCreator(item);

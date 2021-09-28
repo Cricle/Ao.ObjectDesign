@@ -48,7 +48,6 @@ namespace Ao.ObjectDesign.Test
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, propInfo));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, identity));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyInfo)null));
-            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyIdentity)null));
 
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Create(null));
 

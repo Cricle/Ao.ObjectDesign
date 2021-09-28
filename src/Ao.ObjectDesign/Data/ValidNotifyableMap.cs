@@ -157,8 +157,11 @@ namespace Ao.ObjectDesign.Data
             var ctx = new NotifyableSetValidaterContext();
             if (globalRules.IsValueCreated)
             {
-                foreach (var item in GlobalRules)
+                var global = globalRules.Value;
+                var len = global.Count;
+                for (int i = 0; i < len; i++)
                 {
+                    var item = global[i];
                     if (ctx.IsStopValidate || ctx.IsSkipGlobalValidate)
                     {
                         return true;
@@ -176,8 +179,11 @@ namespace Ao.ObjectDesign.Data
             }
             if (withKeyRules.IsValueCreated && WithKeyRules.TryGetValue(e.Key, out var rules))
             {
-                foreach (var item in rules)
+                var len = rules.Count;
+                for (int i = 0; i < len; i++)
                 {
+                    var item = rules[i];
+
                     if (!item.Validate(e, ref ctx))
                     {
                         failValidater = item;

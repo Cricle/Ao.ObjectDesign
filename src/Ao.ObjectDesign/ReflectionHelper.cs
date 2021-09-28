@@ -44,11 +44,6 @@ namespace Ao.ObjectDesign
                 throw new ArgumentNullException(nameof(instance));
             }
 
-            if (identity is null)
-            {
-                throw new ArgumentNullException(nameof(identity));
-            }
-
             PropertyGetter getter = CompiledPropertyInfo.GetGetter(identity);
             Debug.Assert(getter != null);
             return getter(instance);

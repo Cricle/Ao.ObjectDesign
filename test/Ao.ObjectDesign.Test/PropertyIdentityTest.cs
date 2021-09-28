@@ -17,8 +17,6 @@ namespace Ao.ObjectDesign.Test
             var name = "hello";
             Assert.ThrowsException<ArgumentNullException>(() => new PropertyIdentity(null,name));
             Assert.ThrowsException<ArgumentException>(() => new PropertyIdentity(type, null));
-
-            Assert.ThrowsException<ArgumentNullException>(() => new PropertyIdentity(null));
         }
         [TestMethod]
         public void GivenIdentityInit_MustCopy()
@@ -53,7 +51,7 @@ namespace Ao.ObjectDesign.Test
             Assert.IsTrue(identity.Equals(identity2));
             Assert.IsFalse(identity.Equals(identity3));
             Assert.IsFalse(identity.Equals((object)null));
-            Assert.IsFalse(identity.Equals((PropertyIdentity)null));
+            Assert.IsFalse(identity.Equals(default));
 
             Assert.AreEqual(identity.GetHashCode(), identity2.GetHashCode());
             Assert.AreNotEqual(identity.GetHashCode(), identity3.GetHashCode());

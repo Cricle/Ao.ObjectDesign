@@ -2,15 +2,12 @@
 
 namespace Ao.ObjectDesign
 {
-    public class PropertyIdentity : IEquatable<PropertyIdentity>
+    public readonly struct PropertyIdentity : IEquatable<PropertyIdentity>
     {
+        public static readonly PropertyIdentity Empty = new PropertyIdentity();
+
         public PropertyIdentity(PropertyIdentity identity)
         {
-            if (identity is null)
-            {
-                throw new ArgumentNullException(nameof(identity));
-            }
-
             Type = identity.Type;
             PropertyName = identity.PropertyName;
         }
@@ -31,10 +28,6 @@ namespace Ao.ObjectDesign
 
         public bool Equals(PropertyIdentity other)
         {
-            if (other is null)
-            {
-                return false;
-            }
             return other.Type == Type &&
                 other.PropertyName == PropertyName;
         }
@@ -44,11 +37,23 @@ namespace Ao.ObjectDesign
         }
         public override bool Equals(object obj)
         {
-            return Equals(obj as PropertyIdentity);
+            if (obj is PropertyIdentity)
+            {
+                return Equals((PropertyIdentity)obj);
+            }
+            return false;
         }
         public override int GetHashCode()
         {
-            return Type.GetHashCode() ^ PropertyName.GetHashCode();
+            return (Type?.GetHashCode() ?? 0) ^ (PropertyName?.GetHashCode() ?? 0);
+        }
+        public static bool operator ==(PropertyIdentity a, PropertyIdentity b)
+        {
+            return a.Equals(b);
+        }
+        public static bool operator !=(PropertyIdentity a, PropertyIdentity b)
+        {
+            return !a.Equals(b);
         }
     }
 }

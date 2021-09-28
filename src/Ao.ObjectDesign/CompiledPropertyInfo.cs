@@ -70,20 +70,10 @@ namespace Ao.ObjectDesign
         }
         public static PropertySetter GetSetter(PropertyIdentity identity)
         {
-            if (identity is null)
-            {
-                throw new ArgumentNullException(nameof(identity));
-            }
-
             return propertySetters.GetOrAdd(identity, setterFunc);
         }
         public static PropertyGetter GetGetter(PropertyIdentity identity)
         {
-            if (identity is null)
-            {
-                throw new ArgumentNullException(nameof(identity));
-            }
-
             return propertyGetters.GetOrAdd(identity, getterFunc);
         }
     }

@@ -16,25 +16,25 @@ namespace Ao.ObjectDesign.Data
         public static readonly RefValue ObjectValue = new RefValue(new object(), TypeCode.Object);
         public static readonly RefValue DBNullValue = new RefValue(DBNull.Value, TypeCode.DBNull);
 
-        public static readonly StructValue MinTimeValue = new StructValue(DateTime.MinValue, TypeCode.DateTime);
-        public static readonly StructValue MaxTimeValue = new StructValue(DateTime.MaxValue, TypeCode.DateTime);
+        public static readonly AnyValue MinTimeValue = new AnyValue(DateTime.MinValue, TypeCode.DateTime);
+        public static readonly AnyValue MaxTimeValue = new AnyValue(DateTime.MaxValue, TypeCode.DateTime);
 
-        public static readonly StructValue FalseValue = new StructValue(false, TypeCode.Boolean);
-        public static readonly StructValue TrueValue = new StructValue(true, TypeCode.Boolean);
+        public static readonly AnyValue FalseValue = new AnyValue(false, TypeCode.Boolean);
+        public static readonly AnyValue TrueValue = new AnyValue(true, TypeCode.Boolean);
 
-        public static readonly StructValue SByte0Value = new StructValue((sbyte)0, TypeCode.SByte);
-        public static readonly StructValue Char0Value = new StructValue((char)0, TypeCode.Char);
-        public static readonly StructValue Short0Value = new StructValue((short)0, TypeCode.Int16);
-        public static readonly StructValue Int0Value = new StructValue(0, TypeCode.Int32);
-        public static readonly StructValue Long0Value = new StructValue(0L, TypeCode.Int64);
-        public static readonly StructValue Float0Value = new StructValue(0f, TypeCode.Single);
-        public static readonly StructValue Double0Value = new StructValue(0d, TypeCode.Double);
-        public static readonly StructValue Decimal0Value = new StructValue(0m, TypeCode.Decimal);
+        public static readonly AnyValue SByte0Value = new AnyValue((sbyte)0, TypeCode.SByte);
+        public static readonly AnyValue Char0Value = new AnyValue((char)0, TypeCode.Char);
+        public static readonly AnyValue Short0Value = new AnyValue((short)0, TypeCode.Int16);
+        public static readonly AnyValue Int0Value = new AnyValue(0, TypeCode.Int32);
+        public static readonly AnyValue Long0Value = new AnyValue(0L, TypeCode.Int64);
+        public static readonly AnyValue Float0Value = new AnyValue(0f, TypeCode.Single);
+        public static readonly AnyValue Double0Value = new AnyValue(0d, TypeCode.Double);
+        public static readonly AnyValue Decimal0Value = new AnyValue(0m, TypeCode.Decimal);
 
-        public static readonly StructValue Byte0Value = new StructValue((byte)0, TypeCode.Byte);
-        public static readonly StructValue UShort0Value = new StructValue((short)0, TypeCode.UInt16);
-        public static readonly StructValue UInt0Value = new StructValue(0U, TypeCode.UInt32);
-        public static readonly StructValue ULong0Value = new StructValue(0UL, TypeCode.UInt64);
+        public static readonly AnyValue Byte0Value = new AnyValue((byte)0, TypeCode.Byte);
+        public static readonly AnyValue UShort0Value = new AnyValue((short)0, TypeCode.UInt16);
+        public static readonly AnyValue UInt0Value = new AnyValue(0U, TypeCode.UInt32);
+        public static readonly AnyValue ULong0Value = new AnyValue(0UL, TypeCode.UInt64);
 
     }
 }

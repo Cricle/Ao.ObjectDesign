@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign.Data
         }
     }
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public class StructValue : VarValue<ValueType>,IVarValue<ValueType>
+    public class StructValue : VarValue,IVarValue<ValueType>
     {
         public StructValue(ValueType value) 
             : base(value)
@@ -30,7 +30,7 @@ namespace Ao.ObjectDesign.Data
         }
 
         public new ValueType Value { get; }
-       
+
         public override VarValue Clone()
         {
             return new StructValue(Value, TypeCode);

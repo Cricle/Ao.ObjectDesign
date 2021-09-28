@@ -27,15 +27,9 @@ namespace Ao.ObjectDesign.Test
             var b = new PropertyIdentity(typeof(object), "a");
 
             Assert.IsTrue(inst.Equals(a, b));
-            Assert.IsTrue(inst.Equals(null,null));
-            Assert.IsFalse(inst.Equals(null, b));
-            Assert.IsFalse(inst.Equals(a, null));
-        }
-        [TestMethod]
-        public void GivenNullGetHashCode_MustThrowException()
-        {
-            var inst = PropertyIdentityComparer.Instance;
-            Assert.ThrowsException<ArgumentNullException>(() => inst.GetHashCode(null));
+            Assert.IsTrue(inst.Equals(default, default));
+            Assert.IsFalse(inst.Equals(default, b));
+            Assert.IsFalse(inst.Equals(a, default));
         }
         [TestMethod]
         public void GetHashCode_MustEqualInstGetHashCode()

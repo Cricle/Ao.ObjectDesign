@@ -11,16 +11,16 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class ValidNotifyableMapTest
     {
-        class ValueNotifyableSetValidater : INotifyableSetValidater<string, VarValue>
+        class ValueNotifyableSetValidater : INotifyableSetValidater<string, AnyValue>
         {
             public bool IsStopValidate { get; set; }
             public bool IsSkipGlobalValidate { get; set; }
             public bool IsSkipWithKeyValidate { get; set; }
 
 
-            public Func<DataChangedEventArgs<string, VarValue>, bool> Func { get; set; }
+            public Func<DataChangedEventArgs<string, AnyValue>, bool> Func { get; set; }
 
-            public bool Validate(DataChangedEventArgs<string, VarValue> e, ref NotifyableSetValidaterContext context)
+            public bool Validate(DataChangedEventArgs<string, AnyValue> e, ref NotifyableSetValidaterContext context)
             {
                 if (IsStopValidate)
                 {
@@ -45,10 +45,10 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void NewWithArguments()
         {
-            new ValidNotifyableMap<string, VarValue>();
-            new ValidNotifyableMap<string, VarValue>(10, 100);
-            new ValidNotifyableMap<string, VarValue>(StringComparer.OrdinalIgnoreCase);
-            var map = new ValidNotifyableMap<string, VarValue>(new Dictionary<string, VarValue>
+            new ValidNotifyableMap<string, AnyValue>();
+            new ValidNotifyableMap<string, AnyValue>(10, 100);
+            new ValidNotifyableMap<string, AnyValue>(StringComparer.OrdinalIgnoreCase);
+            var map = new ValidNotifyableMap<string, AnyValue>(new Dictionary<string, AnyValue>
             {
                 ["a"] = VarValue.Byte0Value
             });
@@ -58,7 +58,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GivenNullCall_MustThrowException()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             Assert.ThrowsException<ArgumentNullException>(() => map.IsRegistdWithKeyRule("1", null));
             Assert.ThrowsException<ArgumentNullException>(() => map.IsRegistGlobal(null));
             Assert.ThrowsException<ArgumentNullException>(() => map.RegistGlobalRule(null));
@@ -69,7 +69,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void RegistValidate()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             Assert.IsFalse(map.IsGlobalRulesCreated);
             Assert.IsFalse(map.IsWithKeyRulesCreated);
@@ -83,7 +83,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void Regist_UnRegist_Contains_Validate()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             Assert.IsFalse(map.IsRegistdWithKeyRule("a", valid));
             Assert.IsFalse(map.IsRegistGlobal(valid));
@@ -108,14 +108,14 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void NoneRules_ValidatePass()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             map.AddOrUpdate("a", VarValue.Char0Value);
             Assert.AreEqual(VarValue.Char0Value, map["a"]);
         }
         [TestMethod]
         public void GlobalRule_SkipKeyRules()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             valid.IsSkipWithKeyValidate = true;
             map.RegistGlobalRule(valid);
@@ -132,7 +132,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GlobalRule_StopRules()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             valid.IsStopValidate = true;
 
@@ -149,7 +149,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GlobalRule_SkipGlobalRules()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             valid.IsSkipGlobalValidate = true;
 
@@ -166,7 +166,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void Global_OnlyACanWrite()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             valid.Func = a => a.Key == "a";
 
@@ -179,15 +179,15 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void ValidData()
         {
-            var map = new ValidNotifyableMap<string, VarValue>();
+            var map = new ValidNotifyableMap<string, AnyValue>();
             var valid = new ValueNotifyableSetValidater();
             valid.Func = a => a.Key == "a";
 
             map.RegistGlobalRule(valid);
 
-            var e = new DataChangedEventArgs<string, VarValue>("a", null, null, ChangeModes.Change);
+            var e = new DataChangedEventArgs<string, AnyValue>("a", default, default, ChangeModes.Change);
             Assert.IsTrue(map.ValidateData(e, out _));
-            var e1 = new DataChangedEventArgs<string, VarValue>("b", null, null, ChangeModes.Change);
+            var e1 = new DataChangedEventArgs<string, AnyValue>("b", default, default, ChangeModes.Change);
             Assert.IsFalse(map.ValidateData(e1, out var v));
             Assert.AreEqual(valid, v);
 

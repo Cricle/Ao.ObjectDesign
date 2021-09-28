@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Data
 {
+    [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
     public struct AnyValue : IVarValue, ICloneable, IEquatable<AnyValue>
     {
         public AnyValue(object value, TypeCode typeCode)
@@ -26,9 +28,9 @@ namespace Ao.ObjectDesign.Data
         }
         public override bool Equals(object obj)
         {
-            if (obj is AnyValue val)
+            if (obj is AnyValue)
             {
-                return Equals(val);
+                return Equals((AnyValue)obj);
             }
             return false;
         }
@@ -51,11 +53,11 @@ namespace Ao.ObjectDesign.Data
             return $"{{Value:{Value}, TypeCode:{TypeCode}}}";
         }
 
-        public static bool operator==(AnyValue a, AnyValue b) 
+        public static bool operator ==(AnyValue a, AnyValue b)
         {
             return a.Equals(b);
         }
-        public static bool operator!=(AnyValue a, AnyValue b)
+        public static bool operator !=(AnyValue a, AnyValue b)
         {
             return !a.Equals(b);
         }

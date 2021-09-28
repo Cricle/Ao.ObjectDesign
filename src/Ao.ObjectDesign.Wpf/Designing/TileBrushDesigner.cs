@@ -66,7 +66,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(AlignmentX.Center)]
+        [DefaultValue(AlignmentY.Center)]
         public virtual AlignmentY AlignmentY
         {
             get => alignmentY;

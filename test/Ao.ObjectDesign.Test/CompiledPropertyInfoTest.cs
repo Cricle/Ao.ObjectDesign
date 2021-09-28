@@ -29,8 +29,6 @@ namespace Ao.ObjectDesign.Test
         public void GivenNullCall_MustThrowException()
         {
             Assert.ThrowsException<ArgumentNullException>(() => CompiledPropertyInfo.GetCreator(null));
-            Assert.ThrowsException<ArgumentNullException>(() => CompiledPropertyInfo.GetGetter(null));
-            Assert.ThrowsException<ArgumentNullException>(() => CompiledPropertyInfo.GetSetter(null));
         }
         [TestMethod]
         public void GivenAbstractOrNoEmptyConstruct_MustThrowException()
