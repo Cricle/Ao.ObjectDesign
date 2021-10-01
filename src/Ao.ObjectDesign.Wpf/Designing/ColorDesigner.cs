@@ -67,10 +67,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 B = value.B;
             }
         }
-
+        private static readonly PropertyChangedEventArgs colorChangedEventArgs = new PropertyChangedEventArgs(nameof(Color));
         protected void RaiseColorChanged()
         {
-            RaisePropertyChanged(nameof(Color));
+            RaisePropertyChanged(colorChangedEventArgs);
         }
     }
 }

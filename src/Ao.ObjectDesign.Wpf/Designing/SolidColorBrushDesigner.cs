@@ -63,9 +63,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
+        private static readonly PropertyChangedEventArgs solidColorBrushEventArgs = new PropertyChangedEventArgs(nameof(SolidColorBrush));
         protected void RaiseSolidColorBrushChanged()
         {
-            RaisePropertyChanged(nameof(SolidColorBrush));
+            RaisePropertyChanged(solidColorBrushEventArgs);
         }
     }
 }

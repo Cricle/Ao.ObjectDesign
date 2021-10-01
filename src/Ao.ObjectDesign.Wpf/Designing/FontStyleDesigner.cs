@@ -8,6 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(FontStyle))]
     public class FontStyleDesigner : NotifyableObject
     {
+        private static readonly PropertyChangedEventArgs fontStyleChangedEventArgs = new PropertyChangedEventArgs(nameof(FontStyle));
         private bool isItalic;
         private bool isUnerline;
         [PlatformTargetProperty]
@@ -27,6 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref isUnerline, value);
+                RaiseFontStyleChanged();
             }
         }
 
@@ -37,8 +39,12 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref isItalic, value);
-                RaisePropertyChanged(nameof(FontStyle));
+                RaiseFontStyleChanged();
             }
+        }
+        protected void RaiseFontStyleChanged()
+        {
+            RaisePropertyChanged(fontStyleChangedEventArgs);
         }
     }
 }

@@ -42,9 +42,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        private static readonly PropertyChangedEventArgs pointChangedEventArgs = new PropertyChangedEventArgs(nameof(Point));
         protected void RaisePointChanged()
         {
-            RaisePropertyChanged(nameof(Point));
+            RaisePropertyChanged(pointChangedEventArgs);
         }
     }
 }

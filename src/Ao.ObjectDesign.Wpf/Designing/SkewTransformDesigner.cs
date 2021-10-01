@@ -76,9 +76,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        private static readonly PropertyChangedEventArgs skewTransformEventArgs = new PropertyChangedEventArgs(nameof(SkewTransform));
         private void RaiseSkewTransformChanged()
         {
-            RaisePropertyChanged(nameof(SkewTransform));
+            RaisePropertyChanged(skewTransformEventArgs);
         }
     }
 }

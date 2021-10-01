@@ -62,6 +62,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref renderingBias, value);
+                RaiseDropShadowEffectChanged();
             }
         }
         [DefaultValue(0d)]
@@ -71,6 +72,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref blurRadius, value);
+                RaiseDropShadowEffectChanged();
             }
         }
         [DefaultValue(0d)]
@@ -80,6 +82,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref opacity, value);
+                RaiseDropShadowEffectChanged();
             }
         }
         [DefaultValue(0d)]
@@ -89,6 +92,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref direction, value);
+                RaiseDropShadowEffectChanged();
             }
         }
         [DefaultValue(null)]
@@ -97,9 +101,19 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => color;
             set
             {
+                if (color != null)
+                {
+                    color.PropertyChanged -= OnColorPropertyChanged;
+                }
+                if (value != null)
+                {
+                    value.PropertyChanged += OnColorPropertyChanged;
+                }
                 Set(ref color, value);
+                RaiseDropShadowEffectChanged();
             }
         }
+
         [DefaultValue(0d)]
         public virtual double ShadowDepth
         {
@@ -107,7 +121,17 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref shadowDepth, value);
+                RaiseDropShadowEffectChanged();
             }
+        }
+        private static readonly PropertyChangedEventArgs dropShadowEffectChangedEventArgs = new PropertyChangedEventArgs(nameof(DropShadowEffect));
+        protected void RaiseDropShadowEffectChanged()
+        {
+            RaisePropertyChanged(dropShadowEffectChangedEventArgs);
+        }
+        private void OnColorPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaiseDropShadowEffectChanged();
         }
     }
 }

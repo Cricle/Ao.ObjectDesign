@@ -26,6 +26,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         public static readonly IReadOnlyDictionary<FontStretch, FontStretchTypes> fontStretchRevMap =
             fontStretchMap.ToDictionary(x => x.Value, x => x.Key);
 
+        private static readonly PropertyChangedEventArgs fontStretchChangedEventArgs = new PropertyChangedEventArgs(nameof(FontStretch));
         private FontStretchTypes fontStretchType;
 
         [DefaultValue(FontStretchTypes.Normal)]
@@ -35,7 +36,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref fontStretchType, value);
-                RaisePropertyChanged(nameof(FontStretch));
+                RaisePropertyChanged(fontStretchChangedEventArgs);
             }
         }
 

@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf
     public class WpfObjectDesigner : IWpfObjectDesignerSettings, IWpfObjectDesigner
     {
         private static readonly Type ignoreDesignAttributeType = typeof(IgnoreDesignAttribute);
-        private static readonly Func<IPropertyProxy,bool> defaultFilter=
+        private static readonly Func<IPropertyProxy, bool> defaultFilter =
             p => p.PropertyInfo.GetCustomAttribute(ignoreDesignAttributeType) == null;
 
         public IForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext> DataTemplateBuilder { get; }
@@ -63,7 +63,7 @@ namespace Ao.ObjectDesign.Wpf
         {
             return ReflectionHelper.Create(type);
         }
-        protected object CreateFromMapping(DesignMapping mapping, 
+        protected object CreateFromMapping(DesignMapping mapping,
             DesignLevels designLevel)
         {
             if (designLevel == DesignLevels.Setting)
@@ -85,7 +85,7 @@ namespace Ao.ObjectDesign.Wpf
             DesignLevels designLevel,
             Func<IPropertyProxy, bool> proxiesFilter)
         {
-            return BuildUI(mapping, designLevel, AttackModes.NativeAndDeclared,proxiesFilter);
+            return BuildUI(mapping, designLevel, AttackModes.NativeAndDeclared, proxiesFilter);
         }
         public IWpfDesignBuildUIResult BuildUI(DesignMapping mapping,
             DesignLevels designLevel,
@@ -99,7 +99,7 @@ namespace Ao.ObjectDesign.Wpf
             Func<IPropertyProxy, bool> proxiesFilter)
         {
             var instance = CreateFromMapping(mapping, designLevel);
-            return BuildUI(instance, attackMode,proxiesFilter);
+            return BuildUI(instance, attackMode, proxiesFilter);
         }
         public IWpfDesignBuildUIResult BuildUI(object instance)
         {
@@ -195,15 +195,8 @@ namespace Ao.ObjectDesign.Wpf
             var proxiesProperty = NotifySubscriber.Lookup(proxy)
                 .Where(proxiesFilter ?? defaultFilter);
 
-            var ctxs = proxiesProperty.Select(x => new WpfTemplateForViewBuildContext
-            {
-                Designer = ObjectDesigner.Instance,
-                ForViewBuilder = DataTemplateBuilder,
-                PropertyProxy = x,
-                BindingMode = BindingMode.TwoWay,
-                UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                UseNotifyVisitor = true
-            }).Where(x => DataTemplateBuilder.Any(y => y.CanBuild(x))).ToArray();
+            var ctxs = GetBuildContext(proxiesProperty).ToList();
+
             IDisposable disposable = null;
             if (attackMode != AttackModes.None)
             {
@@ -218,6 +211,25 @@ namespace Ao.ObjectDesign.Wpf
                 Builder = DataTemplateBuilder
             };
             return result;
+        }
+        private IEnumerable<WpfTemplateForViewBuildContext> GetBuildContext(IEnumerable<IPropertyProxy> proxys)
+        {
+            foreach (var item in proxys)
+            {
+                var ctx = new WpfTemplateForViewBuildContext
+                {
+                    Designer = ObjectDesigner.Instance,
+                    ForViewBuilder = DataTemplateBuilder,
+                    PropertyProxy = item,
+                    BindingMode = BindingMode.TwoWay,
+                    UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
+                    UseNotifyVisitor = true
+                };
+                if (DataTemplateBuilder.Any(y => y.CanBuild(ctx)))
+                {
+                    yield return ctx;
+                }
+            }
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Add(IForViewCondition<FrameworkElement, WpfForViewBuildContext> condition)

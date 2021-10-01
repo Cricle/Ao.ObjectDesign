@@ -93,9 +93,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
+        private static readonly PropertyChangedEventArgs columnDefinitionChangedEventArgs = new PropertyChangedEventArgs(nameof(ColumnDefinition));
         protected void RaiseColumnDefinitionChanged()
         {
-            RaisePropertyChanged(nameof(ColumnDefinition));
+            RaisePropertyChanged(columnDefinitionChangedEventArgs);
         }
     }
 }

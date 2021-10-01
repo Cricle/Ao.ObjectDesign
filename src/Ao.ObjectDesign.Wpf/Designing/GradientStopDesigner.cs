@@ -8,6 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(GradientStop))]
     public class GradientStopDesigner : NotifyableObject
     {
+        private static readonly PropertyChangedEventArgs gradientStopChangedEventArgs = new PropertyChangedEventArgs(nameof(GradientStop));
         private ColorDesigner color;
         private double offset;
 
@@ -80,7 +81,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
         protected void RaiseGradientStopChanged()
         {
-            RaisePropertyChanged(nameof(GradientStop));
+            RaisePropertyChanged(gradientStopChangedEventArgs);
         }
     }
 }

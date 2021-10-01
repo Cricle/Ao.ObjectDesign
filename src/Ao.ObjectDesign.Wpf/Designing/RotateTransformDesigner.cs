@@ -64,10 +64,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRotateTransformChanged();
             }
         }
+        private static readonly PropertyChangedEventArgs rotateTransformEventArgs = new PropertyChangedEventArgs(nameof(RotateTransform));
 
         protected void RaiseRotateTransformChanged()
         {
-            RaisePropertyChanged(nameof(RotateTransform));
+            RaisePropertyChanged(rotateTransformEventArgs);
         }
     }
 }

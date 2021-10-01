@@ -17,6 +17,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref path, value);
+                RaisePropertyPathChanged();
             }
         }
         [PlatformTargetProperty]
@@ -34,6 +35,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     Path = value.Path;
                 }
             }
+        }
+        private static readonly PropertyChangedEventArgs propertyPathEventArgs = new PropertyChangedEventArgs(nameof(PropertyPath));
+        protected void RaisePropertyPathChanged()
+        {
+            RaisePropertyChanged(propertyPathEventArgs);
         }
     }
 }

@@ -119,9 +119,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
+        private static readonly PropertyChangedEventArgs textDecorationCollectionEventArgs = new PropertyChangedEventArgs(nameof(TextDecorationCollection));
         protected void RaiseTextDecorationCollectionChanged()
         {
-            RaisePropertyChanged(nameof(TextDecorationCollection));
+            RaisePropertyChanged(textDecorationCollectionEventArgs);
         }
     }
 }

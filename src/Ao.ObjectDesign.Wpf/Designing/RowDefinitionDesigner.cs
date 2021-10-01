@@ -94,9 +94,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
+        private static readonly PropertyChangedEventArgs rowDefinitionEventArgs = new PropertyChangedEventArgs(nameof(RowDefinition));
         protected void RaiseRowDefinitionChanged()
         {
-            RaisePropertyChanged(nameof(RowDefinition));
+            RaisePropertyChanged(rowDefinitionEventArgs);
         }
     }
 }

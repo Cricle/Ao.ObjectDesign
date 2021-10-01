@@ -11,5 +11,4 @@
     <ProjectReference Include="..\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
-
 </Project>

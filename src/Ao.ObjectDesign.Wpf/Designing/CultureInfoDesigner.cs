@@ -8,6 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(CultureInfo))]
     public class CultureInfoDesigner : NotifyableObject
     {
+        private static readonly PropertyChangedEventArgs cultureInfoChangedEventArgs = new PropertyChangedEventArgs(nameof(CultureInfo));
         private string name;
 
         [DefaultValue(null)]
@@ -17,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref name, value);
-                RaisePropertyChanged(nameof(CultureInfo));
+                RaisePropertyChanged(cultureInfoChangedEventArgs);
             }
         }
 

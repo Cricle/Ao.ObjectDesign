@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref key, value);
-                RaisePropertyChanged(nameof(StaticResourceExtension));
+                RaiseStaticResourceExtensionChanged();
             }
         }
         [PlatformTargetProperty]
@@ -35,6 +35,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     Key = value.ResourceKey?.ToString();
                 }
             }
+        }
+        private static readonly PropertyChangedEventArgs staticResourceExtensionEventArgs = new PropertyChangedEventArgs(nameof(StaticResourceExtension));
+        protected void RaiseStaticResourceExtensionChanged()
+        {
+            RaisePropertyChanged(staticResourceExtensionEventArgs);
         }
     }
 }

@@ -38,24 +38,23 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
-
-            IEnumerable<PropertyIdentity> types = assembly.GetExportedTypes()
-                .Select(x =>
+            var list = new List<PropertyIdentity>();
+            var types = assembly.GetExportedTypes();
+            var len = types.Length;
+            for (int i = 0; i < len; i++)
+            {
+                var type = types[i];
+                DesignForAttribute attr = type.GetCustomAttribute<DesignForAttribute>();
+                if (attr != null)
                 {
-                    DesignForAttribute attr = x.GetCustomAttribute<DesignForAttribute>();
-                    if (attr is null)
+                    PropertyInfo prop = type.GetProperties().Where(y => y.PropertyType == attr.Type).FirstOrDefault();
+                    if (prop != null)
                     {
-                        return PropertyIdentity.Empty;
+                        list.Add(new PropertyIdentity(type, prop.Name));
                     }
-                    PropertyInfo prop = x.GetProperties().Where(y => y.PropertyType == attr.Type).FirstOrDefault();
-                    if (prop is null)
-                    {
-                        return PropertyIdentity.Empty;
-                    }
-                    return new PropertyIdentity(x, prop.Name);
-                })
-                .Where(x => x !=PropertyIdentity.Empty);
-            return new ReadOnlyHashSet<PropertyIdentity>(types);
+                }
+            }
+            return new ReadOnlyHashSet<PropertyIdentity>(list);
         }
         public static IReadOnlyHashSet<Type> GetDesigningTypes(Assembly assembly)
         {
@@ -63,12 +62,19 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 throw new ArgumentNullException(nameof(assembly));
             }
-
-            IEnumerable<Type> types = assembly.GetExportedTypes()
-                .Select(x => x.GetCustomAttribute<DesignForAttribute>())
-                .Where(x => x != null)
-                .Select(x => x.Type);
-            return new ReadOnlyHashSet<Type>(types);
+            var list = new List<Type>();
+            var types = assembly.GetExportedTypes();
+            var len = types.Length;
+            for (int i = 0; i < len; i++)
+            {
+                var type = types[i];
+                var attr = type.GetCustomAttribute<DesignForAttribute>();
+                if (attr != null)
+                {
+                    list.Add(attr.Type);
+                }
+            }
+            return new ReadOnlyHashSet<Type>(list);
         }
     }
 }

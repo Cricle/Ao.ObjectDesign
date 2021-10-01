@@ -72,9 +72,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             Thickness = new Thickness(uniformLength);
         }
 
+        private static readonly PropertyChangedEventArgs thicknessEventArgs = new PropertyChangedEventArgs(nameof(Thickness));
         protected void RaiseThicknessChanged()
         {
-            RaisePropertyChanged(nameof(Thickness));
+            RaisePropertyChanged(thicknessEventArgs);
         }
     }
 }

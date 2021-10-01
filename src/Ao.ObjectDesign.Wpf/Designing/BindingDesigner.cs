@@ -29,7 +29,33 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private bool validatesOnExceptions;
         private PropertyPathDesigner path;
         private RelativeSourceDesigner relativeSource;
-
+        public override string StringFormat 
+        {
+            get => base.StringFormat;
+            set
+            {
+                base.StringFormat = value;
+                RaiseBindingChanged();
+            }
+        }
+        public override int Delay 
+        { 
+            get => base.Delay;
+            set
+            {
+                base.Delay = value;
+                RaiseBindingChanged();
+            }
+        }
+        public override string BindingGroupName 
+        {
+            get => base.BindingGroupName; 
+            set
+            {
+                base.BindingGroupName = value;
+                RaiseBindingChanged();
+            }
+        }
         public virtual RelativeSourceDesigner RelativeSource
         {
             get => relativeSource;
@@ -286,10 +312,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             ValidatesOnDataErrors = BindsDirectlyToSource = ValidatesOnExceptions = false;
         }
 
-
+        private static readonly PropertyChangedEventArgs bindingChangedEventArgs = new PropertyChangedEventArgs(nameof(Binding));
         protected void RaiseBindingChanged()
         {
-            RaisePropertyChanged(nameof(Binding));
+            RaisePropertyChanged(bindingChangedEventArgs);
         }
 
         private void OnCultureInfoPropertyChanged(object sender, PropertyChangedEventArgs e)

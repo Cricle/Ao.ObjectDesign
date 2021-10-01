@@ -20,16 +20,26 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             if (e.NewItems != null)
             {
-                foreach (PointDesigner item in e.NewItems.OfType<PointDesigner>())
+                var len = e.NewItems.Count;
+                for (int i = 0; i < len; i++)
                 {
-                    item.PropertyChanged += OnItemPropertyChanged;
+                    var item = e.NewItems[i];
+                    if (item is PointDesigner designer)
+                    {
+                        designer.PropertyChanged += OnItemPropertyChanged;
+                    }
                 }
             }
             if (e.OldItems != null)
             {
-                foreach (PointDesigner item in e.OldItems.OfType<PointDesigner>())
+                var len = e.OldItems.Count;
+                for (int i = 0; i < len; i++)
                 {
-                    item.PropertyChanged -= OnItemPropertyChanged;
+                    var item = e.OldItems[i];
+                    if (item is PointDesigner designer)
+                    {
+                        designer.PropertyChanged -= OnItemPropertyChanged;
+                    }
                 }
             }
             OnPropertyChanged(PointCollectionChangedEventArgs);

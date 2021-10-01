@@ -125,9 +125,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Apply(value);
             }
         }
+        private static readonly PropertyChangedEventArgs radialGradientBrushEventArgs = new PropertyChangedEventArgs(nameof(RadialGradientBrush));
         protected void RaiseRadialGradientBrushChange()
         {
-            RaisePropertyChanged(nameof(RadialGradientBrush));
+            RaisePropertyChanged(radialGradientBrushEventArgs);
         }
     }
 }

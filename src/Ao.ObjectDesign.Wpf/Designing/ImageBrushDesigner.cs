@@ -61,9 +61,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 WriteTo(value);
             }
         }
+        private static readonly PropertyChangedEventArgs imageBrushChangedEventArgs = new PropertyChangedEventArgs(nameof(ImageBrush));
         protected void RaiseImageBrushChanged()
         {
-            RaisePropertyChanged(nameof(ImageBrush));
+            RaisePropertyChanged(imageBrushChangedEventArgs);
+        }
+        protected override void TileBrushPropertyChanged()
+        {
+            RaiseImageBrushChanged();
         }
     }
 }

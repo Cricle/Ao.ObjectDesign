@@ -129,9 +129,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        private static readonly PropertyChangedEventArgs imageSourceChangedEventArgs = new PropertyChangedEventArgs(nameof(ImageSource));
         protected void RaiseImageSourceChanged()
         {
-            RaisePropertyChanged(nameof(ImageSource));
+            RaisePropertyChanged(imageSourceChangedEventArgs);
         }
 
     }

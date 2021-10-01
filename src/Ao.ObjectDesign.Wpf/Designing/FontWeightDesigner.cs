@@ -38,6 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 .Key;
         }
 
+        private static readonly PropertyChangedEventArgs fontWeightChangedEventArgs = new PropertyChangedEventArgs(nameof(FontWeight));
         private bool isBold;
         private PenFontWeights penFontWeight;
 
@@ -69,6 +70,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 Set(ref isBold, value);
                 PenFontWeight = value ? PenFontWeights.Bold : PenFontWeights.Normal;
+                RaiseFontWeightChanged();
             }
         }
         [DefaultValue(PenFontWeights.Normal)]
@@ -78,8 +80,12 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref penFontWeight, value);
-                RaisePropertyChanged(nameof(FontWeight));
+                RaiseFontWeightChanged();
             }
+        }
+        protected void RaiseFontWeightChanged()
+        {
+            RaisePropertyChanged(fontWeightChangedEventArgs);
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref mode, value);
+                RaiseRelativeSourceChanged();
             }
         }
         [DefaultValue(null)]
@@ -30,6 +31,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref ancestorType, value);
+                RaiseRelativeSourceChanged();
             }
         }
         [DefaultValue(1)]
@@ -39,6 +41,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref ancestorLevel, value);
+                RaiseRelativeSourceChanged();
             }
         }
         [PlatformTargetProperty]
@@ -65,6 +68,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     AncestorType = value.AncestorType?.FullName;
                 }
             }
+        }
+        private static readonly PropertyChangedEventArgs relativeSourceEventArgs = new PropertyChangedEventArgs(nameof(RelativeSource));
+        protected void RaiseRelativeSourceChanged()
+        {
+            RaisePropertyChanged(relativeSourceEventArgs);
         }
 
         public void SetDefault()

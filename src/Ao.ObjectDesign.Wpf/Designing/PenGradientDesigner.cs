@@ -20,6 +20,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             nameof(ColorInterpolationMode)
         });
         private const string PenGradientStopsChangedName = nameof(PenGradientStops) + "." + "Items";
+        private static readonly PropertyChangedEventArgs penGradientStopsBrushChangedEventArgs = new PropertyChangedEventArgs(PenGradientStopsChangedName);
 
         protected GradientBrushDesigner()
         {
@@ -43,14 +44,15 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     item.PropertyChanged -= OnItemPropertyChanged;
                 }
             }
-            RaisePropertyChanged(PenGradientStopsChangedName);
+            RaisePropertyChanged(penGradientStopsBrushChangedEventArgs);
         }
 
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(PenGradientStopsChangedName);
+            RaisePropertyChanged(penGradientStopsBrushChangedEventArgs);
         }
 
+        private static readonly PropertyChangedEventArgs gradientStopsChangedEventArgs = new PropertyChangedEventArgs(nameof(GradientStops));
         private ColorInterpolationMode colorInterpolationMode;
         private BrushMappingMode mappingMode = BrushMappingMode.RelativeToBoundingBox;
         private GradientSpreadMethod spreadMethod = GradientSpreadMethod.Pad;
@@ -61,27 +63,43 @@ namespace Ao.ObjectDesign.Wpf.Designing
         public virtual double Opacity
         {
             get => opacity;
-            set => Set(ref opacity, value);
+            set
+            {
+                Set(ref opacity, value); 
+                RaiseGradientStopsChanged();
+            }
         }
 
         [DefaultValue(GradientSpreadMethod.Pad)]
         public virtual GradientSpreadMethod SpreadMethod
         {
             get => spreadMethod;
-            set => Set(ref spreadMethod, value);
+            set
+            {
+                Set(ref spreadMethod, value);
+                RaiseGradientStopsChanged();
+            }
         }
         [DefaultValue(BrushMappingMode.RelativeToBoundingBox)]
         public virtual BrushMappingMode MappingMode
         {
             get => mappingMode;
-            set => Set(ref mappingMode, value);
+            set
+            {
+                Set(ref mappingMode, value);
+                RaiseGradientStopsChanged();
+            }
         }
 
         [DefaultValue(ColorInterpolationMode.SRgbLinearInterpolation)]
         public virtual ColorInterpolationMode ColorInterpolationMode
         {
             get => colorInterpolationMode;
-            set => Set(ref colorInterpolationMode, value);
+            set
+            {
+                Set(ref colorInterpolationMode, value);
+                RaiseGradientStopsChanged();
+            }
         }
 
         public virtual SilentObservableCollection<GradientStopDesigner> PenGradientStops
@@ -98,6 +116,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     value.CollectionChanged -= OnPenGradientStopsCollectionChanged;
                 }
                 Set(ref penGradientStops, value);
+                RaiseGradientStopsChanged();
             }
         }
 
@@ -114,7 +133,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 return PenGradientStops.Select(x => x.GradientStop);
             }
         }
-
+        protected void RaiseGradientStopsChanged()
+        {
+            RaisePropertyChanged(gradientStopsChangedEventArgs);
+        }
         public virtual void SetDefault()
         {
             ColorInterpolationMode = ColorInterpolationMode.SRgbLinearInterpolation;

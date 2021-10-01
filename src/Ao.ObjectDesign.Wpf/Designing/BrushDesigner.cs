@@ -16,6 +16,9 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RadialGradientBrushDesigner = new RadialGradientBrushDesigner();
             ImageBrushDesigner = new ImageBrushDesigner();
         }
+        private static readonly PropertyChangedEventArgs imageBrushDesignerChangedEventArgs = new PropertyChangedEventArgs(nameof(ImageBrushDesigner));
+        private static readonly PropertyChangedEventArgs solidColorBrushDesignerChangedEventArgs = new PropertyChangedEventArgs(nameof(SolidColorBrushDesigner));
+        private static readonly PropertyChangedEventArgs linearGradientBrushDesignerChangedEventArgs = new PropertyChangedEventArgs(nameof(LinearGradientBrushDesigner));
         private PenBrushTypes type;
 
         private SolidColorBrushDesigner solidColorBrushDesigner;
@@ -69,7 +72,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-            Set(ref linearGradientBrushDesigner, value);
+            linearGradientBrushDesigner = value;
+            RaisePropertyChanged(linearGradientBrushDesignerChangedEventArgs);
         }
 
         public virtual SolidColorBrushDesigner SolidColorBrushDesigner
@@ -83,7 +87,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
-
         protected virtual void CoreSetSolidColorBrushDesigner(SolidColorBrushDesigner value)
         {
             if (solidColorBrushDesigner != null)
@@ -94,7 +97,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-            Set(ref solidColorBrushDesigner, value);
+            solidColorBrushDesigner = value;
+            RaisePropertyChanged(solidColorBrushDesignerChangedEventArgs);
 
         }
 
@@ -121,7 +125,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-            Set(ref imageBrushDesigner, value);
+            imageBrushDesigner = value;
+            RaisePropertyChanged(imageBrushDesignerChangedEventArgs);
 
         }
 
@@ -228,9 +233,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseBrushChanged();
             }
         }
+        private static readonly PropertyChangedEventArgs brushChangedEventArgs = new PropertyChangedEventArgs(nameof(Brush));
         public void RaiseBrushChanged()
         {
-            RaisePropertyChanged(nameof(Brush));
+            RaisePropertyChanged(brushChangedEventArgs);
         }
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {

@@ -45,14 +45,18 @@ namespace Ao.ObjectDesign.Wpf
 
         public IEnumerable<IWpfUISpirit> Generate(IEnumerable<IPropertyProxy> propertyProxies)
         {
-            return propertyProxies.Select(x => new WpfForViewBuildContext
+            foreach (var item in propertyProxies)
             {
-                BindingMode = Mode,
-                Designer = Designer,
-                ForViewBuilder = Builder,
-                UpdateSourceTrigger = UpdateSourceTrigger,
-                PropertyProxy = x
-            }).Select(x => new WpfUISpirit(Builder.Build(x), x));
+                var ctx = new WpfForViewBuildContext
+                {
+                    BindingMode = Mode,
+                    Designer = Designer,
+                    ForViewBuilder = Builder,
+                    UpdateSourceTrigger = UpdateSourceTrigger,
+                    PropertyProxy = item
+                };
+                yield return new WpfUISpirit(Builder.Build(ctx), ctx);
+            }
         }
     }
 }

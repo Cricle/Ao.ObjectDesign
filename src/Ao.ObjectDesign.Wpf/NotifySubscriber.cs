@@ -64,7 +64,7 @@ namespace Ao.ObjectDesign.Wpf
         }
         class SubscribeCallback : IDisposable
         {
-            public Action Disposed { get; set; }
+            public Action Disposed;
 
             public void Dispose()
             {

@@ -30,6 +30,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 return installedFontFamilies;
             }
         }
+        private static readonly PropertyChangedEventArgs fontFamilyExtensionChangedEventArgs = new PropertyChangedEventArgs(nameof(FontFamily));
         private string fontName;
 
         [PlatformTargetProperty]
@@ -63,7 +64,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref fontName, value);
-                RaisePropertyChanged(nameof(FontFamily));
+                RaisePropertyChanged(fontFamilyExtensionChangedEventArgs);
             }
         }
     }

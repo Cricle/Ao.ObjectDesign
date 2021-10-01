@@ -96,9 +96,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Height = Clamp(value.Height, minHeight, maxHeight);
             }
         }
+        private static readonly PropertyChangedEventArgs sizeEventArgs = new PropertyChangedEventArgs(nameof(Size));
         protected void RaiseSizeChanged()
         {
-            RaisePropertyChanged(nameof(Size));
+            RaisePropertyChanged(sizeEventArgs);
         }
         protected double Clamp(double value, double min, double max)
         {

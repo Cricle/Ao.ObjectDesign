@@ -96,9 +96,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RaiseLinearGradientBrushChange();
         }
 
+        private static readonly PropertyChangedEventArgs linearGradientBrushChangedEventArgs = new PropertyChangedEventArgs(nameof(LinearGradientBrush));
         protected void RaiseLinearGradientBrushChange()
         {
-            RaisePropertyChanged(nameof(LinearGradientBrush));
+            RaisePropertyChanged(linearGradientBrushChangedEventArgs);
         }
     }
 }

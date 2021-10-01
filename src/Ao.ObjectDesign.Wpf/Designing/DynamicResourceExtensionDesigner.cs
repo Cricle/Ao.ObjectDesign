@@ -8,6 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [MappingFor(typeof(DynamicResourceExtension))]
     public class DynamicResourceExtensionDesigner : NotifyableObject
     {
+        private static readonly PropertyChangedEventArgs dynamicResourceExtensionChangedEventArgs = new PropertyChangedEventArgs(nameof(DynamicResourceExtension));
         private string key;
 
         [DefaultValue(null)]
@@ -17,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref key, value);
-                RaisePropertyChanged(nameof(StaticResourceExtension));
+                RaisePropertyChanged(dynamicResourceExtensionChangedEventArgs);
             }
         }
         [PlatformTargetProperty]

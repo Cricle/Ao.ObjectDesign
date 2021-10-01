@@ -50,9 +50,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
+        private static readonly PropertyChangedEventArgs translateTransformEventArgs = new PropertyChangedEventArgs(nameof(TranslateTransform));
         protected void RaiseTranslateTransformChanged()
         {
-            RaisePropertyChanged(nameof(TranslateTransform));
+            RaisePropertyChanged(translateTransformEventArgs);
         }
     }
 }

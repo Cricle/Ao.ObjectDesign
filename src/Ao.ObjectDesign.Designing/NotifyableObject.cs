@@ -18,7 +18,12 @@ namespace Ao.ObjectDesign.Designing
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaisePropertyChanged([CallerMemberName] string name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            RaisePropertyChanged(new PropertyChangedEventArgs(name));
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        protected void RaisePropertyChanged(PropertyChangedEventArgs args)
+        {
+            PropertyChanged?.Invoke(this, args);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void RaisePropertyChanging([CallerMemberName] string name = null)

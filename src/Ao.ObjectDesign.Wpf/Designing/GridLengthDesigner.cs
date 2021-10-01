@@ -8,6 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(GridLength))]
     public class GridLengthDesigner : NotifyableObject
     {
+        private static readonly PropertyChangedEventArgs gridLengthChangedEventArgs = new PropertyChangedEventArgs(nameof(GridLength));
         private GridUnitType type;
         private double value = 1;
 
@@ -51,7 +52,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         protected void RaiseGridLengthChanged()
         {
-            RaisePropertyChanged(nameof(GridLength));
+            RaisePropertyChanged(gridLengthChangedEventArgs);
         }
     }
 }

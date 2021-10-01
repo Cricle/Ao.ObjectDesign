@@ -67,9 +67,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseCornerRadiusChanged();
             }
         }
+        private static readonly PropertyChangedEventArgs cornerRadiusChangedEventArgs = new PropertyChangedEventArgs(nameof(CornerRadius));
         protected void RaiseCornerRadiusChanged()
         {
-            RaisePropertyChanged(nameof(CornerRadius));
+            RaisePropertyChanged(cornerRadiusChangedEventArgs);
         }
     }
 }

@@ -129,9 +129,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
+        private static readonly PropertyChangedEventArgs cursorChangedEventArgs = new PropertyChangedEventArgs(nameof(Cursor));
         protected void RaiseCursorChanged()
         {
-            RaisePropertyChanged(nameof(Cursor));
+            RaisePropertyChanged(cursorChangedEventArgs);
         }
     }
 }

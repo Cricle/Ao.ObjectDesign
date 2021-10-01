@@ -43,6 +43,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref viewboxUnits, value);
+                TileBrushPropertyChanged();
             }
         }
 
@@ -53,6 +54,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref alignmentX, value);
+                TileBrushPropertyChanged();
             }
         }
 
@@ -63,6 +65,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref viewportUnits, value);
+                TileBrushPropertyChanged();
             }
         }
 
@@ -73,6 +76,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref alignmentY, value);
+                TileBrushPropertyChanged();
             }
         }
 
@@ -95,7 +99,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private void OnViewportPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(ViewportPropertyName);
+            RaisePropertyChanged(e);
+            TileBrushPropertyChanged();
         }
 
         public virtual RectDesigner Viewbox
@@ -117,7 +122,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private void OnViewboxPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            RaisePropertyChanged(ViewboxPropertyName);
+            RaisePropertyChanged(e);
+            TileBrushPropertyChanged();
         }
 
         [DefaultValue(Stretch.None)]
@@ -127,6 +133,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref stretch, value);
+                TileBrushPropertyChanged();
             }
         }
 
@@ -137,6 +144,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref tileMode, value);
+                TileBrushPropertyChanged();
             }
         }
 
@@ -188,6 +196,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 ViewportUnits = brush.ViewportUnits;
                 ViewboxUnits = brush.ViewboxUnits;
             }
+        }
+        protected virtual void TileBrushPropertyChanged()
+        {
+
         }
     }
 }

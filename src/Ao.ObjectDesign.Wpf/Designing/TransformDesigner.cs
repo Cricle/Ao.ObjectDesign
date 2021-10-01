@@ -18,30 +18,50 @@ namespace Ao.ObjectDesign.Wpf.Designing
         public virtual TransformTypes TransformType
         {
             get => transformType;
-            set => Set(ref transformType, value);
+            set
+            {
+                Set(ref transformType, value);
+                RaiseTransformChanged();
+            }
         }
 
         public virtual SkewTransformDesigner SkewTransform
         {
             get => skewTransform;
-            set => Set(ref skewTransform, value);
+            set
+            {
+                Set(ref skewTransform, value);
+                RaiseTransformChanged();
+            }
         }
 
         public virtual TranslateTransformDesigner TranslateTransform
         {
             get => translateTransform;
-            set => Set(ref translateTransform, value);
+            set
+            {
+                Set(ref translateTransform, value);
+                RaiseTransformChanged();
+            }
         }
 
         public virtual ScaleTransformDesigner ScaleTransform
         {
             get => scaleTransform;
-            set => Set(ref scaleTransform, value);
+            set
+            {
+                Set(ref scaleTransform, value);
+                RaiseTransformChanged();
+            }
         }
         public virtual RotateTransformDesigner RotateTransform
         {
             get => rotateTransform;
-            set => Set(ref rotateTransform, value);
+            set
+            {
+                Set(ref rotateTransform, value);
+                RaiseTransformChanged();
+            }
         }
 
         [ProvideMulityValues]
@@ -128,6 +148,12 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     }
                 }
             }
+        }
+        private static readonly PropertyChangedEventArgs transformEventArgs = new PropertyChangedEventArgs(nameof(Transform));
+
+        protected void RaiseTransformChanged()
+        {
+            RaisePropertyChanged(transformEventArgs);
         }
     }
 }

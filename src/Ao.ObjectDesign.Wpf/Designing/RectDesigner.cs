@@ -17,28 +17,44 @@ namespace Ao.ObjectDesign.Wpf.Designing
         public virtual double Height
         {
             get => height;
-            set => Set(ref height, value);
+            set
+            {
+                Set(ref height, value);
+                RaiseRectChanged();
+            }
         }
 
         [DefaultValue(0d)]
         public virtual double Width
         {
             get => width;
-            set => Set(ref width, value);
+            set
+            {
+                Set(ref width, value);
+                RaiseRectChanged();
+            }
         }
 
         [DefaultValue(0d)]
         public virtual double Y
         {
             get => y;
-            set => Set(ref y, value);
+            set
+            {
+                Set(ref y, value);
+                RaiseRectChanged();
+            }
         }
 
         [DefaultValue(0d)]
         public virtual double X
         {
             get => x;
-            set => Set(ref x, value);
+            set
+            {
+                Set(ref x, value);
+                RaiseRectChanged();
+            }
         }
         [PlatformTargetProperty]
         public virtual Rect Rect
@@ -51,6 +67,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 Width = value.Width;
                 Height = value.Height;
             }
+        }
+        private static readonly PropertyChangedEventArgs rectEventArgs = new PropertyChangedEventArgs(nameof(Rect));
+        protected void RaiseRectChanged()
+        {
+            RaisePropertyChanged(rectEventArgs);
         }
     }
 }
