@@ -99,8 +99,7 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             if (LazyBinding)
             {
-                bindingTaskMap.Remove(unit.DesigningObject);
-                bindingTaskMap.Add(unit.DesigningObject, new LazyBindingBox<TDesignObject>(unit, scopes.ToList()));
+                bindingTaskMap[unit.DesigningObject] = new LazyBindingBox<TDesignObject>(unit, scopes.ToList());
             }
             else
             {

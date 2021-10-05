@@ -8,7 +8,17 @@ namespace Ao.ObjectDesign.Wpf.Json
 {
     public class IgnoreContractResolver : DefaultContractResolver
     {
-        public HashSet<Type> IgnoreTypes { get; } = new HashSet<Type>();
+        public IgnoreContractResolver()
+            :this(new HashSet<Type>())
+        {
+
+        }
+        public IgnoreContractResolver(HashSet<Type> ignoreTypes)
+        {
+            IgnoreTypes = ignoreTypes ?? throw new ArgumentNullException(nameof(ignoreTypes));
+        }
+
+        public HashSet<Type> IgnoreTypes { get; }
 
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {

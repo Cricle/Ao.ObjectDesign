@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
@@ -24,11 +25,8 @@ namespace Ao.ObjectDesign.Wpf.Json
         }
         public static IgnoreContractResolver CreateIgnoresContractResolver()
         {
-            IgnoreContractResolver resolver = new IgnoreContractResolver();
-            foreach (Type item in DesigningHelpers.KnowDesigningTypes)
-            {
-                resolver.IgnoreTypes.Add(item);
-            }
+            IgnoreContractResolver resolver = new IgnoreContractResolver(
+                new HashSet<Type>(DesigningHelpers.KnowDesigningTypes));
             return resolver;
         }
         public static string Serialize<T>(T obj)

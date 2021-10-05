@@ -22,9 +22,9 @@ namespace Ao.ObjectDesign
             PropertyName = propertyName;
         }
 
-        public Type Type { get; }
+        public readonly Type Type;
 
-        public string PropertyName { get; }
+        public readonly string PropertyName;
 
         public bool Equals(PropertyIdentity other)
         {
@@ -45,7 +45,16 @@ namespace Ao.ObjectDesign
         }
         public override int GetHashCode()
         {
-            return (Type?.GetHashCode() ?? 0) ^ (PropertyName?.GetHashCode() ?? 0);
+            var h = 0;
+            if (Type != null)
+            {
+                h = Type.GetHashCode();
+            }
+            if (PropertyName != null)
+            {
+                h ^= PropertyName.GetHashCode();
+            }
+            return h;
         }
         public static bool operator ==(PropertyIdentity a, PropertyIdentity b)
         {

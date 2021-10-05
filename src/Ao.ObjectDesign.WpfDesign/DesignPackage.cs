@@ -12,7 +12,7 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public abstract class DesignPackage<TDesignObject> : IDesignPackage<TDesignObject>
     {
-        public DesignPackage(BindingCreatorFactoryCollection<TDesignObject> bindingCreators, UIDesignMap uIDesinMap)
+        protected DesignPackage(BindingCreatorFactoryCollection<TDesignObject> bindingCreators, UIDesignMap uIDesinMap)
         {
             BindingCreators = bindingCreators;
             UIDesinMap = uIDesinMap;
