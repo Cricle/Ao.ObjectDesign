@@ -89,17 +89,7 @@ namespace System.Collections.ObjectModel
         {
             CheckReentrancy();
 
-            if (Items is List<T> list)
-            {
-                list.AddRange(items);
-            }
-            else
-            {
-                foreach (T item in items)
-                {
-                    Items.Add(item);
-                }
-            }
+            ((List<T>)Items).AddRange(items);
             OnPropertyChanged(EventArgsCache.CountPropertyChanged);
             OnPropertyChanged(EventArgsCache.IndexerPropertyChanged);
         }

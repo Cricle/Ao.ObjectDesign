@@ -3,7 +3,7 @@
 namespace Ao.ObjectDesign.Designing.Level
 {
     [Serializable]
-    public struct DefaultVector : IVector, IEquatable<DefaultVector>
+    public class DefaultVector : IVector, IEquatable<DefaultVector>
     {
         public static readonly DefaultVector Zero = new DefaultVector(0, 0);
         public static readonly DefaultVector One = new DefaultVector(1, 1);
@@ -37,6 +37,10 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public bool Equals(DefaultVector other)
         {
+            if (other is null)
+            {
+                return false;
+            }
             return other.X == X && other.Y == Y;
         }
     }

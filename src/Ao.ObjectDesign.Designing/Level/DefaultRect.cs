@@ -3,7 +3,7 @@
 namespace Ao.ObjectDesign.Designing.Level
 {
     [Serializable]
-    public struct DefaultRect : IRect, IEquatable<DefaultRect>
+    public class DefaultRect : IRect, IEquatable<DefaultRect>
     {
         public static readonly DefaultRect Zero = new DefaultRect(0, 0, 0, 0);
 
@@ -38,6 +38,10 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public bool Equals(DefaultRect other)
         {
+            if (other is null)
+            {
+                return false;
+            }
             return other.Left == Left &&
                 other.Top == Top &&
                 other.Right == Right &&

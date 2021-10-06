@@ -62,9 +62,12 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsTrue(channel.IsSubscribedName(name));
             Assert.IsTrue(channel.IsSubscribedNotifyer(name, notifyer));
 
-            channel.UnRegist(name, notifyer);
+            var res=channel.UnRegist(name, notifyer);
+            Assert.IsTrue(res);
             Assert.IsFalse(channel.IsSubscribedName(name));
             Assert.IsFalse(channel.IsSubscribedNotifyer(name, notifyer));
+            res = channel.UnRegist(name, notifyer);
+            Assert.IsFalse(res);
         }
         [TestMethod]
         public void Regist_UnRegist_Notify()
@@ -74,7 +77,8 @@ namespace Ao.ObjectDesign.Test.Data
             var notifyer = new ValueDataNotifyer();
             var name = "duadghsa";
 
-            channel.Regist(name, notifyer);
+            var res=channel.Regist(name, notifyer);
+            Assert.IsNotNull(res);
             var val = VarValue.FalseValue;
             dv.AddOrUpdate(name,val);
             Assert.AreEqual(dv, notifyer.Sender);
@@ -99,6 +103,11 @@ namespace Ao.ObjectDesign.Test.Data
             var notifyer = new ValueDataNotifyer();
 
             channel.Regist(name, notifyer);
+
+            Assert.AreEqual(name, channel.SubscribeNames.Single());
+            var m = channel.NotifyerMap;
+            Assert.AreEqual(1, m.Count);
+            Assert.AreEqual(name, m.Keys.Single());
 
             val = channel.GetSubscribeCount(name);
             Assert.AreEqual(1, val.Value);

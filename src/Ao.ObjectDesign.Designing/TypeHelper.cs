@@ -84,6 +84,11 @@ namespace Ao.ObjectDesign.Designing
             {
                 try
                 {
+                    if (type.IsInstanceOfType(value))
+                    {
+                        result = value;
+                        return true;
+                    }
                     result = Enum.Parse(type, value.ToString());
                     return true;
                 }

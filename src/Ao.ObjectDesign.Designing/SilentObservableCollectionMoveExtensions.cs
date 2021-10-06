@@ -1,6 +1,6 @@
 ﻿namespace System.Collections.ObjectModel
 {
-    public static class SilentObservableCollectionMoveExtensions
+    public static class ObservableCollectionMoveExtensions
     {
         public static int? MoveTop<T>(this ObservableCollection<T> collection, T obj)
         {
@@ -62,7 +62,7 @@
                     }
                     break;
                 default:
-                    break;
+                    throw new NotSupportedException(directions.ToString());
             }
             return null;
         }

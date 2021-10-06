@@ -16,6 +16,11 @@ namespace Ao.ObjectDesign.Designing.Level
         }
         public static IRect Outter(this IEnumerable<IRect> rects)
         {
+            if (rects is null)
+            {
+                throw new ArgumentNullException(nameof(rects));
+            }
+
             if (!rects.Any())
             {
                 return DefaultRect.Zero;

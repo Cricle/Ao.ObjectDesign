@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.WpfDesign.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.TextJson", "src\Ao.ObjectDesign.Wpf.TextJson\Ao.ObjectDesign.Wpf.TextJson.csproj", "{A4E941B2-9F20-48C3-A609-2FA3682E296A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Wpf.MessagePack", "src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj", "{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -255,6 +257,18 @@ Global
 		{A4E941B2-9F20-48C3-A609-2FA3682E296A}.Release|x64.Build.0 = Release|Any CPU
 		{A4E941B2-9F20-48C3-A609-2FA3682E296A}.Release|x86.ActiveCfg = Release|Any CPU
 		{A4E941B2-9F20-48C3-A609-2FA3682E296A}.Release|x86.Build.0 = Release|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Debug|x64.Build.0 = Debug|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Debug|x86.Build.0 = Debug|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x64.ActiveCfg = Release|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x64.Build.0 = Release|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x86.ActiveCfg = Release|Any CPU
+		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

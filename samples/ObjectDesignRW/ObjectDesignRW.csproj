@@ -2,11 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
     <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
 
