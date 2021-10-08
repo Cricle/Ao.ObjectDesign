@@ -8,13 +8,18 @@ namespace Ao.ObjectDesign
         public EmitInstanceFactory(Type targetType)
             :base(targetType)
         {
+            Debug.Assert(targetType != null);
+            TypeCreator = CompiledPropertyInfo.GetCreator(targetType);
         }
+
+        public TypeCreator TypeCreator { get; }
 
         public override object Create()
         {
             Debug.Assert(TargetType != null);
+            Debug.Assert(TypeCreator != null);
 
-            return ReflectionHelper.Create(TargetType);
+            return TypeCreator();
         }
 
     }
