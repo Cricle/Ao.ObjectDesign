@@ -33,7 +33,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(0d)]
+        [DefaultValue(1d)]
         public double ScaleX
         {
             get => scaleX;

@@ -65,7 +65,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseDropShadowEffectChanged();
             }
         }
-        [DefaultValue(0d)]
+        [DefaultValue(5d)]
         public virtual double BlurRadius
         {
             get => blurRadius;
@@ -75,7 +75,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseDropShadowEffectChanged();
             }
         }
-        [DefaultValue(0d)]
+        [DefaultValue(1d)]
         public virtual double Opacity
         {
             get => opacity;
@@ -85,7 +85,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseDropShadowEffectChanged();
             }
         }
-        [DefaultValue(0d)]
+        [DefaultValue(315d)]
         public virtual double Direction
         {
             get => direction;
@@ -95,7 +95,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseDropShadowEffectChanged();
             }
         }
-        [DefaultValue(null)]
         public virtual ColorDesigner Color
         {
             get => color;
@@ -114,7 +113,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(0d)]
+        [DefaultValue(5d)]
         public virtual double ShadowDepth
         {
             get => shadowDepth;

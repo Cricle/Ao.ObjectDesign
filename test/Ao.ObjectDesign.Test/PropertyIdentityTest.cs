@@ -7,9 +7,15 @@ using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test
 {
+    class A
+    {
+        public string Name { get; set; }
+        public string Name1 { get; set; }
+    }
     [TestClass]
     public class PropertyIdentityTest
     {
+        
         [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
@@ -21,8 +27,8 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GivenIdentityInit_MustCopy()
         {
-            var type = typeof(object);
-            var name = "hello";
+            var type = typeof(A);
+            var name = "Name";
             var identity1 = new PropertyIdentity(type, name);
             var identity2 = new PropertyIdentity(identity1);
 
@@ -32,8 +38,8 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GivenValueInit_PropertyValueMustEqualInput()
         {
-            var type = typeof(object);
-            var name = "hello";
+            var type = typeof(A);
+            var name = "Name";
             var identity = new PropertyIdentity(type, name);
             Assert.AreEqual(type, identity.Type);
             Assert.AreEqual(name, identity.PropertyName);
@@ -41,9 +47,9 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void EqualsAndGetHashCode()
         {
-            var type = typeof(object);
-            var name = "hello";
-            var name2 = "hello2";
+            var type = typeof(A);
+            var name = "Name";
+            var name2 = "Name1";
             var identity = new PropertyIdentity(type, name);
             var identity2 = new PropertyIdentity(type, name);
             var identity3 = new PropertyIdentity(type, name2);

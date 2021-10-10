@@ -10,7 +10,7 @@ namespace Ao.ObjectDesign
             TargetType = targetType ?? throw new ArgumentNullException(nameof(targetType));
         }
 
-        public virtual Type TargetType { get; }
+        public Type TargetType { get; }
 
         public abstract object Create();
 

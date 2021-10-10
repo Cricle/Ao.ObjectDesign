@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Ao.ObjectDesign
 {
@@ -10,6 +11,7 @@ namespace Ao.ObjectDesign
         {
             Type = identity.Type;
             PropertyName = identity.PropertyName;
+            PropertyInfo = identity.PropertyInfo;
         }
         public PropertyIdentity(Type type, string propertyName)
         {
@@ -20,11 +22,18 @@ namespace Ao.ObjectDesign
 
             Type = type ?? throw new ArgumentNullException(nameof(type));
             PropertyName = propertyName;
+            PropertyInfo = type.GetProperty(propertyName);
+            if (PropertyInfo is null)
+            {
+                throw new ArgumentException($"Type {type} can't found property {PropertyName}");
+            }
         }
-
+        
         public readonly Type Type;
 
         public readonly string PropertyName;
+
+        public readonly PropertyInfo PropertyInfo;
 
         public bool Equals(PropertyIdentity other)
         {
@@ -46,14 +55,17 @@ namespace Ao.ObjectDesign
         public override int GetHashCode()
         {
             int hash = 17;
+            var h = 0;
             if (Type != null)
             {
-                hash = hash * 31 + Type.GetHashCode();
+                h = Type.GetHashCode();
             }
+            hash = hash * 31 + h;
             if (PropertyName != null)
             {
-                hash = hash * 31 + PropertyName.GetHashCode();
+                h = PropertyName.GetHashCode();
             }
+            hash = hash * 31 + h;
             return hash;
         }
         public static bool operator ==(PropertyIdentity a, PropertyIdentity b)

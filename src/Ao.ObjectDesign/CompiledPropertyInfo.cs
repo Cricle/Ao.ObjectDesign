@@ -33,19 +33,25 @@ namespace Ao.ObjectDesign
 
         private static PropertySetter CreateSetter(PropertyIdentity x)
         {
-            PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
-            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, propertInfo);
+            CheckPropertyIdentity(ref x);
+            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, x.PropertyInfo);
             Debug.Assert(dn != null);
             return (PropertySetter)dn.CreateDelegate(PropertySetterType);
         }
         private static PropertyGetter CreateGetter(PropertyIdentity x)
         {
-            PropertyInfo propertInfo = x.Type.GetProperty(x.PropertyName);
-            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, propertInfo);
+            CheckPropertyIdentity(ref x);
+            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, x.PropertyInfo);
             Debug.Assert(dn != null);
             return (PropertyGetter)dn.CreateDelegate(PropertyGetterType);
         }
-
+        private static void CheckPropertyIdentity(ref PropertyIdentity x)
+        {
+            if (x.PropertyInfo is null)
+            {
+                throw new ArgumentException("Property identity can't found property info!");
+            }
+        }
         public static TypeCreator GetCreator(Type type)
         {
             if (type is null)

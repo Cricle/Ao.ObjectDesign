@@ -59,7 +59,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double opacity = 1;
         private SilentObservableCollection<GradientStopDesigner> penGradientStops;
 
-        [DefaultValue(0d)]
+        [DefaultValue(1d)]
         public virtual double Opacity
         {
             get => opacity;

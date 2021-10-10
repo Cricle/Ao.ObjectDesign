@@ -27,7 +27,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double radiusY;
         private PointDesigner gradientOrigin;
 
-        [DefaultValue(null)]
         public virtual PointDesigner GradientOrigin
         {
             get => gradientOrigin;
@@ -46,7 +45,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(0d)]
+        [DefaultValue(0.5d)]
         public virtual double RadiusY
         {
             get => radiusY;
@@ -57,7 +56,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(0d)]
+        [DefaultValue(0.5d)]
         public virtual double RadiusX
         {
             get => radiusX;
@@ -68,7 +67,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(null)]
         public virtual PointDesigner Center
         {
             get => center;

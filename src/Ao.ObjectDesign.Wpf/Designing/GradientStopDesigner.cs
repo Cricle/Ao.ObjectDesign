@@ -38,7 +38,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(null)]
         public virtual ColorDesigner Color
         {
             get => color;

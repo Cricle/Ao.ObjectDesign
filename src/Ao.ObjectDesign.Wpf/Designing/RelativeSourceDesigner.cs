@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private string ancestorType;
         private int ancestorLevel;
 
-        [DefaultValue(RelativeSourceMode.Self)]
+        [DefaultValue(RelativeSourceMode.FindAncestor)]
         public virtual RelativeSourceMode Mode
         {
             get => mode;
@@ -34,7 +34,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRelativeSourceChanged();
             }
         }
-        [DefaultValue(1)]
+        [DefaultValue(-1)]
         public virtual int AncestorLevel
         {
             get => ancestorLevel;

@@ -126,7 +126,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             TileBrushPropertyChanged();
         }
 
-        [DefaultValue(Stretch.None)]
+        [DefaultValue(Stretch.Fill)]
         public virtual Stretch Stretch
         {
             get => stretch;

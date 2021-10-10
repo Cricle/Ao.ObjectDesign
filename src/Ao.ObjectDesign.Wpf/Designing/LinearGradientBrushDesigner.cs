@@ -24,7 +24,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private PointDesigner startPoint;
         private PointDesigner endPoint;
 
-        [DefaultValue(null)]
         public virtual PointDesigner EndPoint
         {
             get => endPoint;
@@ -44,7 +43,6 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [DefaultValue(null)]
         public virtual PointDesigner StartPoint
         {
             get => startPoint;

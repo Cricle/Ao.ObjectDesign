@@ -23,8 +23,8 @@ namespace Ao.ObjectDesign.Test
         {
             var inst = PropertyIdentityComparer.Instance;
 
-            var a = new PropertyIdentity(typeof(object), "a");
-            var b = new PropertyIdentity(typeof(object), "a");
+            var a = new PropertyIdentity(typeof(A), "Name");
+            var b = new PropertyIdentity(typeof(A), "Name");
 
             Assert.IsTrue(inst.Equals(a, b));
             Assert.IsTrue(inst.Equals(default, default));
@@ -35,7 +35,7 @@ namespace Ao.ObjectDesign.Test
         public void GetHashCode_MustEqualInstGetHashCode()
         {
             var inst = PropertyIdentityComparer.Instance;
-            var p = new PropertyIdentity(typeof(object), "a");
+            var p = new PropertyIdentity(typeof(A), "Name");
             var hash = p.GetHashCode();
             var act = inst.GetHashCode(p);
             Assert.AreEqual(hash, act);
