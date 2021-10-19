@@ -25,12 +25,25 @@ namespace Ao.ObjectDesign.Designing.Working
             }
 
             string origin = builder.GetOrigin(name);
-            int? lastIndex = sameNames
-                .Where(x => x.StartsWith(origin))
-                .Select(x => builder.GetIndex(x))
-                .Where(x => x.HasValue)
-                .OrderByDescending(x => x.Value)
-                .FirstOrDefault();
+            int? lastIndex = null;
+            foreach (var item in sameNames)
+            {
+                if (item.StartsWith(origin))
+                {
+                    var idx = builder.GetIndex(item);
+                    if (idx != null)
+                    {
+                        if (lastIndex is null)
+                        {
+                            lastIndex = idx;
+                        }
+                        else
+                        {
+                            lastIndex = Math.Max(idx.Value, lastIndex.Value);
+                        }
+                    }
+                }
+            }
             if (!lastIndex.HasValue)
             {
                 lastIndex = 0;

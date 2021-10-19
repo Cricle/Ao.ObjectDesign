@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,30 +11,58 @@ namespace Ao.ObjectDesign.Designing
 {
     public static class FlatReflectionHelper
     {
-        public static IReadOnlyList<SpecularMappingItem> SpecularMapping(object source,object target)
+        private static readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, TypeProperty>> typeToRefs=new ConcurrentDictionary<Type, IReadOnlyDictionary<string, TypeProperty>>();
+        private static IReadOnlyDictionary<string, TypeProperty> GetPropertyMaps(Type type)
         {
-            var res = new List<SpecularMappingItem>();
-            var sourceProperties = source.GetType().GetProperties();
-            var destProperties = target.GetType().GetProperties()
-                .ToDictionary(x => x.Name);
+            return typeToRefs.GetOrAdd(type, CreatePropertyMaps);
+        }
+        private static IReadOnlyDictionary<string, TypeProperty> CreatePropertyMaps(Type type)
+        {
+            return FrozenDictionary<string, TypeProperty>.Create(
+                TypeMappings.GetTypeProperties(type),
+                x => x.Name,
+                x => x,
+                null);
+        }
+
+
+        public static IReadOnlyList<SpecularMappingItem> SpecularMapping(object source, object target)
+        {
+            if (source is null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (target is null)
+            {
+                throw new ArgumentNullException(nameof(target));
+            }
+
+            var sourceProperties = TypeMappings.GetTypeProperties(source.GetType());
+            var destProperties = GetPropertyMaps(target.GetType());
+            var res = new List<SpecularMappingItem>(destProperties.Count);
             foreach (var item in sourceProperties)
             {
-                if (destProperties.TryGetValue(item.Name, out var propInfo))
+                if (item.CanGet &&
+                    destProperties.TryGetValue(item.Name, out var propInfo) &&
+                    propInfo.CanSet)
                 {
-                    if (item.PropertyType == propInfo.PropertyType)
+                    Debug.Assert(item.PropertyInfo != null);
+                    Debug.Assert(propInfo.PropertyInfo != null);
+                    if (item.PropertyInfo.PropertyType == propInfo.PropertyInfo.PropertyType)
                     {
-                        var sourceValue = ReflectionHelper.GetValue(source, item);
-                        ReflectionHelper.SetValue(target, sourceValue, propInfo);
-                        res.Add(new SpecularMappingItem(item, propInfo, sourceValue, true));
+                        var sourceValue = item.Getter(source);
+                        propInfo.Setter(target, sourceValue);
+                        res.Add(new SpecularMappingItem(item.PropertyInfo, propInfo.PropertyInfo, sourceValue, true));
                     }
                     else
                     {
-                        res.Add(new SpecularMappingItem(item, propInfo, null, false));
+                        res.Add(new SpecularMappingItem(item.PropertyInfo, propInfo.PropertyInfo, null, false));
                     }
                 }
                 else
                 {
-                    res.Add(new SpecularMappingItem(item, null, null, false));
+                    res.Add(new SpecularMappingItem(item.PropertyInfo, null, null, false));
                 }
             }
             return res;

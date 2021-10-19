@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -156,22 +157,23 @@ namespace Ao.ObjectDesign
             {
                 throw new InvalidOperationException("Dest and source type must equals or base on!");
             }
-            IEnumerable<PropertyInfo> props = destType.GetProperties()
-                .Where(x => x.CanWrite && !ignoreTypes.Contains(x.PropertyType));
-            foreach (PropertyInfo item in props)
+            foreach (var item in TypeMappings.GetTypeProperties(destType))
             {
-                PropertyIdentity identity = new PropertyIdentity(destType, item.Name);
-                PropertyGetter getter = CompiledPropertyInfo.GetGetter(identity);
-                PropertySetter setter = CompiledPropertyInfo.GetSetter(identity);
-                object sourceValue = getter(source);
+                Debug.Assert(item.PropertyInfo != null);
+                var type = item.PropertyInfo.PropertyType;
+                if (!item.CanSet||ignoreTypes.Contains(type))
+                {
+                    continue;
+                }
+                object sourceValue = item.Getter(source);
                 if (sourceValue is null)
                 {
                     continue;
                 }
-                if (item.PropertyType.IsClass &&
-                    item.PropertyType != StringType)
+                if (type.IsClass &&
+                    type != StringType)
                 {
-                    object itemValue = Create(item.PropertyType);
+                    object itemValue = Create(type);
 
                     if (itemValue is IList destEnu)
                     {
@@ -184,12 +186,12 @@ namespace Ao.ObjectDesign
                     else
                     {
                         Clone(itemValue, sourceValue, ignoreTypes);
-                        setter(dest, itemValue);
+                        item.Setter(dest, itemValue);
                     }
                 }
                 else
                 {
-                    setter(dest, sourceValue);
+                    item.Setter(dest, sourceValue);
                 }
             }
         }

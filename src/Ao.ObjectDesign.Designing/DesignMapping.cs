@@ -30,10 +30,13 @@ namespace Ao.ObjectDesign.Designing
         public override int GetHashCode()
         {
             Debug.Assert(ClrType != null);
+            Debug.Assert(UIType != null);
 #if NET5_0
             return HashCode.Combine(ClrType, UIType);
 #else
-            return ClrType.GetHashCode() ^ UIType.GetHashCode();
+            var h = 31 * 7 + ClrType.GetHashCode();
+            h = h * 7 + UIType.GetHashCode();
+            return h;
 #endif
         }
         public override bool Equals(object obj)

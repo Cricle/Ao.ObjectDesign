@@ -11,26 +11,30 @@ namespace Ao.ObjectDesign.Wpf.Designing
     [DesignFor(typeof(FontWeight))]
     public class FontWeightDesigner : NotifyableObject
     {
-        public static readonly IReadOnlyDictionary<PenFontWeights, FontWeight> fontWeightMap = new Dictionary<PenFontWeights, FontWeight>
-        {
-            [PenFontWeights.Black] = FontWeights.Black,
-            [PenFontWeights.Bold] = FontWeights.Bold,
-            [PenFontWeights.DemiBold] = FontWeights.DemiBold,
-            [PenFontWeights.ExtraBlack] = FontWeights.ExtraBlack,
-            [PenFontWeights.ExtraBold] = FontWeights.ExtraBold,
-            [PenFontWeights.ExtraLight] = FontWeights.ExtraLight,
-            [PenFontWeights.Heavy] = FontWeights.Heavy,
-            [PenFontWeights.Light] = FontWeights.Light,
-            [PenFontWeights.Medium] = FontWeights.Medium,
-            [PenFontWeights.Normal] = FontWeights.Normal,
-            [PenFontWeights.Regular] = FontWeights.Regular,
-            [PenFontWeights.SemiBold] = FontWeights.SemiBold,
-            [PenFontWeights.Thin] = FontWeights.Thin,
-            [PenFontWeights.UltraBlack] = FontWeights.UltraBlack,
-            [PenFontWeights.UltraBold] = FontWeights.UltraBold,
-            [PenFontWeights.UltraLight] = FontWeights.UltraLight,
-        };
-        public static readonly IReadOnlyList<PenFontWeights> KnowPenFontWeights = Enum.GetValues(typeof(PenFontWeights)).OfType<PenFontWeights>().ToArray();
+        public static readonly IReadOnlyDictionary<PenFontWeights, FontWeight> fontWeightMap =
+            FrozenDictionary<PenFontWeights, FontWeight>.Create(new Dictionary<PenFontWeights, FontWeight>
+            {
+                [PenFontWeights.Black] = FontWeights.Black,
+                [PenFontWeights.Bold] = FontWeights.Bold,
+                [PenFontWeights.DemiBold] = FontWeights.DemiBold,
+                [PenFontWeights.ExtraBlack] = FontWeights.ExtraBlack,
+                [PenFontWeights.ExtraBold] = FontWeights.ExtraBold,
+                [PenFontWeights.ExtraLight] = FontWeights.ExtraLight,
+                [PenFontWeights.Heavy] = FontWeights.Heavy,
+                [PenFontWeights.Light] = FontWeights.Light,
+                [PenFontWeights.Medium] = FontWeights.Medium,
+                [PenFontWeights.Normal] = FontWeights.Normal,
+                [PenFontWeights.Regular] = FontWeights.Regular,
+                [PenFontWeights.SemiBold] = FontWeights.SemiBold,
+                [PenFontWeights.Thin] = FontWeights.Thin,
+                [PenFontWeights.UltraBlack] = FontWeights.UltraBlack,
+                [PenFontWeights.UltraBold] = FontWeights.UltraBold,
+                [PenFontWeights.UltraLight] = FontWeights.UltraLight,
+            });
+        public static readonly IReadOnlyList<PenFontWeights> KnowPenFontWeights = 
+            Enum.GetValues(typeof(PenFontWeights))
+                .Cast<PenFontWeights>()
+                .ToArray();
 
         private static PenFontWeights GetFontWeight(FontWeight fontWeight)
         {

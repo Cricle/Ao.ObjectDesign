@@ -12,8 +12,8 @@ namespace Ao.ObjectDesign.Wpf
         private static readonly Type DependencyObjectType = typeof(DependencyObject);
         private static readonly Attribute[] dependencyAttributes = new Attribute[] { new PropertyFilterAttribute(PropertyFilterOptions.All) };
 
-        private static readonly ConcurrentDictionary<Type, Dictionary<string, DependencyPropertyDescriptor>> dependencyProperties =
-            new ConcurrentDictionary<Type, Dictionary<string, DependencyPropertyDescriptor>>();
+        private static readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, DependencyPropertyDescriptor>> dependencyProperties =
+            new ConcurrentDictionary<Type, IReadOnlyDictionary<string, DependencyPropertyDescriptor>>();
 
         private static void ThrowIfTypeNotBaseOnDependencyObject(Type type)
         {
@@ -54,11 +54,15 @@ namespace Ao.ObjectDesign.Wpf
 
             return dependencyProperties.GetOrAdd(type, GetDependencyPropertyDescriptorMap);
         }
-        private static Dictionary<string,DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
+        private static FrozenDictionary<string,DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
         {
-            return GetPropertyDescriptors(type)
+            var query = GetPropertyDescriptors(type)
                 .Select(t => DependencyPropertyDescriptor.FromProperty(t))
-                .Where(t => t != null).ToDictionary(y => y.Name);
+                .Where(t => t != null);
+            return FrozenDictionary<string, DependencyPropertyDescriptor>.Create(query,
+                x => x.Name,
+                x => x,
+                null);
         }
         public static IEnumerable<DependencyProperty> GetDependencyProperties(Type type)
         {

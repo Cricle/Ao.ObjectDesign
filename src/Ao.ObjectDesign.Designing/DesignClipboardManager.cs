@@ -28,7 +28,13 @@ namespace Ao.ObjectDesign.Designing
             }
             else if (copy)
             {
-                copiedObjects = objects.Select(x => Clone(x)).ToList();
+                var len = objects.Count;
+                var buffer = new TDesignObject[len];
+                for (int i = 0; i < len; i++)
+                {
+                    buffer[i] = Clone(objects[i]);
+                }
+                copiedObjects = buffer;
             }
             else
             {
