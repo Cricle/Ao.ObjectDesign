@@ -33,7 +33,6 @@ namespace Ao.ObjectDesign.Test
             var inst = new object();
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone((Type)null, inst));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone((object)null, inst));
-            Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(typeof(object), null));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone(1, null));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone<object>(null));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.Clone<object>(1, null));

@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign
 
         public override bool Equals(object obj)
         {
-            if (obj is InstanceFactory factory)
+            if (obj is InstanceFactory factory && obj.GetType() == GetType())
             {
                 return factory.TargetType == TargetType;
             }

@@ -69,7 +69,11 @@ namespace Ao.ObjectDesign
 
         public static DynamicMethod CreateObjectGetter(Type type, PropertyInfo info)
         {
-            string name = string.Concat("proxyget", type.Name, info.Name);
+            if (!info.CanRead)
+            {
+                throw new MemberAccessException($"Type {type} property {info} can't read");
+            }
+            string name = "proxyget" + type.Name + info.Name;
             DynamicMethod dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
                 ObjectType, GetterArgTypes, type, true);
             dn.InitLocals = false;
@@ -89,7 +93,11 @@ namespace Ao.ObjectDesign
         }
         public static DynamicMethod CreateObjectSetter(Type type, PropertyInfo info)
         {
-            string name = string.Concat("proxyset", type.Name, info.Name);
+            if (!info.CanWrite)
+            {
+                throw new MemberAccessException($"Type {type} property {info} can't write");
+            }
+            string name = "proxyset" + type.Name + info.Name;
             DynamicMethod dn = new DynamicMethod(name, methodAttributes, CallingConventions.Standard,
                 null, SetterArgTypes, type, true);
             dn.InitLocals = false;

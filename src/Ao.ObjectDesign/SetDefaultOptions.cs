@@ -5,7 +5,7 @@ namespace Ao.ObjectDesign
     [Flags]
     public enum SetDefaultOptions
     {
-        None,
+        None = 0,
         IgnoreNoAttribute = 1,
         IgnoreNotNull = IgnoreNoAttribute << 1,
         ClassGenerateNew = IgnoreNoAttribute << 2,

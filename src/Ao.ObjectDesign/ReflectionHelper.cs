@@ -61,42 +61,17 @@ namespace Ao.ObjectDesign
             setter(instance, value);
         }
         public static T Clone<T>(T source)
-            where T: class
+            where T : class
         {
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
             return Clone(source, ReadOnlyHashSet<Type>.Empty);
         }
         public static T Clone<T>(T source, IReadOnlyHashSet<Type> ignoreTypes)
-            where T:class
+            where T : class
         {
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (ignoreTypes is null)
-            {
-                throw new ArgumentNullException(nameof(ignoreTypes));
-            }
-
             return (T)Clone(typeof(T), source, ignoreTypes);
         }
         public static object Clone(Type destType, object source)
         {
-            if (destType is null)
-            {
-                throw new ArgumentNullException(nameof(destType));
-            }
-
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
             return Clone(destType, source, ReadOnlyHashSet<Type>.Empty);
         }
         public static object Clone(Type destType, object source, IReadOnlyHashSet<Type> ignoreTypes)
@@ -106,32 +81,12 @@ namespace Ao.ObjectDesign
                 throw new ArgumentNullException(nameof(destType));
             }
 
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (ignoreTypes is null)
-            {
-                throw new ArgumentNullException(nameof(ignoreTypes));
-            }
-
             object instance = Create(destType);
             Clone(instance, source, ignoreTypes);
             return instance;
         }
         public static void Clone(object dest, object source)
         {
-            if (dest is null)
-            {
-                throw new ArgumentNullException(nameof(dest));
-            }
-
-            if (source is null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
             Clone(dest, source, ReadOnlyHashSet<Type>.Empty);
         }
         public static void Clone(object dest, object source, IReadOnlyHashSet<Type> ignoreTypes)
@@ -153,15 +108,18 @@ namespace Ao.ObjectDesign
 
             Type destType = dest.GetType();
             Type sourceType = source.GetType();
-            if (destType != sourceType && !sourceType.IsAssignableFrom(destType))
+            if (!sourceType.IsInstanceOfType(dest))
             {
                 throw new InvalidOperationException("Dest and source type must equals or base on!");
             }
-            foreach (var item in TypeMappings.GetTypeProperties(destType))
+            var tps = TypeMappings.GetTypeProperties(destType);
+            var len = tps.Count;
+            for (int i = 0; i < len; i++)
             {
+                var item = tps[i];
                 Debug.Assert(item.PropertyInfo != null);
                 var type = item.PropertyInfo.PropertyType;
-                if (!item.CanSet||ignoreTypes.Contains(type))
+                if (!item.CanSet || ignoreTypes.Contains(type))
                 {
                     continue;
                 }
@@ -178,9 +136,10 @@ namespace Ao.ObjectDesign
                     if (itemValue is IList destEnu)
                     {
                         IList enu = (IList)sourceValue;
-                        foreach (object e in enu)
+                        var enuCount = enu.Count;
+                        for (int j = 0; j < enuCount; j++)
                         {
-                            destEnu.Add(e);
+                            destEnu.Add(enu[j]);
                         }
                     }
                     else
@@ -195,6 +154,5 @@ namespace Ao.ObjectDesign
                 }
             }
         }
-
     }
 }
