@@ -34,15 +34,18 @@ namespace Ao.ObjectDesign.Designing
         }
         public override int GetHashCode()
         {
-            var h = 0;
+            var h = 31;
+            var s = 0;
             if (View != null)
             {
-                h = View.GetHashCode();
+                s = View.GetHashCode();
             }
+            h = h * 7 + s;
             if (Context != null)
             {
-                h ^= Context.GetHashCode();
+                s = Context.GetHashCode();
             }
+            h = h * 7 + s;
             return h;
         }
 

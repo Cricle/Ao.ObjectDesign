@@ -10,10 +10,5 @@ namespace Ao.ObjectDesign.Designing
         {
             return new ModifyDetail(sender, e.PropertyName, e.From, e.To);
         }
-
-        protected override IModifyDetail Reverse(IModifyDetail fallback)
-        {
-            return fallback.Reverse();
-        }
     }
 }

@@ -101,7 +101,10 @@ namespace Ao.ObjectDesign.Designing
         {
 
         }
-        protected abstract TFallback Reverse(TFallback fallback);
+        protected virtual TFallback Reverse(TFallback fallback)
+        {
+            return (TFallback)fallback.Reverse();
+        }
         public void Redo()
         {
             Redo(true);
