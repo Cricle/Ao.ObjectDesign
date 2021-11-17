@@ -1,7 +1,9 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
+using System;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace Ao.ObjectDesign.Wpf.Designing
 {

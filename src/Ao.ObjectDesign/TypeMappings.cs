@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Ao.ObjectDesign
 {
@@ -20,7 +21,7 @@ namespace Ao.ObjectDesign
         }
         private static IReadOnlyList<TypeProperty> CreateTypeProperties(Type type)
         {
-            var prop = type.GetProperties();
+            var prop = type.GetProperties( BindingFlags.Instance| BindingFlags.Public);
             var len = prop.Length;
             var res = new TypeProperty[len];
             for (int i = 0; i < len; i++)

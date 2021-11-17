@@ -13,6 +13,12 @@ namespace Ao.ObjectDesign
             PropertyName = identity.PropertyName;
             PropertyInfo = identity.PropertyInfo;
         }
+        public PropertyIdentity(PropertyInfo info)
+        {
+            Type = info.DeclaringType;
+            PropertyName = info.Name;
+            PropertyInfo = info;
+        }
         public PropertyIdentity(Type type, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
