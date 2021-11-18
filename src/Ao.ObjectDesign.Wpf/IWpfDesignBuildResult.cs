@@ -5,7 +5,7 @@ namespace Ao.ObjectDesign.Wpf
 {
     public interface IWpfDesignBuildResult
     {
-        IActionSequencer<IModifyDetail> Sequencer { get; }
+        IActionSequencer<IFallbackable> Sequencer { get; }
 
         IObjectDesigner Designer { get; }
 

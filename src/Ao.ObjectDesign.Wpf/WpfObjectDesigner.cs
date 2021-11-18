@@ -26,7 +26,7 @@ namespace Ao.ObjectDesign.Wpf
 
         public IObjectDesigner Designer { get; }
 
-        public IActionSequencer<IModifyDetail> Sequencer { get; }
+        public IActionSequencer<IFallbackable> Sequencer { get; }
 
         public IWpfUIGenerator UIGenerator { get; }
 

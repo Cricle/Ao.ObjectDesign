@@ -48,6 +48,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 value.PropertyChanged += OnPropertyChanged;
             }
             Set(ref radialGradientBrushDesigner, value);
+            RaiseBrushChanged();
         }
 
 
@@ -72,8 +73,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-            linearGradientBrushDesigner = value;
-            RaisePropertyChanged(linearGradientBrushDesignerChangedEventArgs);
+            Set(ref linearGradientBrushDesigner, value);
+            RaiseBrushChanged();
         }
 
         public virtual SolidColorBrushDesigner SolidColorBrushDesigner
@@ -97,8 +98,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-            solidColorBrushDesigner = value;
-            RaisePropertyChanged(solidColorBrushDesignerChangedEventArgs);
+            Set(ref solidColorBrushDesigner, value);
+            RaiseBrushChanged();
 
         }
 
@@ -125,8 +126,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-            imageBrushDesigner = value;
-            RaisePropertyChanged(imageBrushDesignerChangedEventArgs);
+            Set(ref imageBrushDesigner, value);
+            RaiseBrushChanged();
 
         }
 

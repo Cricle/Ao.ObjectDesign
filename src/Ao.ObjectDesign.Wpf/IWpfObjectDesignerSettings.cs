@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign.Wpf
     {
         IForViewBuilder<DataTemplate, WpfTemplateForViewBuildContext> DataTemplateBuilder { get; }
         IObjectDesigner Designer { get; }
-        IActionSequencer<IModifyDetail> Sequencer { get; }
+        IActionSequencer<IFallbackable> Sequencer { get; }
         IForViewBuilder<FrameworkElement, WpfForViewBuildContext> UIBuilder { get; }
         IWpfUIGenerator UIGenerator { get; }
     }

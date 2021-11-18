@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign.WpfDesign
     {
         private bool isInitialized;
         private WpfObjectDesigner wpfObjectDesigner;
-        private IActionSequencer<IModifyDetail> sequencer;
+        private IActionSequencer<IFallbackable> sequencer;
         private AccessInputBindings keyboardBindings;
         private IDesignPackage<TDesignObject> designPackage;
         private UIDesignMap uiDesignMap;
@@ -27,7 +27,7 @@ namespace Ao.ObjectDesign.WpfDesign
 
         public WpfObjectDesigner WpfObjectDesigner => wpfObjectDesigner;
 
-        public IActionSequencer<IModifyDetail> Sequencer => sequencer;
+        public IActionSequencer<IFallbackable> Sequencer => sequencer;
 
         public AccessInputBindings KeyboardBindings => keyboardBindings;
 
@@ -65,7 +65,7 @@ namespace Ao.ObjectDesign.WpfDesign
 
         }
 
-        protected virtual IActionSequencer<IModifyDetail> CreateSequencer(WpfObjectDesigner designer)
+        protected virtual IActionSequencer<IFallbackable> CreateSequencer(WpfObjectDesigner designer)
         {
             return designer.Sequencer;
         }

@@ -20,8 +20,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => blurEffect;
             set
             {
-                Set(ref blurEffect, value);
-                RaiseEffectChanged();
+                if (value != blurEffect)
+                {
+                    CoreSetBlurEffect(value);
+                }
             }
         }
         public virtual DropShadowEffectDesigner DropShadowEffect
@@ -29,8 +31,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => dropShadowEffect;
             set
             {
-                Set(ref dropShadowEffect, value);
-                RaiseEffectChanged();
+                if (value != dropShadowEffect)
+                {
+                    CoreSetDropShadowEffect(value);
+                }
             }
         }
 
@@ -39,10 +43,15 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => type;
             set
             {
-                Set(ref type, value);
-                RaiseEffectChanged();
+                if (type != value)
+                {
+                    Set(ref type, value);
+                    RaiseEffectChanged();
+                }
             }
         }
+
+        [ProvideMulityValues]
         [PlatformTargetProperty]
         [PropertyProvideValue(nameof(BlurEffect), typeof(BlurEffect))]
         [PropertyProvideValue(nameof(DropShadowEffect), typeof(DropShadowEffect))]
@@ -80,7 +89,38 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     throw new NotSupportedException(value.GetType().FullName);
                 }
+                RaiseEffectChanged();
             }
+        }
+
+        private void CoreSetBlurEffect(BlurEffectDesigner value)
+        {
+            if (blurEffect != null)
+            {
+                blurEffect.PropertyChanged -= OnPropertyChanged;
+            }
+            if (value != null)
+            {
+                value.PropertyChanged += OnPropertyChanged;
+            }
+            RaiseEffectChanged();
+        }
+        private void CoreSetDropShadowEffect(DropShadowEffectDesigner value)
+        {
+            if (dropShadowEffect != null)
+            {
+                dropShadowEffect.PropertyChanged -= OnPropertyChanged;
+            }
+            if (value != null)
+            {
+                value.PropertyChanged += OnPropertyChanged;
+            }
+
+            RaiseEffectChanged();
+        }
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            RaiseEffectChanged();
         }
         protected void RaiseEffectChanged()
         {
