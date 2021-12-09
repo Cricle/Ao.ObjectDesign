@@ -20,9 +20,9 @@ namespace Ao.ObjectDesign.Benchmark
             _ = v.Value;
         }
         [Benchmark]
-        public void Compiled()
+        public void CompiledFastExpression()
         {
-            CompiledPropertyVisitor v = new CompiledPropertyVisitor(student, prop);
+            ExpressionPropertyVisitor v = new ExpressionPropertyVisitor(student, prop);
             _ = v.Value;
         }
     }

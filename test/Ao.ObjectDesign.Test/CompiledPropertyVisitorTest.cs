@@ -19,7 +19,7 @@ namespace Ao.ObjectDesign.Test
         {
             PrivateGet obj = new PrivateGet();
             System.Reflection.PropertyInfo prop = obj.GetType().GetProperty(nameof(PrivateGet.Name));
-            CompiledPropertyVisitor c = new CompiledPropertyVisitor(obj, prop);
+            ExpressionPropertyVisitor c = new ExpressionPropertyVisitor(obj, prop);
             Assert.ThrowsException<InvalidOperationException>(() => c.GetValue());
         }
         [TestMethod]
@@ -27,7 +27,7 @@ namespace Ao.ObjectDesign.Test
         {
             Student student = new Student();
             System.Reflection.PropertyInfo prop = student.GetType().GetProperty(nameof(Student.Name));
-            CompiledPropertyVisitor c = new CompiledPropertyVisitor(student, prop);
+            ExpressionPropertyVisitor c = new ExpressionPropertyVisitor(student, prop);
             c.SetValue("aaa");
             Assert.AreEqual("aaa", student.Name);
             object val = c.GetValue();
@@ -45,7 +45,7 @@ namespace Ao.ObjectDesign.Test
         {
             ReadOnlyStudent student = new ReadOnlyStudent();
             System.Reflection.PropertyInfo prop = student.GetType().GetProperty(nameof(ReadOnlyStudent.Age));
-            CompiledPropertyVisitor c = new CompiledPropertyVisitor(student, prop);
+            ExpressionPropertyVisitor c = new ExpressionPropertyVisitor(student, prop);
             c.SetValue(333d);
             Assert.AreEqual(333d, student.Age);
             object val = c.GetValue();
@@ -72,7 +72,7 @@ namespace Ao.ObjectDesign.Test
         {
             ReadOnlyStudent student = new ReadOnlyStudent();
             System.Reflection.PropertyInfo prop = student.GetType().GetProperty(nameof(ReadOnlyStudent.Name));
-            CompiledPropertyVisitor c = new CompiledPropertyVisitor(student, prop);
+            ExpressionPropertyVisitor c = new ExpressionPropertyVisitor(student, prop);
             object val = c.GetValue();
             Assert.AreEqual("aaa", val);
             Assert.ThrowsException<InvalidOperationException>(() => c.SetValue("111"));

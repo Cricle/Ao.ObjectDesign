@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing
 {
-    public class NotifyCompiledPropertyVisitor : CompiledPropertyVisitor, INotifyPropertyChangeTo
+    public class NotifyCompiledPropertyVisitor : ExpressionPropertyVisitor, INotifyPropertyChangeTo
     {
         public NotifyCompiledPropertyVisitor(object declaringInstance, PropertyInfo propertyInfo)
             : base(declaringInstance, propertyInfo)

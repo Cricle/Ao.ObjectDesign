@@ -94,7 +94,7 @@ namespace Ao.ObjectDesign.Wpf
             {
                 return new NotifyCompiledPropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
             }
-            return new CompiledPropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
+            return new ExpressionPropertyVisitor(PropertyProxy.DeclaringInstance, PropertyProxy.PropertyInfo);
         }
     }
 }

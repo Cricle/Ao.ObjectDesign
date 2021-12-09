@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using System.Reflection.Emit;
 using System.Reflection;
+using FastExpressionCompiler;
 
 namespace Ao.ObjectDesign.Benchmark
 {
@@ -17,6 +18,7 @@ namespace Ao.ObjectDesign.Benchmark
         private delegate object ObjectCreator();
         private ObjectCreator exp;
         private ObjectCreator dync;
+        private ObjectCreator fastExp;
         private ConstructorInfo info;
         public class Student
         {
@@ -28,6 +30,11 @@ namespace Ao.ObjectDesign.Benchmark
             info = typeof(Student).GetConstructor(Type.EmptyTypes);
             exp = GenExpression();
             dync = GenDyncmic();
+            fastExp = GenFastExpression();
+
+            _ = exp();
+            _ = dync();
+            _= fastExp();
         }
         [Benchmark]
         public void GenExp()
@@ -40,6 +47,11 @@ namespace Ao.ObjectDesign.Benchmark
             _ = GenDyncmic();
         }
         [Benchmark]
+        public void GenFast()
+        {
+            _ = GenFastExpression();
+        }
+        [Benchmark]
         public void NewByExp()
         {
             _ = exp();
@@ -48,6 +60,16 @@ namespace Ao.ObjectDesign.Benchmark
         public void NewByDync()
         {
             _ = dync();
+        }
+        [Benchmark]
+        public void NewByFastExp()
+        {
+            _ = dync();
+        }
+
+        private ObjectCreator GenFastExpression() 
+        {
+            return Expression.Lambda<ObjectCreator>(Expression.Convert(Expression.New(info), typeof(object))).CompileFast();
         }
 
         private ObjectCreator GenDyncmic()

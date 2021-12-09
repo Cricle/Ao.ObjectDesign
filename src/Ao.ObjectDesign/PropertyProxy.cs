@@ -18,7 +18,7 @@ namespace Ao.ObjectDesign
                 throw new ArgumentException($"Declare instance {declaringInstance.GetType()} is not declare the property {PropertyInfo.Name}");
             }
         }
-        private CompiledPropertyVisitor propertyVisitor;
+        private ExpressionPropertyVisitor propertyVisitor;
         public virtual object DeclaringInstance { get; }
 
         public virtual object Instance
@@ -28,10 +28,10 @@ namespace Ao.ObjectDesign
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private CompiledPropertyVisitor EnsureLoadVisitor()
+        private ExpressionPropertyVisitor EnsureLoadVisitor()
         {
             return propertyVisitor ??
-               (propertyVisitor = new CompiledPropertyVisitor(DeclaringInstance, PropertyInfo));
+               (propertyVisitor = new ExpressionPropertyVisitor(DeclaringInstance, PropertyInfo));
         }
         public override string ToString()
         {

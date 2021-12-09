@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FastExpressionCompiler;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,11 +15,10 @@ namespace Ao.ObjectDesign
 
     public static class CompiledPropertyInfo
     {
+
         private static readonly Type ObjectType = typeof(object);
         private static readonly Type TypeCreatorType = typeof(TypeCreator);
-        private static readonly Type PropertyGetterType = typeof(PropertyGetter);
-        private static readonly Type PropertySetterType = typeof(PropertySetter);
-
+        
         private static readonly Func<PropertyIdentity, PropertySetter> setterFunc = CreateSetter;
         private static readonly Func<PropertyIdentity, PropertyGetter> getterFunc = CreateGetter;
 
@@ -34,16 +34,25 @@ namespace Ao.ObjectDesign
         private static PropertySetter CreateSetter(PropertyIdentity x)
         {
             CheckPropertyIdentity(ref x);
-            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectSetter(x.Type, x.PropertyInfo);
-            Debug.Assert(dn != null);
-            return (PropertySetter)dn.CreateDelegate(PropertySetterType);
+            var par1 = Expression.Parameter(typeof(object));
+            var par2 = Expression.Parameter(typeof(object));
+
+            var exp = Expression.Call(
+                        Expression.Convert(par1, x.Type), x.PropertyInfo.SetMethod,
+                            Expression.Convert(par2, x.PropertyInfo.PropertyType));
+
+            return Expression.Lambda<PropertySetter>(exp, par1, par2).CompileFast();
         }
         private static PropertyGetter CreateGetter(PropertyIdentity x)
         {
             CheckPropertyIdentity(ref x);
-            DynamicMethod dn = CompiledPropertyVisitor.CreateObjectGetter(x.Type, x.PropertyInfo);
-            Debug.Assert(dn != null);
-            return (PropertyGetter)dn.CreateDelegate(PropertyGetterType);
+            var par1 = Expression.Parameter(typeof(object));
+
+            var exp = Expression.Convert(
+                Expression.Call(
+                    Expression.Convert(par1, x.Type), x.PropertyInfo.GetMethod),typeof(object));
+
+            return Expression.Lambda<PropertyGetter>(exp, par1).CompileFast();
         }
         private static void CheckPropertyIdentity(ref PropertyIdentity x)
         {
@@ -82,5 +91,6 @@ namespace Ao.ObjectDesign
         {
             return propertyGetters.GetOrAdd(identity, getterFunc);
         }
+
     }
 }
