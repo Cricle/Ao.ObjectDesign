@@ -15,9 +15,6 @@ namespace Ao.ObjectDesign
 
     public static class CompiledPropertyInfo
     {
-
-        private static readonly Type ObjectType = typeof(object);
-        private static readonly Type TypeCreatorType = typeof(TypeCreator);
         
         private static readonly Func<PropertyIdentity, PropertySetter> setterFunc = CreateSetter;
         private static readonly Func<PropertyIdentity, PropertyGetter> getterFunc = CreateGetter;
@@ -41,7 +38,7 @@ namespace Ao.ObjectDesign
                         Expression.Convert(par1, x.Type), x.PropertyInfo.SetMethod,
                             Expression.Convert(par2, x.PropertyInfo.PropertyType));
 
-            return Expression.Lambda<PropertySetter>(exp, par1, par2).CompileFast();
+            return Expression.Lambda<PropertySetter>(exp, par1, par2).CompileSys();
         }
         private static PropertyGetter CreateGetter(PropertyIdentity x)
         {
@@ -52,7 +49,7 @@ namespace Ao.ObjectDesign
                 Expression.Call(
                     Expression.Convert(par1, x.Type), x.PropertyInfo.GetMethod),typeof(object));
 
-            return Expression.Lambda<PropertyGetter>(exp, par1).CompileFast();
+            return Expression.Lambda<PropertyGetter>(exp, par1).CompileSys();
         }
         private static void CheckPropertyIdentity(ref PropertyIdentity x)
         {
@@ -70,17 +67,13 @@ namespace Ao.ObjectDesign
 
             return typeCreators.GetOrAdd(type, t =>
             {
-                ConstructorInfo construct = type.GetConstructor(Type.EmptyTypes);
+                ConstructorInfo construct = t.GetConstructor(Type.EmptyTypes);
                 if (construct is null)
                 {
-                    throw new NotSupportedException($"Type {type.FullName} can't build, it has not empty argument constructor");
+                    throw new NotSupportedException($"Type {t.FullName} can't build, it has not empty argument constructor");
                 }
-                string name = string.Concat("create", type.Name);
-                var dn = new DynamicMethod(name, ObjectType, Type.EmptyTypes, true);
-                var il = dn.GetILGenerator();
-                il.Emit(OpCodes.Newobj, construct);
-                il.Emit(OpCodes.Ret);
-                return (TypeCreator)dn.CreateDelegate(TypeCreatorType);
+                var exp = Expression.Convert(Expression.New(construct), typeof(object));
+                return Expression.Lambda<TypeCreator>(exp).CompileSys();
             });
         }
         public static PropertySetter GetSetter(PropertyIdentity identity)
