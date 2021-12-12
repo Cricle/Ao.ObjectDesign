@@ -19,18 +19,18 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             OnPropertyChanged(DoubleCollectionChangedEventArgs);
         }
-
-        [PlatformTargetProperty]
-        public virtual DoubleCollection DoubleCollection
+        [PlatformTargetGetMethod]
+        public virtual DoubleCollection GetDoubleCollection()
         {
-            get => new DoubleCollection(this);
-            set
+           return new DoubleCollection(this);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetDoubleCollection(DoubleCollection value)
+        {
+            Clear();
+            if (value != null)
             {
-                Clear();
-                if (value != null)
-                {
-                    AddRange(value);
-                }
+                AddRange(value);
             }
         }
     }

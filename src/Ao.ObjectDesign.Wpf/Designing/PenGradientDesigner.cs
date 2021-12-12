@@ -52,7 +52,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RaisePropertyChanged(penGradientStopsBrushChangedEventArgs);
         }
 
-        private static readonly PropertyChangedEventArgs gradientStopsChangedEventArgs = new PropertyChangedEventArgs(nameof(GradientStops));
+        private static readonly PropertyChangedEventArgs gradientStopsChangedEventArgs = new PropertyChangedEventArgs("GradientStops");
         private ColorInterpolationMode colorInterpolationMode;
         private BrushMappingMode mappingMode = BrushMappingMode.RelativeToBoundingBox;
         private GradientSpreadMethod spreadMethod = GradientSpreadMethod.Pad;
@@ -119,20 +119,17 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseGradientStopsChanged();
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual IEnumerable<GradientStop> GradientStops
+        [PlatformTargetGetMethod]
+        public virtual IEnumerable<GradientStop> GetGradientStops()
         {
-            get
+            SilentObservableCollection<GradientStopDesigner> stops = penGradientStops;
+            if (stops is null)
             {
-                SilentObservableCollection<GradientStopDesigner> stops = penGradientStops;
-                if (stops is null)
-                {
-                    return Enumerable.Empty<GradientStop>();
-                }
-                return PenGradientStops.Select(x => x.GradientStop);
+                return Enumerable.Empty<GradientStop>();
             }
+            return PenGradientStops.Select(x => x.GetGradientStop());
         }
+
         protected void RaiseGradientStopsChanged()
         {
             RaisePropertyChanged(gradientStopsChangedEventArgs);
@@ -154,7 +151,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 brush.MappingMode = MappingMode;
                 brush.Opacity = Opacity;
                 brush.SpreadMethod = SpreadMethod;
-                brush.GradientStops = new GradientStopCollection(GradientStops);
+                brush.GradientStops = new GradientStopCollection(GetGradientStops());
             }
         }
 

@@ -61,34 +61,35 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseLinearGradientBrushChange();
             }
         }
-        [PlatformTargetProperty]
-        public virtual LinearGradientBrush LinearGradientBrush
+        [PlatformTargetGetMethod]
+        public virtual LinearGradientBrush GetLinearGradientBrush()
         {
-            get
+            LinearGradientBrush brush = new LinearGradientBrush
             {
-                LinearGradientBrush brush = new LinearGradientBrush
-                {
-                    StartPoint = startPoint?.Point ?? default(Point),
-                    EndPoint = endPoint?.Point ?? default(Point)
-                };
-                WriteTo(brush);
-                return brush;
-            }
-            set
-            {
-                if (value is null)
-                {
-                    StartPoint = new PointDesigner();
-                    EndPoint = new PointDesigner();
-                }
-                else
-                {
-                    StartPoint = new PointDesigner { Point = value.StartPoint };
-                    EndPoint = new PointDesigner { Point = value.EndPoint };
-                }
-                Apply(null);
-            }
+                StartPoint = startPoint?.GetPoint() ?? default(Point),
+                EndPoint = endPoint?.GetPoint() ?? default(Point)
+            };
+            WriteTo(brush);
+            return brush;
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetLinearGradientBrush(LinearGradientBrush value)
+        {
+            if (value is null)
+            {
+                StartPoint = new PointDesigner();
+                EndPoint = new PointDesigner();
+            }
+            else
+            {
+                StartPoint = new PointDesigner ();
+                StartPoint.SetPoint(value.StartPoint);
+                EndPoint = new PointDesigner ();
+                EndPoint.SetPoint(value.EndPoint);
+            }
+            Apply(null);
+        }
+
         private void OnPointPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             RaiseLinearGradientBrushChange();

@@ -32,35 +32,35 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseImageBrushChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual ImageBrush ImageBrush
+        [PlatformTargetGetMethod]
+        public virtual ImageBrush GetImageBrush()
         {
-            get
+            if (source is null)
             {
-                if (source is null)
-                {
-                    return null;
-                }
-                ImageBrush brush = new ImageBrush
-                {
-                    ImageSource = source.ImageSource
-                };
-                Apply(brush);
-                return brush;
+                return null;
             }
-            set
+            ImageBrush brush = new ImageBrush
             {
-                if (value is null)
-                {
-                    Source = null;
-                }
-                else
-                {
-                    Source = new ImageSourceDesigner { ImageSource = value.ImageSource };
-                }
-                WriteTo(value);
-            }
+                ImageSource = source.GetImageSource(),
+            };
+            Apply(brush);
+            return brush;
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetImageBrush(ImageBrush value)
+        {
+            if (value is null)
+            {
+                Source = null;
+            }
+            else
+            {
+                Source = new ImageSourceDesigner ();
+                Source.SetImageSource(value.ImageSource);
+            }
+            WriteTo(value);
+        }
+
         private static readonly PropertyChangedEventArgs imageBrushChangedEventArgs = new PropertyChangedEventArgs(nameof(ImageBrush));
         protected void RaiseImageBrushChanged()
         {

@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing.Annotations
 {
-    [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Property| AttributeTargets.ReturnValue, Inherited = false, AllowMultiple = true)]
     public sealed class PropertyProvideValueAttribute : Attribute
     {
         public PropertyProvideValueAttribute(string propertyName)

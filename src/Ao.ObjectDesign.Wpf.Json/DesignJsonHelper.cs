@@ -10,40 +10,21 @@ namespace Ao.ObjectDesign.Wpf.Json
 {
     public static class DesignJsonHelper
     {
-        internal static readonly JsonSerializerSettings settings= CreateSettings();
-
-        static JsonSerializerSettings CreateSettings()
-        {
-            return CreateSerializeSettings();
-        }
-        public static JsonSerializerSettings CreateSerializeSettings()
-        {
-            return new JsonSerializerSettings
-            {
-                ContractResolver = CreateIgnoresContractResolver()
-            };
-        }
-        public static IgnoreContractResolver CreateIgnoresContractResolver()
-        {
-            IgnoreContractResolver resolver = new IgnoreContractResolver(
-                new HashSet<Type>(DesigningHelpers.KnowDesigningTypes));
-            return resolver;
-        }
         public static string Serialize<T>(T obj)
         {
-            return JsonConvert.SerializeObject(obj, settings);
+            return JsonConvert.SerializeObject(obj);
         }
         public static string Serialize(object obj)
         {
-            return JsonConvert.SerializeObject(obj, settings);
+            return JsonConvert.SerializeObject(obj);
         }
         public static T Deserialize<T>(string value)
         {
-            return JsonConvert.DeserializeObject<T>(value, settings);
+            return JsonConvert.DeserializeObject<T>(value);
         }
         public static object Deserialize(string value, Type type)
         {
-            return JsonConvert.DeserializeObject(value, type, settings);
+            return JsonConvert.DeserializeObject(value, type);
         }
     }
 }

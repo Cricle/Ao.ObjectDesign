@@ -79,55 +79,54 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseImageSourceChanged();
             }
         }
-        [PlatformTargetProperty]
-        public ImageSource ImageSource
+        [PlatformTargetGetMethod]
+        public virtual ImageSource GetImageSource()
         {
-            get
+            if (Uri is null)
             {
-                if (Uri is null)
-                {
-                    return null;
-                }
-                BitmapImage bitmap = new BitmapImage
-                {
-                    CacheOption = cacheOption,
-                    CreateOptions = createOptions
-                };
-                if (decodePixelHeight != null)
-                {
-                    bitmap.DecodePixelHeight = decodePixelHeight.Value;
-                }
-                if (decodePixelWidth != null)
-                {
-                    bitmap.DecodePixelWidth = decodePixelWidth.Value;
-                }
-                bitmap.UriCachePolicy = new RequestCachePolicy(requestCacheLevel);
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(uri);
-                bitmap.EndInit();
-                return bitmap;
+                return null;
             }
-            set
+            BitmapImage bitmap = new BitmapImage
             {
-                if (value is null || !(value is BitmapImage img) || img.UriSource is null)//TODO:支持流
-                {
-                    Uri = null;
-                    DecodePixelHeight = DecodePixelWidth = null;
-                    CacheOption = default;
-                    CreateOptions = default;
-                    RequestCacheLevel = default;
-                }
-                else
-                {
-                    Uri = img.UriSource.AbsoluteUri;
-                    DecodePixelHeight = img.DecodePixelHeight;
-                    DecodePixelWidth = img.DecodePixelWidth;
-                    CacheOption = img.CacheOption;
-                    CreateOptions = img.CreateOptions;
-                    RequestCacheLevel = img.UriCachePolicy?.Level ?? RequestCacheLevel.Default;
-                }
+                CacheOption = cacheOption,
+                CreateOptions = createOptions
+            };
+            if (decodePixelHeight != null)
+            {
+                bitmap.DecodePixelHeight = decodePixelHeight.Value;
+            }
+            if (decodePixelWidth != null)
+            {
+                bitmap.DecodePixelWidth = decodePixelWidth.Value;
+            }
+            bitmap.UriCachePolicy = new RequestCachePolicy(requestCacheLevel);
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(uri);
+            bitmap.EndInit();
+            return bitmap;
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetImageSource(ImageSource value)
+        {
+            if (value is null || !(value is BitmapImage img) || img.UriSource is null)//TODO:支持流
+            {
+                Uri = null;
+                DecodePixelHeight = DecodePixelWidth = null;
+                CacheOption = default;
+                CreateOptions = default;
+                RequestCacheLevel = default;
+            }
+            else
+            {
+                Uri = img.UriSource.AbsoluteUri;
+                DecodePixelHeight = img.DecodePixelHeight;
+                DecodePixelWidth = img.DecodePixelWidth;
+                CacheOption = img.CacheOption;
+                CreateOptions = img.CreateOptions;
+                RequestCacheLevel = img.UriCachePolicy?.Level ?? RequestCacheLevel.Default;
             }
         }
+
 
         private static readonly PropertyChangedEventArgs imageSourceChangedEventArgs = new PropertyChangedEventArgs(nameof(ImageSource));
         protected void RaiseImageSourceChanged()

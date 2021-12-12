@@ -74,51 +74,49 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual TextDecorationCollection TextDecorationCollection
+        [PlatformTargetGetMethod]
+        public virtual TextDecorationCollection GetTextDecorationCollection()
         {
-            get
+            if (!HasTextDecorations)
             {
-                if (!HasTextDecorations)
-                {
-                    return null;
-                }
-                TextDecorationCollection coll = new TextDecorationCollection();
-                if (isUnderline)
-                {
-                    coll.Add(TextDecorations.Underline);
-                }
-                if (isOverLine)
-                {
-                    coll.Add(TextDecorations.OverLine);
-                }
-                if (isStrikethrough)
-                {
-                    coll.Add(TextDecorations.Strikethrough);
-                }
-                if (isBaseline)
-                {
-                    coll.Add(TextDecorations.Baseline);
-                }
-                return coll;
+                return null;
             }
-            set
+            TextDecorationCollection coll = new TextDecorationCollection();
+            if (isUnderline)
             {
-                if (value is null)
-                {
-                    IsBaseline = IsUnderline = IsOverLine = IsStrikethrough = false;
-                }
-                else
-                {
-                    HashSet<TextDecoration> set = new HashSet<TextDecoration>(value);
-                    IsBaseline = TextDecorations.Baseline.All(x => set.Contains(x));
-                    IsUnderline = TextDecorations.Underline.All(x => set.Contains(x));
-                    IsOverLine = TextDecorations.OverLine.All(x => set.Contains(x));
-                    IsStrikethrough = TextDecorations.Strikethrough.All(x => set.Contains(x));
-                }
+                coll.Add(TextDecorations.Underline);
+            }
+            if (isOverLine)
+            {
+                coll.Add(TextDecorations.OverLine);
+            }
+            if (isStrikethrough)
+            {
+                coll.Add(TextDecorations.Strikethrough);
+            }
+            if (isBaseline)
+            {
+                coll.Add(TextDecorations.Baseline);
+            }
+            return coll;
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetTextDecorationCollection(TextDecorationCollection value)
+        {
+            if (value is null)
+            {
+                IsBaseline = IsUnderline = IsOverLine = IsStrikethrough = false;
+            }
+            else
+            {
+                HashSet<TextDecoration> set = new HashSet<TextDecoration>(value);
+                IsBaseline = TextDecorations.Baseline.All(x => set.Contains(x));
+                IsUnderline = TextDecorations.Underline.All(x => set.Contains(x));
+                IsOverLine = TextDecorations.OverLine.All(x => set.Contains(x));
+                IsStrikethrough = TextDecorations.Strikethrough.All(x => set.Contains(x));
             }
         }
+
         private static readonly PropertyChangedEventArgs textDecorationCollectionEventArgs = new PropertyChangedEventArgs(nameof(TextDecorationCollection));
         protected void RaiseTextDecorationCollectionChanged()
         {

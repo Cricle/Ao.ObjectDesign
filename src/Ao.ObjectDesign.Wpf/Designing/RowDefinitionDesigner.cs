@@ -58,42 +58,41 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRowDefinitionChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual RowDefinition RowDefinition
+        [PlatformTargetGetMethod]
+        public virtual RowDefinition GetRowDefinition()
         {
-            get
+            GridLength length = default;
+            if (gridLengthSetting != null)
             {
-                GridLength length = default;
-                if (gridLengthSetting != null)
-                {
-                    length = gridLengthSetting.GridLength;
-                }
-                return new RowDefinition
-                {
-                    Height = length,
-                    MaxHeight = maxHeight,
-                    MinHeight = minHeight
-                };
+                length = gridLengthSetting.GetGridLength();
             }
-            set
+            return new RowDefinition
             {
-                if (value is null)
+                Height = length,
+                MaxHeight = maxHeight,
+                MinHeight = minHeight
+            };
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetRowDefinition(RowDefinition value)
+        {
+            if (value is null)
+            {
+                GridLengthSetting = null;
+            }
+            else
+            {
+                MaxHeight = value.MaxHeight;
+                MinHeight = value.MinHeight;
+                if (GridLengthSetting is null)
                 {
-                    GridLengthSetting = null;
+                    GridLengthSetting = new GridLengthDesigner();
                 }
-                else
-                {
-                    MaxHeight = value.MaxHeight;
-                    MinHeight = value.MinHeight;
-                    if (GridLengthSetting is null)
-                    {
-                        GridLengthSetting = new GridLengthDesigner();
-                    }
-                    GridLengthSetting.Type = value.Height.GridUnitType;
-                    GridLengthSetting.Value = value.Height.Value;
-                }
+                GridLengthSetting.Type = value.Height.GridUnitType;
+                GridLengthSetting.Value = value.Height.Value;
             }
         }
+
         private static readonly PropertyChangedEventArgs rowDefinitionEventArgs = new PropertyChangedEventArgs(nameof(RowDefinition));
         protected void RaiseRowDefinitionChanged()
         {

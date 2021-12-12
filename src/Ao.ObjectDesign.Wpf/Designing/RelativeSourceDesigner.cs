@@ -44,31 +44,30 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRelativeSourceChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual RelativeSource RelativeSource
+        [PlatformTargetGetMethod]
+        public virtual RelativeSource GetRelativeSource()
         {
-            get
+            if (string.IsNullOrEmpty(ancestorType))
             {
-                if (string.IsNullOrEmpty(ancestorType))
-                {
-                    return new RelativeSource(mode);
-                }
-                return new RelativeSource(mode, System.Type.GetType(ancestorType), ancestorLevel);
+                return new RelativeSource(mode);
             }
-            set
+            return new RelativeSource(mode, System.Type.GetType(ancestorType), ancestorLevel);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetRelativeSource(RelativeSource value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    SetDefault();
-                }
-                else
-                {
-                    AncestorLevel = value.AncestorLevel;
-                    Mode = value.Mode;
-                    AncestorType = value.AncestorType?.FullName;
-                }
+                SetDefault();
+            }
+            else
+            {
+                AncestorLevel = value.AncestorLevel;
+                Mode = value.Mode;
+                AncestorType = value.AncestorType?.FullName;
             }
         }
+
         private static readonly PropertyChangedEventArgs relativeSourceEventArgs = new PropertyChangedEventArgs(nameof(RelativeSource));
         protected void RaiseRelativeSourceChanged()
         {

@@ -11,14 +11,16 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private static readonly PropertyChangedEventArgs fontStyleChangedEventArgs = new PropertyChangedEventArgs(nameof(FontStyle));
         private bool isItalic;
         private bool isUnerline;
-        [PlatformTargetProperty]
-        public virtual FontStyle FontStyle
+
+        [PlatformTargetGetMethod]
+        public virtual FontStyle GetFontStyle()
         {
-            get => IsItalic ? FontStyles.Italic : FontStyles.Normal;
-            set
-            {
-                IsItalic = value == FontStyles.Italic;
-            }
+            return IsItalic ? FontStyles.Italic : FontStyles.Normal;
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetFontStyle(FontStyle value)
+        {
+            IsItalic = value == FontStyles.Italic;
         }
 
         [DefaultValue(false)]

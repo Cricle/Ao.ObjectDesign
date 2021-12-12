@@ -55,19 +55,19 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseCornerRadiusChanged();
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual CornerRadius CornerRadius
+        [PlatformTargetGetMethod]
+        public virtual CornerRadius GetCornerRadius()
         {
-            get => new CornerRadius(left, top, right, bottom);
-            set
-            {
-                Left = value.TopLeft;
-                Top = value.TopRight;
-                Right = value.BottomRight;
-                Bottom = value.BottomLeft;
-                RaiseCornerRadiusChanged();
-            }
+            return new CornerRadius(left, top, right, bottom);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetCornerRadius(CornerRadius value)
+        {
+            Left = value.TopLeft;
+            Top = value.TopRight;
+            Right = value.BottomRight;
+            Bottom = value.BottomLeft;
+            RaiseCornerRadiusChanged();
         }
         private static readonly PropertyChangedEventArgs cornerRadiusChangedEventArgs = new PropertyChangedEventArgs(nameof(CornerRadius));
         protected void RaiseCornerRadiusChanged()

@@ -11,25 +11,25 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double centerY;
         private double scaleX;
         private double scaleY;
-
-        [PlatformTargetProperty]
-        public virtual ScaleTransform ScaleTransform
+        [PlatformTargetGetMethod]
+        public virtual ScaleTransform GetScaleTransform()
         {
-            get => new ScaleTransform(scaleX, scaleY, centerX, centerY);
-            set
+            return new ScaleTransform(scaleX, scaleY, centerX, centerY);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetScaleTransform(ScaleTransform value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    ScaleX = ScaleY = 1;
-                    CenterY = CenterX = 0;
-                }
-                else
-                {
-                    ScaleX = value.ScaleX;
-                    ScaleY = value.ScaleY;
-                    CenterX = value.CenterX;
-                    CenterY = value.CenterY;
-                }
+                ScaleX = ScaleY = 1;
+                CenterY = CenterX = 0;
+            }
+            else
+            {
+                ScaleX = value.ScaleX;
+                ScaleY = value.ScaleY;
+                CenterX = value.CenterX;
+                CenterY = value.CenterY;
             }
         }
 

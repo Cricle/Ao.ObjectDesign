@@ -240,60 +240,59 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseBindingChanged();
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual Binding Binding
+        [PlatformTargetGetMethod("Binding")]
+        public virtual Binding GetBinding()
         {
-            get
+            var bd = new Binding
             {
-                var bd = new Binding
-                {
-                    BindingGroupName = BindingGroupName,
-                    BindsDirectlyToSource = bindsDirectlyToSource,
-                    ConverterCulture = converterCulture?.CultureInfo,
-                    Delay = Delay,
-                    IsAsync = isAsync,
-                    Mode = mode,
-                    NotifyOnSourceUpdated = notifyOnSourceUpdated,
-                    NotifyOnTargetUpdated = notifyOnTargetUpdated,
-                    NotifyOnValidationError = notifyOnValidationError,
-                    Path = path?.PropertyPath,
-                    StringFormat = StringFormat,
-                    ValidatesOnDataErrors = validatesOnDataErrors,
-                    ValidatesOnExceptions = validatesOnExceptions,
-                    ValidatesOnNotifyDataErrors = validatesOnNotifyDataErrors,
-                    XPath = xPath,
-                    UpdateSourceTrigger = updateSourceTrigger
-                };
-                if (!string.IsNullOrEmpty(elementName))
-                {
-                    bd.ElementName = elementName;
-                }
-                return bd;
+                BindingGroupName = BindingGroupName,
+                BindsDirectlyToSource = bindsDirectlyToSource,
+                ConverterCulture = converterCulture?.GetCultureInfo(),
+                Delay = Delay,
+                IsAsync = isAsync,
+                Mode = mode,
+                NotifyOnSourceUpdated = notifyOnSourceUpdated,
+                NotifyOnTargetUpdated = notifyOnTargetUpdated,
+                NotifyOnValidationError = notifyOnValidationError,
+                Path = path?.GetPropertyPath(),
+                StringFormat = StringFormat,
+                ValidatesOnDataErrors = validatesOnDataErrors,
+                ValidatesOnExceptions = validatesOnExceptions,
+                ValidatesOnNotifyDataErrors = validatesOnNotifyDataErrors,
+                XPath = xPath,
+                UpdateSourceTrigger = updateSourceTrigger
+            };
+            if (!string.IsNullOrEmpty(elementName))
+            {
+                bd.ElementName = elementName;
             }
-            set
+            return bd;
+        }
+        [PlatformTargetGetMethod("Binding")]
+        public virtual void SetBinding(Binding value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    SetDefault();
-                }
-                else
-                {
-                    UpdateSourceTrigger = value.UpdateSourceTrigger;
-                    NotifyOnSourceUpdated = value.NotifyOnSourceUpdated;
-                    NotifyOnTargetUpdated = value.NotifyOnTargetUpdated;
-                    NotifyOnValidationError = value.NotifyOnValidationError;
-                    ConverterCulture = new CultureInfoDesigner { CultureInfo = value.ConverterCulture };
-                    ElementName = value.ElementName;
-                    IsAsync = value.IsAsync;
-                    Mode = value.Mode;
-                    XPath = value.XPath;
-                    ValidatesOnDataErrors = value.ValidatesOnDataErrors;
-                    ValidatesOnNotifyDataErrors = value.ValidatesOnNotifyDataErrors;
-                    BindsDirectlyToSource = value.BindsDirectlyToSource;
-                    ValidatesOnExceptions = value.ValidatesOnExceptions;
-                    Path = new PropertyPathDesigner { PropertyPath = value.Path };
-                }
+                SetDefault();
+            }
+            else
+            {
+                UpdateSourceTrigger = value.UpdateSourceTrigger;
+                NotifyOnSourceUpdated = value.NotifyOnSourceUpdated;
+                NotifyOnTargetUpdated = value.NotifyOnTargetUpdated;
+                NotifyOnValidationError = value.NotifyOnValidationError;
+                ConverterCulture = new CultureInfoDesigner ();
+                ConverterCulture.SetCultureInfo(value.ConverterCulture);
+                ElementName = value.ElementName;
+                IsAsync = value.IsAsync;
+                Mode = value.Mode;
+                XPath = value.XPath;
+                ValidatesOnDataErrors = value.ValidatesOnDataErrors;
+                ValidatesOnNotifyDataErrors = value.ValidatesOnNotifyDataErrors;
+                BindsDirectlyToSource = value.BindsDirectlyToSource;
+                ValidatesOnExceptions = value.ValidatesOnExceptions;
+                Path = new PropertyPathDesigner ();
+                Path.SetPropertyPath(value.Path);
             }
         }
 
@@ -320,7 +319,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private void OnCultureInfoPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(CultureInfoDesigner.CultureInfo))
+            if (e.PropertyName == "CultureInfo")
             {
                 RaiseBindingChanged();
             }
@@ -328,14 +327,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private void OnRelativeSourcePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(RelativeSourceDesigner.RelativeSource))
+            if (e.PropertyName == "RelativeSource")
             {
                 RaiseBindingChanged();
             }
         }
         private void OnPropertyPathPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(PropertyPathDesigner.PropertyPath))
+            if (e.PropertyName == "PropertyPath")
             {
                 RaiseBindingChanged();
             }

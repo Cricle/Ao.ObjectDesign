@@ -169,23 +169,31 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                FontWeight = new FontWeightDesigner { FontWeight = value.FontWeight };
-                FontStyle = new FontStyleDesigner { FontStyle = value.FontStyle };
-                FontFamily = new FontFamilyDesigner { FontFamily = value.FontFamily };
+                FontWeight = new FontWeightDesigner ();
+                FontWeight.SetFontWeight(value.FontWeight);
+                FontStyle = new FontStyleDesigner ();
+                FontStyle.SetFontStyle(value.FontStyle);
+                FontFamily = new FontFamilyDesigner ();
+                FontFamily.SetFontFamily(value.FontFamily);
                 Text = value.Text;
-                FontStretch = new FontStretchDesigner { FontStretch = value.FontStretch };
+                FontStretch = new FontStretchDesigner ();
+                FontStretch.SetFontStretch(value.FontStretch);
                 BaselineOffset = value.BaselineOffset;
                 FontSize = value.FontSize;
                 TextWrapping = value.TextWrapping;
-                Background = new BrushDesigner { Brush = value.Background };
-                TextDecorations = new TextDecorationCollectionDesigner { TextDecorationCollection = value.TextDecorations };
+                Background = new BrushDesigner ();
+                Background.SetBrush(value.Background);
+                TextDecorations = new TextDecorationCollectionDesigner ();
+                TextDecorations.SetTextDecorationCollection(value.TextDecorations);
                 LineHeight = value.LineHeight;
                 LineStackingStrategy = value.LineStackingStrategy;
-                Padding = new ThicknessDesigner { Thickness = value.Padding };
+                Padding = new ThicknessDesigner();
+                Padding.SetThickness(value.Padding);
                 TextAlignment = value.TextAlignment;
                 TextTrimming = value.TextTrimming;
                 IsHyphenationEnabled = value.IsHyphenationEnabled;
-                Foreground = new BrushDesigner { Brush = value.Foreground };
+                Foreground = new BrushDesigner ();
+                Foreground.SetBrush(value.Foreground);
             }
         }
 
@@ -194,23 +202,23 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((FrameworkElement)value);
-                value.FontWeight = fontWeight?.FontWeight ?? default;
-                value.FontStyle = fontStyle?.FontStyle ?? default;
-                value.FontFamily = fontFamily?.FontFamily;
+                value.FontWeight = fontWeight?.GetFontWeight() ?? default;
+                value.FontStyle = fontStyle?.GetFontStyle() ?? default;
+                value.FontFamily = fontFamily?.GetFontFamily();
                 value.Text = text;
-                value.FontStretch = fontStretch?.FontStretch ?? default;
+                value.FontStretch = fontStretch?.GetFontStretch() ?? default;
                 value.BaselineOffset = baselineOffset;
                 value.FontSize = fontSize;
                 value.TextWrapping = textWrapping;
-                value.Background = background?.Brush;
-                value.TextDecorations = textDecorations?.TextDecorationCollection;
+                value.Background = background?.GetBrush();
+                value.TextDecorations = textDecorations?.GetTextDecorationCollection();
                 value.LineHeight = lineHeight;
                 value.LineStackingStrategy = lineStackingStrategy;
-                value.Padding = padding?.Thickness ?? default;
+                value.Padding = padding?.GetThickness() ?? default;
                 value.TextAlignment = textAlignment;
                 value.TextTrimming = textTrimming;
                 value.IsHyphenationEnabled = isHyphenationEnabled;
-                value.Foreground = foreground?.Brush;
+                value.Foreground = foreground?.GetBrush();
             }
         }
     }

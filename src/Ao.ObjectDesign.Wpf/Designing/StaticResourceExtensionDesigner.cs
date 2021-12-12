@@ -20,22 +20,24 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseStaticResourceExtensionChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual StaticResourceExtension StaticResourceExtension
+        [PlatformTargetGetMethod]
+        public virtual StaticResourceExtension GetStaticResourceExtension()
         {
-            get => string.IsNullOrEmpty(key) ? null : new StaticResourceExtension { ResourceKey = key };
-            set
+            return string.IsNullOrEmpty(key) ? null : new StaticResourceExtension { ResourceKey = key };
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetStaticResourceExtension(StaticResourceExtension value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    Key = null;
-                }
-                else
-                {
-                    Key = value.ResourceKey?.ToString();
-                }
+                Key = null;
+            }
+            else
+            {
+                Key = value.ResourceKey?.ToString();
             }
         }
+
         private static readonly PropertyChangedEventArgs staticResourceExtensionEventArgs = new PropertyChangedEventArgs(nameof(StaticResourceExtension));
         protected void RaiseStaticResourceExtensionChanged()
         {

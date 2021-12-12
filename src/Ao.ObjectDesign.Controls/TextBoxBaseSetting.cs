@@ -146,9 +146,11 @@ namespace Ao.ObjectDesign.Controls
                 IsUndoEnabled = value.IsUndoEnabled;
                 UndoLimit = value.UndoLimit;
                 AutoWordSelection = value.AutoWordSelection;
-                SelectionBrush = new BrushDesigner { Brush = value.SelectionBrush };
+                SelectionBrush = new BrushDesigner ();
+                SelectionBrush.SetBrush(value.SelectionBrush);
                 IsReadOnly = value.IsReadOnly;
-                CaretBrush = new BrushDesigner { Brush = value.CaretBrush };
+                CaretBrush = new BrushDesigner ();
+                CaretBrush.SetBrush(value.CaretBrush);
                 IsInactiveSelectionHighlightEnabled = value.IsInactiveSelectionHighlightEnabled;
             }
         }
@@ -166,9 +168,9 @@ namespace Ao.ObjectDesign.Controls
                 value.IsUndoEnabled = isUndoEnabled;
                 value.UndoLimit = undoLimit;
                 value.AutoWordSelection = autoWordSelection;
-                value.SelectionBrush = selectionBrush?.Brush;
+                value.SelectionBrush = selectionBrush?.GetBrush();
                 value.IsReadOnly = isReadOnly;
-                value.CaretBrush = caretBrush?.Brush;
+                value.CaretBrush = caretBrush?.GetBrush();
                 value.IsInactiveSelectionHighlightEnabled = isInactiveSelectionHighlightEnabled;
             }
         }

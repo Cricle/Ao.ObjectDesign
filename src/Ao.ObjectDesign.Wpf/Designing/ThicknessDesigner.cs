@@ -12,19 +12,20 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double top;
         private double right;
         private double bottom;
-
-        [PlatformTargetProperty]
-        public virtual Thickness Thickness
+        [PlatformTargetGetMethod]
+        public virtual Thickness GetThickness()
         {
-            get => new Thickness(left, top, right, bottom);
-            set
-            {
-                Left = value.Left;
-                Top = value.Top;
-                Right = value.Top;
-                Bottom = value.Bottom;
-            }
+            return new Thickness(left, top, right, bottom);
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetThickness(Thickness value)
+        {
+            Left = value.Left;
+            Top = value.Top;
+            Right = value.Top;
+            Bottom = value.Bottom;
+        }
+
 
         [DefaultValue(0d)]
         public virtual double Bottom
@@ -69,7 +70,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         public void Uniform(double uniformLength)
         {
-            Thickness = new Thickness(uniformLength);
+            SetThickness(new Thickness(uniformLength));
         }
 
         private static readonly PropertyChangedEventArgs thicknessEventArgs = new PropertyChangedEventArgs(nameof(Thickness));

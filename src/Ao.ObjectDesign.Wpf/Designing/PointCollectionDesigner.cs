@@ -51,17 +51,23 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             OnPropertyChanged(PointCollectionChangedEventArgs);
         }
-        [PlatformTargetProperty]
-        public virtual PointCollection PointCollection
+        [PlatformTargetGetMethod]
+        public virtual PointCollection GetPointCollection()
         {
-            get => new PointCollection(this.Select(p => new Point(p.X, p.Y)));
-            set
+            return new PointCollection(this.Select(p => new Point(p.X, p.Y)));
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetPointCollection(PointCollection value)
+        {
+            Clear();
+            if (value != null)
             {
-                Clear();
-                if (value != null)
+                AddRange(value.Select(x => 
                 {
-                    AddRange(value.Select(x => new PointDesigner { Point = x }));
-                }
+                    var p = new PointDesigner();
+                    p.SetPoint(x);
+                    return p;
+                }));
             }
         }
     }

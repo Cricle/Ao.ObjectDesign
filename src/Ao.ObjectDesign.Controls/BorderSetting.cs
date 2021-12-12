@@ -80,44 +80,29 @@ namespace Ao.ObjectDesign.Controls
             {
                 if (background is null)
                 {
-                    Background = new BrushDesigner { Brush = value.Background };
+                    Background = new BrushDesigner();
                 }
-                else
-                {
-                    background.Brush = value.Background;
-                }
+                Background.SetBrush(value.Background);
                 if (borderBrush is null)
                 {
-                    BorderBrush = new BrushDesigner { Brush = value.BorderBrush };
+                    BorderBrush = new BrushDesigner ();
                 }
-                else
-                {
-                    borderBrush.Brush = value.BorderBrush;
-                }
+                    borderBrush.SetBrush(value.BorderBrush);
                 if (cornerRadius is null)
                 {
-                    CornerRadius = new CornerRadiusDesigner { CornerRadius = value.CornerRadius };
+                    CornerRadius = new CornerRadiusDesigner ();
                 }
-                else
-                {
-                    cornerRadius.CornerRadius = value.CornerRadius;
-                }
+                    cornerRadius.SetCornerRadius(value.CornerRadius);
                 if (padding is null)
                 {
-                    Padding = new ThicknessDesigner { Thickness = value.Padding };
+                    Padding = new ThicknessDesigner();
                 }
-                else
-                {
-                    padding.Thickness = value.Padding;
-                }
+                    padding.SetThickness(value.Padding);
                 if (borderThicknes is null)
                 {
-                    BorderThicknes = new ThicknessDesigner { Thickness = value.BorderThickness };
+                    BorderThicknes = new ThicknessDesigner ();
                 }
-                else
-                {
-                    borderThicknes.Thickness = value.BorderThickness;
-                }
+                    borderThicknes.SetThickness(value.BorderThickness);
             }
         }
 
@@ -126,11 +111,11 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((FrameworkElement)value);
-                value.Background = background?.Brush;
-                value.BorderThickness = borderThicknes?.Thickness ?? default;
-                value.BorderBrush = borderBrush?.Brush;
-                value.Padding = padding?.Thickness ?? default;
-                value.CornerRadius = cornerRadius?.CornerRadius ?? default;
+                value.Background = background?.GetBrush();
+                value.BorderThickness = borderThicknes?.GetThickness() ?? default;
+                value.BorderBrush = borderBrush?.GetBrush();
+                value.Padding = padding?.GetThickness() ?? default;
+                value.CornerRadius = cornerRadius?.GetCornerRadius() ?? default;
             }
         }
     }

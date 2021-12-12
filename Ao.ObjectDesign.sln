@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign", "src\Ao.ObjectDesign\Ao.ObjectDesign.csproj", "{E146D366-9C0E-4D8B-BC2C-8C18D8959209}"
 EndProject
@@ -27,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Controls", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Json", "src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj", "{5AAA96C4-AFBB-4E78-AB20-47A5B2463461}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Xml", "src\Ao.ObjectDesign.Wpf.Xml\Ao.ObjectDesign.Wpf.Xml.csproj", "{74670C19-A3B3-401E-8BC5-7E1C2AABE838}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Yaml", "src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj", "{F0995A19-F3CE-4F49-BF50-93B39997DFF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Designing", "src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj", "{762DCC67-B3BC-4602-9C60-BF024ED0AAE9}"
@@ -41,7 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.WpfDesign.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.TextJson", "src\Ao.ObjectDesign.Wpf.TextJson\Ao.ObjectDesign.Wpf.TextJson.csproj", "{A4E941B2-9F20-48C3-A609-2FA3682E296A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Wpf.MessagePack", "src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj", "{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.MessagePack", "src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj", "{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Xaml", "src\Ao.ObjectDesign.Wpf.Xaml\Ao.ObjectDesign.Wpf.Xaml.csproj", "{45925D03-B5C5-40FF-A710-ECF2926614EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,18 +173,6 @@ Global
 		{5AAA96C4-AFBB-4E78-AB20-47A5B2463461}.Release|x64.Build.0 = Release|Any CPU
 		{5AAA96C4-AFBB-4E78-AB20-47A5B2463461}.Release|x86.ActiveCfg = Release|Any CPU
 		{5AAA96C4-AFBB-4E78-AB20-47A5B2463461}.Release|x86.Build.0 = Release|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Debug|x64.Build.0 = Debug|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Debug|x86.Build.0 = Debug|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Release|x64.ActiveCfg = Release|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Release|x64.Build.0 = Release|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Release|x86.ActiveCfg = Release|Any CPU
-		{74670C19-A3B3-401E-8BC5-7E1C2AABE838}.Release|x86.Build.0 = Release|Any CPU
 		{F0995A19-F3CE-4F49-BF50-93B39997DFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F0995A19-F3CE-4F49-BF50-93B39997DFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0995A19-F3CE-4F49-BF50-93B39997DFF4}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -269,6 +257,18 @@ Global
 		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x64.Build.0 = Release|Any CPU
 		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x86.ActiveCfg = Release|Any CPU
 		{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}.Release|x86.Build.0 = Release|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Debug|x64.Build.0 = Debug|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Debug|x86.Build.0 = Debug|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x64.ActiveCfg = Release|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x64.Build.0 = Release|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x86.ActiveCfg = Release|Any CPU
+		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

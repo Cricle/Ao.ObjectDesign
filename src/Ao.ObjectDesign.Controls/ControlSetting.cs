@@ -135,18 +135,27 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                FontStyle = new FontStyleDesigner { FontStyle = value.FontStyle };
+                FontStyle = new FontStyleDesigner ();
+                FontStyle.SetFontStyle(value.FontStyle);
                 FontSize = value.FontSize;
-                FontStretch = new FontStretchDesigner { FontStretch = value.FontStretch };
-                FontFamily = new FontFamilyDesigner { FontFamily = value.FontFamily };
-                Foreground = new BrushDesigner { Brush = value.Foreground };
-                Background = new BrushDesigner { Brush = value.Background };
-                BorderThickness = new ThicknessDesigner { Thickness = value.BorderThickness };
+                FontStretch = new FontStretchDesigner();
+                FontStretch.SetFontStretch(value.FontStretch);
+                FontFamily = new FontFamilyDesigner ();
+                FontFamily.SetFontFamily(value.FontFamily);
+                Foreground = new BrushDesigner ();
+                Foreground.SetBrush(value.Foreground);
+                Background = new BrushDesigner ();
+                Background.SetBrush(value.Background);
+                BorderThickness = new ThicknessDesigner();
+                BorderThickness.SetThickness(value.BorderThickness);
                 IsTabStop = value.IsTabStop;
                 VerticalContentAlignment = value.VerticalAlignment;
-                Padding = new ThicknessDesigner { Thickness = value.Padding };
-                FontWeight = new FontWeightDesigner { FontWeight = value.FontWeight };
-                BorderBrush = new BrushDesigner { Brush = value.BorderBrush };
+                Padding = new ThicknessDesigner();
+                Padding.SetThickness(value.Padding);
+                FontWeight = new FontWeightDesigner();
+                FontWeight.SetFontWeight(value.FontWeight);
+                BorderBrush = new BrushDesigner();
+                BorderBrush.SetBrush(value.BorderBrush);
                 HorizontalContentAlignment = value.HorizontalAlignment;
             }
         }
@@ -156,19 +165,19 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((FrameworkElement)value);
-                value.FontStyle = FontStyle?.FontStyle ?? default;
-                value.FontStretch = FontStretch?.FontStretch ?? default;
+                value.FontStyle = FontStyle?.GetFontStyle() ?? default;
+                value.FontStretch = FontStretch?.GetFontStretch() ?? default;
                 value.FontSize = FontSize;
-                value.FontFamily = FontFamily?.FontFamily;
-                value.Foreground = Foreground?.Brush;
-                value.Background = Background?.Brush;
-                value.BorderThickness = BorderThickness?.Thickness ?? default;
+                value.FontFamily = FontFamily?.GetFontFamily();
+                value.Foreground = Foreground?.GetBrush();
+                value.Background = Background?.GetBrush();
+                value.BorderThickness = BorderThickness?.GetThickness() ?? default;
                 value.IsTabStop = IsTabStop;
                 value.VerticalContentAlignment = VerticalContentAlignment;
                 value.TabIndex = TabIndex;
-                value.Padding = Padding?.Thickness ?? default;
-                value.FontWeight = FontWeight.FontWeight;
-                value.BorderBrush = BorderBrush?.Brush;
+                value.Padding = Padding?.GetThickness() ?? default;
+                value.FontWeight = FontWeight.GetFontWeight();
+                value.BorderBrush = BorderBrush?.GetBrush();
                 value.HorizontalContentAlignment = HorizontalContentAlignment;
             }
         }

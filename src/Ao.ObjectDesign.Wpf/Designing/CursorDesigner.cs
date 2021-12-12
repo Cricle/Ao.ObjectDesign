@@ -60,7 +60,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
         [DefaultValue(CursorTypes.None)]
-        public CursorTypes CursorType
+        public virtual CursorTypes CursorType
         {
             get => cursorType;
             set
@@ -80,61 +80,59 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
         private Cursor cursor;
-        [PlatformTargetProperty]
-        public virtual Cursor Cursor
+        [PlatformTargetGetMethod]
+        public virtual Cursor GetCursor()
         {
-            get
+            cursor?.Dispose();
+            cursor = null;
+            if (CursorType == CursorTypes.None)
             {
-                cursor?.Dispose();
-                cursor = null;
-                if (CursorType == CursorTypes.None)
+                return null;
+            }
+            else if (CursorType == CursorTypes.SystemCursorName)
+            {
+                if (!string.IsNullOrEmpty(name) && CursorMap.TryGetValue(name, out Cursor cur))
                 {
-                    return null;
-                }
-                else if (CursorType == CursorTypes.SystemCursorName)
-                {
-                    if (!string.IsNullOrEmpty(name) && CursorMap.TryGetValue(name, out Cursor cur))
-                    {
-                        return cur;
-                    }
-                    return null;
-                }
-                else if (CursorType == CursorTypes.FilePath)
-                {
-                    if (string.IsNullOrEmpty(CursorFile))
-                    {
-                        return null;
-                    }
-                    return cursor = new Cursor(CursorFile);
-                }
-                else if (CursorType == CursorTypes.Stream)
-                {
-                    if (CursorStream is null)
-                    {
-                        return null;
-                    }
-                    return cursor = new Cursor(CursorStream);
+                    return cur;
                 }
                 return null;
             }
-            set
+            else if (CursorType == CursorTypes.FilePath)
             {
-                if (value is null)
+                if (string.IsNullOrEmpty(CursorFile))
                 {
-                    CursorType = CursorTypes.None;
+                    return null;
                 }
-                else if (CursorRevMap.TryGetValue(value, out string v))
-                {
-                    Name = v;
-                    CursorType = CursorTypes.SystemCursorName;
-                }
-                else
-                {
-                    throw new NotSupportedException("Do not support not set null or system cursor!");
-                }
+                return cursor = new Cursor(CursorFile);
             }
+            else if (CursorType == CursorTypes.Stream)
+            {
+                if (CursorStream is null)
+                {
+                    return null;
+                }
+                return cursor = new Cursor(CursorStream);
+            }
+            return null;
         }
-
+        [PlatformTargetSetMethod]
+        public virtual void SetCursor(Cursor value)
+        {
+            if (value is null)
+            {
+                CursorType = CursorTypes.None;
+            }
+            else if (CursorRevMap.TryGetValue(value, out string v))
+            {
+                Name = v;
+                CursorType = CursorTypes.SystemCursorName;
+            }
+            else
+            {
+                throw new NotSupportedException("Do not support not set null or system cursor!");
+            }
+            RaiseCursorChanged();
+        }
         private static readonly PropertyChangedEventArgs cursorChangedEventArgs = new PropertyChangedEventArgs(nameof(Cursor));
         protected void RaiseCursorChanged()
         {

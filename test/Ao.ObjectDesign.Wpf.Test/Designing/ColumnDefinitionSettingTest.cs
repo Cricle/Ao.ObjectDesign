@@ -13,13 +13,14 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         {
             ColumnDefinitionDesigner design = new ColumnDefinitionDesigner
             {
-                ColumnDefinition = new ColumnDefinition
-                {
-                    Width = new GridLength(4, GridUnitType.Star),
-                    MaxWidth = 10,
-                    MinWidth = 1
-                }
+                
             };
+            design.SetColumnDefinition(new ColumnDefinition
+            {
+                Width = new GridLength(4, GridUnitType.Star),
+                MaxWidth = 10,
+                MinWidth = 1
+            });
 
             Assert.AreEqual(10d, design.MaxWidth);
             Assert.AreEqual(1d, design.MinWidth);
@@ -37,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
                 GridLengthSetting = new GridLengthDesigner { Type = GridUnitType.Star, Value = 4 }
             };
 
-            ColumnDefinition val = design.ColumnDefinition;
+            ColumnDefinition val = design.GetColumnDefinition();
 
             Assert.AreEqual(10d, val.MaxWidth);
             Assert.AreEqual(1d, val.MinWidth);

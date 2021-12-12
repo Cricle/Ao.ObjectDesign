@@ -11,23 +11,23 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double angle;
         private double centerX;
         private double centerY;
-
-        [PlatformTargetProperty]
-        public virtual RotateTransform RotateTransform
+        [PlatformTargetGetMethod]
+        public virtual RotateTransform GetRotateTransform()
         {
-            get => new RotateTransform(angle, centerX, centerY);
-            set
+            return new RotateTransform(angle, centerX, centerY);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetRotateTransform(RotateTransform value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    angle = centerY = centerX = 0;
-                }
-                else
-                {
-                    Angle = value.Angle;
-                    CenterX = value.CenterX;
-                    CenterY = value.CenterY;
-                }
+                angle = centerY = centerX = 0;
+            }
+            else
+            {
+                Angle = value.Angle;
+                CenterX = value.CenterX;
+                CenterY = value.CenterY;
             }
         }
 

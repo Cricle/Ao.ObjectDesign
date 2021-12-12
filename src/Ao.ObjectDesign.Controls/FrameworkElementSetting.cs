@@ -180,24 +180,18 @@ namespace Ao.ObjectDesign.Controls
                 FlowDirection = value.FlowDirection;
                 if (margin is null)
                 {
-                    Margin = new ThicknessDesigner { Thickness = value.Margin };
+                    Margin = new ThicknessDesigner();
                 }
-                else
-                {
-                    margin.Thickness = value.Margin;
-                }
+                margin.SetThickness(value.Margin);
                 VerticalAlignment = value.VerticalAlignment;
                 HorizontalAlignment = value.HorizontalAlignment;
                 ToolTip = value.ToolTip?.ToString();
                 ForceCursor = value.ForceCursor;
                 if (cursor is null)
                 {
-                    Cursor = new CursorDesigner { Cursor = value.Cursor };
+                    Cursor = new CursorDesigner();
                 }
-                else
-                {
-                    cursor.Cursor = value.Cursor;
-                }
+                cursor.SetCursor(value.Cursor);
             }
         }
 
@@ -216,12 +210,12 @@ namespace Ao.ObjectDesign.Controls
                 value.Name = name;
                 value.UseLayoutRounding = useLayoutRounding;
                 value.FlowDirection = flowDirection;
-                value.Margin = margin?.Thickness ?? default;
+                value.Margin = margin?.GetThickness() ?? default;
                 value.VerticalAlignment = verticalAlignment;
                 value.HorizontalAlignment = horizontalAlignment;
                 value.ToolTip = toolTip;
                 value.ForceCursor = forceCursor;
-                value.Cursor = cursor?.Cursor;
+                value.Cursor = cursor?.GetCursor();
             }
         }
     }

@@ -32,10 +32,7 @@ namespace Ao.ObjectDesign.Wpf.Json
         }
         public static void Serialize(BsonDataWriter writer, object value, Type type, Action<JsonSerializer> action)
         {
-            JsonSerializer serializer = new JsonSerializer
-            {
-                ContractResolver = DesignJsonHelper.CreateIgnoresContractResolver()
-            };
+            JsonSerializer serializer = new JsonSerializer();
             action?.Invoke(serializer);
             serializer.Serialize(writer, value, type);
         }
@@ -90,10 +87,7 @@ namespace Ao.ObjectDesign.Wpf.Json
         }
         public static object Deserialize(BsonDataReader reader, Type type, Action<JsonSerializer> action)
         {
-            JsonSerializer serializer = new JsonSerializer
-            {
-                ContractResolver = DesignJsonHelper.CreateIgnoresContractResolver()
-            };
+            JsonSerializer serializer = new JsonSerializer();
             action?.Invoke(serializer);
             return serializer.Deserialize(reader, type);
         }

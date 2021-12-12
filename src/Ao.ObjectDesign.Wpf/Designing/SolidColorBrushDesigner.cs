@@ -33,35 +33,37 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
         private void OnColorPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(ColorDesigner.Color))
+            if (e.PropertyName == "Color")
             {
                 RaiseSolidColorBrushChanged();
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual SolidColorBrush SolidColorBrush
+        [PlatformTargetGetMethod]
+        public virtual SolidColorBrush GetSolidColorBrush()
         {
-            get => new SolidColorBrush(color?.Color ?? Colors.Transparent);
-            set
+            return new SolidColorBrush(color?.GetColor() ?? Colors.Transparent);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetSolidColorBrush(SolidColorBrush value)
+        {
+            if (value is null)
             {
-                if (value is null)
+                color = null;
+            }
+            else
+            {
+                if (color != null)
                 {
-                    color = null;
+                    color.SetColor(value.Color);
                 }
                 else
                 {
-                    if (color != null)
-                    {
-                        color.Color = value.Color;
-                    }
-                    else
-                    {
-                        Color = new ColorDesigner { Color = value.Color };
-                    }
+                    Color = new ColorDesigner ();
+                    color.SetColor(value.Color);
                 }
             }
         }
+
         private static readonly PropertyChangedEventArgs solidColorBrushEventArgs = new PropertyChangedEventArgs(nameof(SolidColorBrush));
         protected void RaiseSolidColorBrushChanged()
         {

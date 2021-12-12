@@ -25,9 +25,9 @@ namespace Ao.ObjectDesign.Wpf.MessagePack
                 .WithResolver(DesignResolver);
         }
 
-        public static IFormatterResolver CreateResolver()
+        public static IgnoreFormatterResolver CreateResolver()
         {
-            var ignores = new IgnoreFormatterResolver(TypelessObjectResolver.Instance, new HashSet<Type>(DesigningHelpers.KnowDesigningTypes));
+            var ignores = new IgnoreFormatterResolver(TypelessObjectResolver.Instance);
             ignores.ForceTypeless.Add(typeof(NotifyableObject));
             return ignores;
         }

@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
                 CursorType = CursorTypes.None
             };
 
-            Assert.IsNull(design.Cursor);
+            Assert.IsNull(design.GetCursor());
         }
         [TestMethod]
         public void MakeWpfValue_SystemCursorName()
@@ -26,7 +26,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
                 Name = Cursors.Wait.ToString()
             };
 
-            Assert.AreEqual(Cursors.Wait, design.Cursor);
+            Assert.AreEqual(Cursors.Wait, design.GetCursor());
 
         }
         [TestMethod]
@@ -38,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
                 Name = "dasiuw"
             };
 
-            Assert.IsNull(design.Cursor);
+            Assert.IsNull(design.GetCursor());
         }
     }
 }

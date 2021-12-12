@@ -32,22 +32,20 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseGridLengthChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual GridLength GridLength
+        [PlatformTargetGetMethod]
+        public virtual GridLength GetGridLength()
         {
-            get
+            if (type == GridUnitType.Auto)
             {
-                if (type == GridUnitType.Auto)
-                {
-                    return GridLength.Auto;
-                }
-                return new GridLength(value, type);
+                return GridLength.Auto;
             }
-            set
-            {
-                Type = value.GridUnitType;
-                Value = value.Value;
-            }
+            return new GridLength(value, type);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetGridLength(GridLength value)
+        {
+            Type = value.GridUnitType;
+            Value = value.Value;
         }
 
         protected void RaiseGridLengthChanged()

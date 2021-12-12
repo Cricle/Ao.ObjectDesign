@@ -81,21 +81,20 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseSizeChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual Size Size
+        [PlatformTargetGetMethod]
+        public virtual Size GetSize()
         {
-            get
-            {
-                double w = Clamp(width, minWidth, maxWidth);
-                double h = Clamp(height, minHeight, maxHeight);
-                return new Size(w, h);
-            }
-            set
-            {
-                Width = Clamp(value.Width, minWidth, maxWidth);
-                Height = Clamp(value.Height, minHeight, maxHeight);
-            }
+            double w = Clamp(width, minWidth, maxWidth);
+            double h = Clamp(height, minHeight, maxHeight);
+            return new Size(w, h);
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetSize(Size value)
+        {
+            Width = Clamp(value.Width, minWidth, maxWidth);
+            Height = Clamp(value.Height, minHeight, maxHeight);
+        }
+
         private static readonly PropertyChangedEventArgs sizeEventArgs = new PropertyChangedEventArgs(nameof(Size));
         protected void RaiseSizeChanged()
         {

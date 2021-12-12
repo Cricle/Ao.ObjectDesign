@@ -50,47 +50,46 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
             }
         }
-
-        [ProvideMulityValues]
-        [PlatformTargetProperty]
-        [PropertyProvideValue(nameof(BlurEffect), typeof(BlurEffect))]
-        [PropertyProvideValue(nameof(DropShadowEffect), typeof(DropShadowEffect))]
-        public virtual Effect Effect
+        [PlatformTargetGetMethod]
+        [return: ProvideMulityValues]
+        [return:PropertyProvideValue(nameof(BlurEffect), typeof(BlurEffect))]
+        [return: PropertyProvideValue(nameof(DropShadowEffect), typeof(DropShadowEffect))]
+        public virtual Effect GetEffect()
         {
-            get
+            switch (type)
             {
-                switch (type)
-                {
-                    case EffectTypes.BlurEffect:
-                        return blurEffect?.BlurEffect;
-                    case EffectTypes.DropShadowEffect:
-                        return dropShadowEffect?.DropShadowEffect;
-                    default:
-                        return null;
-                }
+                case EffectTypes.BlurEffect:
+                    return blurEffect?.GetBlurEffect();
+                case EffectTypes.DropShadowEffect:
+                    return dropShadowEffect?.GetDropShadowEffect();
+                default:
+                    return null;
             }
-            set
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetEffect(Effect value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    Type = EffectTypes.None;
-                }
-                else if (value is BlurEffect bf)
-                {
-                    Type = EffectTypes.BlurEffect;
-                    BlurEffect = new BlurEffectDesigner { BlurEffect = bf };
-                }
-                else if (value is DropShadowEffect dse)
-                {
-                    Type = EffectTypes.DropShadowEffect;
-                    DropShadowEffect = new DropShadowEffectDesigner { DropShadowEffect = dse };
-                }
-                else
-                {
-                    throw new NotSupportedException(value.GetType().FullName);
-                }
-                RaiseEffectChanged();
+                Type = EffectTypes.None;
             }
+            else if (value is BlurEffect bf)
+            {
+                Type = EffectTypes.BlurEffect;
+                BlurEffect = new BlurEffectDesigner ();
+                BlurEffect.SetBlurEffect(bf);
+            }
+            else if (value is DropShadowEffect dse)
+            {
+                Type = EffectTypes.DropShadowEffect;
+                DropShadowEffect = new DropShadowEffectDesigner ();
+                DropShadowEffect.SetDropShadowEffect(dse);
+            }
+            else
+            {
+                throw new NotSupportedException(value.GetType().FullName);
+            }
+            RaiseEffectChanged();
         }
 
         private void CoreSetBlurEffect(BlurEffectDesigner value)
@@ -103,6 +102,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
+            blurEffect = value;
             RaiseEffectChanged();
         }
         private void CoreSetDropShadowEffect(DropShadowEffectDesigner value)
@@ -115,7 +115,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 value.PropertyChanged += OnPropertyChanged;
             }
-
+            dropShadowEffect = value;
             RaiseEffectChanged();
         }
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)

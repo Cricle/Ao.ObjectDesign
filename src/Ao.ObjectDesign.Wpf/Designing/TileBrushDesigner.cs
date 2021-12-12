@@ -167,11 +167,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 brush.Stretch = stretch;
                 if (viewbox != null)
                 {
-                    brush.Viewbox = viewbox.Rect;
+                    brush.Viewbox = viewbox.GetRect();
                 }
                 if (viewport != null)
                 {
-                    brush.Viewport = viewport.Rect;
+                    brush.Viewport = viewport.GetRect();
                 }
                 brush.AlignmentY = alignmentY;
                 brush.AlignmentX = alignmentX;
@@ -189,8 +189,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 TileMode = brush.TileMode;
                 Stretch = brush.Stretch;
-                Viewbox = new RectDesigner { Rect = brush.Viewbox };
-                Viewport = new RectDesigner { Rect = brush.Viewport };
+                Viewbox = new RectDesigner ();
+                Viewbox.SetRect(brush.Viewport);
+                Viewport = new RectDesigner();
+                Viewport.SetRect(brush.Viewport);
                 AlignmentY = brush.AlignmentY;
                 AlignmentX = brush.AlignmentX;
                 ViewportUnits = brush.ViewportUnits;

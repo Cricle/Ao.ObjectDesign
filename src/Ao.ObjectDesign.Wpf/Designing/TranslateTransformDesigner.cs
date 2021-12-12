@@ -9,21 +9,22 @@ namespace Ao.ObjectDesign.Wpf.Designing
     {
         private double x;
         private double y;
-        [PlatformTargetProperty]
-        public virtual TranslateTransform TranslateTransform
+        [PlatformTargetGetMethod]
+        public virtual TranslateTransform GetTranslateTransform()
         {
-            get => new TranslateTransform(x, y);
-            set
+            return new TranslateTransform(x, y);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetTranslateTransform(TranslateTransform value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    x = y = 0;
-                }
-                else
-                {
-                    X = value.X;
-                    Y = value.Y;
-                }
+                x = y = 0;
+            }
+            else
+            {
+                X = value.X;
+                Y = value.Y;
             }
         }
 

@@ -55,17 +55,18 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        [PlatformTargetProperty]
-        public virtual Color Color
+        [PlatformTargetGetMethod]
+        public virtual Color GetColor()
         {
-            get => new Color { A = a, R = r, G = g, B = b };
-            set
-            {
-                A = value.A;
-                R = value.R;
-                G = value.G;
-                B = value.B;
-            }
+            return new Color { A = a, R = r, G = g, B = b };
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetColor(Color value)
+        {
+            A = value.A;
+            R = value.R;
+            G = value.G;
+            B = value.B;
         }
         private static readonly PropertyChangedEventArgs colorChangedEventArgs = new PropertyChangedEventArgs(nameof(Color));
         protected void RaiseColorChanged()
