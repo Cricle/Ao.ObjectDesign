@@ -2,9 +2,15 @@
 
 namespace Ao.ObjectDesign.Designing.Annotations
 {
-    [AttributeUsage(AttributeTargets.Method)]
-    public sealed class PlatformTargetGetMethodAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    public sealed class PlatformTargetGetMethodAttribute : PlatformTargetMethodAttribute
     {
+        public PlatformTargetGetMethodAttribute()
+        {
+        }
 
+        public PlatformTargetGetMethodAttribute(string property) : base(property)
+        {
+        }
     }
 }
