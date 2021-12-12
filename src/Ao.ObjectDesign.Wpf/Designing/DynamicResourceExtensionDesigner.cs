@@ -21,21 +21,23 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaisePropertyChanged(dynamicResourceExtensionChangedEventArgs);
             }
         }
-        [PlatformTargetProperty]
-        public virtual DynamicResourceExtension DynamicResourceExtension
+        [PlatformTargetGetMethod]
+        public virtual DynamicResourceExtension GetDynamicResourceExtension()
         {
-            get => string.IsNullOrEmpty(key) ? null : new DynamicResourceExtension { ResourceKey = key };
-            set
+            return string.IsNullOrEmpty(key) ? null : new DynamicResourceExtension { ResourceKey = key };
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetDynamicResourceExtension(DynamicResourceExtension value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    Key = null;
-                }
-                else
-                {
-                    Key = value.ResourceKey?.ToString();
-                }
+                Key = null;
+            }
+            else
+            {
+                Key = value.ResourceKey?.ToString();
             }
         }
+
     }
 }

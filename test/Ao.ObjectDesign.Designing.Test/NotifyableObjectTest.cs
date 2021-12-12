@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -53,6 +55,32 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.AreEqual("ooo", eg.From);
             Assert.AreEqual("hello", eg.To);
             Assert.AreEqual(nameof(StudentObject.Name), eg.PropertyName);
+        }
+        class Student : NotifyableObject
+        {
+            private string name;
+
+            [PlatformTargetGetMethod]
+            public string GetName()
+            {
+                return name;
+            }
+
+            [PlatformTargetSetMethod]
+            public void SetName(string name)
+            {
+                this.name = name;
+            }
+        }
+        [TestMethod]
+        public void VirtualProperty()
+        {
+            var stu = new Student();
+            dynamic d = stu;
+
+            d.Name = "hello";
+
+            Assert.AreEqual("hello",d.Name);
         }
     }
 }

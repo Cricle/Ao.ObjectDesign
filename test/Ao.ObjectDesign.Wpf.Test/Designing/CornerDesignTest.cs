@@ -12,8 +12,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         {
             CornerRadiusDesigner design = new CornerRadiusDesigner
             {
-                CornerRadius = new CornerRadius(1, 2, 3, 4)
             };
+            design.SetCornerRadius(new CornerRadius(1, 2, 3, 4));
 
 
             Assert.AreEqual(1, design.Left);
@@ -32,7 +32,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
                 Bottom = 4
             };
 
-            CornerRadius val = design.CornerRadius;
+            CornerRadius val = design.GetCornerRadius();
 
             Assert.AreEqual(1, val.TopLeft);
             Assert.AreEqual(2, val.TopRight);

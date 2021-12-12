@@ -20,22 +20,24 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaisePropertyPathChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual PropertyPath PropertyPath
+        [PlatformTargetGetMethod]
+        public virtual PropertyPath GetPropertyPath()
         {
-            get => string.IsNullOrEmpty(path) ? null : new PropertyPath(path);
-            set
+            return string.IsNullOrEmpty(path) ? null : new PropertyPath(path);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetPropertyPath(PropertyPath value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    Path = null;
-                }
-                else
-                {
-                    Path = value.Path;
-                }
+                Path = null;
+            }
+            else
+            {
+                Path = value.Path;
             }
         }
+
         private static readonly PropertyChangedEventArgs propertyPathEventArgs = new PropertyChangedEventArgs(nameof(PropertyPath));
         protected void RaisePropertyPathChanged()
         {

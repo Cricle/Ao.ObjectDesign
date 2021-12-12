@@ -90,7 +90,8 @@ namespace Ao.ObjectDesign.Controls
                 IsOpen = value.IsOpen;
                 StaysOpen = value.StaysOpen;
                 Placement = value.Placement;
-                PlacementRectangle = new RectDesigner { Rect = value.PlacementRectangle };
+                PlacementRectangle = new RectDesigner ();
+                PlacementRectangle.SetRect(value.PlacementRectangle);
                 HorizontalOffset = value.HorizontalOffset;
                 VerticalOffset = value.VerticalOffset;
                 HasDropShadow = value.HasDropShadow;
@@ -105,7 +106,7 @@ namespace Ao.ObjectDesign.Controls
                 value.IsOpen = isOpen;
                 value.StaysOpen = staysOpen;
                 value.Placement = placement;
-                value.PlacementRectangle = placementRectangle?.Rect ?? default;
+                value.PlacementRectangle = placementRectangle?.GetRect() ?? default;
                 value.HorizontalOffset = horizontalOffset;
                 value.VerticalOffset = verticalOffset;
                 value.HasDropShadow = hasDropShadow;

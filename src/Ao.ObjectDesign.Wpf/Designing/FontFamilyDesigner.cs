@@ -32,30 +32,27 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 return installedFontFamilies;
             }
         }
-        private static readonly PropertyChangedEventArgs fontFamilyExtensionChangedEventArgs = new PropertyChangedEventArgs(nameof(FontFamily));
         private string fontName;
 
-        [PlatformTargetProperty]
-        public virtual FontFamily FontFamily
+        [PlatformTargetGetMethod]
+        public virtual FontFamily GetFontFamily()
         {
-            get
+            if (string.IsNullOrEmpty(fontName))
             {
-                if (string.IsNullOrEmpty(fontName))
-                {
-                    return new FontFamily();
-                }
-                return new FontFamily(fontName);
+                return new FontFamily();
             }
-            set
+            return new FontFamily(fontName);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetFontFamily(FontFamily value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    FontName = null;
-                }
-                else
-                {
-                    FontName = value.Source;
-                }
+                FontName = null;
+            }
+            else
+            {
+                FontName = value.Source;
             }
         }
 
@@ -66,8 +63,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
             set
             {
                 Set(ref fontName, value);
-                RaisePropertyChanged(fontFamilyExtensionChangedEventArgs);
+                RaiseFontFamilyChanged();
             }
         }
+        private static readonly PropertyChangedEventArgs FontFamilyChangedEventArgs = new PropertyChangedEventArgs(nameof(FontFamily));
+        protected void RaiseFontFamilyChanged()
+        {
+            RaisePropertyChanged(FontFamilyChangedEventArgs);
+        }
+
     }
 }

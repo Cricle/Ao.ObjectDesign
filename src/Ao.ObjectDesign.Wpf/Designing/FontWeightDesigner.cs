@@ -46,23 +46,20 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private bool isBold;
         private PenFontWeights penFontWeight;
 
-        [PlatformTargetProperty]
-        public virtual FontWeight FontWeight
+        [PlatformTargetGetMethod]
+        public virtual FontWeight GetFontWeight()
         {
-            get
+            if (fontWeightMap.TryGetValue(PenFontWeight, out FontWeight w))
             {
-                if (fontWeightMap.TryGetValue(PenFontWeight, out FontWeight w))
-                {
-                    return w;
-                }
-                return FontWeights.Normal;
+                return w;
             }
-            set
-            {
-                PenFontWeight = GetFontWeight(value);
-                IsBold = PenFontWeight == PenFontWeights.Bold;
-            }
-
+            return FontWeights.Normal;
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetFontWeight(FontWeight value)
+        {
+            PenFontWeight = GetFontWeight(value);
+            IsBold = PenFontWeight == PenFontWeights.Bold;
         }
 
 

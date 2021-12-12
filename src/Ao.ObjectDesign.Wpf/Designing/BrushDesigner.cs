@@ -130,66 +130,63 @@ namespace Ao.ObjectDesign.Wpf.Designing
             RaiseBrushChanged();
 
         }
-
-        [ProvideMulityValues]
-        [PlatformTargetProperty]
-        [PropertyProvideValue(nameof(SolidColorBrushDesigner), typeof(SolidColorBrush))]
-        [PropertyProvideValue(nameof(LinearGradientBrushDesigner), typeof(LinearGradientBrush))]
-        [PropertyProvideValue(nameof(RadialGradientBrushDesigner), typeof(RadialGradientBrush))]
-        [PropertyProvideValue(nameof(ImageBrushDesigner), typeof(ImageBrush))]
-        public virtual Brush Brush
+        [PlatformTargetGetMethod]
+        [return: ProvideMulityValues]
+        [return: PropertyProvideValue(nameof(SolidColorBrushDesigner), typeof(SolidColorBrush))]
+        [return: PropertyProvideValue(nameof(LinearGradientBrushDesigner), typeof(LinearGradientBrush))]
+        [return: PropertyProvideValue(nameof(RadialGradientBrushDesigner), typeof(RadialGradientBrush))]
+        [return: PropertyProvideValue(nameof(ImageBrushDesigner), typeof(ImageBrush))]
+        public virtual Brush GetBrush()
         {
-            get
+            PenBrushTypes t = type;
+            if (t == PenBrushTypes.Solid)
             {
-                PenBrushTypes t = type;
-                if (t == PenBrushTypes.Solid)
-                {
-                    return SolidColorBrushDesigner?.SolidColorBrush;
-                }
-                else if (t == PenBrushTypes.Liner)
-                {
-                    return LinearGradientBrushDesigner?.LinearGradientBrush;
-                }
-                else if (t == PenBrushTypes.Radial)
-                {
-                    return RadialGradientBrushDesigner?.RadialGradientBrush;
-                }
-                else if (t == PenBrushTypes.Image)
-                {
-                    return ImageBrushDesigner?.ImageBrush;
-                }
-                return null;
+                return SolidColorBrushDesigner?.GetSolidColorBrush();
             }
-            set
+            else if (t == PenBrushTypes.Liner)
             {
-                if (value is null)
-                {
-                    Type = PenBrushTypes.None;
-                }
-                else if (value is SolidColorBrush scb)
-                {
-                    Type = PenBrushTypes.Solid;
-                    SolidColorBrushDesigner.SolidColorBrush = scb;
-                }
-                else if (value is LinearGradientBrush lgb)
-                {
-                    Type = PenBrushTypes.Liner;
-                    LinearGradientBrushDesigner.LinearGradientBrush = lgb;
-                }
-                else if (value is RadialGradientBrush rgb)
-                {
-                    Type = PenBrushTypes.Radial;
-                    RadialGradientBrushDesigner.RadialGradientBrush = rgb;
-                }
-                else if (value is ImageBrush ib)
-                {
-                    Type = PenBrushTypes.Image;
-                    ImageBrushDesigner.ImageBrush = ib;
-                }
-                else
-                {
-                    Type = PenBrushTypes.None;
-                }
+                return LinearGradientBrushDesigner?.GetLinearGradientBrush();
+            }
+            else if (t == PenBrushTypes.Radial)
+            {
+                return RadialGradientBrushDesigner?.GetRadialGradientBrush();
+            }
+            else if (t == PenBrushTypes.Image)
+            {
+                return ImageBrushDesigner?.GetImageBrush();
+            }
+            return null;
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetBrush(Brush value)
+        {
+            if (value is null)
+            {
+                Type = PenBrushTypes.None;
+            }
+            else if (value is SolidColorBrush scb)
+            {
+                Type = PenBrushTypes.Solid;
+                SolidColorBrushDesigner.SetSolidColorBrush(scb);
+            }
+            else if (value is LinearGradientBrush lgb)
+            {
+                Type = PenBrushTypes.Liner;
+                LinearGradientBrushDesigner.SetLinearGradientBrush(lgb);
+            }
+            else if (value is RadialGradientBrush rgb)
+            {
+                Type = PenBrushTypes.Radial;
+                RadialGradientBrushDesigner.SetRadialGradientBrush (rgb);
+            }
+            else if (value is ImageBrush ib)
+            {
+                Type = PenBrushTypes.Image;
+                ImageBrushDesigner.SetImageBrush (ib);
+            }
+            else
+            {
+                Type = PenBrushTypes.None;
             }
         }
         [DefaultValue(PenBrushTypes.None)]

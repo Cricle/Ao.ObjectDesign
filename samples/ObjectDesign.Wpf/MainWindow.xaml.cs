@@ -6,7 +6,7 @@ using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
-using Ao.ObjectDesign.Wpf.Xml;
+using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
@@ -125,9 +125,9 @@ namespace ObjectDesign.Wpf
                 else if (e.Key == Key.X)
                 {
                     Type t = currentObject.GetType();
-                    string s = DeisgnXmlSerializer.Serialize(currentObject);
-                    File.WriteAllText(t.Name + ".xml", s);
-                    this.ShowMessageAsync(string.Empty, "保存为xml成功");
+                    string s = DeisgnXamlSerializer.Serialize(currentObject);
+                    File.WriteAllText(t.Name + ".xaml", s);
+                    this.ShowMessageAsync(string.Empty, "保存为xaml成功");
                 }
                 //DesignerSerializationVisibilityAttribute
             }

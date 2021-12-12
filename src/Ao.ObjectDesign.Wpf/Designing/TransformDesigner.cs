@@ -63,89 +63,90 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseTransformChanged();
             }
         }
-
-        [ProvideMulityValues]
-        [PlatformTargetProperty]
-        [PropertyProvideValue(nameof(SkewTransform), typeof(SkewTransform))]
-        [PropertyProvideValue(nameof(ScaleTransform), typeof(ScaleTransform))]
-        [PropertyProvideValue(nameof(RotateTransform), typeof(RotateTransform))]
-        [PropertyProvideValue(nameof(TranslateTransform), typeof(TranslateTransform))]
-        public virtual Transform Transform
+        [PlatformTargetGetMethod]
+        [return:ProvideMulityValues]
+        [return: PropertyProvideValue(nameof(SkewTransform), typeof(SkewTransform))]
+        [return: PropertyProvideValue(nameof(ScaleTransform), typeof(ScaleTransform))]
+        [return: PropertyProvideValue(nameof(RotateTransform), typeof(RotateTransform))]
+        [return: PropertyProvideValue(nameof(TranslateTransform), typeof(TranslateTransform))]
+        public virtual Transform GetTransform()
         {
-            get
+            if (transformType == TransformTypes.None)
             {
-                if (transformType == TransformTypes.None)
-                {
-                    return null;
-                }
-                TransformGroup transformGroup = new TransformGroup();
-                if ((transformType & TransformTypes.Rotate) != 0 &&
-                    rotateTransform != null)
-                {
-                    transformGroup.Children.Add(rotateTransform.RotateTransform);
-                }
-                if ((transformType & TransformTypes.Translate) != 0 &&
-                    translateTransform != null)
-                {
-                    transformGroup.Children.Add(translateTransform.TranslateTransform);
-                }
-                if ((transformType & TransformTypes.Skew) != 0 &&
-                    skewTransform != null)
-                {
-                    transformGroup.Children.Add(skewTransform.SkewTransform);
-                }
-                if ((transformType & TransformTypes.Scale) != 0 &&
-                   scaleTransform != null)
-                {
-                    transformGroup.Children.Add(scaleTransform.ScaleTransform);
-                }
-                return transformGroup;
+                return null;
             }
-            set
+            TransformGroup transformGroup = new TransformGroup();
+            if ((transformType & TransformTypes.Rotate) != 0 &&
+                rotateTransform != null)
             {
-                if (value is null)
+                transformGroup.Children.Add(rotateTransform.GetRotateTransform());
+            }
+            if ((transformType & TransformTypes.Translate) != 0 &&
+                translateTransform != null)
+            {
+                transformGroup.Children.Add(translateTransform.GetTranslateTransform());
+            }
+            if ((transformType & TransformTypes.Skew) != 0 &&
+                skewTransform != null)
+            {
+                transformGroup.Children.Add(skewTransform.GetSkewTransform());
+            }
+            if ((transformType & TransformTypes.Scale) != 0 &&
+               scaleTransform != null)
+            {
+                transformGroup.Children.Add(scaleTransform.GetScaleTransform());
+            }
+            return transformGroup;
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetTransform(Transform value)
+        {
+            if (value is null)
+            {
+                TransformType = TransformTypes.None;
+            }
+            else
+            {
+                TransformTypes FindSet(Transform item)
                 {
-                    TransformType = TransformTypes.None;
+                    if (item is TranslateTransform translate)
+                    {
+                        TranslateTransform = new TranslateTransformDesigner ();
+                        TranslateTransform.SetTranslateTransform(translate);
+                        return TransformTypes.Translate;
+                    }
+                    else if (item is RotateTransform rotate)
+                    {
+                        RotateTransform = new RotateTransformDesigner ();
+                        RotateTransform.SetRotateTransform(rotate);
+                        return TransformTypes.Rotate;
+                    }
+                    else if (item is SkewTransform skew)
+                    {
+                        SkewTransform = new SkewTransformDesigner ();
+                        SkewTransform.SetSkewTransform(skew);
+                        return TransformTypes.Skew;
+                    }
+                    else if (item is ScaleTransform scale)
+                    {
+                        ScaleTransform = new ScaleTransformDesigner();
+                        ScaleTransform.SetScaleTransform(scale);
+                        return TransformTypes.Scale;
+                    }
+                    return TransformTypes.None;
+                }
+                if (value is TransformGroup group)
+                {
+                    TransformTypes type = TransformTypes.None;
+                    foreach (Transform item in group.Children)
+                    {
+                        type |= FindSet(item);
+                    }
+                    TransformType = type;
                 }
                 else
                 {
-                    TransformTypes FindSet(Transform item)
-                    {
-                        if (item is TranslateTransform translate)
-                        {
-                            TranslateTransform = new TranslateTransformDesigner { TranslateTransform = translate };
-                            return TransformTypes.Translate;
-                        }
-                        else if (item is RotateTransform rotate)
-                        {
-                            RotateTransform = new RotateTransformDesigner { RotateTransform = rotate };
-                            return TransformTypes.Rotate;
-                        }
-                        else if (item is SkewTransform skew)
-                        {
-                            SkewTransform = new SkewTransformDesigner { SkewTransform = skew };
-                            return TransformTypes.Skew;
-                        }
-                        else if (item is ScaleTransform scale)
-                        {
-                            ScaleTransform = new ScaleTransformDesigner { ScaleTransform = scale };
-                            return TransformTypes.Scale;
-                        }
-                        return TransformTypes.None;
-                    }
-                    if (value is TransformGroup group)
-                    {
-                        TransformTypes type = TransformTypes.None;
-                        foreach (Transform item in group.Children)
-                        {
-                            type |= FindSet(item);
-                        }
-                        TransformType = type;
-                    }
-                    else
-                    {
-                        TransformType = FindSet(value);
-                    }
+                    TransformType = FindSet(value);
                 }
             }
         }

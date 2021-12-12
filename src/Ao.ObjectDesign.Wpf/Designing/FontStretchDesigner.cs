@@ -45,14 +45,15 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
 
 
-        [PlatformTargetProperty]
-        public virtual FontStretch FontStretch
+        [PlatformTargetGetMethod]
+        public virtual FontStretch GetFontStretch()
         {
-            get => fontStretchMap[fontStretchType];
-            set
-            {
-                FontStretchType = fontStretchRevMap[value];
-            }
+            return fontStretchMap[fontStretchType];
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetFontStretch(FontStretch value)
+        {
+            FontStretchType = fontStretchRevMap[value];
         }
     }
 }

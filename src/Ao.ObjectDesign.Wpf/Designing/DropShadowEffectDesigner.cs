@@ -15,46 +15,48 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private double opacity;
         private double blurRadius;
         private RenderingBias renderingBias;
-
-        [PlatformTargetProperty]
-        public virtual DropShadowEffect DropShadowEffect
+        [PlatformTargetGetMethod]
+        public virtual DropShadowEffect GetDropShadowEffect()
         {
-            get => new DropShadowEffect
+            return new DropShadowEffect
             {
                 ShadowDepth = shadowDepth,
-                Color = color?.Color ?? Colors.Transparent,
+                Color = color?.GetColor() ?? Colors.Transparent,
                 BlurRadius = blurRadius,
                 Opacity = opacity,
                 Direction = direction,
                 RenderingBias = renderingBias
             };
-            set
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetDropShadowEffect(DropShadowEffect value)
+        {
+            if (value is null)
             {
-                if (value is null)
+                ShadowDepth = Direction = BlurRadius = 0;
+                RenderingBias = RenderingBias.Performance;
+                Color = null;
+                Opacity = 0;
+            }
+            else
+            {
+                ShadowDepth = value.ShadowDepth;
+                Direction = value.Direction;
+                BlurRadius = value.BlurRadius;
+                if (color is null)
                 {
-                    ShadowDepth = Direction = BlurRadius = 0;
-                    RenderingBias = RenderingBias.Performance;
-                    Color = null;
-                    Opacity = 0;
+                    Color = new ColorDesigner();
+                    color.SetColor(value.Color);
                 }
                 else
                 {
-                    ShadowDepth = value.ShadowDepth;
-                    Direction = value.Direction;
-                    BlurRadius = value.BlurRadius;
-                    if (color is null)
-                    {
-                        Color = new ColorDesigner { Color = value.Color };
-                    }
-                    else
-                    {
-                        color.Color = value.Color;
-                    }
-                    RenderingBias = value.RenderingBias;
-                    Opacity = value.Opacity;
+                    color.SetColor(value.Color);
                 }
+                RenderingBias = value.RenderingBias;
+                Opacity = value.Opacity;
             }
         }
+
         [DefaultValue(RenderingBias.Performance)]
         public virtual RenderingBias RenderingBias
         {

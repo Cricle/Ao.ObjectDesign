@@ -119,11 +119,13 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                Stroke = new BrushDesigner { Brush = value.Stroke };
+                Stroke = new BrushDesigner();
+                Stroke.SetBrush(value.Stroke);
                 StrokeEndLineCap = value.StrokeEndLineCap;
                 StrokeStartLineCap = value.StrokeStartLineCap;
                 StrokeThickness = value.StrokeThickness;
-                Fill = new BrushDesigner { Brush = value.Fill };
+                Fill = new BrushDesigner();
+                Fill.SetBrush(value.Fill);
                 StrokeDashOffset = value.StrokeDashOffset;
                 Stretch = value.Stretch;
                 StrokeMiterLimit = value.StrokeMiterLimit;
@@ -133,7 +135,8 @@ namespace Ao.ObjectDesign.Controls
                 {
                     if (strokeDashArray is null)
                     {
-                        StrokeDashArray = new DoubleCollectionDesigner { DoubleCollection = value.StrokeDashArray };
+                        StrokeDashArray = new DoubleCollectionDesigner();
+                        StrokeDashArray.SetDoubleCollection(value.StrokeDashArray);
                     }
                     else
                     {
@@ -149,11 +152,11 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((FrameworkElement)value);
-                value.Stroke = stroke?.Brush;
+                value.Stroke = stroke?.GetBrush();
                 value.StrokeEndLineCap = strokeEndLineCap;
                 value.StrokeStartLineCap = strokeStartLineCap;
                 value.StrokeThickness = strokeThickness;
-                value.Fill = fill?.Brush;
+                value.Fill = fill?.GetBrush();
                 value.StrokeDashOffset = strokeDashOffset;
                 value.Stretch = stretch;
                 value.StrokeMiterLimit = strokeMiterLimit;

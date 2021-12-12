@@ -31,16 +31,18 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaisePointChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual Point Point
+        [PlatformTargetGetMethod]
+        public virtual Point GetPoint()
         {
-            get => new Point(x, y);
-            set
-            {
-                X = value.X;
-                Y = value.Y;
-            }
+            return new Point(x, y);
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetPoint(Point value)
+        {
+            X = value.X;
+            Y = value.Y;
+        }
+
 
         private static readonly PropertyChangedEventArgs pointChangedEventArgs = new PropertyChangedEventArgs(nameof(Point));
         protected void RaisePointChanged()

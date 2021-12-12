@@ -143,7 +143,8 @@ namespace Ao.ObjectDesign.Controls
                 CaretIndex = value.CaretIndex;
                 SelectionLength = value.SelectionLength;
                 SelectionStart = value.SelectionStart;
-                TextDecorations = new TextDecorationCollectionDesigner { TextDecorationCollection = value.TextDecorations };
+                TextDecorations = new TextDecorationCollectionDesigner();
+                TextDecorations.SetTextDecorationCollection(value.TextDecorations);
                 SelectedText = value.SelectedText;
                 TextWrapping = value.TextWrapping;
             }
@@ -163,7 +164,7 @@ namespace Ao.ObjectDesign.Controls
                 value.CaretIndex = caretIndex;
                 value.SelectionLength = selectionLength;
                 value.SelectionStart = selectionStart;
-                value.TextDecorations = textDecorations?.TextDecorationCollection;
+                value.TextDecorations = textDecorations?.GetTextDecorationCollection();
                 value.SelectedText = selectedText;
                 value.TextWrapping = textWrapping;
             }

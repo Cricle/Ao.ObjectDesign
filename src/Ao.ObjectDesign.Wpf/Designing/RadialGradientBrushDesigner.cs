@@ -89,40 +89,40 @@ namespace Ao.ObjectDesign.Wpf.Designing
         {
             RaiseRadialGradientBrushChange();
         }
-
-        [PlatformTargetProperty]
-        public virtual RadialGradientBrush RadialGradientBrush
+        [PlatformTargetGetMethod]
+        public virtual RadialGradientBrush GetRadialGradientBrush()
         {
-            get
+            RadialGradientBrush brush = new RadialGradientBrush
             {
-                RadialGradientBrush brush = new RadialGradientBrush
-                {
-                    GradientOrigin = gradientOrigin?.Point ?? default,
-                    Center = center?.Point ?? default,
-                    RadiusY = radiusY,
-                    RadiusX = radiusX
-                };
-                WriteTo(brush);
-                return brush;
-            }
-            set
-            {
-                if (value is null)
-                {
-                    GradientOrigin = new PointDesigner();
-                    Center = new PointDesigner();
-                    RadiusX = RadiusY = 0;
-                }
-                else
-                {
-                    GradientOrigin = new PointDesigner { Point = value.GradientOrigin };
-                    Center = new PointDesigner { Point = value.Center };
-                    RadiusX = value.RadiusX;
-                    RadiusY = value.RadiusY;
-                }
-                Apply(value);
-            }
+                GradientOrigin = gradientOrigin?.GetPoint() ?? default,
+                Center = center?.GetPoint() ?? default,
+                RadiusY = radiusY,
+                RadiusX = radiusX
+            };
+            WriteTo(brush);
+            return brush;
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetRadialGradientBrush(RadialGradientBrush value)
+        {
+            if (value is null)
+            {
+                GradientOrigin = new PointDesigner();
+                Center = new PointDesigner();
+                RadiusX = RadiusY = 0;
+            }
+            else
+            {
+                GradientOrigin = new PointDesigner();
+                GradientOrigin.SetPoint(value.GradientOrigin);
+                Center = new PointDesigner();
+                Center.SetPoint(value.Center);
+                RadiusX = value.RadiusX;
+                RadiusY = value.RadiusY;
+            }
+            Apply(value);
+        }
+
         private static readonly PropertyChangedEventArgs radialGradientBrushEventArgs = new PropertyChangedEventArgs(nameof(RadialGradientBrush));
         protected void RaiseRadialGradientBrushChange()
         {

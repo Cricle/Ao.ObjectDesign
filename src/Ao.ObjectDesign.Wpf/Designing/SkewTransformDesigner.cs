@@ -56,25 +56,27 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseSkewTransformChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual SkewTransform SkewTransform
+        [PlatformTargetGetMethod]
+        public virtual SkewTransform GetSkewTransform()
         {
-            get => new SkewTransform(angleX, angleY, centerX, centerY);
-            set
+            return new SkewTransform(angleX, angleY, centerX, centerY);
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetSkewTransform(SkewTransform value)
+        {
+            if (value is null)
             {
-                if (value is null)
-                {
-                    AngleX = AngleY = CenterX = CenterY = 0;
-                }
-                else
-                {
-                    AngleX = value.AngleX;
-                    AngleY = value.AngleY;
-                    CenterX = value.CenterX;
-                    CenterY = value.CenterY;
-                }
+                AngleX = AngleY = CenterX = CenterY = 0;
+            }
+            else
+            {
+                AngleX = value.AngleX;
+                AngleY = value.AngleY;
+                CenterX = value.CenterX;
+                CenterY = value.CenterY;
             }
         }
+
 
         private static readonly PropertyChangedEventArgs skewTransformEventArgs = new PropertyChangedEventArgs(nameof(SkewTransform));
         private void RaiseSkewTransformChanged()

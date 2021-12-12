@@ -144,7 +144,8 @@ namespace Ao.ObjectDesign.Controls
                 SizeToContent = value.SizeToContent;
                 AllowsTransparency = value.AllowsTransparency;
                 Left = value.Left;
-                Icon = new ImageSourceDesigner { ImageSource = value.Icon };
+                Icon = new ImageSourceDesigner ();
+                Icon.SetImageSource(value.Icon);
                 WindowStyle = value.WindowStyle;
                 WindowState = value.WindowState;
                 ResizeMode = value.ResizeMode;
@@ -165,7 +166,7 @@ namespace Ao.ObjectDesign.Controls
                 value.SizeToContent = sizeToContent;
                 value.AllowsTransparency = allowsTransparency;
                 value.Left = left;
-                value.Icon = icon?.ImageSource;
+                value.Icon = icon?.GetImageSource();
                 value.WindowStyle = windowStyle;
                 value.WindowState = windowState;
                 value.ResizeMode = resizeMode;

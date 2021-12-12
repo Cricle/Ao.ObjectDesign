@@ -158,7 +158,8 @@ namespace Ao.ObjectDesign.Controls
                 IsDirectionReversed = value.IsDirectionReversed;
                 Orientation = value.Orientation;
                 TickFrequency = value.TickFrequency;
-                Ticks = new DoubleCollectionDesigner { DoubleCollection = value.Ticks };
+                Ticks = new DoubleCollectionDesigner();
+                Ticks.SetDoubleCollection(value.Ticks);
                 SelectionStart = value.SelectionStart;
                 TickPlacement = value.TickPlacement;
                 IsSelectionRangeEnabled = value.IsSelectionRangeEnabled;
@@ -180,7 +181,7 @@ namespace Ao.ObjectDesign.Controls
                 value.IsDirectionReversed = isDirectionReversed;
                 value.Orientation = orientation;
                 value.TickFrequency = tickFrequency;
-                value.Ticks = ticks?.DoubleCollection;
+                value.Ticks = ticks?.GetDoubleCollection();
                 value.SelectionStart = selectionStart;
                 value.TickPlacement = tickPlacement;
                 value.IsSelectionRangeEnabled = isSelectionRangeEnabled;

@@ -75,9 +75,11 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((Control)value);
-                CaretBrush = new BrushDesigner { Brush = value.CaretBrush };
+                CaretBrush = new BrushDesigner();
+                CaretBrush.SetBrush(value.CaretBrush);
                 SelectionOpacity = value.SelectionOpacity;
-                SelectionBrush = new BrushDesigner { Brush = value.SelectionBrush };
+                SelectionBrush = new BrushDesigner ();
+                SelectionBrush.SetBrush(value.SelectionBrush);
                 MaxLength = value.MaxLength;
                 PasswordChar = value.PasswordChar;
                 IsInactiveSelectionHighlightEnabled = value.IsInactiveSelectionHighlightEnabled;
@@ -89,9 +91,9 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((Control)value);
-                value.CaretBrush = caretBrush?.Brush;
+                value.CaretBrush = caretBrush?.GetBrush();
                 value.SelectionOpacity = selectionOpacity;
-                value.SelectionBrush = selectionBrush?.Brush;
+                value.SelectionBrush = selectionBrush?.GetBrush();
                 value.MaxLength = maxLength;
                 value.PasswordChar = passwordChar;
                 value.IsInactiveSelectionHighlightEnabled = isInactiveSelectionHighlightEnabled;

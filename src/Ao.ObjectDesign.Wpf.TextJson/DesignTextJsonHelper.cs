@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using Dahomey.Json;
 using Ao.ObjectDesign.Wpf.Designing;
+using Dahomey.Json.Serialization.Conventions;
 
 namespace Ao.ObjectDesign.Wpf.TextJson
 {
@@ -17,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.TextJson
         {
             var opt = CreateOptions();
             var registry = opt.GetDiscriminatorConventionRegistry();
-            registry.DiscriminatorPolicy = Dahomey.Json.Serialization.Conventions.DiscriminatorPolicy.Always;
+            registry.DiscriminatorPolicy = DiscriminatorPolicy.Always;
             registry.ClearConventions();
             registry.RegisterConvention(new TypeDiscriminatorConvention());
             return opt;
@@ -25,10 +26,7 @@ namespace Ao.ObjectDesign.Wpf.TextJson
         public static JsonSerializerOptions CreateOptions()
         {
             var options = new JsonSerializerOptions();
-            options.IgnoreReadOnlyProperties = false;
             options.SetupExtensions();
-            var reg = options.GetObjectMappingConventionRegistry();
-            reg.RegisterProvider(new AllObjectMappingConventionProvider(DesigningHelpers.KnowDesigningTypes));
             return options;
         }
 

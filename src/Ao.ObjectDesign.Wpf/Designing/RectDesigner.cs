@@ -56,18 +56,20 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseRectChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual Rect Rect
+        [PlatformTargetGetMethod]
+        public virtual Rect GetRect()
         {
-            get => new Rect(x, y, width, height);
-            set
-            {
-                X = value.X;
-                Y = value.Y;
-                Width = value.Width;
-                Height = value.Height;
-            }
+            return new Rect(x, y, width, height);
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetRect(Rect value)
+        {
+            X = value.X;
+            Y = value.Y;
+            Width = value.Width;
+            Height = value.Height;
+        }
+
         private static readonly PropertyChangedEventArgs rectEventArgs = new PropertyChangedEventArgs(nameof(Rect));
         protected void RaiseRectChanged()
         {

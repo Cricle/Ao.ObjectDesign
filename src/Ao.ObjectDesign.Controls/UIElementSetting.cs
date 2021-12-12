@@ -135,20 +135,14 @@ namespace Ao.ObjectDesign.Controls
                 Opacity = value.Opacity;
                 if (opacityMask is null)
                 {
-                    opacityMask = new BrushDesigner { Brush = value.OpacityMask };
+                    opacityMask = new BrushDesigner ();
                 }
-                else
-                {
-                    opacityMask.Brush = value.OpacityMask;
-                }
+                    opacityMask.SetBrush(value.OpacityMask);
                 if (renderTransformOrigin is null)
                 {
-                    RenderTransformOrigin = new PointDesigner { Point = value.RenderTransformOrigin };
+                    RenderTransformOrigin = new PointDesigner();
                 }
-                else
-                {
-                    renderTransformOrigin.Point = value.RenderTransformOrigin;
-                }
+                    renderTransformOrigin.SetPoint(value.RenderTransformOrigin);
             }
         }
         protected void CheckType(object value)
@@ -218,8 +212,8 @@ namespace Ao.ObjectDesign.Controls
                 value.Focusable = focusable;
                 value.AllowDrop = allowDrop;
                 value.Opacity = opacity;
-                value.OpacityMask = opacityMask?.Brush;
-                value.RenderTransformOrigin = renderTransformOrigin?.Point ?? default;
+                value.OpacityMask = opacityMask?.GetBrush();
+                value.RenderTransformOrigin = renderTransformOrigin?.GetPoint() ?? default;
             }
         }
         public virtual void SetDefault()

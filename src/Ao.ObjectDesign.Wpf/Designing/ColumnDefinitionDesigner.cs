@@ -57,42 +57,41 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseColumnDefinitionChanged();
             }
         }
-        [PlatformTargetProperty]
-        public virtual ColumnDefinition ColumnDefinition
+        [PlatformTargetGetMethod]
+        public virtual ColumnDefinition GetColumnDefinition()
         {
-            get
+            GridLength length = default;
+            if (gridLengthSetting != null)
             {
-                GridLength length = default;
-                if (gridLengthSetting != null)
-                {
-                    length = gridLengthSetting.GridLength;
-                }
-                return new ColumnDefinition
-                {
-                    Width = length,
-                    MaxWidth = maxWidth,
-                    MinWidth = minWidth
-                };
+                length = gridLengthSetting.GetGridLength();
             }
-            set
+            return new ColumnDefinition
             {
-                if (value is null)
+                Width = length,
+                MaxWidth = maxWidth,
+                MinWidth = minWidth
+            };
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetColumnDefinition(ColumnDefinition value)
+        {
+            if (value is null)
+            {
+                GridLengthSetting = null;
+            }
+            else
+            {
+                MaxWidth = value.MaxWidth;
+                MinWidth = value.MinWidth;
+                if (GridLengthSetting is null)
                 {
-                    GridLengthSetting = null;
+                    GridLengthSetting = new GridLengthDesigner();
                 }
-                else
-                {
-                    MaxWidth = value.MaxWidth;
-                    MinWidth = value.MinWidth;
-                    if (GridLengthSetting is null)
-                    {
-                        GridLengthSetting = new GridLengthDesigner();
-                    }
-                    GridLengthSetting.Type = value.Width.GridUnitType;
-                    GridLengthSetting.Value = value.Width.Value;
-                }
+                GridLengthSetting.Type = value.Width.GridUnitType;
+                GridLengthSetting.Value = value.Width.Value;
             }
         }
+
         private static readonly PropertyChangedEventArgs columnDefinitionChangedEventArgs = new PropertyChangedEventArgs(nameof(ColumnDefinition));
         protected void RaiseColumnDefinitionChanged()
         {

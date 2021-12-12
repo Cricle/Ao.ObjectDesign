@@ -51,7 +51,8 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                Source = new ImageSourceDesigner { ImageSource = value.Source };
+                Source = new ImageSourceDesigner();
+                Source.SetImageSource(value.Source);
                 StretchDirection = value.StretchDirection;
                 Stretch = value.Stretch;
             }
@@ -64,6 +65,7 @@ namespace Ao.ObjectDesign.Controls
                 WriteTo((FrameworkElement)value);
                 value.StretchDirection = stretchDirection;
                 value.Stretch = stretch;
+                value.Source = source?.GetImageSource();
             }
         }
     }

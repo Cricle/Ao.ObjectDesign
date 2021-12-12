@@ -49,7 +49,8 @@ namespace Ao.ObjectDesign.Controls
                 }
                 else
                 {
-                    Points = new PointCollectionDesigner { PointCollection = value.Points };
+                    Points = new PointCollectionDesigner();
+                    Points.SetPointCollection(value.Points);
                 }
                 FillRule = value.FillRule;
             }
@@ -60,7 +61,7 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((Shape)value);
-                value.Points = points?.PointCollection;
+                value.Points = points?.GetPointCollection();
                 value.FillRule = fillRule;
             }
         }

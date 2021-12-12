@@ -12,7 +12,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         public BlurEffectDesigner()
         {
-            BlurEffect = null;
+            SetBlurEffect(null);
         }
 
         private double radius;
@@ -49,33 +49,30 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseBlurEffectChanged();
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual BlurEffect BlurEffect
+        [PlatformTargetGetMethod]
+        public virtual BlurEffect GetBlurEffect()
         {
-            get
+            return new BlurEffect
             {
-                return new BlurEffect
-                {
-                    Radius = radius,
-                    KernelType = kernelType,
-                    RenderingBias = renderingBias
-                };
+                Radius = radius,
+                KernelType = kernelType,
+                RenderingBias = renderingBias
+            };
+        }
+        [PlatformTargetSetMethod]
+        public virtual void SetBlurEffect(BlurEffect value)
+        {
+            if (value == null)
+            {
+                Radius = 5.0;
+                KernelType = KernelType.Gaussian;
+                RenderingBias = RenderingBias.Performance;
             }
-            set
+            else
             {
-                if (value == null)
-                {
-                    Radius = 5.0;
-                    KernelType = KernelType.Gaussian;
-                    RenderingBias = RenderingBias.Performance;
-                }
-                else
-                {
-                    Radius = value.Radius;
-                    KernelType = value.KernelType;
-                    RenderingBias = value.RenderingBias;
-                }
+                Radius = value.Radius;
+                KernelType = value.KernelType;
+                RenderingBias = value.RenderingBias;
             }
         }
         protected void RaiseBlurEffectChanged()

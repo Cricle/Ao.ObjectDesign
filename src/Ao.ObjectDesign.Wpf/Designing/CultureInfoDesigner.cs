@@ -21,22 +21,29 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaisePropertyChanged(cultureInfoChangedEventArgs);
             }
         }
-
-        [PlatformTargetProperty]
-        public virtual CultureInfo CultureInfo
+        [PlatformTargetGetMethod]
+        public virtual CultureInfo GetCultureInfo()
         {
-            get => string.IsNullOrEmpty(name) ? null : new CultureInfo(name);
-            set
-            {
-                if (value is null)
-                {
-                    Name = null;
-                }
-                else
-                {
-                    Name = value.Name;
-                }
-            }
+            return string.IsNullOrEmpty(name) ? null : new CultureInfo(name);
         }
+        [PlatformTargetSetMethod]
+        public virtual void SetCultureInfo(CultureInfo value)
+        {
+            if (value is null)
+            {
+                Name = null;
+            }
+            else
+            {
+                Name = value.Name;
+            }
+            RaiseCultureInfoChanged();
+        }
+        private static readonly PropertyChangedEventArgs CultureInfoChangedEventArgs = new PropertyChangedEventArgs(nameof(CultureInfo));
+        protected void RaiseCultureInfoChanged()
+        {
+            RaisePropertyChanged(CultureInfoChangedEventArgs);
+        }
+
     }
 }

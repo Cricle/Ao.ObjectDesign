@@ -134,11 +134,18 @@ namespace Ao.ObjectDesign.Designing.Data
                     return CreateDrawingItem(drawingItem);
                 }
                 PropertyInfo targetProperty = info.PropertyType.GetProperties().FirstOrDefault(x => x.GetCustomAttribute<PlatformTargetPropertyAttribute>() != null);
+                string propertyName = targetProperty?.Name;
                 if (targetProperty is null)
                 {
-                    return CreateDrawingItem(drawingItem);
+                    var dynMap = DynamicTypePropertyHelper.GetPropertyMap(info.PropertyType);
+                    var virtualPropery = dynMap.FirstOrDefault(x => x.Value.IsVirtualPropery);
+                    if (virtualPropery.Value== null)
+                    {
+                        return CreateDrawingItem(drawingItem);
+                    }
+                    propertyName = virtualPropery.Key;
                 }
-                drawingItem.Path = string.Concat(info.Name, ".", targetProperty.Name);
+                drawingItem.Path = string.Concat(info.Name, ".", propertyName);
                 if (descriptorMap != map)
                 {
                     map = GetDependencyPropertyDescriptorMap(designFor.Type);

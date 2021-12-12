@@ -29,8 +29,8 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                Background = new BrushDesigner { Brush = value.Background };
-
+                Background = new BrushDesigner();
+                Background.SetBrush(value.Background);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Controls
             if (value != null)
             {
                 WriteTo((FrameworkElement)value);
-                value.Background = background?.Brush;
+                value.Background = background?.GetBrush();
             }
         }
     }
