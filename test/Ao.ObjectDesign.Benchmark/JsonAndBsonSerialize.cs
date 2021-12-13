@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Wpf.Json;
+using Ao.ObjectDesign.Wpf.Store;
 using BenchmarkDotNet.Attributes;
 using Newtonsoft.Json.Bson;
 using System.IO;
@@ -20,13 +21,12 @@ namespace Ao.ObjectDesign.Benchmark
         [Benchmark(Baseline =true)]
         public void JsonSerialize()
         {
-            DesignJsonHelper.Serialize(buttonSetting);
+            JsonDesignInterop.Default.SerializeToString(buttonSetting);
         }
         [Benchmark]
         public void BsonSerialize()
         {
-            stream.Seek(0, SeekOrigin.Begin);
-            DesignBsonHelper.Serialize(new BsonDataWriter(stream));
+            BsonDesignInterop.Default.SerializeToByte(buttonSetting);
         }
     }
 }

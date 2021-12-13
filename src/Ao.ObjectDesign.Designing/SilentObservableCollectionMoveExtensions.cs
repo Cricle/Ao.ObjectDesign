@@ -2,23 +2,23 @@
 {
     public static class ObservableCollectionMoveExtensions
     {
-        public static int? MoveTop<T>(this ObservableCollection<T> collection, T obj)
+        public static int? MoveTop<T>(this ISilentObservableCollection<T> collection, T obj)
         {
             return Move(collection, obj, CollectionMoveDirections.Top);
         }
-        public static int? MoveUp<T>(this ObservableCollection<T> collection, T obj)
+        public static int? MoveUp<T>(this ISilentObservableCollection<T> collection, T obj)
         {
             return Move(collection, obj, CollectionMoveDirections.Up);
         }
-        public static int? MoveDown<T>(this ObservableCollection<T> collection, T obj)
+        public static int? MoveDown<T>(this ISilentObservableCollection<T> collection, T obj)
         {
             return Move(collection, obj, CollectionMoveDirections.Down);
         }
-        public static int? MoveBottom<T>(this ObservableCollection<T> collection, T obj)
+        public static int? MoveBottom<T>(this ISilentObservableCollection<T> collection, T obj)
         {
             return Move(collection, obj, CollectionMoveDirections.Bottom);
         }
-        public static int? Move<T>(this ObservableCollection<T> collection, T obj, CollectionMoveDirections directions)
+        public static int? Move<T>(this ISilentObservableCollection<T> collection, T obj, CollectionMoveDirections directions)
         {
             if (collection is null)
             {

@@ -14,8 +14,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     {
         private static FontFamily[] installedFontFamilies;
         public static IReadOnlyDictionary<string, FontFamily> InstalledFontFamilyMap =>
-            FrozenDictionary<string, FontFamily>.Create(InstalledFontFamilies,
-                x => x.Source, x => x, null);
+            InstalledFontFamilies.ToDictionary(x=>x.Source);
         public static IReadOnlyCollection<FontFamily> InstalledFontFamilies
         {
             get

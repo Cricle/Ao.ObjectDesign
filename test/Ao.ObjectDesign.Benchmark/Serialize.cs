@@ -11,6 +11,7 @@ using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using Ao.ObjectDesign.Wpf.MessagePack;
 using System.IO;
+using Ao.ObjectDesign.Wpf.Store;
 
 namespace Ao.ObjectDesign.Benchmark
 {
@@ -19,27 +20,26 @@ namespace Ao.ObjectDesign.Benchmark
     {
         private readonly List<NotifyableObject> brushes;
         private string json;
-        private Stream bson;
+        private byte[] bson;
         private string yaml;
         private byte[] mp;
         public Deserialize()
         {
             brushes = SerializeHelper.MakeDatas(1000);
-            json = DesignJsonHelper.Serialize(brushes);
-            bson = DesignBsonHelper.Serialize(brushes);
-            yaml = DeisgnYamlSerializer.Serialize(brushes);
-            mp = DesignMessagePackHelper.Serialize(brushes.GetType(), brushes);
+            json = JsonDesignInterop.Default.SerializeToString(brushes);
+            bson = BsonDesignInterop.Default.SerializeToByte(brushes);
+            yaml = YamlDesignInterop.Default.SerializeToString(brushes);
+            mp = MessagePackDesignInterop.Default.SerializeToByte(brushes);
         }
         [Benchmark]
         public void Json()
         {
-            DesignJsonHelper.Deserialize<List<NotifyableObject>>(json);
+            JsonDesignInterop.Default.SerializeToString(json);
         }
         [Benchmark]
         public void Bson()
         {
-            bson.Seek(0, SeekOrigin.Begin);
-            DesignBsonHelper.Serialize(brushes);
+            BsonDesignInterop.Default.SerializeToByte(brushes);
         }
         //[Benchmark]
         //public void Xml()
@@ -54,7 +54,7 @@ namespace Ao.ObjectDesign.Benchmark
         [Benchmark]
         public void MessagePack()
         {
-            DesignMessagePackHelper.Deserialize(brushes.GetType(), mp);
+            YamlDesignInterop.Default.SerializeToString(brushes);
         }
     }
 
@@ -70,12 +70,12 @@ namespace Ao.ObjectDesign.Benchmark
         [Benchmark]
         public void Json()
         {
-            DesignJsonHelper.Serialize(brushes);
+            JsonDesignInterop.Default.SerializeToString(brushes);
         }
         [Benchmark]
         public void Bson()
         {
-            DesignBsonHelper.Serialize(brushes);
+            BsonDesignInterop.Default.SerializeToByte(brushes);
         }
         //[Benchmark]
         //public void Xml()
@@ -85,12 +85,12 @@ namespace Ao.ObjectDesign.Benchmark
         [Benchmark]
         public void Yaml()
         {
-            DeisgnYamlSerializer.Serialize(brushes);
+            YamlDesignInterop.Default.SerializeToString(brushes);
         }
         [Benchmark]
         public void MessagePack()
         {
-            DesignMessagePackHelper.Serialize(brushes.GetType(),brushes);
+            MessagePackDesignInterop.Default.SerializeToByte(brushes);
         }
     }
 }

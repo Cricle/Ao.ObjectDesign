@@ -21,17 +21,11 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
         private static IReadOnlyDictionary<string, Cursor> GetCursorMap()
         {
-            return FrozenDictionary<string, Cursor>.Create(GetCursorProperties(),
-                x => x.Name,
-                x => (Cursor)x.GetValue(null),
-                null);
+            return GetCursorProperties().ToDictionary(x => x.Name, x => (Cursor)x.GetValue(null));
         }
         private static IReadOnlyDictionary<Cursor, string> GetCursorRevMap()
         {
-            return FrozenDictionary<Cursor, string>.Create(GetCursorProperties(),
-                   x => (Cursor)x.GetValue(null),
-                   x => x.Name,
-                   null);
+            return GetCursorProperties().ToDictionary(x => (Cursor)x.GetValue(null), x => x.Name);
         }
 
         private string name;

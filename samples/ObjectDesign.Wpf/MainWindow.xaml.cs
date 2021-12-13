@@ -6,6 +6,7 @@ using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
+using Ao.ObjectDesign.Wpf.Store;
 using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
@@ -102,7 +103,7 @@ namespace ObjectDesign.Wpf
                 else if (e.Key == Key.J)
                 {
                     Type t = currentObject.GetType();
-                    string str = DesignJsonHelper.Serialize(currentObject);
+                    string str = JsonDesignInterop.Default.SerializeToString(currentObject);
                     File.WriteAllText(t.Name + ".json", str);
                     this.ShowMessageAsync(string.Empty, "保存为json成功");
                 }
@@ -111,21 +112,21 @@ namespace ObjectDesign.Wpf
                     Type t = currentObject.GetType();
                     using (FileStream fs = File.Open(t.Name + ".bson", FileMode.Create))
                     {
-                        DesignBsonHelper.Serialize(fs, currentObject, t);
+                        BsonDesignInterop.Default.SerializeToStream(currentObject, t, fs);
                     }
                     this.ShowMessageAsync(string.Empty, "保存为bson成功");
                 }
                 else if (e.Key == Key.Y)
                 {
                     Type t = currentObject.GetType();
-                    string str = DeisgnYamlSerializer.Serialize(currentObject);
+                    string str = YamlDesignInterop.Default.SerializeToString(currentObject);
                     File.WriteAllText(t.Name + ".yaml", str);
                     this.ShowMessageAsync(string.Empty, "保存为yaml成功");
                 }
                 else if (e.Key == Key.X)
                 {
                     Type t = currentObject.GetType();
-                    string s = DeisgnXamlSerializer.Serialize(currentObject);
+                    string s = XamlDesignInterop.Default.SerializeToString(currentObject);
                     File.WriteAllText(t.Name + ".xaml", s);
                     this.ShowMessageAsync(string.Empty, "保存为xaml成功");
                 }
@@ -154,7 +155,7 @@ namespace ObjectDesign.Wpf
                     if (File.Exists(fn))
                     {
                         string str = File.ReadAllText(fn);
-                        obj = (INotifyPropertyChangeTo)DesignJsonHelper.Deserialize(str, item.ClrType);
+                        obj = (INotifyPropertyChangeTo)JsonDesignInterop.Default.DeserializeByString(str, item.ClrType);
                     }
                     else
                     {

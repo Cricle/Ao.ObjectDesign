@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFrameworks>net452;net461;net5.0-windows</TargetFrameworks>
@@ -15,8 +15,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Controls\Ao.ObjectDesign.Controls.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Xaml\Ao.ObjectDesign.Wpf.Xaml.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'!='net452'">
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.TextJson\Ao.ObjectDesign.Wpf.TextJson.csproj" />
   </ItemGroup>
 
   <ItemGroup>

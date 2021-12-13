@@ -12,7 +12,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     public class FontWeightDesigner : NotifyableObject
     {
         public static readonly IReadOnlyDictionary<PenFontWeights, FontWeight> fontWeightMap =
-            FrozenDictionary<PenFontWeights, FontWeight>.Create(new Dictionary<PenFontWeights, FontWeight>
+            new Dictionary<PenFontWeights, FontWeight>
             {
                 [PenFontWeights.Black] = FontWeights.Black,
                 [PenFontWeights.Bold] = FontWeights.Bold,
@@ -30,7 +30,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 [PenFontWeights.UltraBlack] = FontWeights.UltraBlack,
                 [PenFontWeights.UltraBold] = FontWeights.UltraBold,
                 [PenFontWeights.UltraLight] = FontWeights.UltraLight,
-            });
+            };
         public static readonly IReadOnlyList<PenFontWeights> KnowPenFontWeights = 
             Enum.GetValues(typeof(PenFontWeights))
                 .Cast<PenFontWeights>()

@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.TextJson\Ao.ObjectDesign.Wpf.TextJson.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Xaml\Ao.ObjectDesign.Wpf.Xaml.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />

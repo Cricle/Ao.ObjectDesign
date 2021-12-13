@@ -18,11 +18,7 @@ namespace Ao.ObjectDesign.Designing
         }
         private static IReadOnlyDictionary<string, TypeProperty> CreatePropertyMaps(Type type)
         {
-            return FrozenDictionary<string, TypeProperty>.Create(
-                TypeMappings.GetTypeProperties(type),
-                x => x.Name,
-                x => x,
-                null);
+            return TypeMappings.GetTypeProperties(type).ToDictionary(x => x.Name);
         }
 
 

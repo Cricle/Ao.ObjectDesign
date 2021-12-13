@@ -7,7 +7,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(DoubleCollection))]
-    public class DoubleCollectionDesigner : SilentObservableCollection<double>
+    public class DoubleCollectionDesigner : DynamicSilentObservableCollection<double>
     {
         private static readonly PropertyChangedEventArgs DoubleCollectionChangedEventArgs = new PropertyChangedEventArgs(nameof(DoubleCollection));
         public DoubleCollectionDesigner()
@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         private void OnDoubleCollectionSettingCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged(DoubleCollectionChangedEventArgs);
+            RaisePropertyChanged(DoubleCollectionChangedEventArgs);
         }
         [PlatformTargetGetMethod]
         public virtual DoubleCollection GetDoubleCollection()

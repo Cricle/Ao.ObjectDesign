@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     public class FontStretchDesigner : NotifyableObject
     {
         public static readonly IReadOnlyDictionary<FontStretchTypes, FontStretch> fontStretchMap =
-            FrozenDictionary<FontStretchTypes, FontStretch>.Create(new Dictionary<FontStretchTypes, FontStretch>
+            new Dictionary<FontStretchTypes, FontStretch>
             {
                 [FontStretchTypes.Normal] = FontStretches.Normal,
                 [FontStretchTypes.UltraCondensed] = FontStretches.UltraCondensed,
@@ -22,13 +22,10 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 [FontStretchTypes.Expanded] = FontStretches.Expanded,
                 [FontStretchTypes.ExtraExpanded] = FontStretches.ExtraExpanded,
                 [FontStretchTypes.UltraExpanded] = FontStretches.UltraExpanded,
-            });
+            };
 
         public static readonly IReadOnlyDictionary<FontStretch, FontStretchTypes> fontStretchRevMap =
-            FrozenDictionary<FontStretch, FontStretchTypes>.Create(fontStretchMap,
-                x => x.Value,
-                x => x.Key,
-                null);
+            fontStretchMap.ToDictionary(x => x.Value, x => x.Key);
 
         private static readonly PropertyChangedEventArgs fontStretchChangedEventArgs = new PropertyChangedEventArgs(nameof(FontStretch));
         private FontStretchTypes fontStretchType;

@@ -54,15 +54,12 @@ namespace Ao.ObjectDesign.Wpf
 
             return dependencyProperties.GetOrAdd(type, GetDependencyPropertyDescriptorMap);
         }
-        private static FrozenDictionary<string,DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
+        private static IReadOnlyDictionary<string,DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
         {
             var query = GetPropertyDescriptors(type)
                 .Select(t => DependencyPropertyDescriptor.FromProperty(t))
                 .Where(t => t != null);
-            return FrozenDictionary<string, DependencyPropertyDescriptor>.Create(query,
-                x => x.Name,
-                x => x,
-                null);
+            return query.ToDictionary(x => x.Name);
         }
         public static IEnumerable<DependencyProperty> GetDependencyProperties(Type type)
         {

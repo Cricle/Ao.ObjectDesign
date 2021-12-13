@@ -57,7 +57,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private BrushMappingMode mappingMode = BrushMappingMode.RelativeToBoundingBox;
         private GradientSpreadMethod spreadMethod = GradientSpreadMethod.Pad;
         private double opacity = 1;
-        private SilentObservableCollection<GradientStopDesigner> penGradientStops;
+        private DynamicSilentObservableCollection<GradientStopDesigner> penGradientStops;
 
         [DefaultValue(1d)]
         public virtual double Opacity
@@ -102,7 +102,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
 
-        public virtual SilentObservableCollection<GradientStopDesigner> PenGradientStops
+        public virtual DynamicSilentObservableCollection<GradientStopDesigner> PenGradientStops
         {
             get => penGradientStops;
             set
@@ -122,7 +122,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         [PlatformTargetGetMethod]
         public virtual IEnumerable<GradientStop> GetGradientStops()
         {
-            SilentObservableCollection<GradientStopDesigner> stops = penGradientStops;
+            DynamicSilentObservableCollection<GradientStopDesigner> stops = penGradientStops;
             if (stops is null)
             {
                 return Enumerable.Empty<GradientStop>();
@@ -140,7 +140,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             MappingMode = BrushMappingMode.RelativeToBoundingBox;
             Opacity = 1;
             SpreadMethod = GradientSpreadMethod.Pad;
-            PenGradientStops = new SilentObservableCollection<GradientStopDesigner>();
+            PenGradientStops = new DynamicSilentObservableCollection<GradientStopDesigner>();
         }
 
         public virtual void WriteTo(GradientBrush brush)
@@ -173,7 +173,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 SpreadMethod = brush.SpreadMethod;
                 if (brush.GradientStops != null && brush.GradientStops.Count != 0)
                 {
-                    PenGradientStops = new SilentObservableCollection<GradientStopDesigner>(brush.GradientStops.Select(x => new GradientStopDesigner(x.Color, x.Offset)));
+                    PenGradientStops = new DynamicSilentObservableCollection<GradientStopDesigner>(brush.GradientStops.Select(x => new GradientStopDesigner(x.Color, x.Offset)));
                 }
             }
         }

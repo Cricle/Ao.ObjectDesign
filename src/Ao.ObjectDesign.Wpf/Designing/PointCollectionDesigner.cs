@@ -9,7 +9,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [MappingFor(typeof(PointCollection))]
-    public class PointCollectionDesigner : SilentObservableCollection<PointDesigner>
+    public class PointCollectionDesigner : DynamicSilentObservableCollection<PointDesigner>
     {
         public PointCollectionDesigner()
         {
@@ -42,14 +42,14 @@ namespace Ao.ObjectDesign.Wpf.Designing
                     }
                 }
             }
-            OnPropertyChanged(PointCollectionChangedEventArgs);
+            RaisePropertyChanged(PointCollectionChangedEventArgs);
         }
         private static readonly PropertyChangedEventArgs PointCollectionChangedEventArgs =
             new PropertyChangedEventArgs(nameof(PointCollection));
 
         private void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            OnPropertyChanged(PointCollectionChangedEventArgs);
+            RaisePropertyChanged(PointCollectionChangedEventArgs);
         }
         [PlatformTargetGetMethod]
         public virtual PointCollection GetPointCollection()
