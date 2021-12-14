@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Wpf.Store;
+﻿using Ao.ObjectDesign.Abstract.Store;
 using System;
 using System.IO;
 using System.Text;
@@ -46,7 +46,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
 
         public object DeserializeByByte(byte[] data, Type type)
         {
-            var str = Encoding.GetString(data);
+            var str = Encoding.GetString(data,0,data.Length);
             return DeserializeByString(str, type);
         }
 

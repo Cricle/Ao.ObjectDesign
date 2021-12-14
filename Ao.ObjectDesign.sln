@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Test", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Controls", "src\Ao.ObjectDesign.Controls\Ao.ObjectDesign.Controls.csproj", "{158C1795-9CD7-4C69-BE20-1BA157E348ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Json", "src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj", "{5AAA96C4-AFBB-4E78-AB20-47A5B2463461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Json", "src\Ao.ObjectDesign.Json\Ao.ObjectDesign.Json.csproj", "{5AAA96C4-AFBB-4E78-AB20-47A5B2463461}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Yaml", "src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj", "{F0995A19-F3CE-4F49-BF50-93B39997DFF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Yaml", "src\Ao.ObjectDesign.Yaml\Ao.ObjectDesign.Yaml.csproj", "{F0995A19-F3CE-4F49-BF50-93B39997DFF4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Designing", "src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj", "{762DCC67-B3BC-4602-9C60-BF024ED0AAE9}"
 EndProject
@@ -37,11 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.WpfDesign",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.WpfDesign.Test", "test\Ao.ObjectDesign.WpfDesign.Test\Ao.ObjectDesign.WpfDesign.Test.csproj", "{440E7D30-AD38-4F71-AC3B-5AF21DA5AF39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.TextJson", "src\Ao.ObjectDesign.Wpf.TextJson\Ao.ObjectDesign.Wpf.TextJson.csproj", "{A4E941B2-9F20-48C3-A609-2FA3682E296A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.TextJson", "src\Ao.ObjectDesign.TextJson\Ao.ObjectDesign.TextJson.csproj", "{A4E941B2-9F20-48C3-A609-2FA3682E296A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.MessagePack", "src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj", "{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.MessagePack", "src\Ao.ObjectDesign.MessagePack\Ao.ObjectDesign.MessagePack.csproj", "{3C3FCD1E-E72E-4A89-96F1-B21FE230F6EC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Wpf.Xaml", "src\Ao.ObjectDesign.Wpf.Xaml\Ao.ObjectDesign.Wpf.Xaml.csproj", "{45925D03-B5C5-40FF-A710-ECF2926614EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Xaml", "src\Ao.ObjectDesign.Xaml\Ao.ObjectDesign.Xaml.csproj", "{45925D03-B5C5-40FF-A710-ECF2926614EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

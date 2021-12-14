@@ -11,7 +11,7 @@ using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using Ao.ObjectDesign.Wpf.MessagePack;
 using System.IO;
-using Ao.ObjectDesign.Wpf.Store;
+using Ao.ObjectDesign.Abstract.Store;
 
 namespace Ao.ObjectDesign.Benchmark
 {

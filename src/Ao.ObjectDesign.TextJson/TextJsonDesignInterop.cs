@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Ao.ObjectDesign.Wpf.Store;
+using Ao.ObjectDesign.Abstract.Store;
 using Dahomey.Json;
 using Dahomey.Json.Attributes;
-using Dahomey.Json.Serialization;
-using Dahomey.Json.Serialization.Conventions;
-using Dahomey.Json.Serialization.Converters;
-using Dahomey.Json.Serialization.Converters.Factories;
-using Dahomey.Json.Util;
 
 namespace Ao.ObjectDesign.Wpf.TextJson
 {

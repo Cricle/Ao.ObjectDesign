@@ -60,19 +60,22 @@ namespace Ao.ObjectDesign
         }
         public override int GetHashCode()
         {
-            int hash = 17;
-            var h = 0;
-            if (Type != null)
+            unchecked
             {
-                h = Type.GetHashCode();
+                int hash = 17;
+                var h = 0;
+                if (Type != null)
+                {
+                    h = Type.GetHashCode();
+                }
+                hash = hash * 31 + h;
+                if (PropertyName != null)
+                {
+                    h = PropertyName.GetHashCode();
+                }
+                hash = hash * 31 + h;
+                return hash;
             }
-            hash = hash * 31 + h;
-            if (PropertyName != null)
-            {
-                h = PropertyName.GetHashCode();
-            }
-            hash = hash * 31 + h;
-            return hash;
         }
         public static bool operator ==(PropertyIdentity a, PropertyIdentity b)
         {

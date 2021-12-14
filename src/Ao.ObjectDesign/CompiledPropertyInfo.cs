@@ -14,8 +14,7 @@ namespace Ao.ObjectDesign
     public delegate object TypeCreator();
 
     public static class CompiledPropertyInfo
-    {
-        
+    {        
         private static readonly Func<PropertyIdentity, PropertySetter> setterFunc = CreateSetter;
         private static readonly Func<PropertyIdentity, PropertyGetter> getterFunc = CreateGetter;
 
@@ -67,12 +66,11 @@ namespace Ao.ObjectDesign
 
             return typeCreators.GetOrAdd(type, t =>
             {
-                ConstructorInfo construct = t.GetConstructor(Type.EmptyTypes);
-                if (construct is null)
+                if (!t.IsValueType && t.GetConstructor(Type.EmptyTypes) is null)
                 {
                     throw new NotSupportedException($"Type {t.FullName} can't build, it has not empty argument constructor");
                 }
-                var exp = Expression.Convert(Expression.New(construct), typeof(object));
+                var exp = Expression.Convert(Expression.New(t), typeof(object));
                 return Expression.Lambda<TypeCreator>(exp).CompileSys();
             });
         }

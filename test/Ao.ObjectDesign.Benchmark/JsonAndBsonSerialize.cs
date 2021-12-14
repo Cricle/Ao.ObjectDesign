@@ -1,6 +1,6 @@
-﻿using Ao.ObjectDesign.Controls;
+﻿using Ao.ObjectDesign.Abstract.Store;
+using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Wpf.Json;
-using Ao.ObjectDesign.Wpf.Store;
 using BenchmarkDotNet.Attributes;
 using Newtonsoft.Json.Bson;
 using System.IO;

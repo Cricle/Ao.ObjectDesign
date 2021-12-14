@@ -10,11 +10,11 @@ using Ao.ObjectDesign.Wpf.Json;
 using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using System.IO;
+using Ao.ObjectDesign.Abstract.Store;
 #if !NET452
 using Ao.ObjectDesign.Wpf.MessagePack;
 using Ao.ObjectDesign.Wpf.TextJson;
 #endif
-using Ao.ObjectDesign.Wpf.Store;
 
 namespace Ao.ObjectDesign.Wpf.Test
 {

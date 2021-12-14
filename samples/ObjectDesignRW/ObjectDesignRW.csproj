@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Json\Ao.ObjectDesign.Json.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.MessagePack\Ao.ObjectDesign.MessagePack.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
 

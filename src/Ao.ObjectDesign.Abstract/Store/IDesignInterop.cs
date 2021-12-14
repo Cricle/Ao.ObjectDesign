@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ao.ObjectDesign.Wpf.Store
+namespace Ao.ObjectDesign.Abstract.Store
 {
     public interface IDesignInterop:IDesignByteInterop,IDesignStreamInterop,IDesignStringInterop
     {

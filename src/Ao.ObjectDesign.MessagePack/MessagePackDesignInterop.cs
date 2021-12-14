@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Wpf.Store;
+using Ao.ObjectDesign.Abstract.Store;
 using MessagePack;
 using MessagePack.Resolvers;
 
@@ -18,7 +17,11 @@ namespace Ao.ObjectDesign.Wpf.MessagePack
         static MessagePackDesignInterop()
         {
             designResolver = new TypelessFormatterResolver(TypelessObjectResolver.Instance);
-            designResolver.ForceTypeless.Add(typeof(NotifyableObject));
+            var type = Type.GetType("Ao.ObjectDesign.Designing.NotifyableObject");
+            if (type!=null)
+            {
+                designResolver.ForceTypeless.Add(type);
+            }
             options = MessagePackSerializer.Typeless.DefaultOptions
                 .WithCompression(MessagePackCompression.Lz4Block)
                 .WithResolver(designResolver);

@@ -9,20 +9,16 @@
 
   <ItemGroup>
     <PackageReference Include="MahApps.Metro" Version="2.4.6" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
-    <PackageReference Include="Portable.Xaml" Version="0.26.0" />
-    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Controls\Ao.ObjectDesign.Controls.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Json\Ao.ObjectDesign.Wpf.Json.csproj" />
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.MessagePack\Ao.ObjectDesign.Wpf.MessagePack.csproj" />
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.TextJson\Ao.ObjectDesign.Wpf.TextJson.csproj" />
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Xaml\Ao.ObjectDesign.Wpf.Xaml.csproj" />
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf.Yaml\Ao.ObjectDesign.Wpf.Yaml.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Json\Ao.ObjectDesign.Json.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.MessagePack\Ao.ObjectDesign.MessagePack.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.TextJson\Ao.ObjectDesign.TextJson.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Xaml\Ao.ObjectDesign.Xaml.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Yaml\Ao.ObjectDesign.Yaml.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>

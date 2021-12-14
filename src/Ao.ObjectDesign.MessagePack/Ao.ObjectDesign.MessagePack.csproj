@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\eng\pkg.props" />
+
+    <PropertyGroup>
+        <TargetFrameworks>net461;net5.0</TargetFrameworks>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <PackageReference Include="MessagePack" Version="2.3.85" />
+      </ItemGroup>
+      <ItemGroup>
+        <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+      </ItemGroup>
+
+</Project>

@@ -1,10 +1,9 @@
-﻿using Ao.ObjectDesign.Wpf.Store;
+﻿using Ao.ObjectDesign.Abstract.Store;
 using Portable.Xaml;
 using System;
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.Serialization;
 
 namespace Ao.ObjectDesign.Wpf.Xaml
 {

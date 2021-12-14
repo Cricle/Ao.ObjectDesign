@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign;
+using Ao.ObjectDesign.Abstract.Store;
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.ForView;
@@ -6,7 +7,6 @@ using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
-using Ao.ObjectDesign.Wpf.Store;
 using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
