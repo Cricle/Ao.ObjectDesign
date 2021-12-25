@@ -74,11 +74,11 @@ namespace Ao.ObjectDesign
                 return Expression.Lambda<TypeCreator>(exp).CompileSys();
             });
         }
-        public static PropertySetter GetSetter(PropertyIdentity identity)
+        public static PropertySetter GetSetter(in PropertyIdentity identity)
         {
             return propertySetters.GetOrAdd(identity, setterFunc);
         }
-        public static PropertyGetter GetGetter(PropertyIdentity identity)
+        public static PropertyGetter GetGetter(in PropertyIdentity identity)
         {
             return propertyGetters.GetOrAdd(identity, getterFunc);
         }
