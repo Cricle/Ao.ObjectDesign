@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <Import Project="..\..\eng\pkg.props" />
+  <PropertyGroup>
+    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+    <UseWpf>true</UseWpf>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.IO.Abstractions" Version="14.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
+  </ItemGroup>
+
+</Project>

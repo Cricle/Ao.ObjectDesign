@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.MessagePack
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Xaml", "src\Ao.ObjectDesign.Xaml\Ao.ObjectDesign.Xaml.csproj", "{45925D03-B5C5-40FF-A710-ECF2926614EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Session", "src\Ao.ObjectDesign.Session\Ao.ObjectDesign.Session.csproj", "{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -269,6 +271,18 @@ Global
 		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x64.Build.0 = Release|Any CPU
 		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x86.ActiveCfg = Release|Any CPU
 		{45925D03-B5C5-40FF-A710-ECF2926614EB}.Release|x86.Build.0 = Release|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Debug|x64.Build.0 = Debug|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Debug|x86.Build.0 = Debug|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Release|x64.ActiveCfg = Release|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Release|x64.Build.0 = Release|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Release|x86.ActiveCfg = Release|Any CPU
+		{14C986C6-7F19-46F6-8E94-92BDBBC1CB12}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

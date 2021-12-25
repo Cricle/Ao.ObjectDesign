@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public struct DoEventsClock
+    public ref struct DoEventsClock
     {
         private int currentTimes;
 

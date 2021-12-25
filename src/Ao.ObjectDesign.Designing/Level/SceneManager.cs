@@ -18,11 +18,15 @@ namespace Ao.ObjectDesign.Designing.Level
             set
             {
                 var old = currentScene;
-                currentScene = value;
-                var e = new CurrentSceneChangedEventArgs<TDesignObject>(old, value);
-                OnCurrentSceneChanged(e);
-                CurrentSceneChanged?.Invoke(this, e);
-                BuildController();
+                if (!EqualityComparer<TScene>.Default.Equals(old ,value))
+                {
+                    OnCurrentSceneChanging(old, value);
+                    currentScene = value;
+                    var e = new CurrentSceneChangedEventArgs<TDesignObject>(old, value);
+                    OnCurrentSceneChanged(e);
+                    CurrentSceneChanged?.Invoke(this, e);
+                    BuildController();
+                }
             }
         }
 
@@ -45,7 +49,6 @@ namespace Ao.ObjectDesign.Designing.Level
                 CurrentSceneControllerChanged?.Invoke(this, e);
             }
         }
-
         protected virtual void OnCurrentSceneChanged(CurrentSceneChangedEventArgs<TDesignObject> e)
         {
 
@@ -121,6 +124,27 @@ namespace Ao.ObjectDesign.Designing.Level
                 return null;
             }
             return EnumerableHitTest(boundGetter, point).FirstOrDefault();
+        }
+
+
+        public IEnumerable<IDesignPair<TUI, TDesignObject>> EnumerableHitTest(IVector point)
+        {
+            return EnumerableHitTest(GetBounds, point);
+        }
+        public IDesignPair<TUI, TDesignObject> HitTest(IVector point)
+        {
+            return HitTest(GetBounds, point);
+        }
+        protected virtual IRect GetBounds(TDesignObject setting)
+        {
+            if (setting is IBoundsProvider provider)
+            {
+                return provider.GetBounds();
+            }
+            return null;
+        }
+        protected virtual void OnCurrentSceneChanging(TScene old, TScene @new)
+        {
         }
     }
 }

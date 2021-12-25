@@ -32,32 +32,32 @@ namespace Ao.ObjectDesign.Abstract.Store
 
             return interop.SerializeToByte(val, typeof(T));
         }
-        public static object DeserializeByByte<T>(this IDesignByteInterop interop, byte[] data)
+        public static T DeserializeByByte<T>(this IDesignByteInterop interop, byte[] data)
         {
             if (interop is null)
             {
                 throw new ArgumentNullException(nameof(interop));
             }
 
-            return interop.DeserializeByByte(data, typeof(T));
+            return (T)interop.DeserializeByByte(data, typeof(T));
         }
-        public static object DeserializeByStream<T>(this IDesignStreamInterop interop, Stream stream)
+        public static T DeserializeByStream<T>(this IDesignStreamInterop interop, Stream stream)
         {
             if (interop is null)
             {
                 throw new ArgumentNullException(nameof(interop));
             }
 
-            return interop.DeserializeByStream(stream,typeof(T));
+            return (T)interop.DeserializeByStream(stream,typeof(T));
         }
-        public static object DeserializeByString<T>(this IDesignStringInterop interop, string str)
+        public static T DeserializeByString<T>(this IDesignStringInterop interop, string str)
         {
             if (interop is null)
             {
                 throw new ArgumentNullException(nameof(interop));
             }
 
-            return interop.DeserializeByString(str, typeof(T));
+            return (T)interop.DeserializeByString(str, typeof(T));
         }
     }
 }

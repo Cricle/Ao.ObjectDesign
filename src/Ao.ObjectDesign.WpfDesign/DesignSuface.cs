@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class DesignSuface : Canvas
+    public class DesignSuface : Canvas, IDesignSuface<UIElement,DesignContext>
     {
         public static readonly UIElement[] EmptyElements = new UIElement[0];
 
@@ -76,7 +76,7 @@ namespace Ao.ObjectDesign.WpfDesign
                     }
                 }
             }
-            
+
         }
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {

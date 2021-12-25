@@ -60,15 +60,13 @@ namespace Ao.ObjectDesign.Designing.Level
         }
         public static IDesignSceneController<TUI, TDesignObject> FindController<TUI, TDesignObject>(this IDesignSceneController<TUI, TDesignObject> controller,
             TUI ui)
-            where TUI : class
         {
-            return FindControllers(controller, (x, y) => y.UI == ui).FirstOrDefault();
+            return FindControllers(controller, (x, y) => EqualityComparer<TUI>.Default.Equals(y.UI , ui)).FirstOrDefault();
         }
         public static IDesignSceneController<TUI, TDesignObject> FindController<TUI, TDesignObject>(this IDesignSceneController<TUI, TDesignObject> controller,
             TDesignObject obj)
-            where TDesignObject : class
         {
-            return FindControllers(controller, (x, y) => y.DesigningObject == obj).FirstOrDefault();
+            return FindControllers(controller, (x, y) => EqualityComparer<TDesignObject>.Default.Equals(y.DesigningObject, obj)).FirstOrDefault();
         }
 
         public static IEnumerable<IDesignSceneController<TUI, TDesignObject>> FindControllers<TUI, TDesignObject>(this IDesignSceneController<TUI, TDesignObject> controller,

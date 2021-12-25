@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections;
+using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class BindingCreatorState : IBindingCreatorState
+    public class BindingCreatorState : DependencyObject,IBindingCreatorState
     {
-        public IServiceProvider Provider { get; set; }
+        public IServiceProvider Provider { get; }
 
-        public IDictionary Features { get; set; }
+        public IDictionary Features { get; }
 
-        public DesignRuntimeTypes RuntimeType { get; set; }
+        public DesignRuntimeTypes RuntimeType { get; }
+
+        public BindingCreatorState(IServiceProvider serviceProvider,
+            IDictionary features,
+            DesignRuntimeTypes runtimeType)
+        {
+            Provider = serviceProvider;
+            Features = features;
+            RuntimeType = runtimeType;
+        }
 
         public object GetService(Type serviceType)
         {
