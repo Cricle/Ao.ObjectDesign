@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Bindings\Ao.ObjectDesign.Bindings.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />

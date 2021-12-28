@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing.Level
 {
     [Serializable]
-    public class DefaultRect : IRect, IEquatable<DefaultRect>
+    public struct DefaultRect : IRect, IEquatable<DefaultRect>
     {
         public static readonly DefaultRect Zero = new DefaultRect(0, 0, 0, 0);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public DefaultRect(double left, double top, double right, double bottom)
         {
             Left = left;
@@ -36,12 +39,13 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public double Width => Right - Left;
 
+        public Vector<double> ToVector4d()
+        {
+            return new Vector<double>(new double[] { Left, Top, Right, Bottom });
+        }
+
         public bool Equals(DefaultRect other)
         {
-            if (other is null)
-            {
-                return false;
-            }
             return other.Left == Left &&
                 other.Top == Top &&
                 other.Right == Right &&
@@ -57,8 +61,14 @@ namespace Ao.ObjectDesign.Designing.Level
         }
         public override int GetHashCode()
         {
-            return Left.GetHashCode() ^ Right.GetHashCode() ^
-                Top.GetHashCode() ^ Bottom.GetHashCode();
+            unchecked
+            {
+                var h = 31 * 17 + Left.GetHashCode();
+                h = 31 * h + Top.GetHashCode();
+                h = 31 * 7 + Right.GetHashCode();
+                h = 31 * h + Bottom.GetHashCode();
+                return h;
+            }
         }
         public override string ToString()
         {

@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class DesignSuface : Canvas, IDesignSuface<UIElement,DesignContext>
+    public class DesignSuface : Canvas, IWpfDesignSuface
     {
         public static readonly UIElement[] EmptyElements = new UIElement[0];
 

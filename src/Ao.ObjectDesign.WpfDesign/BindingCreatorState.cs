@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ao.ObjectDesign.Bindings;
+using System;
 using System.Collections;
 using System.Windows;
 

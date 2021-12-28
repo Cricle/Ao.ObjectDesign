@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing.Level
 {
     [Serializable]
-    public class DefaultVector : IVector, IEquatable<DefaultVector>
+    public struct DefaultVector : IVector, IEquatable<DefaultVector>
     {
         public static readonly DefaultVector Zero = new DefaultVector(0, 0);
         public static readonly DefaultVector One = new DefaultVector(1, 1);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public DefaultVector(double x, double y)
         {
             X = x;
@@ -20,8 +23,19 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public override int GetHashCode()
         {
-            return X.GetHashCode() ^ Y.GetHashCode();
+            unchecked
+            {
+                var h=17*31+X.GetHashCode();
+                h=31*h+Y.GetHashCode();
+                return h;
+            }
         }
+
+        public Vector<double> ToVector2d()
+        {
+            return new Vector<double>(new double[] { X, Y });
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is DefaultVector vector)
@@ -37,10 +51,6 @@ namespace Ao.ObjectDesign.Designing.Level
 
         public bool Equals(DefaultVector other)
         {
-            if (other is null)
-            {
-                return false;
-            }
             return other.X == X && other.Y == Y;
         }
     }

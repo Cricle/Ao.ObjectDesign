@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ao.ObjectDesign.Bindings;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -7,12 +8,12 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public static class DesignMetedataFindExtensions
     {
-        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata metedata)
+        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata<UIElement,IWpfDesignContext> metedata)
         {
             return GetBrothersWithContainer(metedata, null);
         }
 
-        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata metedata,Predicate<DependencyObject> childFilter)
+        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata<UIElement, IWpfDesignContext> metedata,Predicate<DependencyObject> childFilter)
         {
             if (metedata.Container != null)
             {
@@ -31,10 +32,10 @@ namespace Ao.ObjectDesign.WpfDesign
                 }
             }
         }
-        public static T GetOrAddTransform<T>(this IDesignMetedata metedata)
+        public static T GetOrAddTransform<T>(this IDesignMetedata<UIElement, IWpfDesignContext> metedata)
             where T : Transform, new()
         {
-            return DesignMetedata.GetOrAddTransform<T>(metedata.Target);
+            return WpfDesignMetedata.GetOrAddTransform<T>(metedata.Target);
         }
     }
 }
