@@ -167,7 +167,7 @@ namespace ObjectDesign.Brock
                         {
                             var stream = assembly.GetManifestResourceStream(item);
                             var node = langSer.EnsureGetLangNode(lang);
-#if NET6_0
+#if NET5_0_OR_GREATER
                             var rs = new ResourceStreamConfigurataionSource { Stream = stream };
 #else
                             var rs = new ResourceStreamConfigurataionSource(stream);
