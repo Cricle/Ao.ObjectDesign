@@ -6,10 +6,7 @@
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)'!='net452'">
-		<PackageReference Include="FastExpressionCompiler.src" Version="3.2.1" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)'=='net452'">
+	<ItemGroup>
 		<PackageReference Include="FastExpressionCompiler" Version="3.2.1" />
 	</ItemGroup>
 

@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:conv="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:conv="https://github.com/Cricle/Ao.ObjectDesign"
                     xmlns:w="clr-namespace:Ao.ObjectDesign.Wpf;assembly=Ao.ObjectDesign.Wpf"
                     xmlns:od="clr-namespace:Ao.ObjectDesign;assembly=Ao.ObjectDesign">
     <DataTemplate x:Key="ObjectDesign.Enum"

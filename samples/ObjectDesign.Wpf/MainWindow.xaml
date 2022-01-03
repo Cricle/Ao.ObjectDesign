@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ObjectDesign.Wpf"
-        xmlns:q="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+        xmlns:q="https://github.com/Cricle/Ao.ObjectDesign"
         xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="650" Width="1200">
