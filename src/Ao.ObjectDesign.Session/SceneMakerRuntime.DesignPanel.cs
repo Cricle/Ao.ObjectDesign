@@ -1,14 +1,13 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Wpf;
-using ObjectDesign.Brock.Components;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 
-namespace ObjectDesign.Brock
+namespace Ao.ObjectDesign.Session
 {
-    public partial class SceneMakerRuntime<TDesignTool>
+    public partial class SceneMakerRuntime<TDesignTool, TScene, TDesignObject>
     {
         public SilentObservableCollection<WpfForViewBuildContextBase> DesigningContexts { get; }
             = new SilentObservableCollection<WpfForViewBuildContextBase>();
@@ -24,7 +23,7 @@ namespace ObjectDesign.Brock
                 }
             }
         }
-        public void SwithDesigningContexts(UIElementSetting setting)
+        public void SwithDesigningContexts(TDesignObject setting)
         {
             if (HasSession)
             {
@@ -35,7 +34,7 @@ namespace ObjectDesign.Brock
                 }
             }
         }
-        public void SwithDesigningContexts(IDesignPair<UIElement,UIElementSetting> pair)
+        public void SwithDesigningContexts(IDesignPair<UIElement, TDesignObject> pair)
         {
             if (HasSession)
             {

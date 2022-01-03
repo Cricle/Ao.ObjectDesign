@@ -16,6 +16,7 @@ using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Session;
 using Ao.ObjectDesign.Session.BuildIn;
 using ObjectDesign.Brock.Controls;
+using Ao.ObjectDesign.WpfDesign;
 
 namespace ObjectDesign.Brock.Services
 {

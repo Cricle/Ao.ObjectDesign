@@ -7,10 +7,6 @@ using ObjectDesign.Brock.Controls.BindingCreators;
 using ObjectDesign.Brock.Level;
 using ObjectDesign.Brock.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using Ao.ObjectDesign.Designing;
@@ -150,7 +146,6 @@ namespace ObjectDesign.Brock
             session.InputBindings.PreviewMouseInputs.Add(new TextInputBinding(session));
 
             session.InputBindings.Listen();
-
 
             return session;
         }

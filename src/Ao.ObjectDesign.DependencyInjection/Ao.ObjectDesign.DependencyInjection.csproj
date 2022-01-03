@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\eng\pkg.props" />
+
+  <PropertyGroup>
+    <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ao.ObjectDesign.Bindings\Ao.ObjectDesign.Bindings.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Session\Ao.ObjectDesign.Session.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
+  </ItemGroup>
+
+</Project>

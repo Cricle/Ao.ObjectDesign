@@ -1,22 +1,22 @@
 ﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.WpfDesign;
-using ObjectDesign.Brock.Components;
-using ObjectDesign.Brock.Level;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
-namespace ObjectDesign.Brock
+namespace Ao.ObjectDesign.Session
 {
-    public partial class SceneMakerRuntime<TDesignTool>:NotifyableObject
+    public partial class SceneMakerRuntime<TDesignTool,TScene, TDesignObject> : NotifyableObject
+        where TScene:IDesignScene<TDesignObject>
     {
         private static readonly DependencyPropertyDescriptor DesigningObjectPropertyDescript
-            = DependencyPropertyDescriptor.FromProperty(DesignSuface.DesigningObjectProperty, typeof(DesignSuface));
+               = DependencyPropertyDescriptor.FromProperty(DesignSuface.DesigningObjectProperty, typeof(DesignSuface));
 
-        private IDesignSession<Scene,UIElementSetting> currentSession;
+        private IDesignSession<TScene, TDesignObject> currentSession;
         private ForViewDataTemplateSelector forViewDataTemplateSelector;
         private TDesignTool selectedTool;
 
@@ -31,11 +31,11 @@ namespace ObjectDesign.Brock
             get => forViewDataTemplateSelector;
             set
             {
-                Set(ref forViewDataTemplateSelector,value);
+                Set(ref forViewDataTemplateSelector, value);
             }
         }
 
-        public IDesignSession<Scene, UIElementSetting> CurrentSession
+        public IDesignSession<TScene, TDesignObject> CurrentSession
         {
             get => currentSession;
             set
@@ -45,7 +45,7 @@ namespace ObjectDesign.Brock
                 {
                     currentSession = value;
                     OnCurrentSessionChanged(old, value);
-                    CurrentSessionChanged?.Invoke(this, new ValueChangedEventArgs<IDesignSession<Scene, UIElementSetting>>(old, value));
+                    CurrentSessionChanged?.Invoke(this, new ValueChangedEventArgs<IDesignSession<TScene, TDesignObject>>(old, value));
                 }
             }
         }
@@ -69,9 +69,9 @@ namespace ObjectDesign.Brock
 
         public bool HasSession => currentSession != null;
 
-        public event EventHandler<ValueChangedEventArgs<IDesignSession<Scene, UIElementSetting>>> CurrentSessionChanged;
+        public event EventHandler<ValueChangedEventArgs<IDesignSession<TScene, TDesignObject>>> CurrentSessionChanged;
 
-        public SilentObservableCollection<UIElementSetting> Outline { get; }
+        public SilentObservableCollection<TScene> Outline { get; }
         public SilentObservableCollection<TDesignTool> DesignTools { get; }
 
         private readonly EventHandler sessionChangeHandler;
@@ -79,11 +79,11 @@ namespace ObjectDesign.Brock
         public SceneMakerRuntime()
         {
             sessionChangeHandler = EventHandler;
-            Outline = new SilentObservableCollection<UIElementSetting>();
+            Outline = new SilentObservableCollection<TScene>();
             DesignTools = new SilentObservableCollection<TDesignTool>();
         }
 
-        protected virtual void OnCurrentSessionChanged(IDesignSession<Scene, UIElementSetting> old, IDesignSession<Scene, UIElementSetting> @new)
+        protected virtual void OnCurrentSessionChanged(IDesignSession<TScene, TDesignObject> old, IDesignSession<TScene, TDesignObject> @new)
         {
             Outline.Clear();
             if (old != null)
@@ -114,7 +114,7 @@ namespace ObjectDesign.Brock
         {
             if (!HasSession)
             {
-                throw new InvalidOperationException("Now is no session");
+                throw new InvalidOperationException("There is no session");
             }
         }
     }

@@ -125,7 +125,7 @@ namespace Ao.ObjectDesign.Session.DesignHelpers
                         var trans = WpfDesignMetedata.GetOrAddTransform<TranslateTransform>(ele);
                         item.Origin = new Point(trans.X, trans.Y);
                     }
-                    var parent = ele;
+                    var parent = (Visual)ele.Parent;
                     if (ele == Session.Root)
                     {
                         item.TransformOrigin = item.Origin;

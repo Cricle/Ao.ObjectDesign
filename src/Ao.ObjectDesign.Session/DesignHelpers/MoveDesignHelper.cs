@@ -54,10 +54,6 @@ namespace Ao.ObjectDesign.Session.DesignHelpers
             Child= Thumb;
             HorizontalAlignment = HorizontalAlignment.Left;
             VerticalAlignment = VerticalAlignment.Top;
-            //Background = new SolidColorBrush
-            //{
-            //    Color = Color.FromArgb(0x66, 0x22, 0x33, 0x44)
-            //};
         }
 
         private void OnThumbDragStarted(object sender, DragStartedEventArgs e)

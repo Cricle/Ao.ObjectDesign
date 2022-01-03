@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
+using Ao.ObjectDesign.WpfDesign;
 using Ao.ObjectDesign.WpfDesign.Input;
 using System;
 using System.Linq;

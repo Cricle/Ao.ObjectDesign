@@ -1,6 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:design="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:design="https://github.com/Cricle/Ao.ObjectDesign"
                     xmlns:v="clr-namespace:ObjectDesign.Brock.Views"
                     xmlns:l="https://github.com/Cricle/Ao.Lang">
     <DataTemplate x:Key="ObjectDesign.FontSize"

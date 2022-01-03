@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ObjectDesign.Brock
+namespace Ao.ObjectDesign.Session
 {
     public class ValueChangedEventArgs<T> : EventArgs
     {

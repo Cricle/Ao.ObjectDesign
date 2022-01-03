@@ -26,7 +26,7 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
         {
             return base.GenerateBindings().Concat(CanvasSettingTwoWayScopes
                         .Where(BindingCondition)
-                        .Select(x => x.ToWithSource(DesignUnit.DesigningObject))); ;
+                        .Select(x => x.ToWithSource(DesignUnit.DesigningObject)));
         }
     }
 }

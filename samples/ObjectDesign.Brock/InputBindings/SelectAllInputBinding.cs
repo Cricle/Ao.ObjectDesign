@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign.Session.Controllers;
 using Ao.ObjectDesign.Session.Desiging;
+using Ao.ObjectDesign.WpfDesign;
 using Ao.ObjectDesign.WpfDesign.Input;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;

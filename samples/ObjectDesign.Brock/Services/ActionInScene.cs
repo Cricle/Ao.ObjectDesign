@@ -1,5 +1,6 @@
 ﻿using Ao.ObjectDesign;
 using Ao.ObjectDesign.Designing.Level;
+using Ao.ObjectDesign.WpfDesign;
 using ObjectDesign.Brock.Components;
 using System;
 using System.Collections.Generic;
@@ -42,23 +43,16 @@ namespace ObjectDesign.Brock.Services
                         }
                     }
                 }
-                //Check life
-                var arr = ArrayBuffer.Create<UIElement>();
-                try
+
+                var arr = new List<UIElement>();
+                foreach (var item in runtime.CurrentSession.SceneManager.CurrentSceneController.Find(uis))
                 {
-                    foreach (var item in runtime.CurrentSession.SceneManager.CurrentSceneController.Find(uis))
+                    if (uis.Contains(item.UI))
                     {
-                        if (uis.Contains(item.UI))
-                        {
-                            arr.Add(item.UI);
-                        }
+                        arr.Add(item.UI);
                     }
-                    runtime.CurrentSession.Suface.DesigningObjects = arr.ToArray();
                 }
-                finally
-                {
-                    arr.Dispose();
-                }
+                runtime.CurrentSession.Suface.DesigningObjects = arr.ToArray();
                 runtime.CurrentSession.Suface.UpdateInRender();
             }
         }

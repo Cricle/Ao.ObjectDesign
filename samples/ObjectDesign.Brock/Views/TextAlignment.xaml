@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:d="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:d="https://github.com/Cricle/Ao.ObjectDesign"
                     xmlns:l="https://github.com/Cricle/Ao.Lang"
                     xmlns:c="clr-namespace:ObjectDesign.Brock.Converters">
     <DataTemplate x:Key="ObjectDesign.TextAlignment"

@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Session.DesignHelpers;
+using Ao.ObjectDesign.WpfDesign;
 using Ao.ObjectDesign.WpfDesign.Input;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;
@@ -107,48 +108,41 @@ namespace ObjectDesign.Brock.InputBindings
                 return;
             }
             isSelecting = false;
-            //计算出所有的矩形
-            var selected = ArrayBuffer.Create<UIElement>();
-            try
+            var selected = new List<UIElement>();
+            IEnumerable<IDesignSceneController<UIElement, UIElementSetting>> current =
+                new IDesignSceneController<UIElement, UIElementSetting>[] { Session.SceneManager.CurrentSceneController };
+
+            var act = ViewHelper.GetRectOfObject(Session.Root, RangeSelect);
+
+            while (current.Any())
             {
-                IEnumerable<IDesignSceneController<UIElement, UIElementSetting>> current =
-                    new IDesignSceneController<UIElement, UIElementSetting>[] { Session.SceneManager.CurrentSceneController };
-
-                var act = ViewHelper.GetRectOfObject(Session.Root, RangeSelect);
-
-                while (current.Any())
+                var rcs = ViewHelper.GetBoundsWithUI(Session.Root, current.SelectMany(x => x.DesignUnitMap.Keys));
+                foreach (var item in rcs)
                 {
-                    var rcs = ViewHelper.GetBoundsWithUI(Session.Root, current.SelectMany(x => x.DesignUnitMap.Keys));
-                    foreach (var item in rcs)
+                    if (scopeSelectFullContains)
                     {
-                        if (scopeSelectFullContains)
+                        if (act.Contains(item.Value))
                         {
-                            if (act.Contains(item.Value))
-                            {
-                                selected.Add(item.Key);
-                            }
-                        }
-                        else
-                        {
-                            if (act.IntersectsWith(item.Value))
-                            {
-                                selected.Add(item.Key);
-                            }
+                            selected.Add(item.Key);
                         }
                     }
-                    current = current.SelectMany(x => x.DesignUnitNextMap.Values);
+                    else
+                    {
+                        if (act.IntersectsWith(item.Value))
+                        {
+                            selected.Add(item.Key);
+                        }
+                    }
                 }
-
-                Session.Suface.Children.Remove(RangeSelect);
-
-                Runtime.DesigningContexts.Clear();
-                Session.Suface.DesigningObjects = selected.ToArray();
-                Session.Suface.UpdateInRender();
+                current = current.SelectMany(x => x.DesignUnitNextMap.Values);
             }
-            finally
-            {
-                selected.Dispose();
-            }
+
+            Session.Suface.Children.Remove(RangeSelect);
+
+            Runtime.DesigningContexts.Clear();
+            Session.Suface.DesigningObjects = selected.ToArray();
+            Session.Suface.UpdateInRender();
+
         }
 
         public void Dispose()
