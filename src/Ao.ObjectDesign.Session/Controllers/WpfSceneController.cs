@@ -1,4 +1,6 @@
-﻿using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Designing.Level;
+using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Collections;
@@ -11,9 +13,9 @@ using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Session.Controllers
 {
-    public abstract class WpfSceneController<TSetting> : LazyMapSceneController<TSetting>
+    public abstract class WpfSceneController<TSetting> : WpfLazyMapSceneController<TSetting>
     {
-        public WpfSceneController(IDesignPackage<TSetting> designMap,
+        public WpfSceneController(IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> designMap,
             IObservableDesignScene<TSetting> scene)
             : base(designMap)
         {
@@ -36,7 +38,7 @@ namespace Ao.ObjectDesign.Session.Controllers
             if (pair.UI is Panel p)
             {
                 var eles = p.Children;
-                var controller = new WpfItemsSceneController<TSetting>(DesignPackage, eles, sc)
+                var controller = new WpfSceneItemsSceneController<TSetting>(DesignPackage, eles, sc)
                 {
                     LazyBinding = LazyBinding,
                     IgnoreBinding = IgnoreBinding
@@ -47,7 +49,7 @@ namespace Ao.ObjectDesign.Session.Controllers
             else if (pair.UI is ItemsControl ic)
             {
                 var obs = new SilentObservableCollection<UIElement>(ic.Items.Cast<UIElement>());
-                var controller = new WpfObservableSceneController<TSetting>(DesignPackage, obs, sc)
+                var controller = new WpfSceneObservableSceneController<TSetting>(DesignPackage, obs, sc)
                 {
                     designPair = pair,
                     LazyBinding = LazyBinding,
@@ -69,7 +71,7 @@ namespace Ao.ObjectDesign.Session.Controllers
             {
                 foreach (var item in controller)
                 {
-                    if (item is LazyMapSceneController<TSetting> lmsc)
+                    if (item is WpfLazyMapSceneController<TSetting> lmsc)
                     {
                         lmsc.BindingTaskMap.Clear();
                     }

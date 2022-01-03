@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="..\..\eng\pkg.versions.props" />
+    <PropertyGroup>
+        <TargetFrameworks>$(TargetToWpf)</TargetFrameworks>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\SYC.SceneMaker.Core\SYC.SceneMaker.Core.csproj" />
+      <ProjectReference Include="..\SYC.SceneMaker.Wpf\SYC.SceneMaker.Wpf.csproj" />
+    </ItemGroup>
+
+</Project>

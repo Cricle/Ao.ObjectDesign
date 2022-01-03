@@ -1,0 +1,47 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:design="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:l="https://github.com/Cricle/Ao.Lang"
+                    xmlns:c="clr-namespace:ObjectDesign.Brock.Controls;assembly=ObjectDesign.Brock.Controls"
+                    xmlns:lc="clr-namespace:ObjectDesign.Brock.Converters"
+                    xmlns:wf="https://github.com/Cricle/Ao.ObjectDesign">
+    <DataTemplate x:Key="ObjectDesign.ResourceIdentity"
+                  DataType="{x:Type design:WpfTemplateForViewBuildContext}">
+
+        <StackPanel Orientation="Vertical">
+            <TextBlock Text="{l:Lang Cdev.DesignControl.Image.Select}"/>
+            <StackPanel DataContext="{Binding PropertyVisitor.Value}"
+                        Orientation="Horizontal">
+                <ToggleButton IsChecked="{Binding Type,Mode=TwoWay,Converter={x:Static lc:ResourceTypesBoolConverter.Instance},ConverterParameter={x:Static c:ResourceTypes.Unknow}}">
+                    <TextBlock Text="{l:Lang Cdev.DesignControl.Image.Empty}"/>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Type,Mode=TwoWay,Converter={x:Static lc:ResourceTypesBoolConverter.Instance},ConverterParameter={x:Static c:ResourceTypes.Path}}">
+                    <TextBlock Text="{l:Lang Cdev.DesignControl.Image.Path}"/>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Type,Mode=TwoWay,Converter={x:Static lc:ResourceTypesBoolConverter.Instance},ConverterParameter={x:Static c:ResourceTypes.Uri}}">
+                    <TextBlock Text="{l:Lang Cdev.DesignControl.Image.Uri}"/>
+                </ToggleButton>
+            </StackPanel>
+            <Grid>
+                <StackPanel Orientation="Vertical"
+                            Visibility="{Binding PropertyVisitor.Value.Type,Mode=TwoWay,Converter={x:Static wf:ResourceTypesVisibilityConverter.Instance},ConverterParameter={x:Static c:ResourceTypes.Path}}">
+                    <TextBlock Text="{Binding PropertyVisitor.Value.ResourceGroupName,Mode=OneWay}"/>
+                    <TextBlock Text="{Binding PropertyVisitor.Value.ResourceName,Mode=OneWay}"/>
+                    <Button CommandParameter="{Binding}"
+                            Command="{x:Static wf:ResourceSelection.SelectFileCommand}">
+                        <TextBlock Text="{l:Lang Cdev.DesignControl.Image.SelectFile}"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical"
+                            Visibility="{Binding PropertyVisitor.Value.Type,Mode=TwoWay,Converter={x:Static wf:ResourceTypesVisibilityConverter.Instance},ConverterParameter={x:Static c:ResourceTypes.Uri}}">
+                    <TextBlock Text="{Binding PropertyVisitor.Value.ResourceName,Mode=OneWay}"/>
+                    <Button CommandParameter="{Binding}"
+                            Command="{x:Static wf:ResourceSelection.SelectUriCommand}">
+                        <TextBlock Text="{l:Lang Cdev.DesignControl.Image.InputUri}"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

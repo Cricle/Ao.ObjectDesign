@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
+using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.Bindings;
 
 namespace Ao.ObjectDesign.Session.BuildIn
 {
@@ -137,7 +139,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignOrderManager.Add(propertyMap, order);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactory(IBindingCreatorFactory<TSetting> factory)
+        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactory(IBindingCreatorFactory<UIElement,TSetting,IWithSourceBindingScope> factory)
         {
             if (factory is null)
             {
@@ -147,7 +149,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignPackage.BindingCreators.Add(factory);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactory(IEnumerable<IBindingCreatorFactory<TSetting>> factories)
+        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactory(IEnumerable<IBindingCreatorFactory<UIElement, TSetting, IWithSourceBindingScope>> factories)
         {
             if (factories is null)
             {

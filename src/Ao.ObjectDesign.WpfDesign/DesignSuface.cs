@@ -1,4 +1,6 @@
-﻿using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Bindings.Designers;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.WpfDesign.Designers;
 using System;
 using System.Collections.Generic;
@@ -70,7 +72,7 @@ namespace Ao.ObjectDesign.WpfDesign
                 for (int i = 0; i < len; i++)
                 {
                     var child = children[i];
-                    if (child is IDesignHelper helper)
+                    if (child is IDesignHelper<UIElement,IWpfDesignContext> helper)
                     {
                         helper.AttackObject(oldEle, newEle);
                     }
@@ -80,11 +82,11 @@ namespace Ao.ObjectDesign.WpfDesign
         }
         protected override void OnVisualChildrenChanged(DependencyObject visualAdded, DependencyObject visualRemoved)
         {
-            if (visualAdded is IDesignHelper addHelper)
+            if (visualAdded is IDesignHelper<UIElement, IWpfDesignContext> addHelper)
             {
                 addHelper.Attack(this);
             }
-            if (visualRemoved is IDesignHelper removeHelper)
+            if (visualRemoved is IDesignHelper<UIElement, IWpfDesignContext> removeHelper)
             {
                 removeHelper.Dettck();
             }
@@ -102,7 +104,7 @@ namespace Ao.ObjectDesign.WpfDesign
             var len = Children.Count;
             for (int i = 0; i < len; i++)
             {
-                if (Children[i] is IDesignHelper helper)
+                if (Children[i] is IDesignHelper<UIElement, IWpfDesignContext> helper)
                 {
                     helper.UpdateDesign(ctx);
                 }
@@ -110,11 +112,11 @@ namespace Ao.ObjectDesign.WpfDesign
             EndUpdate(ctx);
         }
 
-        protected virtual void BeginUpdate(DesignContext context)
+        protected virtual void BeginUpdate(IDesignContext<UIElement, IWpfDesignContext> context)
         {
 
         }
-        protected virtual void EndUpdate(DesignContext context)
+        protected virtual void EndUpdate(IDesignContext<UIElement, IWpfDesignContext> context)
         {
 
         }
@@ -127,13 +129,13 @@ namespace Ao.ObjectDesign.WpfDesign
         {
             DesigningObjects = elements;
         }
-        public virtual DesignContext GetContext()
+        public virtual IWpfDesignContext GetContext()
         {
             if (DesigningObjects is null)
             {
                 return null;
             }
-            var ctx = new DesignContext(ServiceProvider,
+            var ctx = new WpfDesignContext(ServiceProvider,
                 DesigningObjects,
                 Sequencer,
                 this);

@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cdev.Actions.Menus.Copy" xml:space="preserve">
+    <value>copy</value>
+  </data>
+  <data name="Cdev.Actions.Menus.CopyNewOne" xml:space="preserve">
+    <value>Copy one more</value>
+  </data>
+  <data name="Cdev.Actions.Menus.CopyNewTen" xml:space="preserve">
+    <value>Copy ten more</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move" xml:space="preserve">
+    <value>move</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Bottom" xml:space="preserve">
+    <value>bottom</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Down" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Top" xml:space="preserve">
+    <value>top</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Up" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="Cdev.Actions.Menus.PutInContainer" xml:space="preserve">
+    <value>Put it in the container</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Border" xml:space="preserve">
+    <value>frame</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.Linear" xml:space="preserve">
+    <value>Linear gradient</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.None" xml:space="preserve">
+    <value>No brush</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.Radial" xml:space="preserve">
+    <value>Radial gradient</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.Solid" xml:space="preserve">
+    <value>Solid color</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.ClipToBounds" xml:space="preserve">
+    <value>Crop to the boundary</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Corner" xml:space="preserve">
+    <value>Fillets</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.FolderName" xml:space="preserve">
+    <value>Relative folder</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Font" xml:space="preserve">
+    <value>font</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.FontSize" xml:space="preserve">
+    <value>The font size</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Height" xml:space="preserve">
+    <value>high</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.ImageName" xml:space="preserve">
+    <value>The name of the picture</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.IsIndeterminate" xml:space="preserve">
+    <value>uncertain</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Layout" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Name" xml:space="preserve">
+    <value>name</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Opacity" xml:space="preserve">
+    <value>transparency</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.ResourcePath" xml:space="preserve">
+    <value>The resource path</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Rotate" xml:space="preserve">
+    <value>revolve</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Select" xml:space="preserve">
+    <value>choose</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Strech" xml:space="preserve">
+    <value>Stretch</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.StrokeThickness" xml:space="preserve">
+    <value>The width of the handwriting</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Text" xml:space="preserve">
+    <value>text</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextTrimming" xml:space="preserve">
+    <value>Text cropping</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWraping.None" xml:space="preserve">
+    <value>No package</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWraping.Wrap" xml:space="preserve">
+    <value>parcel</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWraping.WrapWithOverflow" xml:space="preserve">
+    <value>Spilled package</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWrapping" xml:space="preserve">
+    <value>Text wrapper</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.VariableSelect" xml:space="preserve">
+    <value>Variable selection</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Wdith" xml:space="preserve">
+    <value>wide</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.X" xml:space="preserve">
+    <value>left</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Y" xml:space="preserve">
+    <value>above</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Empty" xml:space="preserve">
+    <value>blank</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.InputUri" xml:space="preserve">
+    <value>Enter the path</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Path" xml:space="preserve">
+    <value>path</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Select" xml:space="preserve">
+    <value>Picture selection</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.SelectFile" xml:space="preserve">
+    <value>Select the file</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Uri" xml:space="preserve">
+    <value>Remote address</value>
+  </data>
+  <data name="Cdev.DesignControl.MediaElement.Pick" xml:space="preserve">
+    <value>choose</value>
+  </data>
+  <data name="Cdev.DesignControl.MediaElement.Source" xml:space="preserve">
+    <value>Media feed</value>
+  </data>
+  <data name="Cdev.Dialog.Error" xml:space="preserve">
+    <value>An error has occurred</value>
+  </data>
+  <data name="Cdev.Dialog.Exception" xml:space="preserve">
+    <value>Exception trigger</value>
+  </data>
+  <data name="Cdev.Dialog.InputImageUri" xml:space="preserve">
+    <value>Please enter the picture address</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Filter.Image" xml:space="preserve">
+    <value>The picture type</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Filter.Media" xml:space="preserve">
+    <value>media</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Title.Image" xml:space="preserve">
+    <value>Select a picture</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Title.Media" xml:space="preserve">
+    <value>Media selection</value>
+  </data>
+  <data name="Cdev.Dialog.SavedToFile" xml:space="preserve">
+    <value>Saved to file{0}</value>
+  </data>
+  <data name="Cdev.Dialog.Succeed" xml:space="preserve">
+    <value>succeed</value>
+  </data>
+  <data name="Cdev.Import.FileNotSupport" xml:space="preserve">
+    <value>The file being dragged does not conform and should be a hello suffix file</value>
+  </data>
+  <data name="Cdev.Menu.Load" xml:space="preserve">
+    <value>load</value>
+  </data>
+  <data name="Cdev.Menu.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Cdev.Notify.ModeTypes.Designing" xml:space="preserve">
+    <value>Design mode</value>
+  </data>
+  <data name="Cdev.Notify.ModeTypes.Running" xml:space="preserve">
+    <value>Run mode</value>
+  </data>
+  <data name="Cdev.Notify.ModeTypes.Title.SwitchMode" xml:space="preserve">
+    <value>Switch modes</value>
+  </data>
+  <data name="Cdev.PropertyPanel.Search.Descript" xml:space="preserve">
+    <value>Search for properties</value>
+  </data>
+  <data name="Cdev.Scene.Actions.Copy" xml:space="preserve">
+    <value>copy</value>
+  </data>
+  <data name="Cdev.Scene.Actions.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Cdev.Scene.Actions.New" xml:space="preserve">
+    <value>Create a new scene</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Descript" xml:space="preserve">
+    <value>Please enter the name of the scene</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Error.SameName" xml:space="preserve">
+    <value>A scene with the same name {0}</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Error.Title" xml:space="preserve">
+    <value>The creation of the scene failed</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Title" xml:space="preserve">
+    <value>Create a scene</value>
+  </data>
+  <data name="Cdev.Tips.DragNewControl" xml:space="preserve">
+    <value>Drag to create the first control</value>
+  </data>
+  <data name="Cdev.Tools.Canvas" xml:space="preserve">
+    <value>canvas</value>
+  </data>
+  <data name="Cdev.Tools.Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
+  <data name="Cdev.Tools.Line" xml:space="preserve">
+    <value>straight line</value>
+  </data>
+  <data name="Cdev.Tools.Media" xml:space="preserve">
+    <value>media</value>
+  </data>
+  <data name="Cdev.Tools.ProgressBar" xml:space="preserve">
+    <value>Progress bar</value>
+  </data>
+  <data name="Cdev.Tools.Rectangle" xml:space="preserve">
+    <value>rectangle</value>
+  </data>
+  <data name="Cdev.Tools.TextBlock" xml:space="preserve">
+    <value>Blocks of text</value>
+  </data>
+  <data name="Cdev.Tools.TextBox" xml:space="preserve">
+    <value>The text box</value>
+  </data>
+  <data name="Cdev.Tools.ToolBox" xml:space="preserve">
+    <value>toolbox</value>
+  </data>
+  <data name="Cdev.Uri.InputNotUri" xml:space="preserve">
+    <value>The string entered is not a valid Uri</value>
+  </data>
+  <data name="Cdev.Window.Main" xml:space="preserve">
+    <value>The main window</value>
+  </data>
+</root>

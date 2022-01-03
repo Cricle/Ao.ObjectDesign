@@ -1,0 +1,31 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:d="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:l="https://github.com/Cricle/Ao.Lang"
+                    xmlns:c="clr-namespace:ObjectDesign.Brock.Converters">
+    <DataTemplate x:Key="ObjectDesign.TextAlignment"
+                  DataType="{x:Type d:WpfTemplateForViewBuildContext}">
+        <StackPanel>
+            <TextBlock Text="{l:Lang Cdev.DesignControl.Descripts.Strech}"/>
+            <StackPanel DataContext="{Binding PropertyVisitor}"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <ToggleButton IsChecked="{Binding Value,Converter={x:Static c:TextAlignmentBoolConverter.Instance},Mode=TwoWay,ConverterParameter={x:Static TextAlignment.Left}}">
+                    <m:FontIcon Glyph="&#xE8E4;"/>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Value,Converter={x:Static c:TextAlignmentBoolConverter.Instance},Mode=TwoWay,ConverterParameter={x:Static TextAlignment.Center}}">
+                    <m:FontIcon Glyph="&#xE8E3;"/>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Value,Converter={x:Static c:TextAlignmentBoolConverter.Instance},Mode=TwoWay,ConverterParameter={x:Static TextAlignment.Right}}">
+                    <m:FontIcon Glyph="&#xE8E2;"/>
+                </ToggleButton>
+                <ToggleButton IsChecked="{Binding Value,Converter={x:Static c:TextAlignmentBoolConverter.Instance},Mode=TwoWay,ConverterParameter={x:Static TextAlignment.Justify}}">
+                    <m:FontIcon Glyph="&#xE922;"/>
+                </ToggleButton>
+            </StackPanel>
+        </StackPanel>
+    </DataTemplate>
+
+
+</ResourceDictionary>

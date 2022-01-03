@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign.Session
         {
             SetControllers(mgr, x =>
             {
-                if (x is LazyMapSceneController<TDesignObject> controller)
+                if (x is WpfLazyMapSceneController<TDesignObject> controller)
                 {
                     controller.LazyBinding = lazyBinding;
                 }

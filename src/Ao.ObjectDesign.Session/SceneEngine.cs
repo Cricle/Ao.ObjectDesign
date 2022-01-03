@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign;
+using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.ForView;
@@ -6,6 +7,7 @@ using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Session.EngineConfig;
 using Ao.ObjectDesign.Session.Environment;
 using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Diagnostics;
@@ -127,7 +129,7 @@ namespace Ao.ObjectDesign.Session
             return new DesignOrderManager();
         }
 
-        protected virtual IDesignPackage<TSetting> CreateDesignPackage()
+        protected virtual IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> CreateDesignPackage()
         {
             return new WpfDesignPackage<TSetting>(new UIDesignMap(), EngineEnvironment.BindingCreatorStateCreator);
         }

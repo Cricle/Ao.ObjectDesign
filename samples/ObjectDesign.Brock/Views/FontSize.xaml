@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:design="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:v="clr-namespace:ObjectDesign.Brock.Views"
+                    xmlns:l="https://github.com/Cricle/Ao.Lang">
+    <DataTemplate x:Key="ObjectDesign.FontSize"
+                  DataType="{x:Type design:WpfTemplateForViewBuildContext}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{l:Lang Cdev.DesignControl.Descripts.FontSize}"/>
+            <ComboBox DataContext="{Binding PropertyVisitor}"
+                      SelectedItem="{Binding Value,Mode=TwoWay}"
+                      ItemsSource="{x:Static v:FontSizeCondition.GivenFontSizes}"
+                      IsEditable="False"/>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

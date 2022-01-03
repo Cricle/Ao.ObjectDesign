@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ao.Lang" Version="4.2.0" />
+    <PackageReference Include="Ao.Lang.Wpf" Version="4.2.0" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Ao.Microsoft.Extensions.Configuration.Resources" Version="4.0.2" />
+    <PackageReference Include="System.IO.Abstractions.TestingHelpers" Version="16.0.1" />
+    <PackageReference Include="ValueBuffer" Version="1.1.1" />
+    <PackageReference Include="System.Windows.Interactivity.WPF" Version="2.0.20525" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Json\Ao.ObjectDesign.Json.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Session\Ao.ObjectDesign.Session.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
+    <ProjectReference Include="..\ObjectDesign.Brock.Controls\ObjectDesign.Brock.Controls.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="InMemory\" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ObjectDesign.Brock.Controls">
+    <Style x:Key="SceneMaker.Controls.DesignPanel"
+           TargetType="{x:Type local:DesignPanel}">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid Background="{TemplateBinding local:DesignPanel.Background}"
+                              Margin="{TemplateBinding local:DesignPanel.Margin}"
+                              Opacity="{TemplateBinding local:DesignPanel.Opacity}">
+                            <ContentControl Content="{TemplateBinding local:DesignPanel.Content}"
+                                            Background="{x:Null}"/>
+                            <ContentControl Content="{TemplateBinding local:DesignPanel.Suface}"
+                                            Background="{x:Null}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+    <Style BasedOn="{StaticResource SceneMaker.Controls.DesignPanel}"
+           TargetType="{x:Type local:DesignPanel}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="ClipToBounds" Value="True"/>
+    </Style>
+</ResourceDictionary>

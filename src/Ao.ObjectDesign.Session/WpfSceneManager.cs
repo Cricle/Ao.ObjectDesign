@@ -1,5 +1,7 @@
-﻿using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
+using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Collections;
@@ -11,7 +13,7 @@ namespace Ao.ObjectDesign.Session
     public abstract class WpfSceneManager<TScene,TSetting> : SceneManager<UIElement, TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
-        protected WpfSceneManager(IDesignPackage<TSetting> designMap,
+        protected WpfSceneManager(IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> designMap,
             IList uiElements)
         {
             DesignMap = designMap ?? throw new ArgumentNullException(nameof(designMap));
@@ -20,7 +22,7 @@ namespace Ao.ObjectDesign.Session
 
         public bool LazyBinding { get; set; }
 
-        public IDesignPackage<TSetting> DesignMap { get; }
+        public IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> DesignMap { get; }
 
         public IList UIElements { get; }
 

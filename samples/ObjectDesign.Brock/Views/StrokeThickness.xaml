@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:design="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:l="https://github.com/Cricle/Ao.Lang" 
+                    xmlns:v="clr-namespace:ObjectDesign.Brock.Views">
+    <DataTemplate x:Key="ObjectDesign.StrokeThickness"
+                  DataType="{x:Type design:WpfTemplateForViewBuildContext}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{l:Lang Cdev.DesignControl.Descripts.StrokeThickness}"/>
+            <ComboBox DataContext="{Binding PropertyVisitor}"
+                      SelectedItem="{Binding Value}"
+                      ItemsSource="{x:Static v:StrokeThicknessCondition.GivenFontStrokeThicknesses}"
+                      IsEditable="False"/>
+        </StackPanel>
+    </DataTemplate>
+
+</ResourceDictionary>

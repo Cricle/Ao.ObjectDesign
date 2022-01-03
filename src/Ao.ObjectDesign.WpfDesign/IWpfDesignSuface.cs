@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public interface IWpfDesignSuface: IDesignSuface<UIElement,DesignContext>
+    public interface IWpfDesignSuface: IDesignSuface<UIElement,IWpfDesignContext>
     {
     }
 }

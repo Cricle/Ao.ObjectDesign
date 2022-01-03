@@ -30,6 +30,9 @@ namespace Ao.ObjectDesign.Bindings
         {
         }
 
-        protected abstract IEnumerable<TBindingScope> CreateBindingScopes();
+        protected virtual IEnumerable<TBindingScope> CreateBindingScopes()
+        {
+            yield break;
+        }
     }
 }

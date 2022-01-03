@@ -1,0 +1,174 @@
+﻿<m:MetroWindow x:Class="ObjectDesign.Brock.MainWindow"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+               xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+               xmlns:l="https://github.com/Cricle/Ao.Lang"
+               xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
+               xmlns:sys="clr-namespace:System;assembly=mscorlib"
+               xmlns:dx="clr-namespace:ObjectDesign.Brock.Models"
+               xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity"
+               xmlns:b="clr-namespace:ObjectDesign.Brock.Behaviors"
+               xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+               mc:Ignorable="d"
+               Title="{l:Lang Cdev.Window.Main}" Height="760" Width="1080"
+               WindowStartupLocation="CenterScreen"
+               RenderOptions.BitmapScalingMode="HighQuality">
+    <m:MetroWindow.InputBindings>
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding LoadFromFileCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveToFileCommand}"/>
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding ResetCommand}"/>
+        <KeyBinding Key="G" Modifiers="Ctrl" Command="{Binding GCCommand}"/>
+    </m:MetroWindow.InputBindings>
+    <m:MetroWindow.RightWindowCommands>
+        <m:WindowCommands>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="{l:Lang Cdev.Menu.Save}" Command="{Binding SaveToFileCommand}"/>
+                <Button Content="{l:Lang Cdev.Menu.Load}" Command="{Binding LoadFromFileCommand}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="中文" Command="{Binding ToLangZHCommand}"/>
+                <Button Content="English" Command="{Binding ToLangENCommand}"/>
+                <Button Content="shqipe" Command="{Binding ToLangSQCommand}"/>
+                <Button Content="ไทย" Command="{Binding ToLangTHCommand}"/>
+                <Button Content="日本語" Command="{Binding ToLangJPCommand}"/>
+            </StackPanel>
+        </m:WindowCommands>
+    </m:MetroWindow.RightWindowCommands>
+    <Grid>
+        <Grid.Resources>
+            <sys:Double x:Key="Wh">9</sys:Double>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.ColumnSpan="3"
+                Visibility="{Binding TipsVisibility}">
+            <TextBlock HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"
+                       Text="{l:Lang Cdev.Tips.DragNewControl}"
+                       FontSize="40"
+                       Foreground="LightGray"
+                       FontWeight="Bold"
+                       Opacity="0.3"/>
+        </Border>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="{l:Lang Cdev.Tools.ToolBox}"
+                       Padding="6,10"
+                       FontWeight="ExtraBold"
+                       FontSize="16"/>
+            <ListView x:Name="Tools"
+                      Background="Transparent"
+                      ItemsSource="{Binding Runtime.DesignTools}"
+                      Grid.Row="1">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem"
+                           BasedOn="{StaticResource MahApps.Styles.ListViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=TwoWay}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type dx:DesignTool}">
+                        <StackPanel Orientation="Horizontal"
+                                    Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding DragCommand}" CommandParameter="{Binding ElementName=Tools}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <m:FontIcon Glyph="{Binding Icon}"
+                                        Width="{Binding ActualHeight,RelativeSource={RelativeSource Mode=Self}}"/>
+                            <TextBlock Text="{Binding Name}"
+                                       Margin="10,0,0,0"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <TreeView x:Name="Scenes" 
+                      Grid.Row="2"
+                      Background="Transparent">
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{l:Lang Cdev.Scene.Actions.New}" />
+                        <MenuItem Header="{l:Lang Cdev.Scene.Actions.Copy}" />
+                        <MenuItem Header="{l:Lang Cdev.Scene.Actions.Delete}" Foreground="Red" />
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+                <TreeView.ItemTemplate>
+                    <DataTemplate DataType="{x:Type sys:String}">
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="300"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="Ic"
+                              ItemsSource="{Binding Runtime.DesigningContexts}"
+                              ItemTemplateSelector="{Binding Runtime.ForViewDataTemplateSelector}">
+
+                </ItemsControl>
+            </ScrollViewer>
+            <TreeView x:Name="Tv"
+                      Background="Transparent"
+                      Grid.Row="1"
+                      ItemTemplateSelector="{StaticResource SceneMaker.Views.SceneDataTemplateSelector}"
+                      ItemsSource="{Binding Runtime.Outline}"
+                      VirtualizingPanel.IsContainerVirtualizable="True"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling">
+                <e:Interaction.Behaviors>
+                    <b:BindableSelectedItemBehavior SelectedItem="{Binding SelectedSetting,Mode=TwoWay}"/>
+                </e:Interaction.Behaviors>
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.Copy}" Command="{Binding CopyCommand}"/>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.CopyNewOne}" Command="{Binding CopyItemCommand,ConverterParameter=1}"/>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.CopyNewTen}" Command="{Binding CopyItemCommand,ConverterParameter=10}"/>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move}">
+                            <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Top}" Command="{Binding MoveTopCommand}"/>
+                            <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Up}" Command="{Binding MoveUpCommand}"/>
+                            <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Down}" Command="{Binding MoveDownCommand}"/>
+                            <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Bottom}" Command="{Binding MoveBottomCommand}"/>
+                        </MenuItem>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.PutInContainer}" Command="{Binding PutInContainerCommand}"/>
+                        <MenuItem Foreground="Red" Header="{l:Lang Cdev.Actions.Menus.Delete}" Command="{Binding DeleteCommand}"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+            </TreeView>
+        </Grid>
+        <Grid x:Name="Cv" Grid.Column="1" AllowDrop="True"
+                Focusable="True">
+            <e:Interaction.Behaviors>
+                <b:DropBehavior DropBox="{Binding CurrentDropBox,Mode=OneWayToSource}"/>
+            </e:Interaction.Behaviors>
+            <Grid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{l:Lang Cdev.Actions.Menus.Copy}" Command="{Binding CopyCommand}"/>
+                    <MenuItem Header="{l:Lang Cdev.Actions.Menus.CopyNewOne}" Command="{Binding CopyItemCommand,ConverterParameter=1}"/>
+                    <MenuItem Header="{l:Lang Cdev.Actions.Menus.CopyNewTen}" Command="{Binding CopyItemCommand,ConverterParameter=10}"/>
+                    <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move}">
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Top}" Command="{Binding MoveTopCommand}"/>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Up}" Command="{Binding MoveUpCommand}"/>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Down}" Command="{Binding MoveDownCommand}"/>
+                        <MenuItem Header="{l:Lang Cdev.Actions.Menus.Move.Bottom}" Command="{Binding MoveBottomCommand}"/>
+                    </MenuItem>
+                    <MenuItem Header="{l:Lang Cdev.Actions.Menus.PutInContainer}" Command="{Binding PutInContainerCommand}"/>
+                    <MenuItem Foreground="Red" Header="{l:Lang Cdev.Actions.Menus.Delete}" Command="{Binding DeleteCommand}"/>
+                </ContextMenu>
+            </Grid.ContextMenu>
+        </Grid>
+    </Grid>
+</m:MetroWindow>

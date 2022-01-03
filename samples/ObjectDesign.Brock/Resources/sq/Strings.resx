@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Cdev.Actions.Menus.Copy" xml:space="preserve">
+    <value>kopjo</value>
+  </data>
+  <data name="Cdev.Actions.Menus.CopyNewOne" xml:space="preserve">
+    <value>Kopjo edhe një</value>
+  </data>
+  <data name="Cdev.Actions.Menus.CopyNewTen" xml:space="preserve">
+    <value>Kopjo edhe dhjetë të tjerë</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Delete" xml:space="preserve">
+    <value>Elemino</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move" xml:space="preserve">
+    <value>lëviz</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Bottom" xml:space="preserve">
+    <value>poshtë</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Down" xml:space="preserve">
+    <value>Lëviz poshtë</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Top" xml:space="preserve">
+    <value>sipër</value>
+  </data>
+  <data name="Cdev.Actions.Menus.Move.Up" xml:space="preserve">
+    <value>Lëviz lart</value>
+  </data>
+  <data name="Cdev.Actions.Menus.PutInContainer" xml:space="preserve">
+    <value>Vendose në enë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Border" xml:space="preserve">
+    <value>kornizë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.Linear" xml:space="preserve">
+    <value>Gradient linear</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.None" xml:space="preserve">
+    <value>Nuk ka furçë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.Radial" xml:space="preserve">
+    <value>Gradim radial</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Brush.Solid" xml:space="preserve">
+    <value>Ngjyra e fortë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.ClipToBounds" xml:space="preserve">
+    <value>Korrje deri në kufi</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Corner" xml:space="preserve">
+    <value>Fileto</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.FolderName" xml:space="preserve">
+    <value>Kartela relative</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Font" xml:space="preserve">
+    <value>gërmat</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.FontSize" xml:space="preserve">
+    <value>Madhësia e gërmave</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Height" xml:space="preserve">
+    <value>lart</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.ImageName" xml:space="preserve">
+    <value>Emri i figurës</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.IsIndeterminate" xml:space="preserve">
+    <value>i pasigurt</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Layout" xml:space="preserve">
+    <value>planimetria</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Name" xml:space="preserve">
+    <value>emri</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Opacity" xml:space="preserve">
+    <value>transparencë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.ResourcePath" xml:space="preserve">
+    <value>Shtegu i burimeve</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Rotate" xml:space="preserve">
+    <value>Vër revolve</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Select" xml:space="preserve">
+    <value>zgjidh</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Strech" xml:space="preserve">
+    <value>Zgjatu</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.StrokeThickness" xml:space="preserve">
+    <value>Gjerësia e shkrimit</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Text" xml:space="preserve">
+    <value>teksti</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextTrimming" xml:space="preserve">
+    <value>Përgjojnë mesazhet</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWraping.None" xml:space="preserve">
+    <value>S'ka paketë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWraping.Wrap" xml:space="preserve">
+    <value>pako</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWraping.WrapWithOverflow" xml:space="preserve">
+    <value>Paketa e derdhur</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.TextWrapping" xml:space="preserve">
+    <value>Mbështjellëse teksti</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.VariableSelect" xml:space="preserve">
+    <value>Përzgjedhje e ndryshueshme</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Wdith" xml:space="preserve">
+    <value>i gjerë</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.X" xml:space="preserve">
+    <value>Majtas</value>
+  </data>
+  <data name="Cdev.DesignControl.Descripts.Y" xml:space="preserve">
+    <value>sipër</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Empty" xml:space="preserve">
+    <value>bosh</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.InputUri" xml:space="preserve">
+    <value>Hyr në shtegun</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Path" xml:space="preserve">
+    <value>shtegu</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Select" xml:space="preserve">
+    <value>Zgjedhja e figurës</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.SelectFile" xml:space="preserve">
+    <value>Zgjidh file</value>
+  </data>
+  <data name="Cdev.DesignControl.Image.Uri" xml:space="preserve">
+    <value>Adresa në distancë</value>
+  </data>
+  <data name="Cdev.DesignControl.MediaElement.Pick" xml:space="preserve">
+    <value>zgjidh</value>
+  </data>
+  <data name="Cdev.DesignControl.MediaElement.Source" xml:space="preserve">
+    <value>Ushqimi i mediave</value>
+  </data>
+  <data name="Cdev.Dialog.Error" xml:space="preserve">
+    <value>Një gabim ka ndodhur</value>
+  </data>
+  <data name="Cdev.Dialog.Exception" xml:space="preserve">
+    <value>Këmbëza e përjashtimit</value>
+  </data>
+  <data name="Cdev.Dialog.InputImageUri" xml:space="preserve">
+    <value>Shkruaj adresën e figurës</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Filter.Image" xml:space="preserve">
+    <value>Lloji i figurës</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Filter.Media" xml:space="preserve">
+    <value>media</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Title.Image" xml:space="preserve">
+    <value>Zgjidh një figurë</value>
+  </data>
+  <data name="Cdev.Dialog.PickImage.Title.Media" xml:space="preserve">
+    <value>Përzgjedhja e medias</value>
+  </data>
+  <data name="Cdev.Dialog.SavedToFile" xml:space="preserve">
+    <value>U ruajt në file{0}</value>
+  </data>
+  <data name="Cdev.Dialog.Succeed" xml:space="preserve">
+    <value>sukses</value>
+  </data>
+  <data name="Cdev.Import.FileNotSupport" xml:space="preserve">
+    <value>File që zvarritet nuk përputhet dhe duhet të jetë një file prapashtesë përshëndetje</value>
+  </data>
+  <data name="Cdev.Menu.Load" xml:space="preserve">
+    <value>ngarkesa</value>
+  </data>
+  <data name="Cdev.Menu.Save" xml:space="preserve">
+    <value>Ruaj</value>
+  </data>
+  <data name="Cdev.Notify.ModeTypes.Designing" xml:space="preserve">
+    <value>Modaliteti i projektimit</value>
+  </data>
+  <data name="Cdev.Notify.ModeTypes.Running" xml:space="preserve">
+    <value>Modaliteti i ekzekutojes</value>
+  </data>
+  <data name="Cdev.Notify.ModeTypes.Title.SwitchMode" xml:space="preserve">
+    <value>Ndrysho modalitetet</value>
+  </data>
+  <data name="Cdev.PropertyPanel.Search.Descript" xml:space="preserve">
+    <value>Kërko për pronësitë</value>
+  </data>
+  <data name="Cdev.Scene.Actions.Copy" xml:space="preserve">
+    <value>kopjo</value>
+  </data>
+  <data name="Cdev.Scene.Actions.Delete" xml:space="preserve">
+    <value>Elemino</value>
+  </data>
+  <data name="Cdev.Scene.Actions.New" xml:space="preserve">
+    <value>Krijo një skenë të re</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Descript" xml:space="preserve">
+    <value>Të lutem shkruaj emrin e skenës</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Error.SameName" xml:space="preserve">
+    <value>Një skenë me të njëjtin emër {0}</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Error.Title" xml:space="preserve">
+    <value>Krijimi i skenës dështoi</value>
+  </data>
+  <data name="Cdev.Scene.Create.Input.Title" xml:space="preserve">
+    <value>Krijo një skenë</value>
+  </data>
+  <data name="Cdev.Tips.DragNewControl" xml:space="preserve">
+    <value>Zvarrit për të krijuar kontrollin e parë</value>
+  </data>
+  <data name="Cdev.Tools.Canvas" xml:space="preserve">
+    <value>kanavacë</value>
+  </data>
+  <data name="Cdev.Tools.Image" xml:space="preserve">
+    <value>Figurë</value>
+  </data>
+  <data name="Cdev.Tools.Line" xml:space="preserve">
+    <value>vijë e drejtë</value>
+  </data>
+  <data name="Cdev.Tools.Media" xml:space="preserve">
+    <value>media</value>
+  </data>
+  <data name="Cdev.Tools.ProgressBar" xml:space="preserve">
+    <value>Bar i progresit</value>
+  </data>
+  <data name="Cdev.Tools.Rectangle" xml:space="preserve">
+    <value>rectangle</value>
+  </data>
+  <data name="Cdev.Tools.TextBlock" xml:space="preserve">
+    <value>Blloqe teksti</value>
+  </data>
+  <data name="Cdev.Tools.TextBox" xml:space="preserve">
+    <value>Kutia e tekstit</value>
+  </data>
+  <data name="Cdev.Tools.ToolBox" xml:space="preserve">
+    <value>kuti veglash</value>
+  </data>
+  <data name="Cdev.Uri.InputNotUri" xml:space="preserve">
+    <value>Stringa e futur nuk është një Uri e vlefshme</value>
+  </data>
+  <data name="Cdev.Window.Main" xml:space="preserve">
+    <value>Dritarja kryesore</value>
+  </data>
+</root>

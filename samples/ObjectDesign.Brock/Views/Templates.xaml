@@ -1,0 +1,37 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sc="https://github.com/Cricle/Ao.ObjectDesign"
+                    xmlns:loc="clr-namespace:ObjectDesign.Brock"
+                    xmlns:lev="clr-namespace:ObjectDesign.Brock.Level"
+                    xmlns:d="clr-namespace:Ao.ObjectDesign.WpfDesign;assembly=Ao.ObjectDesign.WpfDesign">
+    <loc:SceneDataTemplateSelector x:Key="SceneMaker.Views.SceneDataTemplateSelector">
+        <loc:SceneDataTemplateSelector.SceneTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type lev:Scene}"
+                                      ItemsSource="{Binding Converter={x:Static sc:SceneSourceConverter.Instance}}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Converter={x:Static sc:SettingNameConverter.Instance},Mode=OneWay}"/>
+                    <TextBlock Text=" - " Visibility="{Binding Name,Converter={x:Static sc:StringVisiblityConverter.Instance}}"/>
+                    <TextBlock Foreground="LightSkyBlue" Text="{Binding Name}" Visibility="{Binding Name,Converter={x:Static sc:StringVisiblityConverter.Instance}}"/>
+                    <TextBlock Text=" ("/>
+                    <TextBlock Text="{Binding DesigningObjects.Count}"/>
+                    <TextBlock Text=")"/>
+                </StackPanel>
+            </HierarchicalDataTemplate>
+        </loc:SceneDataTemplateSelector.SceneTemplate>
+        <loc:SceneDataTemplateSelector.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Converter={x:Static sc:SettingNameConverter.Instance},Mode=OneWay}"/>
+                    <TextBlock Text=" - " Visibility="{Binding Name,Converter={x:Static sc:StringVisiblityConverter.Instance}}"/>
+                    <TextBlock Foreground="LightSkyBlue" Text="{Binding Name}" Visibility="{Binding Name,Converter={x:Static sc:StringVisiblityConverter.Instance}}"/>
+                </StackPanel>
+            </DataTemplate>
+        </loc:SceneDataTemplateSelector.ItemTemplate>
+    </loc:SceneDataTemplateSelector>
+    <Style TargetType="FrameworkElement">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+    <Style TargetType="{x:Type d:DesignSuface}">
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+</ResourceDictionary>

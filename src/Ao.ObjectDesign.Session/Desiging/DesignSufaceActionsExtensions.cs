@@ -199,7 +199,7 @@ namespace Ao.ObjectDesign.Session.Desiging
             Debug.Assert(item != null);
 
             var c = controller.FindController(item);
-            if (c is LazyMapSceneController<TSetting> lmsc &&
+            if (c is WpfLazyMapSceneController<TSetting> lmsc &&
                 lmsc.BindingTaskMap.TryGetValue(item, out var box))
             {
                 foreach (var scope in box.BindingScopes)

@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:w="https://github.com/Cricle/Ao.ObjectDesign.Wpf"
+                    xmlns:loc="clr-namespace:Ao.ObjectDesign.Wpf.Designing;assembly=Ao.ObjectDesign.Wpf"
+                    xmlns:l="https://github.com/Cricle/Ao.Lang"
+                    xmlns:conv="clr-namespace:ObjectDesign.Brock.Converters">
+    <DataTemplate x:Key="ObjectDesign.BrushDesigner"
+                  DataType="{x:Type w:WpfTemplateForViewBuildContext}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Style="{DynamicResource Descript.TextBlock}"
+                       Text="{Binding PropertyProxy,Converter={x:Static conv:PropertyProxyNameConverter.Instance}}"/>
+            <StackPanel DataContext="{Binding PropertyVisitor}" Grid.Row="1" Orientation="Horizontal">
+                <ToggleButton DataContext="{Binding Value}" 
+                              Content="{l:Lang Cdev.DesignControl.Descripts.Brush.None}"
+                              IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.None},Converter={x:Static conv:PenBrushTypeBoolConverter.Instance},Mode=TwoWay}"/>
+                <ToggleButton DataContext="{Binding Value}"
+                              Content="{l:Lang Cdev.DesignControl.Descripts.Brush.Solid}"
+                              IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Solid},Converter={x:Static conv:PenBrushTypeBoolConverter.Instance},Mode=TwoWay}"/>
+                <ToggleButton DataContext="{Binding Value}"
+                              Content="{l:Lang Cdev.DesignControl.Descripts.Brush.Linear}"
+                              IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Liner},Converter={x:Static conv:PenBrushTypeBoolConverter.Instance},Mode=TwoWay}"/>
+                <!--<ToggleButton DataContext="{Binding Value}" 
+                              Content="{l:Lang Cdev.DesignControl.Descripts.Brush.Radial}"
+                              IsChecked="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Radial},Converter={x:Static conv:PenBrushTypeBoolConverter.Instance},Mode=TwoWay}"/>-->
+            </StackPanel>
+            <Grid Grid.Row="2" DataContext="{Binding PropertyVisitor}">
+                <Border DataContext="{Binding Value}" 
+                        Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.None},Converter={x:Static conv:PenBrushTypeVisibilityConverter.Instance}}">
+                    <TextBlock>没有画刷</TextBlock>
+                </Border>
+                <Border DataContext="{Binding Value}"
+                        Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Solid},Converter={x:Static conv:PenBrushTypeVisibilityConverter.Instance}}">
+                    <m:ColorPicker DataContext="{Binding SolidColorBrushDesigner}"
+                                   SelectedColor="{Binding Color.Color,Mode=TwoWay}"/>
+                </Border>
+                <Border DataContext="{Binding Value}" 
+                        Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Liner},Converter={x:Static conv:PenBrushTypeVisibilityConverter.Instance}}">
+                </Border>
+                <Border DataContext="{Binding Value}" 
+                        Visibility="{Binding Type,ConverterParameter={x:Static loc:PenBrushTypes.Radial},Converter={x:Static conv:PenBrushTypeVisibilityConverter.Instance}}">
+                </Border>
+            </Grid>
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>

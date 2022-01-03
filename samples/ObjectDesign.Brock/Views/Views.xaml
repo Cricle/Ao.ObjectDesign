@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/PositionSize.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/Templates.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/Text.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/Opacity.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/BrushDesigner.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/Stretch.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/ClipToBounds.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/StrokeThickness.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/TextTrimming.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/TextWrapping.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/FontSize.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/Name.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/IsIndeterminate.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/TextAlignment.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/RotateTransformDesigner.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/ResourceIdentity.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/ObjectDesign.Brock;component/Views/MediaElementSource.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

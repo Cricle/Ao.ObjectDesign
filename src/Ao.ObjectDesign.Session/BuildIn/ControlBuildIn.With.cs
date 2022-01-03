@@ -1,8 +1,9 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
+﻿using Ao.ObjectDesign.Bindings.Annotations;
+using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Annotations;
+using Ao.ObjectDesign.Session.BindingCreators;
 using Ao.ObjectDesign.WpfDesign;
-using Ao.ObjectDesign.WpfDesign.Annotations;
 using System;
 using System.Reflection;
 
@@ -33,7 +34,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             var factoryAttr = type.GetCustomAttribute<BindingCreatorFactoryAttribute>();
             if (factoryAttr != null)
             {
-                var factory = (IBindingCreatorFactory<TSetting>)Activator.CreateInstance(factoryAttr.CreatorType);
+                var factory = (BindingCreatorFactory<TSetting>)Activator.CreateInstance(factoryAttr.CreatorType);
                 AddBindingCreatorFactory(factory);
             }
             var icAttr = type.GetCustomAttribute<HasInstanceCreatorAttribute>();
