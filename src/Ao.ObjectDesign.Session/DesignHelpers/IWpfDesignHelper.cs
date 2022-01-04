@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Session.DesignHelpers
 {
-    public interface IWpfDesignHelper: IDesignHelper<UIElement, IWpfDesignContext>
+    public interface IWpfDesignHelper : IDesignHelper<UIElement, IWpfDesignContext>
     {
 
     }

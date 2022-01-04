@@ -5,8 +5,8 @@ using System.IO.Abstractions;
 
 namespace Ao.ObjectDesign.Session.BuildIn
 {
-    public abstract class EnvironmentSceneMakerStartup<TScene,TSetting> : SceneMakerStartup<TScene, TSetting>
-        where TScene:IDesignScene<TSetting>
+    public abstract class EnvironmentSceneMakerStartup<TScene, TSetting> : SceneMakerStartup<TScene, TSetting>
+        where TScene : IDesignScene<TSetting>
     {
         protected override IEngineEnvironment<TScene, TSetting> GetEnvironment()
         {

@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Windows;
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public class DataTemplatePropertyPanel<TScene, TSetting> : InitableObject, IPropertyPanel<TScene, TSetting>, IPropertyContextCreator<WpfTemplateForViewBuildContext,TSetting>, IPropertyContextCreator<TSetting>
+    public class DataTemplatePropertyPanel<TScene, TSetting> : InitableObject, IPropertyPanel<TScene, TSetting>, IPropertyContextCreator<WpfTemplateForViewBuildContext, TSetting>, IPropertyContextCreator<TSetting>
         where TScene : IDesignScene<TSetting>
     {
         public DataTemplatePropertyPanel(IDesignSession<TScene, TSetting> session)

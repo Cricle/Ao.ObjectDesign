@@ -2,16 +2,15 @@
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Controllers;
 using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
 using System.Collections;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Session
 {
-    public class AutoSceneManager<TScene, TSetting> : WpfSceneManager<TScene,TSetting>
-        where TScene:IObservableDesignScene<TSetting>
+    public class AutoSceneManager<TScene, TSetting> : WpfSceneManager<TScene, TSetting>
+        where TScene : IObservableDesignScene<TSetting>
     {
-        public AutoSceneManager(IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> designMap,
+        public AutoSceneManager(IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> designMap,
             IList uIElements)
             : base(designMap, uIElements)
         {
@@ -23,9 +22,9 @@ namespace Ao.ObjectDesign.Session
         public override DesignSceneController<UIElement, TSetting> CreateSceneController(TScene scene)
         {
             var controller = new WpfSceneItemsSceneController<TSetting>(DesignMap,
-                UIElements, 
-                scene) 
-            { 
+                UIElements,
+                scene)
+            {
                 LazyBinding = LazyBinding
             };
             return controller;

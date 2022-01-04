@@ -8,7 +8,7 @@ namespace Ao.ObjectDesign.Session.Desiging
 {
     public static class SessionActionsExtensions
     {
-        public static void SetDesignObjectsByElements<TScene,TSetting>(this IDesignSession<TScene, TSetting> session,
+        public static void SetDesignObjectsByElements<TScene, TSetting>(this IDesignSession<TScene, TSetting> session,
             IReadOnlyList<UIElement> elements,
             Func<IDesignPair<UIElement, TSetting>, bool> keepFunc)
             where TScene : IDesignScene<TSetting>
@@ -28,7 +28,7 @@ namespace Ao.ObjectDesign.Session.Desiging
                 throw new ArgumentNullException(nameof(keepFunc));
             }
 
-            DesignSufaceActionsExtensions.SetDesignObjectsByElements<TScene,TSetting>(session.Suface,
+            DesignSufaceActionsExtensions.SetDesignObjectsByElements<TScene, TSetting>(session.Suface,
                 session.SceneManager.CurrentSceneController,
                 elements,
                 keepFunc);

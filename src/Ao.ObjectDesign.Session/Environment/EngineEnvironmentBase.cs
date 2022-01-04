@@ -7,8 +7,8 @@ using System.IO.Abstractions;
 
 namespace Ao.ObjectDesign.Session.Environment
 {
-    public abstract class EngineEnvironmentBase<TScene,TDesignObject> : IEngineEnvironment<TScene, TDesignObject>
-        where TScene:IObservableDesignScene<TDesignObject>
+    public abstract class EngineEnvironmentBase<TScene, TDesignObject> : IEngineEnvironment<TScene, TDesignObject>
+        where TScene : IObservableDesignScene<TDesignObject>
     {
         protected EngineEnvironmentBase(IFileSystem fileSystem,
             ISceneFetcher<TScene> sceneFetcher,
@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign.Session.Environment
         }
         protected EngineEnvironmentBase(IFileSystem fileSystem,
            ISceneFetcher<TScene> sceneFetcher,
-           IBindingCreatorStateCreator< TDesignObject> creator)
+           IBindingCreatorStateCreator<TDesignObject> creator)
         {
             FileSystem = fileSystem ?? throw new ArgumentNullException(nameof(fileSystem));
             SceneFetcher = sceneFetcher ?? throw new ArgumentNullException(nameof(sceneFetcher));
@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Session.Environment
 
         public SessionManager<TScene, TDesignObject> CreateSessionManager(SceneEngine<TScene, TDesignObject> engine)
         {
-            return new EnvironmentSessionManager<TScene,TDesignObject>(engine, engine.TemplateContextsDecoraters);
+            return new EnvironmentSessionManager<TScene, TDesignObject>(engine, engine.TemplateContextsDecoraters);
         }
     }
 }

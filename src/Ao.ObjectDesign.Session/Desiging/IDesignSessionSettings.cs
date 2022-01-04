@@ -3,7 +3,7 @@ using System.IO.Abstractions;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public interface IDesignSessionSettings<TScene,TSetting>
+    public interface IDesignSessionSettings<TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
         IFileInfo TargetFile { get; }

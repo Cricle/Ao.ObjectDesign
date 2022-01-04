@@ -1,5 +1,4 @@
-﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Bindings;
+﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.ForView;
@@ -16,8 +15,8 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Session
 {
-    public partial class SceneEngine<TScene,TSetting> : InitableObject
-        where TScene:IDesignScene<TSetting>
+    public partial class SceneEngine<TScene, TSetting> : InitableObject
+        where TScene : IDesignScene<TSetting>
     {
         public SceneEngine(IEngineConfiguration<TScene, TSetting> configuration)
         {
@@ -33,7 +32,7 @@ namespace Ao.ObjectDesign.Session
         private WpfDesignClipboardManager<TSetting> clipboardManager;
         private WpfDesignPackage<TSetting> designPackage;
         private UIDesignMap uiDesignMap;
-        private SessionManager<TScene,TSetting> sessionManager;
+        private SessionManager<TScene, TSetting> sessionManager;
         private TemplateContextsDecoraterCollection<TScene, TSetting> templateContextsDecoraters;
         private IObjectDesigner instanceDesigner;
         private UIGenerator uiGenerator;
@@ -63,13 +62,13 @@ namespace Ao.ObjectDesign.Session
 
         public WpfDesignClipboardManager<TSetting> ClipboardManager => clipboardManager;
 
-        public IEngineEnvironment<TScene,TSetting> EngineEnvironment { get; }
+        public IEngineEnvironment<TScene, TSetting> EngineEnvironment { get; }
 
-        public IEngineConfiguration<TScene,TSetting> EngineConfiguration { get; }
+        public IEngineConfiguration<TScene, TSetting> EngineConfiguration { get; }
 
         public UIDesignMap UIDesignMap => uiDesignMap;
 
-        public SessionManager<TScene,TSetting> SessionManager => sessionManager;
+        public SessionManager<TScene, TSetting> SessionManager => sessionManager;
 
         protected override void OnInitialize()
         {
@@ -119,7 +118,7 @@ namespace Ao.ObjectDesign.Session
             return EngineEnvironment.BindingCreatorStateCreator;
         }
 
-        protected virtual SessionManager<TScene,TSetting> CreateSessionManager(TemplateContextsDecoraterCollection<TScene, TSetting> decoraters)
+        protected virtual SessionManager<TScene, TSetting> CreateSessionManager(TemplateContextsDecoraterCollection<TScene, TSetting> decoraters)
         {
             ThrowIfEnvironmentNull();
             return EngineEnvironment.CreateSessionManager(this);
@@ -129,7 +128,7 @@ namespace Ao.ObjectDesign.Session
             return new DesignOrderManager();
         }
 
-        protected virtual IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> CreateDesignPackage()
+        protected virtual IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> CreateDesignPackage()
         {
             return new WpfDesignPackage<TSetting>(new UIDesignMap(), EngineEnvironment.BindingCreatorStateCreator);
         }

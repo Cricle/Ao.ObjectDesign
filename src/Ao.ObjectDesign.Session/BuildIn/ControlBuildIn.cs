@@ -1,14 +1,10 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Session.BuildIn
 {
-    public partial class ControlBuildIn<TScene,TSetting>
+    public partial class ControlBuildIn<TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
         private ControlBuildIn() { }

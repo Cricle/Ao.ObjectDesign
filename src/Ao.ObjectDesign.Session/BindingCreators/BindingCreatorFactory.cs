@@ -1,9 +1,9 @@
-﻿using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.WpfDesign;
 using System.Collections.Generic;
 using System.Windows;
-using Ao.ObjectDesign.Bindings;
-using Ao.ObjectDesign.WpfDesign;
 
 namespace Ao.ObjectDesign.Session.BindingCreators
 {
@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Session.BindingCreators
 
         public IEnumerable<IBindingCreator<UIElement, TDesignObject, IWithSourceBindingScope>> Create(IDesignPair<UIElement, TDesignObject> unit, IBindingCreatorState state)
         {
-            foreach (var item in CreateWpfCreators(unit,state))
+            foreach (var item in CreateWpfCreators(unit, state))
             {
                 yield return item;
             }

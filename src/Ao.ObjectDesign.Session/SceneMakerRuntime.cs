@@ -10,8 +10,8 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Session
 {
-    public partial class SceneMakerRuntime<TDesignTool,TScene, TDesignObject> : NotifyableObject
-        where TScene:IDesignScene<TDesignObject>
+    public partial class SceneMakerRuntime<TDesignTool, TScene, TDesignObject> : NotifyableObject
+        where TScene : IDesignScene<TDesignObject>
     {
         private static readonly DependencyPropertyDescriptor DesigningObjectPropertyDescript
                = DependencyPropertyDescriptor.FromProperty(DesignSuface.DesigningObjectProperty, typeof(DesignSuface));

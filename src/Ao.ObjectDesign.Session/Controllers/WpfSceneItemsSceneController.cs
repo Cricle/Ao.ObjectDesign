@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Session.Controllers
 {
     public class WpfSceneItemsSceneController<TSetting> : WpfSceneController<TSetting>
     {
-        public WpfSceneItemsSceneController(IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> designMap,
+        public WpfSceneItemsSceneController(IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> designMap,
             IList uiElements,
             IObservableDesignScene<TSetting> scene)
             : base(designMap, scene)

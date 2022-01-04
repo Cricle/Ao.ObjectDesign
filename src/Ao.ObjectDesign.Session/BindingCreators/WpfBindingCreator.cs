@@ -1,13 +1,12 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
 using System.Collections.Generic;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Session.BindingCreators
 {
-    public abstract class WpfBindingCreator<TSetting> : BindingCreator<UIElement,TSetting,IWithSourceBindingScope>
+    public abstract class WpfBindingCreator<TSetting> : BindingCreator<UIElement, TSetting, IWithSourceBindingScope>
     {
         public WpfBindingCreator(IDesignPair<UIElement, TSetting> designUnit, IBindingCreatorState state)
             : base(designUnit, state)

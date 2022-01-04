@@ -2,12 +2,11 @@
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Wpf;
 using System.Collections.Generic;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Session
 {
-    public class DesignStatePropertyContextsDecorater<TScene,TDesignObject> : IPropertyContextsDecorater<WpfTemplateForViewBuildContext,TScene,TDesignObject>
-        where TScene:IDesignScene<TDesignObject>
+    public class DesignStatePropertyContextsDecorater<TScene, TDesignObject> : IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TDesignObject>
+        where TScene : IDesignScene<TDesignObject>
     {
         public DesignStatePropertyContextsDecorater(SceneEngine<TScene, TDesignObject> engine)
         {

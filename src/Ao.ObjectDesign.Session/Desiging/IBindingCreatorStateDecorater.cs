@@ -1,6 +1,5 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.WpfDesign;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Session.Desiging

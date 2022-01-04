@@ -9,8 +9,7 @@ using System.Linq;
 using System.Windows;
 
 namespace ObjectDesign.Brock.Controls.BindingCreators
-{
-    
+{    
     public partial class FrameworkElementSettingBindingCreator : UIElementSettingBindingCreator
     {
         public FrameworkElementSettingBindingCreator(IDesignPair<UIElement, UIElementSetting> designUnit, IBindingCreatorState state)

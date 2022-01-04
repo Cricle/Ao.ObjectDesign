@@ -1,16 +1,13 @@
 ﻿using Ao.ObjectDesign.Bindings;
-using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Session
 {
-    public abstract class WpfSceneManager<TScene,TSetting> : SceneManager<UIElement, TScene, TSetting>
+    public abstract class WpfSceneManager<TScene, TSetting> : SceneManager<UIElement, TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
         protected WpfSceneManager(IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> designMap,

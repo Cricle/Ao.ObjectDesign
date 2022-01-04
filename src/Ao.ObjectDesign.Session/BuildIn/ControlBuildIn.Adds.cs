@@ -1,25 +1,23 @@
-﻿using Ao.ObjectDesign;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.WpfDesign.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Windows;
-using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Bindings;
 
 namespace Ao.ObjectDesign.Session.BuildIn
 {
-    public partial class ControlBuildIn<TScene,TSetting>
+    public partial class ControlBuildIn<TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
-        public ControlBuildIn<TScene,TSetting> AddTemplateForViewCondition(IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext> condition)
+        public ControlBuildIn<TScene, TSetting> AddTemplateForViewCondition(IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext> condition)
         {
             if (condition is null)
             {
@@ -29,7 +27,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DataTemplateBuilder.Add(condition);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddTemplateForViewCondition(IEnumerable<IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>> conditions)
+        public ControlBuildIn<TScene, TSetting> AddTemplateForViewCondition(IEnumerable<IForViewCondition<DataTemplate, WpfTemplateForViewBuildContext>> conditions)
         {
             if (conditions is null)
             {
@@ -40,7 +38,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             return this;
         }
 
-        public ControlBuildIn<TScene,TSetting> AddMap(Type uiType, Type designType)
+        public ControlBuildIn<TScene, TSetting> AddMap(Type uiType, Type designType)
         {
             if (uiType is null)
             {
@@ -55,11 +53,11 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignPackage.UIDesinMap.RegistDesignType(uiType, designType);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddMap<TUI, TDesigner>()
+        public ControlBuildIn<TScene, TSetting> AddMap<TUI, TDesigner>()
         {
             return AddMap(typeof(TUI), typeof(TDesigner));
         }
-        public ControlBuildIn<TScene,TSetting> AddInstacnceFactory(IInstanceFactory factory)
+        public ControlBuildIn<TScene, TSetting> AddInstacnceFactory(IInstanceFactory factory)
         {
             if (factory is null)
             {
@@ -69,7 +67,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignPackage.UIDesinMap.RegistInstanceFactory(factory);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingStateDecorate(IBindingCreatorStateDecorater<TSetting> bindingCreatorStateDecorater)
+        public ControlBuildIn<TScene, TSetting> AddBindingStateDecorate(IBindingCreatorStateDecorater<TSetting> bindingCreatorStateDecorater)
         {
             if (bindingCreatorStateDecorater is null)
             {
@@ -79,7 +77,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.BindingCreatorStateDecoraters.Add(bindingCreatorStateDecorater);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingStateDecorate(IEnumerable<IBindingCreatorStateDecorater<TSetting>> bindingCreatorStateDecoraters)
+        public ControlBuildIn<TScene, TSetting> AddBindingStateDecorate(IEnumerable<IBindingCreatorStateDecorater<TSetting>> bindingCreatorStateDecoraters)
         {
             if (bindingCreatorStateDecoraters is null)
             {
@@ -89,7 +87,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.BindingCreatorStateDecoraters.AddRange(bindingCreatorStateDecoraters);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddTemplateContextDecorate(IPropertyContextsDecorater<WpfTemplateForViewBuildContext,TScene,TSetting> templatePropertyContextsDecorater)
+        public ControlBuildIn<TScene, TSetting> AddTemplateContextDecorate(IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TSetting> templatePropertyContextsDecorater)
         {
             if (templatePropertyContextsDecorater is null)
             {
@@ -99,7 +97,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.TemplateContextsDecoraters.Add(templatePropertyContextsDecorater);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddTemplateContextDecorate(IEnumerable<IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TSetting>> templatePropertyContextsDecoraters)
+        public ControlBuildIn<TScene, TSetting> AddTemplateContextDecorate(IEnumerable<IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TSetting>> templatePropertyContextsDecoraters)
         {
             if (templatePropertyContextsDecoraters is null)
             {
@@ -109,7 +107,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.TemplateContextsDecoraters.AddRange(templatePropertyContextsDecoraters);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddDesignOrder(Type type)
+        public ControlBuildIn<TScene, TSetting> AddDesignOrder(Type type)
         {
             if (type is null)
             {
@@ -119,7 +117,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignOrderManager.AddWithType(type);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddDesignOrder(PropertyInfo propertyInfo, int order)
+        public ControlBuildIn<TScene, TSetting> AddDesignOrder(PropertyInfo propertyInfo, int order)
         {
             if (propertyInfo is null)
             {
@@ -130,7 +128,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignOrderManager[identity] = order;
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddDesignOrder<T>(Expression<Func<T, object>> propertyMap, int order)
+        public ControlBuildIn<TScene, TSetting> AddDesignOrder<T>(Expression<Func<T, object>> propertyMap, int order)
         {
             if (propertyMap is null)
             {
@@ -139,7 +137,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignOrderManager.Add(propertyMap, order);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactory(IBindingCreatorFactory<UIElement,TSetting,IWithSourceBindingScope> factory)
+        public ControlBuildIn<TScene, TSetting> AddBindingCreatorFactory(IBindingCreatorFactory<UIElement, TSetting, IWithSourceBindingScope> factory)
         {
             if (factory is null)
             {
@@ -149,7 +147,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignPackage.BindingCreators.Add(factory);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactory(IEnumerable<IBindingCreatorFactory<UIElement, TSetting, IWithSourceBindingScope>> factories)
+        public ControlBuildIn<TScene, TSetting> AddBindingCreatorFactory(IEnumerable<IBindingCreatorFactory<UIElement, TSetting, IWithSourceBindingScope>> factories)
         {
             if (factories is null)
             {
@@ -159,7 +157,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
             engine.DesignPackage.BindingCreators.AddRange(factories);
             return this;
         }
-        public ControlBuildIn<TScene,TSetting> AddBindingCreatorFactoryByAttribute(Type type)
+        public ControlBuildIn<TScene, TSetting> AddBindingCreatorFactoryByAttribute(Type type)
         {
             if (type is null)
             {

@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign.Session.Controllers
 {
     public class WpfSceneObservableSceneController<TSetting> : WpfSceneController<TSetting>
     {
-        public WpfSceneObservableSceneController(IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> designMap,
+        public WpfSceneObservableSceneController(IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> designMap,
             SilentObservableCollection<UIElement> items,
             IObservableDesignScene<TSetting> scene)
             : base(designMap, scene)

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public class TemplateContextsDecoraterCollection<TScene,TSetting> : PropertyContextsDecoraterCollection<WpfTemplateForViewBuildContext,TScene, TSetting>, IPropertyContextsDecorater<WpfTemplateForViewBuildContext,TScene, TSetting>
+    public class TemplateContextsDecoraterCollection<TScene, TSetting> : PropertyContextsDecoraterCollection<WpfTemplateForViewBuildContext, TScene, TSetting>, IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TSetting>
             where TScene : IDesignScene<TSetting>
     {
         public TemplateContextsDecoraterCollection()
@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign.Session.Desiging
         {
         }
 
-        public TemplateContextsDecoraterCollection(IEnumerable<IPropertyContextsDecorater<WpfTemplateForViewBuildContext,TScene, TSetting>> collection) : base(collection)
+        public TemplateContextsDecoraterCollection(IEnumerable<IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TSetting>> collection) : base(collection)
         {
         }
     }

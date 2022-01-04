@@ -1,5 +1,4 @@
-﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Wpf;
@@ -9,8 +8,8 @@ using System.Linq;
 
 namespace Ao.ObjectDesign.Session
 {
-    public class PropertyContextOrderDecoratere<TScene,TDesignObject> : IPropertyContextsDecorater<WpfTemplateForViewBuildContext,TScene,TDesignObject>
-        where TScene :IDesignScene<TDesignObject>
+    public class PropertyContextOrderDecoratere<TScene, TDesignObject> : IPropertyContextsDecorater<WpfTemplateForViewBuildContext, TScene, TDesignObject>
+        where TScene : IDesignScene<TDesignObject>
     {
         public PropertyContextOrderDecoratere(DesignOrderManager orderManager)
         {

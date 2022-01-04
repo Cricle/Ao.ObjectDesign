@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace Ao.ObjectDesign.Data
@@ -104,7 +105,8 @@ namespace Ao.ObjectDesign.Data
             {
                 try
                 {
-                    result = Convert.ChangeType(Value, type);
+                    var convert = TypeDescriptor.GetConverter(Value);
+                    result = convert.ConvertTo(Value, type);
                     return true;
                 }
                 catch (Exception ex)

@@ -7,7 +7,7 @@ namespace Ao.ObjectDesign.Session.EngineConfig
     public class EngineConfiguration<TScene, TSetting> : IEngineConfiguration<TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
-        public IEngineEnvironment<TScene,TSetting> EngineEnvironment { get; set; }
+        public IEngineEnvironment<TScene, TSetting> EngineEnvironment { get; set; }
 
         public IServiceProvider ServiceProvider { get; set; }
     }

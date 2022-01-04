@@ -3,10 +3,8 @@ using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.WpfDesign;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,7 +13,7 @@ namespace Ao.ObjectDesign.Session.Controllers
 {
     public abstract class WpfSceneController<TSetting> : WpfLazyMapSceneController<TSetting>
     {
-        public WpfSceneController(IDesignPackage<UIElement,TSetting,IWithSourceBindingScope> designMap,
+        public WpfSceneController(IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> designMap,
             IObservableDesignScene<TSetting> scene)
             : base(designMap)
         {

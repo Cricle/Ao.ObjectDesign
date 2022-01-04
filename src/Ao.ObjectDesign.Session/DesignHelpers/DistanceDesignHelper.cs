@@ -2,7 +2,6 @@
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.WpfDesign;
-using Ao.ObjectDesign.WpfDesign.Designers;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -76,7 +75,7 @@ namespace Ao.ObjectDesign.Session.DesignHelpers
                 var anyTrans = false;
                 foreach (FrameworkElement item in @new)
                 {
-                    if (item.Parent==Session.Root)
+                    if (item.Parent == Session.Root)
                     {
                         continue;
                     }
@@ -116,7 +115,7 @@ namespace Ao.ObjectDesign.Session.DesignHelpers
 
         public void UpdateDesign(IWpfDesignContext context)
         {
-            if (!anyTrans&& context.DesignMetedatas is null || context.DesignMetedatas.Count == 0)
+            if (!anyTrans && context.DesignMetedatas is null || context.DesignMetedatas.Count == 0)
             {
                 return;
             }

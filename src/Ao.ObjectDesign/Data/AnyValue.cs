@@ -4,7 +4,7 @@ using System.Diagnostics;
 namespace Ao.ObjectDesign.Data
 {
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public struct AnyValue : IVarValue, ICloneable, IEquatable<AnyValue>
+    public readonly struct AnyValue : IVarValue, ICloneable, IEquatable<AnyValue>
     {
         public AnyValue(object value, TypeCode typeCode)
         {
@@ -36,12 +36,16 @@ namespace Ao.ObjectDesign.Data
         }
         public override int GetHashCode()
         {
-            var b = 0;
-            if (Value != null)
+            unchecked
             {
-                b = Value.GetHashCode();
+                var h = 31 * 17 + TypeCode.GetHashCode();
+                h *= 31;
+                if (Value != null)
+                {
+                    h += Value.GetHashCode();
+                }
+                return h;
             }
-            return b ^ (int)TypeCode;
         }
 
         object ICloneable.Clone()

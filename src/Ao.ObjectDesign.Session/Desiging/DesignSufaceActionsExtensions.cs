@@ -1,5 +1,4 @@
-﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Collections.Generic;
@@ -40,7 +39,7 @@ namespace Ao.ObjectDesign.Session.Desiging
            TSetting setting)
             where TScene : IDesignScene<TSetting>
         {
-            var pair = controller.Find((x, y) =>EqualityComparer<TSetting>.Default.Equals(y.DesigningObject ,setting))
+            var pair = controller.Find((x, y) => EqualityComparer<TSetting>.Default.Equals(y.DesigningObject, setting))
                 .FirstOrDefault();
             if (pair != null)
             {
@@ -188,7 +187,7 @@ namespace Ao.ObjectDesign.Session.Desiging
 
             foreach (var item in pairs)
             {
-                ExecuteBind<TScene,TSetting>(controller, item);
+                ExecuteBind<TScene, TSetting>(controller, item);
             }
         }
         internal static void ExecuteBind<TScene, TSetting>(IDesignSceneController<UIElement, TSetting> controller,

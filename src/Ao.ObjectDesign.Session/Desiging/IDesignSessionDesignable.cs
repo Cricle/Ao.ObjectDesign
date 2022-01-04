@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public interface IDesignSessionDesignable<TScene,TSetting>
+    public interface IDesignSessionDesignable<TScene, TSetting>
         where TScene : IDesignScene<TSetting>
     {
         bool LazyBinding { get; set; }
@@ -16,9 +16,9 @@ namespace Ao.ObjectDesign.Session.Desiging
 
         DesignSuface Suface { get; }
 
-        WpfSceneManager<TScene,TSetting> SceneManager { get; }
+        WpfSceneManager<TScene, TSetting> SceneManager { get; }
 
-        IPropertyPanel<TScene,TSetting> PropertyPanel { get; }
+        IPropertyPanel<TScene, TSetting> PropertyPanel { get; }
 
         WpfObjectDesigner ObjectDesigner { get; }
 

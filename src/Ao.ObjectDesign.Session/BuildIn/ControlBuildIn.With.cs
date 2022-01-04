@@ -3,7 +3,6 @@ using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Annotations;
 using Ao.ObjectDesign.Session.BindingCreators;
-using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Reflection;
 

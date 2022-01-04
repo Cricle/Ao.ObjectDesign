@@ -38,7 +38,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
         {
             var env = GetEnvironment();
             var provider = GetServiceProvider();
-            return new EngineConfiguration<TScene,TSetting>
+            return new EngineConfiguration<TScene, TSetting>
             {
                 EngineEnvironment = env,
                 ServiceProvider = provider

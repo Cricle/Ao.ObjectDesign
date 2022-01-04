@@ -6,8 +6,8 @@ using System.Diagnostics;
 namespace Ao.ObjectDesign.Session.Desiging
 {
     [DebuggerDisplay("{Id}")]
-    public class EnvironmentDesignSession<TScene,TSetting> : DesignSession<TScene,TSetting>
-        where TScene:IObservableDesignScene<TSetting>
+    public class EnvironmentDesignSession<TScene, TSetting> : DesignSession<TScene, TSetting>
+        where TScene : IObservableDesignScene<TSetting>
     {
         public EnvironmentDesignSession(IDesignSessionSettings<TScene, TSetting> settings,
             WpfObjectDesignerSettings designerSettings,
@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.Session.Desiging
 
         protected override WpfSceneManager<TScene, TSetting> CreateSceneManager(WpfObjectDesigner designer)
         {
-            return new AutoSceneManager<TScene,TSetting>(Engine.DesignPackage, ElementContriner) { LazyBinding = LazyBinding, CurrentScene = Scene };
+            return new AutoSceneManager<TScene, TSetting>(Engine.DesignPackage, ElementContriner) { LazyBinding = LazyBinding, CurrentScene = Scene };
         }
 
         protected override WpfObjectDesigner CreateObjectDesigner()
@@ -34,7 +34,7 @@ namespace Ao.ObjectDesign.Session.Desiging
 
         protected override IPropertyPanel<TScene, TSetting> CreatePropertyPanel()
         {
-            return new DataTemplatePropertyPanel<TScene,TSetting>(this, Decoraters);
+            return new DataTemplatePropertyPanel<TScene, TSetting>(this, Decoraters);
         }
     }
 }

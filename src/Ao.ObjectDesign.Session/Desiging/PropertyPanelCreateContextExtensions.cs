@@ -43,7 +43,7 @@ namespace Ao.ObjectDesign.Session.Desiging
             }
 
             var pair = panel.Session.SceneManager.CurrentSceneController
-                .Find((x, y) =>EqualityComparer<TSetting>.Default.Equals(y.DesigningObject ,setting))
+                .Find((x, y) => EqualityComparer<TSetting>.Default.Equals(y.DesigningObject, setting))
                 .FirstOrDefault();
             if (pair is null)
             {

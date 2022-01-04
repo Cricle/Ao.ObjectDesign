@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public abstract class SessionManager<TScene,TSetting> : IEnumerable<KeyValuePair<Guid, IDesignSession<TScene, TSetting>>>, IDisposable
+    public abstract class SessionManager<TScene, TSetting> : IEnumerable<KeyValuePair<Guid, IDesignSession<TScene, TSetting>>>, IDisposable
         where TScene : IDesignScene<TSetting>
     {
         private readonly Dictionary<Guid, IDesignSession<TScene, TSetting>> sessionMap;
@@ -32,7 +32,7 @@ namespace Ao.ObjectDesign.Session.Desiging
         public event EventHandler<SessionRemovedEventArgs<TScene, TSetting>> SessionRemoved;
         public event EventHandler CleanRemoved;
 
-        public IDesignSession<TScene, TSetting> Create(IDesignSessionSettings<TScene,TSetting> settings)
+        public IDesignSession<TScene, TSetting> Create(IDesignSessionSettings<TScene, TSetting> settings)
         {
             ThrowIfDisposed();
             var session = MakeSession(settings);
@@ -90,7 +90,7 @@ namespace Ao.ObjectDesign.Session.Desiging
 
         }
 
-        protected abstract DesignSession<TScene, TSetting> MakeSession(IDesignSessionSettings<TScene,TSetting> settings);
+        protected abstract DesignSession<TScene, TSetting> MakeSession(IDesignSessionSettings<TScene, TSetting> settings);
 
         protected virtual WpfObjectDesignerSettings CreateDesignSettings()
         {

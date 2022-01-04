@@ -4,8 +4,8 @@ using System.IO.Abstractions;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public class DesignSessionSettings<TScene,TSetting> : IDesignSessionSettings<TScene,TSetting>
-        where TScene:IDesignScene<TSetting>
+    public class DesignSessionSettings<TScene, TSetting> : IDesignSessionSettings<TScene, TSetting>
+        where TScene : IDesignScene<TSetting>
     {
         public IFileInfo TargetFile { get; set; }
 

@@ -16,7 +16,7 @@ namespace Ao.ObjectDesign.Session.Desiging
 {
     [DebuggerDisplay("{Id}")]
     public abstract class DesignSession<TScene, TSetting> : InitableObject, IDesignSession<TScene, TSetting>
-        where TScene:IDesignScene<TSetting>
+        where TScene : IDesignScene<TSetting>
     {
         protected DesignSession(IDesignSessionSettings<TScene, TSetting> settings)
         {
@@ -42,7 +42,7 @@ namespace Ao.ObjectDesign.Session.Desiging
         private IPropertyPanel<TScene, TSetting> propertyPanel;
         private WpfObjectDesigner objectDesigner;
         private IActionSequencer<IFallbackable> sequencer;
-        private TemplateContextsDecoraterCollection<TScene,TSetting> contextsDecoraters;
+        private TemplateContextsDecoraterCollection<TScene, TSetting> contextsDecoraters;
         private FrameworkElement root;
         private IList elementContriner;
         private AccessInputBindings inputBindings;
@@ -83,7 +83,7 @@ namespace Ao.ObjectDesign.Session.Desiging
         }
 
 
-        public WpfSceneManager<TScene,TSetting> SceneManager
+        public WpfSceneManager<TScene, TSetting> SceneManager
         {
             get
             {
@@ -163,7 +163,7 @@ namespace Ao.ObjectDesign.Session.Desiging
             return Engine.TemplateContextsDecoraters;
         }
 
-        protected abstract WpfSceneManager<TScene,TSetting> CreateSceneManager(WpfObjectDesigner designer);
+        protected abstract WpfSceneManager<TScene, TSetting> CreateSceneManager(WpfObjectDesigner designer);
 
         protected abstract IPropertyPanel<TScene, TSetting> CreatePropertyPanel();
 

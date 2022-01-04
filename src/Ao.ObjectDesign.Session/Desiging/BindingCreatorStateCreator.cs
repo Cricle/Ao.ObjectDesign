@@ -8,8 +8,8 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public class BindingCreatorStateCreator<TScene,TSetting> : IBindingCreatorStateCreator<TSetting>
-        where TScene:IDesignScene<TSetting>
+    public class BindingCreatorStateCreator<TScene, TSetting> : IBindingCreatorStateCreator<TSetting>
+        where TScene : IDesignScene<TSetting>
     {
         public BindingCreatorStateCreator(BindingCreatorStateDecoraterCollection<TSetting> decoraters, IServiceProvider serviceProvider)
         {

@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.Session.Desiging
 {
-    public interface IPropertyContextCreator<TContext,TSetting> : IPropertyContextCreator<TSetting>
+    public interface IPropertyContextCreator<TContext, TSetting> : IPropertyContextCreator<TSetting>
     {
         new IEnumerable<TContext> CreateContexts(IDesignPair<UIElement, TSetting> pair);
     }
