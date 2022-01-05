@@ -56,11 +56,8 @@ namespace Ao.ObjectDesign.Designing
             {
                 return obj.Select(copyFactory).ToList();
             }
-#if NET452
-            return new TDesignObject[0];
-#else
-            return Array.Empty<TDesignObject>();
-#endif
+
+            return ArrayHelper<TDesignObject>.Empty;
         }
     }
 }

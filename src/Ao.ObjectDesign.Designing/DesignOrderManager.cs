@@ -16,8 +16,10 @@ namespace Ao.ObjectDesign.Designing
             }
 
             var props = type.GetProperties();
-            foreach (var item in props)
+            var len = props.Length;
+            for (int i = 0; i < len; i++)
             {
+                var item = props[i];
                 var attr = item.GetCustomAttribute<DesignOrderAttribute>();
                 if (attr != null)
                 {

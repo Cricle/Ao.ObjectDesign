@@ -50,13 +50,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().BindingCreatorStateCreator);
             services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().DesignPackage);
             services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().ClipboardManager);
-            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().EngineEnvironment);
-            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().EngineConfiguration);
+            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().Environment);
             services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().UIDesignMap);
             services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().SessionManager);
-            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().EngineConfiguration.EngineEnvironment);
-            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().EngineConfiguration.EngineEnvironment.BindingCreatorStateCreator);
-            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().EngineConfiguration.EngineEnvironment.FileSystem);
+            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().Environment.BindingCreatorStateCreator);
+            services.AddSingleton(x => x.GetRequiredService<SceneEngine<TScene,TDesignObject>>().Environment.FileSystem);
 
         }
     }

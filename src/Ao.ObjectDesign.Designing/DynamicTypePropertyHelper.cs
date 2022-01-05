@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.Designing
 {
     internal static class DynamicTypePropertyHelper
     {
-        public static readonly string[] knowStartWiths = new string[]
+        public static readonly IReadOnlyList<string> knowStartWiths = new string[]
         {
             "get","set","get_","set_","_"
         };
@@ -84,7 +84,7 @@ namespace Ao.ObjectDesign.Designing
             if (attr.AutoAnalysis)
             {
                 var methodName = info.Name;
-                for (int i = 0; i < knowStartWiths.Length; i++)
+                for (int i = 0; i < knowStartWiths.Count; i++)
                 {
                     var selectWith= knowStartWiths[i];
                     if (methodName.StartsWith(selectWith, StringComparison.OrdinalIgnoreCase))

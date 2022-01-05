@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Session.EngineConfig;
+using Ao.ObjectDesign.Session.Environment;
 
 namespace Ao.ObjectDesign.Session.BuildIn
 {
@@ -10,7 +10,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
     {
         SceneEngine<TScene, TSetting> Engine { get; }
 
-        IEngineConfiguration<TScene, TSetting> Configuration { get; }
+        IEngineEnvironment<TScene, TSetting> Environment { get; }
 
         ControlBuildIn<TScene, TSetting> CreateBuildIn();
 

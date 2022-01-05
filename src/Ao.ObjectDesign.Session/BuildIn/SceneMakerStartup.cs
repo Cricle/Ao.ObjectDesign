@@ -1,7 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Session.EngineConfig;
 using Ao.ObjectDesign.Session.Environment;
 using System;
 using System.Runtime.CompilerServices;
@@ -12,16 +11,16 @@ namespace Ao.ObjectDesign.Session.BuildIn
         where TScene : IDesignScene<TSetting>
     {
         private SceneEngine<TScene, TSetting> engine;
-        private IEngineConfiguration<TScene, TSetting> configuration;
+        private IEngineEnvironment<TScene, TSetting> environment;
 
         public SceneEngine<TScene, TSetting> Engine => engine;
 
-        public IEngineConfiguration<TScene, TSetting> Configuration => configuration;
+        public IEngineEnvironment<TScene, TSetting> Environment => environment;
 
         protected override void OnInitialize()
         {
-            configuration = GetConfiguration();
-            engine = CreateEngine(configuration);
+            environment = GetEnvironment();
+            engine = CreateEngine(environment);
             engine.Initialize();
         }
 
@@ -34,18 +33,7 @@ namespace Ao.ObjectDesign.Session.BuildIn
 
         protected abstract IServiceProvider GetServiceProvider();
 
-        protected virtual IEngineConfiguration<TScene, TSetting> GetConfiguration()
-        {
-            var env = GetEnvironment();
-            var provider = GetServiceProvider();
-            return new EngineConfiguration<TScene, TSetting>
-            {
-                EngineEnvironment = env,
-                ServiceProvider = provider
-            };
-        }
-
-        protected virtual SceneEngine<TScene, TSetting> CreateEngine(IEngineConfiguration<TScene, TSetting> configuration)
+        protected virtual SceneEngine<TScene, TSetting> CreateEngine(IEngineEnvironment<TScene, TSetting> configuration)
         {
             return new SceneEngine<TScene, TSetting>(configuration);
         }

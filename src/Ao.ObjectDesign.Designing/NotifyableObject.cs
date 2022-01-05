@@ -12,6 +12,32 @@ namespace Ao.ObjectDesign.Designing
     [Serializable]
     public class NotifyableObject : DynamicObject, INotifyPropertyChanged, INotifyPropertyChanging, INotifyPropertyChangeTo
     {
+        private IReadOnlyDictionary<string, PropertyBox> propertyTable;
+        private string[] propertyNames;
+
+        internal string[] PropertyNames
+        {
+            get
+            {
+                if (propertyNames==null)
+                {
+                    propertyNames = DynamicTypePropertyHelper.GetPropertyNames(GetType());
+                }
+                return propertyNames;
+            }
+        }
+
+        internal IReadOnlyDictionary<string, PropertyBox> PropertyTable
+        {
+            get
+            {
+                if (propertyTable == null)
+                {
+                    propertyTable = DynamicTypePropertyHelper.GetPropertyMap(GetType());
+                }
+                return propertyTable;
+            }
+        }
         public event PropertyChangedEventHandler PropertyChanged;
 
         public event PropertyChangingEventHandler PropertyChanging;
@@ -51,15 +77,14 @@ namespace Ao.ObjectDesign.Designing
         }
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            return DynamicTypePropertyHelper.GetPropertyNames(GetType());
+            return PropertyNames;
         }
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             var ok = base.TryGetMember(binder, out result);
             if (!ok)
             {
-                var map = DynamicTypePropertyHelper.GetPropertyMap(GetType());
-                if (map.TryGetValue(binder.Name, out var box))
+                if (PropertyTable.TryGetValue(binder.Name, out var box))
                 {
                     result = box.GetValue(this);
                     ok = true;
@@ -72,8 +97,7 @@ namespace Ao.ObjectDesign.Designing
             var ok = base.TrySetMember(binder, value);
             if (!ok)
             {
-                var map = DynamicTypePropertyHelper.GetPropertyMap(GetType());
-                if (map.TryGetValue(binder.Name, out var box))
+                if (PropertyTable.TryGetValue(binder.Name, out var box))
                 {
                     box.SetValue(this, value);
                     ok = true;

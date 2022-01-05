@@ -40,7 +40,7 @@ namespace ObjectDesign.Brock
 
             CheckState();
 
-            var fs = Configuration.EngineEnvironment.FileSystem;
+            var fs = Environment.FileSystem;
 
             var fi = fs.FileInfo.FromFileName("D:/123.view");
             var wp = fs.DirectoryInfo.FromDirectoryName("D:/");
@@ -158,7 +158,7 @@ namespace ObjectDesign.Brock
         protected override IEngineEnvironment<Scene, UIElementSetting> CreateEnvironment(IFileSystem fileSystem, 
             ISceneFetcher<Scene> fetcher, IBindingCreatorStateCreator<UIElementSetting> stateCreator)
         {
-            return new MemoryEngineEnvironment(fileSystem, fetcher, stateCreator);
+            return new MemoryEngineEnvironment(fileSystem, fetcher, stateCreator,GetServiceProvider());
         }
 
         protected override ISceneFetcher<Scene> GetSceneFetcher(IFileSystem fileSystem)

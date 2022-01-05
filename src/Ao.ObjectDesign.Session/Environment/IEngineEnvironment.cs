@@ -1,6 +1,8 @@
-﻿using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.WpfDesign;
+using System;
 using System.IO.Abstractions;
 
 namespace Ao.ObjectDesign.Session.Environment
@@ -12,8 +14,10 @@ namespace Ao.ObjectDesign.Session.Environment
 
         IBindingCreatorStateCreator<TSetting> BindingCreatorStateCreator { get; }
 
-        WpfDesignClipboardManager<TSetting> CreateClipboardManager(SceneEngine<TScene, TSetting> engine);
+        DesignClipboardManager<TSetting> CreateClipboardManager(SceneEngine<TScene, TSetting> engine);
 
         SessionManager<TScene, TSetting> CreateSessionManager(SceneEngine<TScene, TSetting> engine);
+
+        IServiceProvider ServiceProvider { get; }
     }
 }

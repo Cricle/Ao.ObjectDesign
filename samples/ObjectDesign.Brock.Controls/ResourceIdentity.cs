@@ -88,8 +88,8 @@ namespace ObjectDesign.Brock.Controls
                     {
                         s = resourceName.GetHashCode();
                     }
-                    h = h * 7 + s;
-                    h = h * 7 + (int)type;
+                    h = h * 31 + s;
+                    h = h * 31 + (int)type;
                     return h;
                 }
                 else if (type== ResourceTypes.Uri)

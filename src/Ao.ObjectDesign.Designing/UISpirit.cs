@@ -34,19 +34,22 @@ namespace Ao.ObjectDesign.Designing
         }
         public override int GetHashCode()
         {
-            var h = 31;
-            var s = 0;
-            if (View != null)
+            unchecked
             {
-                s = View.GetHashCode();
+                var h = 17;
+                var s = 0;
+                if (View != null)
+                {
+                    s = View.GetHashCode();
+                }
+                h = h * 31 + s;
+                if (Context != null)
+                {
+                    s = Context.GetHashCode();
+                }
+                h = h * 31 + s;
+                return h;
             }
-            h = h * 7 + s;
-            if (Context != null)
-            {
-                s = Context.GetHashCode();
-            }
-            h = h * 7 + s;
-            return h;
         }
 
         public bool Equals(UISpirit<TView, TContext> other)

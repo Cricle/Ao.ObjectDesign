@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing
 {
@@ -34,9 +35,12 @@ namespace Ao.ObjectDesign.Designing
 #if NET5_0
             return HashCode.Combine(ClrType, UIType);
 #else
-            var h = 31 * 7 + ClrType.GetHashCode();
-            h = h * 7 + UIType.GetHashCode();
-            return h;
+            unchecked
+            {
+                var h = 31 * 17 + ClrType.GetHashCode();
+                h = h * 31 + UIType.GetHashCode();
+                return h;
+            }
 #endif
         }
         public override bool Equals(object obj)
@@ -48,6 +52,7 @@ namespace Ao.ObjectDesign.Designing
             return $"{{Clr:{ClrType}, UI:{UIType}}}";
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DesignMapping FromMapping(Type type)
         {
             MappingForAttribute forAttribute = type.GetCustomAttribute<MappingForAttribute>();

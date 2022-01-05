@@ -3,7 +3,6 @@ using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.ForView;
 using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Session.EngineConfig;
 using Ao.ObjectDesign.Session.Environment;
 using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Data;
@@ -18,18 +17,16 @@ namespace Ao.ObjectDesign.Session
     public partial class SceneEngine<TScene, TSetting> : InitableObject
         where TScene : IDesignScene<TSetting>
     {
-        public SceneEngine(IEngineConfiguration<TScene, TSetting> configuration)
+        public SceneEngine(IEngineEnvironment<TScene, TSetting> environment)
         {
-            EngineConfiguration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            configuration.EnsureNotNull();
-            serviceProvider = configuration.ServiceProvider;
-            EngineEnvironment = configuration.EngineEnvironment;
+            Environment = environment ?? throw new ArgumentNullException(nameof(environment));
+            serviceProvider = environment.ServiceProvider;
         }
 
         private IServiceProvider serviceProvider;
         private DesignOrderManager designOrderManager;
         private IBindingCreatorStateCreator<TSetting> bindingCreatorStateCreator;
-        private WpfDesignClipboardManager<TSetting> clipboardManager;
+        private DesignClipboardManager<TSetting> clipboardManager;
         private WpfDesignPackage<TSetting> designPackage;
         private UIDesignMap uiDesignMap;
         private SessionManager<TScene, TSetting> sessionManager;
@@ -60,11 +57,9 @@ namespace Ao.ObjectDesign.Session
 
         public WpfDesignPackage<TSetting> DesignPackage => designPackage;
 
-        public WpfDesignClipboardManager<TSetting> ClipboardManager => clipboardManager;
+        public DesignClipboardManager<TSetting> ClipboardManager => clipboardManager;
 
-        public IEngineEnvironment<TScene, TSetting> EngineEnvironment { get; }
-
-        public IEngineConfiguration<TScene, TSetting> EngineConfiguration { get; }
+        public IEngineEnvironment<TScene, TSetting> Environment { get; }
 
         public UIDesignMap UIDesignMap => uiDesignMap;
 
@@ -72,8 +67,7 @@ namespace Ao.ObjectDesign.Session
 
         protected override void OnInitialize()
         {
-            Debug.Assert(EngineEnvironment != null);
-            Debug.Assert(EngineConfiguration != null);
+            Debug.Assert(Environment != null);
             base.OnInitialize();
             designOrderManager = CreateDesignOrderManager();
             bindingCreatorStateCreator = CreateBindingCreatorStateCreator();
@@ -115,13 +109,13 @@ namespace Ao.ObjectDesign.Session
 
         protected virtual IBindingCreatorStateCreator<TSetting> CreateBindingCreatorStateCreator()
         {
-            return EngineEnvironment.BindingCreatorStateCreator;
+            return Environment.BindingCreatorStateCreator;
         }
 
         protected virtual SessionManager<TScene, TSetting> CreateSessionManager(TemplateContextsDecoraterCollection<TScene, TSetting> decoraters)
         {
             ThrowIfEnvironmentNull();
-            return EngineEnvironment.CreateSessionManager(this);
+            return Environment.CreateSessionManager(this);
         }
         protected virtual DesignOrderManager CreateDesignOrderManager()
         {
@@ -130,17 +124,17 @@ namespace Ao.ObjectDesign.Session
 
         protected virtual IDesignPackage<UIElement, TSetting, IWithSourceBindingScope> CreateDesignPackage()
         {
-            return new WpfDesignPackage<TSetting>(new UIDesignMap(), EngineEnvironment.BindingCreatorStateCreator);
+            return new WpfDesignPackage<TSetting>(new UIDesignMap(), Environment.BindingCreatorStateCreator);
         }
-        protected virtual WpfDesignClipboardManager<TSetting> CreateClipboardManager()
+        protected virtual DesignClipboardManager<TSetting> CreateClipboardManager()
         {
             ThrowIfEnvironmentNull();
-            return EngineEnvironment.CreateClipboardManager(this);
+            return Environment.CreateClipboardManager(this);
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected void ThrowIfEnvironmentNull()
         {
-            Debug.Assert(EngineEnvironment != null, "When EngineEnvironment is null, can't create scene manager");
+            Debug.Assert(Environment != null, "When EngineEnvironment is null, can't create scene manager");
         }
 
         public WpfObjectDesignerSettings CreateDesignSettings()
