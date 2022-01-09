@@ -78,7 +78,7 @@ namespace Ao.ObjectDesign.Controls
                 CaretBrush = new BrushDesigner();
                 CaretBrush.SetBrush(value.CaretBrush);
                 SelectionOpacity = value.SelectionOpacity;
-                SelectionBrush = new BrushDesigner ();
+                SelectionBrush = new BrushDesigner();
                 SelectionBrush.SetBrush(value.SelectionBrush);
                 MaxLength = value.MaxLength;
                 PasswordChar = value.PasswordChar;

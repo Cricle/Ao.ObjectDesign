@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public interface IDesignMetedata<TUI,TContext> : IDesignRefControl<TUI>
+    public interface IDesignMetedata<TUI, TContext> : IDesignRefControl<TUI>
     {
         IDesignContext<TUI, TContext> DesignContext { get; }
 

@@ -15,9 +15,9 @@ namespace Ao.ObjectDesign
         }
         public PropertyIdentity(PropertyInfo info)
         {
+            PropertyInfo = info ?? throw new ArgumentNullException(nameof(info));
             Type = info.DeclaringType;
             PropertyName = info.Name;
-            PropertyInfo = info;
         }
         public PropertyIdentity(Type type, string propertyName)
         {
@@ -34,7 +34,7 @@ namespace Ao.ObjectDesign
                 throw new ArgumentException($"Type {type} can't found property {PropertyName}");
             }
         }
-        
+
         public readonly Type Type;
 
         public readonly string PropertyName;
@@ -73,8 +73,7 @@ namespace Ao.ObjectDesign
                 {
                     h = PropertyName.GetHashCode();
                 }
-                hash = hash * 31 + h;
-                return hash;
+                return hash * 31 + h;
             }
         }
         public static bool operator ==(PropertyIdentity a, PropertyIdentity b)

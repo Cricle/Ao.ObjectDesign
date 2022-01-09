@@ -21,8 +21,8 @@ namespace ObjectDesign.Brock.Views
         }
         public override bool CanBuild(WpfTemplateForViewBuildContext context)
         {
-            return (context.PropertyProxy.DeclaringInstance is ControlSetting&&
-                context.PropertyProxy.PropertyInfo.Name==nameof(ControlSetting.FontSize))||
+            return (context.PropertyProxy.DeclaringInstance is ControlSetting &&
+                context.PropertyProxy.PropertyInfo.Name == nameof(ControlSetting.FontSize)) ||
                 (context.PropertyProxy.DeclaringInstance is TextBlockSetting &&
                 context.PropertyProxy.PropertyInfo.Name == nameof(TextBlockSetting.FontSize));
         }

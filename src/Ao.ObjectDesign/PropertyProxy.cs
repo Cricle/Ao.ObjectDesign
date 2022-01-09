@@ -18,7 +18,9 @@ namespace Ao.ObjectDesign
                 throw new ArgumentException($"Declare instance {declaringInstance.GetType()} is not declare the property {PropertyInfo.Name}");
             }
         }
+
         private ExpressionPropertyVisitor propertyVisitor;
+
         public virtual object DeclaringInstance { get; }
 
         public virtual object Instance

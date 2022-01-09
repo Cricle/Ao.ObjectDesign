@@ -27,7 +27,7 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
                 .AddSetConfig(mode, trigger)
                 .Build();
             yield return ItemsControl.ItemsSourceProperty.Creator(nameof(ItemsControlSetting.DesigningObjects))
-                .AddSetConfig( BindingMode.OneWay, trigger)
+                .AddSetConfig(BindingMode.OneWay, trigger)
                 .Build();
         }
 

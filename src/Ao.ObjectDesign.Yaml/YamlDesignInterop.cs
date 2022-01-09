@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
                  .Build();
             var desc = new DeserializerBuilder()
                 .Build();
-            Default = new YamlDesignInterop(Encoding.UTF8,ser, desc);
+            Default = new YamlDesignInterop(Encoding.UTF8, ser, desc);
         }
 
         public YamlDesignInterop(Encoding encoding, Serializer serializer, Deserializer deserializer)
@@ -46,7 +46,7 @@ namespace Ao.ObjectDesign.Wpf.Yaml
 
         public object DeserializeByByte(byte[] data, Type type)
         {
-            var str = Encoding.GetString(data,0,data.Length);
+            var str = Encoding.GetString(data, 0, data.Length);
             return DeserializeByString(str, type);
         }
 

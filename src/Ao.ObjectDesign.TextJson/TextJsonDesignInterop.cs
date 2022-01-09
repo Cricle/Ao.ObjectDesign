@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Ao.ObjectDesign.Abstract.Store;
+using Dahomey.Json;
+using Dahomey.Json.Attributes;
+using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Ao.ObjectDesign.Abstract.Store;
-using Dahomey.Json;
-using Dahomey.Json.Attributes;
 
 namespace Ao.ObjectDesign.Wpf.TextJson
 {
@@ -17,7 +17,7 @@ namespace Ao.ObjectDesign.Wpf.TextJson
 
         private static TextJsonDesignInterop CreateDefaultOptions()
         {
-            return new TextJsonDesignInterop(settingsWithType,Encoding.UTF8);
+            return new TextJsonDesignInterop(settingsWithType, Encoding.UTF8);
         }
 
         public static JsonSerializerOptions CreateWithType()
@@ -32,7 +32,7 @@ namespace Ao.ObjectDesign.Wpf.TextJson
             return options;
         }
 
-        public TextJsonDesignInterop(JsonSerializerOptions options,Encoding encoding)
+        public TextJsonDesignInterop(JsonSerializerOptions options, Encoding encoding)
         {
             Options = options;
             Encoding = encoding ?? throw new ArgumentNullException(nameof(encoding));
@@ -66,7 +66,7 @@ namespace Ao.ObjectDesign.Wpf.TextJson
 
         public byte[] SerializeToByte(object val, Type type)
         {
-            var str=SerializeToString(val, type);
+            var str = SerializeToString(val, type);
             return Encoding.GetBytes(str);
         }
 

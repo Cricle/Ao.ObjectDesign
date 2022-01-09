@@ -135,16 +135,16 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                FontStyle = new FontStyleDesigner ();
+                FontStyle = new FontStyleDesigner();
                 FontStyle.SetFontStyle(value.FontStyle);
                 FontSize = value.FontSize;
                 FontStretch = new FontStretchDesigner();
                 FontStretch.SetFontStretch(value.FontStretch);
-                FontFamily = new FontFamilyDesigner ();
+                FontFamily = new FontFamilyDesigner();
                 FontFamily.SetFontFamily(value.FontFamily);
-                Foreground = new BrushDesigner ();
+                Foreground = new BrushDesigner();
                 Foreground.SetBrush(value.Foreground);
-                Background = new BrushDesigner ();
+                Background = new BrushDesigner();
                 Background.SetBrush(value.Background);
                 BorderThickness = new ThicknessDesigner();
                 BorderThickness.SetThickness(value.BorderThickness);

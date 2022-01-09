@@ -25,9 +25,9 @@ namespace Ao.ObjectDesign.Benchmark
 
         public GetSet()
         {
-            student= new Student { Name = "hewahdoas" };
+            student = new Student { Name = "hewahdoas" };
             PropertyInfo prop = student.GetType().GetProperty(nameof(Student.Name));
-            getter = (Func<Student, string>)Delegate.CreateDelegate(typeof(Func<Student,string>), prop.GetMethod);
+            getter = (Func<Student, string>)Delegate.CreateDelegate(typeof(Func<Student, string>), prop.GetMethod);
             setter = (Action<Student, string>)Delegate.CreateDelegate(typeof(Action<Student, string>), prop.SetMethod);
             visitor = new PropertyVisitor(student, prop);
             expressionCompiledVisitor = new ExpressionPropertyVisitor(student, prop);
@@ -80,7 +80,7 @@ namespace Ao.ObjectDesign.Benchmark
             return Expression.Lambda<PropertySetter>(exp, par1, par2).CompileFast();
         }
 
-        [Benchmark(OperationsPerInvoke =operators)]
+        [Benchmark(OperationsPerInvoke = operators)]
         public void GetNormal()
         {
             for (int i = 0; i < operators; i++)
@@ -116,7 +116,7 @@ namespace Ao.ObjectDesign.Benchmark
                 visitor.SetValue("asd");
             }
         }
-        
+
         [Benchmark(OperationsPerInvoke = operators)]
         public void GetExpressionCompiled()
         {
@@ -154,7 +154,7 @@ namespace Ao.ObjectDesign.Benchmark
             }
         }
 
-        [Benchmark(OperationsPerInvoke =operators)]
+        [Benchmark(OperationsPerInvoke = operators)]
         public void GetCompiledDirect()
         {
             for (int i = 0; i < operators; i++)

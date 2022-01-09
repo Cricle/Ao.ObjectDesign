@@ -1,9 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -40,7 +37,7 @@ namespace Ao.ObjectDesign.Designing.Test
             res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x);
             Assert.AreNotEqual(val, res);
 
-            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x,true);
+            res = DesignClipboardManagerActionsExtensions.GetFromCopied(mgr, x => x, true);
             Assert.AreNotEqual(val, res);
 
             mgr.SetCopiedObject(null, false);

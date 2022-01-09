@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace ObjectDesign.Brock.Controls.BindingCreators
 {
-    
+
     public class RectangleSettingBindingCreatorFactory : BindingCreatorFactory<UIElementSetting>
     {
         protected override IEnumerable<IWpfBindingCreator<UIElementSetting>> CreateWpfCreators(IDesignPair<UIElement, UIElementSetting> unit, IBindingCreatorState state)

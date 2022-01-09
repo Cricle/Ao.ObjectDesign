@@ -12,7 +12,7 @@ namespace ObjectDesign.Brock.Converters
         {
             if (value is TEnum input && parameter is TEnum target)
             {
-                return input.Equals( target )? Visibility.Visible : Visibility.Collapsed;
+                return input.Equals(target) ? Visibility.Visible : Visibility.Collapsed;
             }
             return Binding.DoNothing;
         }

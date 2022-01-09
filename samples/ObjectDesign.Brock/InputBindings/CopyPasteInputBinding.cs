@@ -16,9 +16,9 @@ using System.Windows.Input;
 
 namespace ObjectDesign.Brock.InputBindings
 {
-    internal class CopyPasteInputBinding: PreviewKeyboardInputBase
+    internal class CopyPasteInputBinding : PreviewKeyboardInputBase
     {
-        public CopyPasteInputBinding(IDesignSession<Scene,UIElementSetting> session,
+        public CopyPasteInputBinding(IDesignSession<Scene, UIElementSetting> session,
             SceneEngine<Scene, UIElementSetting> engine)
         {
             Session = session;

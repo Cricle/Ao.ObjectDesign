@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace Ao.ObjectDesign.Designing
+﻿namespace Ao.ObjectDesign.Designing
 {
     public interface IUISpirit<out TView, out TContext>
     {

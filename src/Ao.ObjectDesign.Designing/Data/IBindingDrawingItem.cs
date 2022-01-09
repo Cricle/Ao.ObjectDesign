@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Designing.Data
 {

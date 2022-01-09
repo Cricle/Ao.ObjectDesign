@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -23,7 +18,7 @@ namespace Ao.ObjectDesign.Designing.Test
         {
             var a = new A();
             var b = new B();
-            var spirit = new UISpirit<A, B>(a,b);
+            var spirit = new UISpirit<A, B>(a, b);
             Assert.AreEqual(a, spirit.View);
             Assert.AreEqual(b, spirit.Context);
 

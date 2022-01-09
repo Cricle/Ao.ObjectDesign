@@ -1,8 +1,6 @@
-﻿using Ao.ObjectDesign.Designing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.ComponentModel;
-using System.Linq.Expressions;
 
 namespace Ao.ObjectDesign.Designing.Test
 {

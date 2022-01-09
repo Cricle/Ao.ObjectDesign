@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -52,12 +48,12 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void GivenPropertyInfo_MustGotGetterSetter()
         {
-            var stu = new Student { Name="hello"};
-            var identity = new PropertyIdentity(typeof(Student),nameof(Student.Name));
+            var stu = new Student { Name = "hello" };
+            var identity = new PropertyIdentity(typeof(Student), nameof(Student.Name));
             var getter = CompiledPropertyInfo.GetGetter(identity);
             var val = getter(stu);
             Assert.AreEqual(stu.Name, val);
-            var getter1= CompiledPropertyInfo.GetGetter(identity);
+            var getter1 = CompiledPropertyInfo.GetGetter(identity);
             Assert.AreEqual(getter, getter1);
 
             var setter = CompiledPropertyInfo.GetSetter(identity);

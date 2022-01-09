@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Wpf.Test.Data
 {
@@ -19,8 +15,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
             var member = typeof(Student).GetProperty(nameof(Student.Name));
 
             Assert.ThrowsException<ArgumentNullException>(() => new PropertyWithSourceBindingScope(source, null, scope));
-            
-            Assert.ThrowsException<ArgumentNullException>(() => PropertyWithSourceBindingScope.FromExpression<Student>(null,x=>x.Name , scope));
+
+            Assert.ThrowsException<ArgumentNullException>(() => PropertyWithSourceBindingScope.FromExpression<Student>(null, x => x.Name, scope));
             Assert.ThrowsException<ArgumentNullException>(() => PropertyWithSourceBindingScope.FromExpression<Student>(source, null, scope));
             Assert.ThrowsException<ArgumentNullException>(() => PropertyWithSourceBindingScope.FromExpression<Student>(source, x => x.Name, null));
             Assert.ThrowsException<NotSupportedException>(() => PropertyWithSourceBindingScope.FromExpression<Student>(source, x => x.Age, scope));

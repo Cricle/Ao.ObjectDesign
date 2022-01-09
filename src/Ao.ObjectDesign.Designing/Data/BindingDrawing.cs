@@ -5,13 +5,12 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Designing.Data
 {
     public abstract class BindingDrawing<TDrawingItem, TDescriptor> : IBindingDrawing<TDrawingItem>
         where TDrawingItem : IBindingDrawingItem
-        where TDescriptor: PropertyDescriptor
+        where TDescriptor : PropertyDescriptor
     {
         protected BindingDrawing(Type clrType)
             : this(clrType, AttributeBindForGetter.Instance)
@@ -66,7 +65,7 @@ namespace Ao.ObjectDesign.Designing.Data
             foreach (PropertyInfo item in clrPropertys)
             {
                 UnfoldMappingAttribute unfoldAttr = item.GetCustomAttribute<UnfoldMappingAttribute>();
-                if (unfoldAttr!=null)
+                if (unfoldAttr != null)
                 {
                     Type innerType = item.PropertyType;
                     Type innerDpType = innerType.GetCustomAttribute<DesignForAttribute>()?.Type;
@@ -139,7 +138,7 @@ namespace Ao.ObjectDesign.Designing.Data
                 {
                     var dynMap = DynamicTypePropertyHelper.GetPropertyMap(info.PropertyType);
                     var virtualPropery = dynMap.FirstOrDefault(x => x.Value.IsVirtualPropery);
-                    if (virtualPropery.Value== null)
+                    if (virtualPropery.Value == null)
                     {
                         return CreateDrawingItem(drawingItem);
                     }

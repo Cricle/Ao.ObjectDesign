@@ -3,15 +3,12 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign
 {
     public static class FlatReflectionHelper
     {
-        private static readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, TypeProperty>> typeToRefs=new ConcurrentDictionary<Type, IReadOnlyDictionary<string, TypeProperty>>();
+        private static readonly ConcurrentDictionary<Type, IReadOnlyDictionary<string, TypeProperty>> typeToRefs = new ConcurrentDictionary<Type, IReadOnlyDictionary<string, TypeProperty>>();
         private static IReadOnlyDictionary<string, TypeProperty> GetPropertyMaps(Type type)
         {
             return typeToRefs.GetOrAdd(type, CreatePropertyMaps);

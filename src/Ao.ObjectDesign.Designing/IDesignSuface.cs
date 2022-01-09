@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing
 {
-    public interface IDesignSuface<TUI,TContext>
+    public interface IDesignSuface<TUI, TContext>
     {
         TUI[] DesigningObjects { get; set; }
         IActionSequencer<IModifyDetail> Sequencer { get; set; }

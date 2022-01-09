@@ -2,7 +2,6 @@
 using Ao.ObjectDesign.Session;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Session.Environment;
-using Ao.ObjectDesign.WpfDesign;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;
 using System;
@@ -11,7 +10,7 @@ using System.IO.Abstractions.TestingHelpers;
 
 namespace ObjectDesign.Brock.InMemory
 {
-    public class MemoryEngineEnvironment : EngineEnvironmentBase<Scene,UIElementSetting>
+    public class MemoryEngineEnvironment : EngineEnvironmentBase<Scene, UIElementSetting>
     {
         public MemoryEngineEnvironment(IFileSystem fileSystem, ISceneFetcher<Scene> sceneFetcher, SceneEngine<Scene, UIElementSetting> engine, IServiceProvider serviceProvider) : base(fileSystem, sceneFetcher, engine, serviceProvider)
         {
@@ -31,7 +30,7 @@ namespace ObjectDesign.Brock.InMemory
             var sys = new MockFileSystem();
             var fetcher = new MemorySceneFetcher();
             return new MemoryEngineEnvironment(sys, fetcher,
-                new BindingCreatorStateCreator<Scene,UIElementSetting>(new BindingCreatorStateDecoraterCollection<UIElementSetting>(),serviceProvider),
+                new BindingCreatorStateCreator<Scene, UIElementSetting>(new BindingCreatorStateDecoraterCollection<UIElementSetting>(), serviceProvider),
                 serviceProvider);
         }
     }

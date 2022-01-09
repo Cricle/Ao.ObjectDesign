@@ -1,13 +1,8 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public abstract class DesignMetedata<TUI,TContext>: IDesignMetedata<TUI, TContext>
+    public abstract class DesignMetedata<TUI, TContext> : IDesignMetedata<TUI, TContext>
     {
         public DesignMetedata(IDesignContext<TUI, TContext> designContext, TUI target, TUI parent)
         {
@@ -24,7 +19,7 @@ namespace Ao.ObjectDesign.Bindings
 
         public abstract TUI Container { get; }
 
-        public abstract bool IsContainerCanvas {get;}
+        public abstract bool IsContainerCanvas { get; }
 
 
         public abstract IVector InCanvasPosition { get; }

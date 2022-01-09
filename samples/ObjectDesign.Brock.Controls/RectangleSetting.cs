@@ -1,12 +1,7 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
-using System.Windows.Shapes;
-
-namespace ObjectDesign.Brock.Controls
+﻿namespace ObjectDesign.Brock.Controls
 {
-        
-    
+
+
     public class RectangleSetting : ShapeSetting
     {
         private double radiusX;

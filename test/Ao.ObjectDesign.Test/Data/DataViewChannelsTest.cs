@@ -1,10 +1,7 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -17,7 +14,7 @@ namespace Ao.ObjectDesign.Test.Data
             {
             }
         }
-        class ValueDataNotifyer:IDataNotifyer<string>
+        class ValueDataNotifyer : IDataNotifyer<string>
         {
             public object Sender { get; set; }
 
@@ -39,7 +36,7 @@ namespace Ao.ObjectDesign.Test.Data
 
             Assert.ThrowsException<ArgumentNullException>(() => new DataViewChannels<string>(null));
             Assert.ThrowsException<ArgumentNullException>(() => channel.GetSubscribeCount(null));
-            Assert.ThrowsException<ArgumentNullException>(() => channel.Regist(null,notifyer));
+            Assert.ThrowsException<ArgumentNullException>(() => channel.Regist(null, notifyer));
             Assert.ThrowsException<ArgumentNullException>(() => channel.Regist(name, null));
             Assert.ThrowsException<ArgumentNullException>(() => channel.UnRegist(name, null));
             Assert.ThrowsException<ArgumentNullException>(() => channel.UnRegist(null, notifyer));
@@ -56,13 +53,13 @@ namespace Ao.ObjectDesign.Test.Data
             var name = "duadghsa";
 
             Assert.IsFalse(channel.IsSubscribedName(name));
-            Assert.IsFalse(channel.IsSubscribedNotifyer(name,notifyer));
+            Assert.IsFalse(channel.IsSubscribedNotifyer(name, notifyer));
 
             channel.Regist(name, notifyer);
             Assert.IsTrue(channel.IsSubscribedName(name));
             Assert.IsTrue(channel.IsSubscribedNotifyer(name, notifyer));
 
-            var res=channel.UnRegist(name, notifyer);
+            var res = channel.UnRegist(name, notifyer);
             Assert.IsTrue(res);
             Assert.IsFalse(channel.IsSubscribedName(name));
             Assert.IsFalse(channel.IsSubscribedNotifyer(name, notifyer));
@@ -77,10 +74,10 @@ namespace Ao.ObjectDesign.Test.Data
             var notifyer = new ValueDataNotifyer();
             var name = "duadghsa";
 
-            var res=channel.Regist(name, notifyer);
+            var res = channel.Regist(name, notifyer);
             Assert.IsNotNull(res);
             var val = VarValue.FalseValue;
-            dv.AddOrUpdate(name,val);
+            dv.AddOrUpdate(name, val);
             Assert.AreEqual(dv, notifyer.Sender);
             Assert.IsNotNull(notifyer.Args);
 
@@ -119,11 +116,11 @@ namespace Ao.ObjectDesign.Test.Data
             var channel = new DataViewChannels<string>(dv);
             var name = "duadghsa";
             var notifyer = new ValueDataNotifyer();
-            var token=channel.Regist(name, notifyer);
+            var token = channel.Regist(name, notifyer);
             Assert.AreEqual(name, token.Key);
             Assert.AreEqual(notifyer, token.Notifyer);
             Assert.IsTrue(token.IsSubscribed);
-            Assert.AreEqual(channel,token.Channel);
+            Assert.AreEqual(channel, token.Channel);
 
             object sender = null;
             NotifyUnSubscribedEventArgs<string> args = null;

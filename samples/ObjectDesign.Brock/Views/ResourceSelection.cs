@@ -1,5 +1,4 @@
 ﻿using Ao.Lang.Runtime;
-using Ao.Lang.Wpf;
 using Ao.ObjectDesign.Session;
 using Ao.ObjectDesign.Wpf;
 using MahApps.Metro.Controls;
@@ -98,9 +97,9 @@ namespace ObjectDesign.Brock.Views
         }
         private static void RunSelectFile(WpfTemplateForViewBuildContext paramter)
         {
-            var state = DesigningDataHelper<Scene,UIElementSetting>.GetPropertyPanel(paramter);
+            var state = DesigningDataHelper<Scene, UIElementSetting>.GetPropertyPanel(paramter);
             var engine = DesigningDataHelper<Scene, UIElementSetting>.GetEngine(paramter);
-            if (state != null && engine != null&& engine.ServiceProvider!=null)
+            if (state != null && engine != null && engine.ServiceProvider != null)
             {
                 var value = paramter.PropertyVisitor.Value as ResourceIdentity;
                 if (value is null)

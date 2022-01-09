@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         [PlatformTargetGetMethod]
         public virtual DoubleCollection GetDoubleCollection()
         {
-           return new DoubleCollection(this);
+            return new DoubleCollection(this);
         }
         [PlatformTargetSetMethod]
         public virtual void SetDoubleCollection(DoubleCollection value)

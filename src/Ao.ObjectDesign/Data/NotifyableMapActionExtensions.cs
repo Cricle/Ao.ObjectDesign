@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Data
@@ -25,8 +24,8 @@ namespace Ao.ObjectDesign.Data
                 map.AddOrUpdate(item.Key, item.Value);
             }
         }
-        public static Task AddOrUpdateManyAsync<TKey,TValue>(this NotifyableMap<TKey,TValue> map,
-            IEnumerable<KeyValuePair<TKey,TValue>> values)
+        public static Task AddOrUpdateManyAsync<TKey, TValue>(this NotifyableMap<TKey, TValue> map,
+            IEnumerable<KeyValuePair<TKey, TValue>> values)
         {
             if (map is null)
             {

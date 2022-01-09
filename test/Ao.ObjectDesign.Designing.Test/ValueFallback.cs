@@ -25,7 +25,7 @@
 
         public IFallbackable Reverse()
         {
-            return new ValueFallback { Mode = Mode == FallbackModes.Forward ? FallbackModes.Reverse : FallbackModes.Forward};
+            return new ValueFallback { Mode = Mode == FallbackModes.Forward ? FallbackModes.Reverse : FallbackModes.Forward };
         }
     }
 }

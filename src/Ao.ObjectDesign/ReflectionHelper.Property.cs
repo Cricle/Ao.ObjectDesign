@@ -84,8 +84,8 @@ namespace Ao.ObjectDesign
 
             bool CanStepIn(Type testType)
             {
-                return testType.IsClass && 
-                    testType != StringType&&
+                return testType.IsClass &&
+                    testType != StringType &&
                     !res.ContainsKey(testType);
             }
         }
@@ -109,7 +109,7 @@ namespace Ao.ObjectDesign
             SetDefault(instance, map, options);
         }
         public static void SetDefault(object instance,
-            IReadOnlyDictionary<Type, IReadOnlyDictionary<PropertyIdentity, object>> defaultValueMap, 
+            IReadOnlyDictionary<Type, IReadOnlyDictionary<PropertyIdentity, object>> defaultValueMap,
             SetDefaultOptions options)
         {
             if (instance is null)

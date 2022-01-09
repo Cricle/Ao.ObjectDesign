@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public class BindingCreatorState : DependencyObject,IBindingCreatorState
+    public class BindingCreatorState : DependencyObject, IBindingCreatorState
     {
         public IServiceProvider Provider { get; }
 

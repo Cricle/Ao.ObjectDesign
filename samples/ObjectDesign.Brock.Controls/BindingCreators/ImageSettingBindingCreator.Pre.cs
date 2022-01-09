@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Wpf.Designing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -23,7 +22,7 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
             yield return Image.StretchDirectionProperty.Creator(nameof(ImageSetting.StretchDirection))
                 .AddSetConfig(mode, trigger)
                 .Build();
-            yield return Image.SourceProperty.Creator(nameof(ImageSetting.Source)+ ".ImageSource" )
+            yield return Image.SourceProperty.Creator(nameof(ImageSetting.Source) + ".ImageSource")
                 .AddSetConfig(mode, trigger)
                 .Build();
         }

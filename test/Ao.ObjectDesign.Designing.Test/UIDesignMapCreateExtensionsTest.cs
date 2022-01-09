@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -18,7 +14,7 @@ namespace Ao.ObjectDesign.Designing.Test
 
             Assert.ThrowsException<ArgumentNullException>(() => UIDesignMapCreateExtensions.CreateByFactoryOrEmit(null, type));
             Assert.ThrowsException<ArgumentNullException>(() => UIDesignMapCreateExtensions.CreateByFactoryOrEmit(map, null));
-            
+
             Assert.ThrowsException<ArgumentNullException>(() => UIDesignMapCreateExtensions.CreateByFactoryOrReflection(null, type));
             Assert.ThrowsException<ArgumentNullException>(() => UIDesignMapCreateExtensions.CreateByFactoryOrReflection(map, null));
         }

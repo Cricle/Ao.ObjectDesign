@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Designing.Annotations
 {
-    [AttributeUsage(AttributeTargets.Property| AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
     public class BindForAttribute : Attribute
     {
         public BindForAttribute(string propertyName)

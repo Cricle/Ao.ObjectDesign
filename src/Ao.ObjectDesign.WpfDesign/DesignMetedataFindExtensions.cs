@@ -8,12 +8,12 @@ namespace Ao.ObjectDesign.WpfDesign
 {
     public static class DesignMetedataFindExtensions
     {
-        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata<UIElement,IWpfDesignContext> metedata)
+        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata<UIElement, IWpfDesignContext> metedata)
         {
             return GetBrothersWithContainer(metedata, null);
         }
 
-        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata<UIElement, IWpfDesignContext> metedata,Predicate<DependencyObject> childFilter)
+        public static IEnumerable<DependencyObject> GetBrothersWithContainer(this IDesignMetedata<UIElement, IWpfDesignContext> metedata, Predicate<DependencyObject> childFilter)
         {
             if (metedata.Container != null)
             {

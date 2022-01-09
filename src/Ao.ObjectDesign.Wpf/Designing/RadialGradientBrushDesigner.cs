@@ -1,6 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing

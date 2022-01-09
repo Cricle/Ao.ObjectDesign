@@ -1,12 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf.Test.Data
 {
@@ -31,7 +25,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
             var scope = new NullBindingScope();
 
             Assert.ThrowsException<ArgumentNullException>(() => new NullTargetWithSourceBindingScope(null, scope));
-            Assert.ThrowsException<ArgumentNullException>(() => new NullTargetWithSourceBindingScope(source,null));
+            Assert.ThrowsException<ArgumentNullException>(() => new NullTargetWithSourceBindingScope(source, null));
         }
         [TestMethod]
         public void GivenValueInit_PropertyMustEqualInpts()

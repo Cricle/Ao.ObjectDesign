@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -43,7 +40,7 @@ namespace Ao.ObjectDesign.Test
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetDefaultValueMap(null, false));
 
             var propInfo = typeof(Class).GetProperty(nameof(Class.Student1));
-            var identity = new PropertyIdentity(typeof(Class),nameof(Class.Student1));
+            var identity = new PropertyIdentity(typeof(Class), nameof(Class.Student1));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, propInfo));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(null, identity));
             Assert.ThrowsException<ArgumentNullException>(() => ReflectionHelper.GetValue(1, (PropertyInfo)null));
@@ -83,10 +80,10 @@ namespace Ao.ObjectDesign.Test
             var stu = new Student();
             var identity = new PropertyIdentity(stu.GetType(), nameof(Student.Name));
 
-            ReflectionHelper.SetValue(stu,"hello", identity);
+            ReflectionHelper.SetValue(stu, "hello", identity);
             Assert.AreEqual("hello", stu.Name);
 
-            ReflectionHelper.SetValue(stu,"world", stu.GetType().GetProperty(nameof(Student.Name)));
+            ReflectionHelper.SetValue(stu, "world", stu.GetType().GetProperty(nameof(Student.Name)));
             Assert.AreEqual("world", stu.Name);
         }
         [TestMethod]
@@ -121,7 +118,7 @@ namespace Ao.ObjectDesign.Test
             Assert.AreEqual("world", c.Student1.Name);
 
             c = new Class { Student1 = new Student() };
-            ReflectionHelper.SetDefault(c, SetDefaultOptions.IgnoreNotNull| SetDefaultOptions.Deep);
+            ReflectionHelper.SetDefault(c, SetDefaultOptions.IgnoreNotNull | SetDefaultOptions.Deep);
             Assert.AreEqual("c1", c.Name);
             Assert.AreEqual(11, c.Count);
             Assert.IsNull(c.Student2);

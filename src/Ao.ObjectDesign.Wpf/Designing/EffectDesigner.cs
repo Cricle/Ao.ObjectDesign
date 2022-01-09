@@ -52,7 +52,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         }
         [PlatformTargetGetMethod]
         [return: ProvideMulityValues]
-        [return:PropertyProvideValue(nameof(BlurEffect), typeof(BlurEffect))]
+        [return: PropertyProvideValue(nameof(BlurEffect), typeof(BlurEffect))]
         [return: PropertyProvideValue(nameof(DropShadowEffect), typeof(DropShadowEffect))]
         public virtual Effect GetEffect()
         {
@@ -76,13 +76,13 @@ namespace Ao.ObjectDesign.Wpf.Designing
             else if (value is BlurEffect bf)
             {
                 Type = EffectTypes.BlurEffect;
-                BlurEffect = new BlurEffectDesigner ();
+                BlurEffect = new BlurEffectDesigner();
                 BlurEffect.SetBlurEffect(bf);
             }
             else if (value is DropShadowEffect dse)
             {
                 Type = EffectTypes.DropShadowEffect;
-                DropShadowEffect = new DropShadowEffectDesigner ();
+                DropShadowEffect = new DropShadowEffectDesigner();
                 DropShadowEffect.SetDropShadowEffect(dse);
             }
             else

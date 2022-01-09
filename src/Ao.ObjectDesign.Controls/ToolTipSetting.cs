@@ -90,7 +90,7 @@ namespace Ao.ObjectDesign.Controls
                 IsOpen = value.IsOpen;
                 StaysOpen = value.StaysOpen;
                 Placement = value.Placement;
-                PlacementRectangle = new RectDesigner ();
+                PlacementRectangle = new RectDesigner();
                 PlacementRectangle.SetRect(value.PlacementRectangle);
                 HorizontalOffset = value.HorizontalOffset;
                 VerticalOffset = value.VerticalOffset;

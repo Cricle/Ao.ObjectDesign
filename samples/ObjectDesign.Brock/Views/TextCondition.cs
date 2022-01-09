@@ -10,7 +10,7 @@ namespace ObjectDesign.Brock.Views
         public override bool CanBuild(WpfTemplateForViewBuildContext context)
         {
             return context.PropertyProxy.PropertyInfo.Name == nameof(TextBlock.Text) &&
-                (context.PropertyProxy.DeclaringInstance is TextBlockSetting||
+                (context.PropertyProxy.DeclaringInstance is TextBlockSetting ||
                 context.PropertyProxy.DeclaringInstance is TextBoxSetting);
         }
 

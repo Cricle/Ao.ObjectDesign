@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Bindings
 {

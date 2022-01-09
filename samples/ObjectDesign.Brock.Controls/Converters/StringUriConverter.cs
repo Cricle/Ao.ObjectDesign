@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace ObjectDesign.Brock.Controls.Converters
@@ -11,10 +7,10 @@ namespace ObjectDesign.Brock.Controls.Converters
     public class StringUriConverter : IValueConverter
     {
         public static readonly StringUriConverter Instance = new StringUriConverter();
-       
+
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string str&&Uri.TryCreate(str, UriKind.Absolute,out var uri))
+            if (value is string str && Uri.TryCreate(str, UriKind.Absolute, out var uri))
             {
                 return uri;
             }

@@ -1,14 +1,10 @@
 ﻿using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
-using System.ComponentModel;
 using System.Windows;
-using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Components
 {
-    
+
     public class UIElementSetting : NotifyableObject
     {
         private Visibility visibility;
@@ -29,7 +25,7 @@ namespace ObjectDesign.Brock.Components
             get => rotateTransform;
             set => Set(ref rotateTransform, value);
         }
-        
+
         public double Opacity
         {
             get => opacity;
@@ -38,7 +34,7 @@ namespace ObjectDesign.Brock.Components
                 Set(ref opacity, value);
             }
         }
-        
+
         public bool IsEnabled
         {
             get => isEnabled;
@@ -48,7 +44,7 @@ namespace ObjectDesign.Brock.Components
             }
         }
 
-        
+
         public bool ClipToBounds
         {
             get => clipToBounds;
@@ -57,7 +53,7 @@ namespace ObjectDesign.Brock.Components
                 Set(ref clipToBounds, value);
             }
         }
-        
+
         public Visibility Visibility
         {
             get => visibility;

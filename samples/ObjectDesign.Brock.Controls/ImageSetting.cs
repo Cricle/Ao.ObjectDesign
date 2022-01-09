@@ -1,15 +1,12 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
+﻿using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Controls
 {
-    
-    
+
+
     public class ImageSetting : FrameworkElementSetting
     {
         private ImageSourceDesigner source;

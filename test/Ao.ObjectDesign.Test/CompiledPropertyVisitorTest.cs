@@ -8,7 +8,7 @@ namespace Ao.ObjectDesign.Test
     {
         class PrivateGet
         {
-            private string name="hello";
+            private string name = "hello";
             public string Name
             {
                 set { name = value; }

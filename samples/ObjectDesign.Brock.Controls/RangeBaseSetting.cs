@@ -1,9 +1,6 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using System.Windows.Controls.Primitives;
-
-namespace ObjectDesign.Brock.Controls
+﻿namespace ObjectDesign.Brock.Controls
 {
-    
+
     public abstract class RangeBaseSetting : ControlSetting
     {
         private double value;

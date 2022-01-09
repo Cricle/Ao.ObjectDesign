@@ -23,7 +23,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
 
         public GradientStopDesigner(Color color, double offset)
         {
-            Color = new ColorDesigner ();
+            Color = new ColorDesigner();
             Color.SetColor(color);
             Offset = offset;
         }
@@ -63,7 +63,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         [PlatformTargetGetMethod]
         public virtual GradientStop GetGradientStop()
         {
-            var stop= new GradientStop(color?.GetColor() ?? Colors.Transparent, offset);
+            var stop = new GradientStop(color?.GetColor() ?? Colors.Transparent, offset);
 
             return stop;
         }

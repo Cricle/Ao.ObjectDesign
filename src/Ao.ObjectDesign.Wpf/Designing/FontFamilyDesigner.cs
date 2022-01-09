@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Text;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -14,7 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
     {
         private static FontFamily[] installedFontFamilies;
         public static IReadOnlyDictionary<string, FontFamily> InstalledFontFamilyMap =>
-            InstalledFontFamilies.ToDictionary(x=>x.Source);
+            InstalledFontFamilies.ToDictionary(x => x.Source);
         public static IReadOnlyCollection<FontFamily> InstalledFontFamilies
         {
             get

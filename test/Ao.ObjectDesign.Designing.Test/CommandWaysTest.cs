@@ -158,7 +158,7 @@ namespace Ao.ObjectDesign.Designing.Test
             ways.MaxSize = count;
             ways.PushRange(datas);
 
-            var usingDatas = datas.Reverse().Skip(datas.Length-count).ToList();
+            var usingDatas = datas.Reverse().Skip(datas.Length - count).ToList();
 
             var res = ways.ToList();
             Assert.AreEqual(usingDatas.Count, res.Count);
@@ -168,12 +168,12 @@ namespace Ao.ObjectDesign.Designing.Test
             }
         }
         [TestMethod]
-        [DataRow(new int[] { -1,-2,-3,-4 }, 1)]
+        [DataRow(new int[] { -1, -2, -3, -4 }, 1)]
         [DataRow(new int[] { }, 1)]
         [DataRow(new int[] { 11 }, 1)]
-        [DataRow(new int[] { 12,314,111}, 10)]
+        [DataRow(new int[] { 12, 314, 111 }, 10)]
         [DataRow(new int[] { 1 }, 20)]
-        public void PushRange_OriginHasLimited_WasRemoveOrigins(int[] datas,int outterCount)
+        public void PushRange_OriginHasLimited_WasRemoveOrigins(int[] datas, int outterCount)
         {
             var ways = new CommandWays<int>();
             ways.MaxSize = datas.Length;

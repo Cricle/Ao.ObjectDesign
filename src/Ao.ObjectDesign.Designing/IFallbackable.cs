@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace Ao.ObjectDesign.Designing
+﻿namespace Ao.ObjectDesign.Designing
 {
     public interface IFallbackable
     {

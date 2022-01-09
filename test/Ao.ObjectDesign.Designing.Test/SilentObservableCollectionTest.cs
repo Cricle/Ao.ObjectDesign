@@ -91,7 +91,7 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.AreEqual(0, coll.Count);
             Assert.AreEqual(coll, sender);
             Assert.IsNotNull(eg);
-            Assert.AreEqual(NotifyCollectionChangedAction.Reset,eg.Action);
+            Assert.AreEqual(NotifyCollectionChangedAction.Reset, eg.Action);
         }
         [TestMethod]
         public void Sort_MustSortedByProperty()
@@ -119,7 +119,7 @@ namespace Ao.ObjectDesign.Designing.Test
         {
             var coll = new SilentObservableCollection<int>();
             var addeds = new int[] { 1, 2, 3, 4, 5 };
-            object sender=null;
+            object sender = null;
             NotifyCollectionChangedEventArgs args = null;
             coll.CollectionChanged += (o, e) =>
             {
@@ -128,7 +128,7 @@ namespace Ao.ObjectDesign.Designing.Test
             };
             coll.AddRangeNotifyReset(addeds);
             Assert.AreEqual(coll, sender);
-            Assert.AreEqual(NotifyCollectionChangedAction.Reset,args.Action);
+            Assert.AreEqual(NotifyCollectionChangedAction.Reset, args.Action);
 
             for (int i = 0; i < addeds.Length; i++)
             {
@@ -174,7 +174,7 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.IsNotNull(args);
             Assert.AreEqual(NotifyCollectionChangedAction.Remove, args.Action);
             Assert.IsNotNull(args.OldItems);
-                        
+
         }
     }
 }

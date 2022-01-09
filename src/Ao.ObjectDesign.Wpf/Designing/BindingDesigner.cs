@@ -1,12 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 
 namespace Ao.ObjectDesign.Wpf.Designing
@@ -29,7 +22,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private bool validatesOnExceptions;
         private PropertyPathDesigner path;
         private RelativeSourceDesigner relativeSource;
-        public override string StringFormat 
+        public override string StringFormat
         {
             get => base.StringFormat;
             set
@@ -38,8 +31,8 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseBindingChanged();
             }
         }
-        public override int Delay 
-        { 
+        public override int Delay
+        {
             get => base.Delay;
             set
             {
@@ -47,9 +40,9 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 RaiseBindingChanged();
             }
         }
-        public override string BindingGroupName 
+        public override string BindingGroupName
         {
-            get => base.BindingGroupName; 
+            get => base.BindingGroupName;
             set
             {
                 base.BindingGroupName = value;
@@ -281,7 +274,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 NotifyOnSourceUpdated = value.NotifyOnSourceUpdated;
                 NotifyOnTargetUpdated = value.NotifyOnTargetUpdated;
                 NotifyOnValidationError = value.NotifyOnValidationError;
-                ConverterCulture = new CultureInfoDesigner ();
+                ConverterCulture = new CultureInfoDesigner();
                 ConverterCulture.SetCultureInfo(value.ConverterCulture);
                 ElementName = value.ElementName;
                 IsAsync = value.IsAsync;
@@ -291,7 +284,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 ValidatesOnNotifyDataErrors = value.ValidatesOnNotifyDataErrors;
                 BindsDirectlyToSource = value.BindsDirectlyToSource;
                 ValidatesOnExceptions = value.ValidatesOnExceptions;
-                Path = new PropertyPathDesigner ();
+                Path = new PropertyPathDesigner();
                 Path.SetPropertyPath(value.Path);
             }
         }

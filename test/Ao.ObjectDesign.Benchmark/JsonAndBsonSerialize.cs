@@ -2,7 +2,6 @@
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Wpf.Json;
 using BenchmarkDotNet.Attributes;
-using Newtonsoft.Json.Bson;
 using System.IO;
 
 namespace Ao.ObjectDesign.Benchmark
@@ -18,7 +17,7 @@ namespace Ao.ObjectDesign.Benchmark
             buttonSetting = new ButtonSetting();
             stream = new MemoryStream(1024 * 1024 * 1);
         }
-        [Benchmark(Baseline =true)]
+        [Benchmark(Baseline = true)]
         public void JsonSerialize()
         {
             JsonDesignInterop.Default.SerializeToString(buttonSetting);

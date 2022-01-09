@@ -11,7 +11,7 @@ namespace Ao.ObjectDesign.Test
         {
             Assert.ThrowsException<ArgumentNullException>(() => ObjectDesigner.Instance.CreateProxy(null, typeof(object)));
             Assert.ThrowsException<ArgumentNullException>(() => ObjectDesigner.Instance.CreateProxy(new object(), null));
-            
+
             Assert.ThrowsException<ArgumentNullException>(() => ObjectDesigner.CreateDefaultProxy(null, typeof(object)));
             Assert.ThrowsException<ArgumentNullException>(() => ObjectDesigner.CreateDefaultProxy(new object(), null));
             Assert.ThrowsException<ArgumentNullException>(() => ObjectDesigner.CreateDefaultProxy(null));

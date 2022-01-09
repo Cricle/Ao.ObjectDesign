@@ -52,13 +52,13 @@ namespace Ao.ObjectDesign.Designing
             {
                 return instanceFactoryMap.Remove(type);
             }
-            if (instanceFactoryMap.TryGetValue(type,out var factory))
+            if (instanceFactoryMap.TryGetValue(type, out var factory))
             {
                 instanceFactoryMap.Remove(type);
-                ev(this, new UIDesignMapActionInstanceFactoryEventArgs(type, factory,null, UIDesignMapActionTypes.Removed));
+                ev(this, new UIDesignMapActionInstanceFactoryEventArgs(type, factory, null, UIDesignMapActionTypes.Removed));
                 return true;
             }
-            return false;   
+            return false;
         }
         public void RegistInstanceFactory(IInstanceFactory factory)
         {
@@ -73,7 +73,7 @@ namespace Ao.ObjectDesign.Designing
                 instanceFactoryMap[factory.TargetType] = factory;
                 return;
             }
-            UIDesignMapActionTypes actionType= UIDesignMapActionTypes.New;
+            UIDesignMapActionTypes actionType = UIDesignMapActionTypes.New;
             if (instanceFactoryMap.TryGetValue(factory.TargetType, out var old))
             {
                 instanceFactoryMap[factory.TargetType] = factory;

@@ -1,11 +1,8 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
-using FastExpressionCompiler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing
 {
@@ -17,12 +14,12 @@ namespace Ao.ObjectDesign.Designing
         };
 
         private static readonly Dictionary<Type, string[]> propertyNames = new Dictionary<Type, string[]>();
-        
+
         private static readonly Dictionary<Type, Dictionary<string, PropertyBox>> propertyInfos = new Dictionary<Type, Dictionary<string, PropertyBox>>();
 
         public static IReadOnlyDictionary<string, PropertyBox> GetPropertyMap(Type type)
         {
-            if (!propertyInfos.TryGetValue(type,out var map))
+            if (!propertyInfos.TryGetValue(type, out var map))
             {
                 map = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .ToDictionary(x => x.Name, x => new PropertyBox { Property = x });
@@ -33,14 +30,14 @@ namespace Ao.ObjectDesign.Designing
                     var attrGet = item.GetCustomAttribute<PlatformTargetGetMethodAttribute>();
                     if (attrGet != null)
                     {
-                        var name = AnlysisName(attrGet,item);
+                        var name = AnlysisName(attrGet, item);
                         ThrowIfContainsKey(name);
                         if (!virtualProperies.TryGetValue(name, out var box))
                         {
                             box = new PropertyBox { IsBuilt = true, IsVirtualPropery = true };
                             virtualProperies[name] = box;
                         }
-                        if (box.Getter!=null)
+                        if (box.Getter != null)
                         {
                             throw new ArgumentException($"Virtual property {name} in type {type} has same getter method");
                         }
@@ -86,7 +83,7 @@ namespace Ao.ObjectDesign.Designing
                 var methodName = info.Name;
                 for (int i = 0; i < knowStartWiths.Count; i++)
                 {
-                    var selectWith= knowStartWiths[i];
+                    var selectWith = knowStartWiths[i];
                     if (methodName.StartsWith(selectWith, StringComparison.OrdinalIgnoreCase))
                     {
                         return methodName.Substring(selectWith.Length, methodName.Length - selectWith.Length);
@@ -102,9 +99,9 @@ namespace Ao.ObjectDesign.Designing
             {
                 var publics = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                     .Select(p => p.Name);
-                var nonPublics= type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Where(x=>x.IsDefined(typeof(IncludeDynamicNamettribute)))
-                    .Select(x=>x.Name);
+                var nonPublics = type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Where(x => x.IsDefined(typeof(IncludeDynamicNamettribute)))
+                    .Select(x => x.Name);
 
                 names = publics.Concat(nonPublics)
                     .Distinct()

@@ -1,9 +1,9 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using Ao.ObjectDesign.Abstract.Store;
+﻿using Ao.ObjectDesign.Abstract.Store;
 using MessagePack;
 using MessagePack.Resolvers;
+using System;
+using System.IO;
+using System.Text;
 
 namespace Ao.ObjectDesign.Wpf.MessagePack
 {
@@ -18,7 +18,7 @@ namespace Ao.ObjectDesign.Wpf.MessagePack
         {
             designResolver = new TypelessFormatterResolver(TypelessObjectResolver.Instance);
             var type = Type.GetType("Ao.ObjectDesign.Designing.NotifyableObject");
-            if (type!=null)
+            if (type != null)
             {
                 designResolver.ForceTypeless.Add(type);
             }

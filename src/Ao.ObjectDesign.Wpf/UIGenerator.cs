@@ -1,9 +1,8 @@
-﻿using Ao.ObjectDesign.ForView;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.ForView;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Data;
-using Ao.ObjectDesign.Designing;
 
 namespace Ao.ObjectDesign.Wpf
 {

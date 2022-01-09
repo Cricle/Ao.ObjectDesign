@@ -1,6 +1,6 @@
 ﻿namespace Ao.ObjectDesign.Designing
 {
-    public interface IModifyDetail: IFallbackable
+    public interface IModifyDetail : IFallbackable
     {
         object From { get; }
         object Instance { get; }

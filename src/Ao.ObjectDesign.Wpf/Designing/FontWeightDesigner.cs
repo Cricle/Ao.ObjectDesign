@@ -31,7 +31,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 [PenFontWeights.UltraBold] = FontWeights.UltraBold,
                 [PenFontWeights.UltraLight] = FontWeights.UltraLight,
             };
-        public static readonly IReadOnlyList<PenFontWeights> KnowPenFontWeights = 
+        public static readonly IReadOnlyList<PenFontWeights> KnowPenFontWeights =
             Enum.GetValues(typeof(PenFontWeights))
                 .Cast<PenFontWeights>()
                 .ToArray();

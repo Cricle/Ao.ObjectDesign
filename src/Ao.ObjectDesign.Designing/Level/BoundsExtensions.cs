@@ -6,7 +6,7 @@ namespace Ao.ObjectDesign.Designing.Level
 {
     public static class BoundsExtensions
     {
-        public static IRect OutterActual<TUI,TDesignObject>(this IEnumerable<IElementBounds<TUI,TDesignObject>> elementBounds)
+        public static IRect OutterActual<TUI, TDesignObject>(this IEnumerable<IElementBounds<TUI, TDesignObject>> elementBounds)
         {
             return Outter(elementBounds.Select(x => x.ActualBounds));
         }

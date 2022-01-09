@@ -2,8 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
@@ -14,12 +12,12 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public async Task GivenNullCall_MustThrowException()
         {
-            var map = new NotifyableMap<string,string>();
+            var map = new NotifyableMap<string, string>();
             var datas = new Dictionary<string, string>();
 
             Assert.ThrowsException<ArgumentNullException>(() => NotifyableMapActionExtensions.AddOrUpdateMany(null, datas));
             Assert.ThrowsException<ArgumentNullException>(() => NotifyableMapActionExtensions.AddOrUpdateMany(map, null));
-            
+
             await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => NotifyableMapActionExtensions.AddOrUpdateManyAsync(null, datas));
             await Assert.ThrowsExceptionAsync<ArgumentNullException>(() => NotifyableMapActionExtensions.AddOrUpdateManyAsync(map, null));
         }

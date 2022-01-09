@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Controls;
-using Ao.ObjectDesign.Wpf;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 

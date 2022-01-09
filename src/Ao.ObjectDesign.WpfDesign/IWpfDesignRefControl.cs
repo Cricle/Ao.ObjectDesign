@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public interface IWpfDesignRefControl: IDesignRefControl<UIElement>
+    public interface IWpfDesignRefControl : IDesignRefControl<UIElement>
     {
     }
 }

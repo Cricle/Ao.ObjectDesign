@@ -189,7 +189,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             {
                 TileMode = brush.TileMode;
                 Stretch = brush.Stretch;
-                Viewbox = new RectDesigner ();
+                Viewbox = new RectDesigner();
                 Viewbox.SetRect(brush.Viewport);
                 Viewport = new RectDesigner();
                 Viewport.SetRect(brush.Viewport);

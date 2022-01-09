@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ObjectDesign.Brock.Controls.Designing
+﻿namespace ObjectDesign.Brock.Controls.Designing
 {
-    
+
     public enum ItemsPanelTemplateTypes
     {
         Unknow = 0,

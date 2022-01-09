@@ -1,16 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ao.ObjectDesign.Abstract.Store;
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Wpf.Json;
 using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.IO;
-using Ao.ObjectDesign.Abstract.Store;
 #if !NET452
 using Ao.ObjectDesign.Wpf.MessagePack;
 using Ao.ObjectDesign.Wpf.TextJson;
@@ -65,5 +61,5 @@ namespace Ao.ObjectDesign.Wpf.Test
 
         }
     }
-    
+
 }

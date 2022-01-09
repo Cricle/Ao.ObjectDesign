@@ -1,6 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Wpf.Designing;
-using ObjectDesign.Brock.Controls;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -40,13 +38,13 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
             yield return Control.BorderBrushProperty.Creator(nameof(ControlSetting.BorderBrush) + ".Brush")
                 .AddSetConfig(mode, trigger)
                 .Build();
-            yield return Control.PaddingProperty.Creator(nameof(ControlSetting.Padding) + ".Thickness" )
+            yield return Control.PaddingProperty.Creator(nameof(ControlSetting.Padding) + ".Thickness")
                 .AddSetConfig(mode, trigger)
                 .Build();
-            yield return Control.BorderThicknessProperty.Creator(nameof(ControlSetting.BorderThickness) + ".Thickness" )
+            yield return Control.BorderThicknessProperty.Creator(nameof(ControlSetting.BorderThickness) + ".Thickness")
                 .AddSetConfig(mode, trigger)
                 .Build();
-            yield return Control.BorderThicknessProperty.Creator(nameof(ControlSetting.BorderThickness) + ".Thickness" )
+            yield return Control.BorderThicknessProperty.Creator(nameof(ControlSetting.BorderThickness) + ".Thickness")
                 .AddSetConfig(mode, trigger)
                 .Build();
             yield return Control.FontStyleProperty.Creator(nameof(ControlSetting.FontStyle) + ".FontStyle")
@@ -67,13 +65,13 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
             ui.SetValue(Control.BackgroundProperty, obj.Background?.GetBrush());
             ui.SetValue(Control.ForegroundProperty, obj.Foreground?.GetBrush());
             ui.SetValue(Control.FontSizeProperty, obj.FontSize);
-            ui.SetValue(Control.FontFamilyProperty, obj.FontFamily?.GetFontFamily()??new FontFamily());
+            ui.SetValue(Control.FontFamilyProperty, obj.FontFamily?.GetFontFamily() ?? new FontFamily());
             ui.SetValue(Control.BorderBrushProperty, obj.BorderBrush?.GetBrush());
             ui.SetValue(Control.PaddingProperty, obj.Padding?.GetThickness() ?? default(Thickness));
-            ui.SetValue(Control.BorderThicknessProperty, obj.BorderThickness?.GetThickness()??default(Thickness));
-            ui.SetValue(Control.FontStyleProperty, obj.FontStyle?.GetFontStyle()??new FontStyle());
-            ui.SetValue(Control.FontStretchProperty, obj.FontStretch?.GetFontStretch()??new FontStretch());
-            ui.SetValue(Control.FontWeightProperty, obj.FontWeight?.GetFontWeight()??new FontWeight());
+            ui.SetValue(Control.BorderThicknessProperty, obj.BorderThickness?.GetThickness() ?? default(Thickness));
+            ui.SetValue(Control.FontStyleProperty, obj.FontStyle?.GetFontStyle() ?? new FontStyle());
+            ui.SetValue(Control.FontStretchProperty, obj.FontStretch?.GetFontStretch() ?? new FontStretch());
+            ui.SetValue(Control.FontWeightProperty, obj.FontWeight?.GetFontWeight() ?? new FontWeight());
         }
     }
 }

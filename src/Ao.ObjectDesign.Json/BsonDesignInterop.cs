@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign.Wpf.Json
 {
     public class BsonDesignInterop : IDesignByteInterop, IDesignStreamInterop
     {
-        public static readonly BsonDesignInterop Default = new BsonDesignInterop(new JsonSerializer { TypeNameHandling= TypeNameHandling.Auto},Encoding.UTF8);
+        public static readonly BsonDesignInterop Default = new BsonDesignInterop(new JsonSerializer { TypeNameHandling = TypeNameHandling.Auto }, Encoding.UTF8);
 
         public BsonDesignInterop(JsonSerializer serializer, Encoding encoding)
         {
@@ -28,7 +28,7 @@ namespace Ao.ObjectDesign.Wpf.Json
         }
         public object DeserializeByByte(byte[] data, Type type)
         {
-            using (var mem=new MemoryStream(data,true))
+            using (var mem = new MemoryStream(data, true))
             {
                 var reader = new BsonDataReader(mem);
                 return Serializer.Deserialize(reader, type);

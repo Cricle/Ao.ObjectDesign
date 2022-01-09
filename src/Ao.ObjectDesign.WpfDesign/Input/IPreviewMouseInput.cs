@@ -7,7 +7,7 @@ namespace Ao.ObjectDesign.WpfDesign.Input
         void OnPreviewMouseWheel(object sender, MouseWheelEventArgs e);
 
         void OnPreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e);
-        
+
         void OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e);
 
         void OnPreviewMouseMove(object sender, MouseEventArgs e);

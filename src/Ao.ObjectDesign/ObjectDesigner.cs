@@ -40,6 +40,7 @@ namespace Ao.ObjectDesign
             {
                 throw new ArgumentNullException(nameof(type));
             }
+
             if (!type.IsClass)
             {
                 throw new ArgumentException($"Type {type.FullName} can't be parse, must class and not string");

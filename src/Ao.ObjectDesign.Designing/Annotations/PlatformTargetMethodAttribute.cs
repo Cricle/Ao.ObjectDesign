@@ -2,8 +2,8 @@
 
 namespace Ao.ObjectDesign.Designing.Annotations
 {
-    [AttributeUsage(AttributeTargets.Method,AllowMultiple =false,Inherited =false)]
-    public class PlatformTargetMethodAttribute: Attribute
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    public class PlatformTargetMethodAttribute : Attribute
     {
         public PlatformTargetMethodAttribute()
         {

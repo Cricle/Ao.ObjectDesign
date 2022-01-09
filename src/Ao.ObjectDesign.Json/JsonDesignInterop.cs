@@ -8,7 +8,7 @@ namespace Ao.ObjectDesign.Wpf.Json
 {
     public class JsonDesignInterop : IDesignInterop
     {
-        public static readonly JsonDesignInterop Default = new JsonDesignInterop(Json.settings,Encoding.UTF8);
+        public static readonly JsonDesignInterop Default = new JsonDesignInterop(Json.settings, Encoding.UTF8);
 
         public JsonSerializerSettings Settings { get; }
 

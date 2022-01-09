@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Data
         IBindingScope Build();
         IBindingMaker<T> Clone();
     }
-    public interface IBindingMaker: IBindingMaker<Binding>
+    public interface IBindingMaker : IBindingMaker<Binding>
     {
 
         new IBindingMaker Add(Action<Binding> doAction);

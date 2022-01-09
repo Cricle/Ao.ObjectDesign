@@ -17,7 +17,7 @@ namespace ObjectDesign.Brock.Behaviors
         protected override void OnAttached()
         {
             base.OnAttached();
-            if (AssociatedObject!=null)
+            if (AssociatedObject != null)
             {
                 AssociatedObject.Drop += OnAssociatedObjectDrop;
             }

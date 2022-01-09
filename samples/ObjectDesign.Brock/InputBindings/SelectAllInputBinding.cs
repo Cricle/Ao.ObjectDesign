@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace ObjectDesign.Brock.InputBindings
 {
-    internal class SelectAllInputBinding:PreviewKeyboardInputBase
+    internal class SelectAllInputBinding : PreviewKeyboardInputBase
     {
         public SelectAllInputBinding(IDesignSession<Scene, UIElementSetting> session)
         {
@@ -20,9 +20,9 @@ namespace ObjectDesign.Brock.InputBindings
 
         public override void OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if ((Keyboard.Modifiers& ModifierKeys.Control)== ModifierKeys.Control)
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                if (e.Key== Key.A)
+                if (e.Key == Key.A)
                 {
                     if (Session.SceneManager.CurrentSceneController is WpfSceneController<UIElementSetting> controller)
                     {

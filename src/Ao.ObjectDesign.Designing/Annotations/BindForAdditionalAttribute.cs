@@ -2,7 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing.Annotations
 {
-    [AttributeUsage(AttributeTargets.Property,AllowMultiple =false,Inherited =false)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = false)]
     public sealed class BindForAdditionalAttribute : Attribute
     {
         public BindForAdditionalAttribute(string dependencyPropertyName)

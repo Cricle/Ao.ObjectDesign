@@ -59,7 +59,7 @@ namespace ObjectDesign.Brock.Models
 
         public void Drag(DependencyObject source)
         {
-            if (Mouse.LeftButton== MouseButtonState.Pressed)
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
                 if (runtime.SelectedTool != this)
                 {

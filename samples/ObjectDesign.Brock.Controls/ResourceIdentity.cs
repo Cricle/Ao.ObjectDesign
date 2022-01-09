@@ -21,7 +21,7 @@ namespace ObjectDesign.Brock.Controls
         public ResourceTypes Type
         {
             get => type;
-            set=> Set(ref type, value);
+            set => Set(ref type, value);
         }
 
         public string ResourceName
@@ -41,7 +41,7 @@ namespace ObjectDesign.Brock.Controls
             {
                 resourceName = resourceName,
                 resourceGroupName = resourceGroupName,
-                uri=uri,
+                uri = uri,
                 type = type
             };
         }
@@ -54,13 +54,13 @@ namespace ObjectDesign.Brock.Controls
         {
             if (obj is ResourceIdentity identity)
             {
-                if (identity.type== ResourceTypes.Path)
+                if (identity.type == ResourceTypes.Path)
                 {
                     return identity.resourceName == resourceName &&
                         identity.resourceGroupName == resourceGroupName &&
                         identity.type == type;
                 }
-                else if (identity.type== ResourceTypes.Uri)
+                else if (identity.type == ResourceTypes.Uri)
                 {
                     return identity.type == type &&
                            identity.uri == uri;
@@ -92,7 +92,7 @@ namespace ObjectDesign.Brock.Controls
                     h = h * 31 + (int)type;
                     return h;
                 }
-                else if (type== ResourceTypes.Uri)
+                else if (type == ResourceTypes.Uri)
                 {
                     var s = 0;
                     if (uri != null)
@@ -108,11 +108,11 @@ namespace ObjectDesign.Brock.Controls
         }
         public override string ToString()
         {
-            if (Type== ResourceTypes.Path)
+            if (Type == ResourceTypes.Path)
             {
                 return $"{{Type:{type}, Group: {resourceGroupName}, Name: {resourceName}}}";
             }
-            else if (type== ResourceTypes.Uri)
+            else if (type == ResourceTypes.Uri)
             {
                 return $"{{Type:{type}, Uri: {uri}}}";
             }
@@ -121,7 +121,7 @@ namespace ObjectDesign.Brock.Controls
                 return "{{Type: Unknow}}";
             }
         }
-        public string GetPath(IFileSystem fs,IDirectoryInfo dir)
+        public string GetPath(IFileSystem fs, IDirectoryInfo dir)
         {
             if (string.IsNullOrEmpty(ResourceName))
             {

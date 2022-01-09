@@ -9,14 +9,14 @@ namespace Ao.ObjectDesign.Designing
     {
         public static PropertyGetter BuildGetter(MethodInfo info)
         {
-            if (info.GetParameters().Length != 0||info.ReturnType==typeof(void))
+            if (info.GetParameters().Length != 0 || info.ReturnType == typeof(void))
             {
                 throw new ArgumentException($"Virtual get property method {info} must be 0 paramters and no return void");
             }
 
             var par1 = Expression.Parameter(typeof(object));
 
-            var body = Expression.Convert(Expression.Call(Expression.Convert(par1, info.DeclaringType), info),typeof(object));
+            var body = Expression.Convert(Expression.Call(Expression.Convert(par1, info.DeclaringType), info), typeof(object));
 
             return Expression.Lambda<PropertyGetter>(body, par1).CompileSys();
         }

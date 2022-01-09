@@ -6,7 +6,7 @@ namespace Ao.ObjectDesign
     public class EmitInstanceFactory : InstanceFactory
     {
         public EmitInstanceFactory(Type targetType)
-            :base(targetType)
+            : base(targetType)
         {
             Debug.Assert(targetType != null);
             TypeCreator = CompiledPropertyInfo.GetCreator(targetType);

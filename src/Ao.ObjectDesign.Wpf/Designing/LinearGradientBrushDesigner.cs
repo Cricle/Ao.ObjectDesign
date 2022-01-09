@@ -82,9 +82,9 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
             else
             {
-                StartPoint = new PointDesigner ();
+                StartPoint = new PointDesigner();
                 StartPoint.SetPoint(value.StartPoint);
-                EndPoint = new PointDesigner ();
+                EndPoint = new PointDesigner();
                 EndPoint.SetPoint(value.EndPoint);
             }
             Apply(null);

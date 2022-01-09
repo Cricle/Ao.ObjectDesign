@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test
 {
@@ -15,13 +11,13 @@ namespace Ao.ObjectDesign.Test
     [TestClass]
     public class PropertyIdentityTest
     {
-        
+
         [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
             var type = typeof(object);
             var name = "hello";
-            Assert.ThrowsException<ArgumentNullException>(() => new PropertyIdentity(null,name));
+            Assert.ThrowsException<ArgumentNullException>(() => new PropertyIdentity(null, name));
             Assert.ThrowsException<ArgumentException>(() => new PropertyIdentity(type, null));
         }
         [TestMethod]

@@ -5,14 +5,14 @@ namespace Ao.ObjectDesign.Abstract.Store
 {
     public static class DesignInteropActionExtensions
     {
-        public static void SerializeToStream<T>(this IDesignStreamInterop interop,T val,Stream stream)
+        public static void SerializeToStream<T>(this IDesignStreamInterop interop, T val, Stream stream)
         {
             if (interop is null)
             {
                 throw new ArgumentNullException(nameof(interop));
             }
 
-            interop.SerializeToStream(val,typeof(T), stream);
+            interop.SerializeToStream(val, typeof(T), stream);
         }
         public static string SerializeToString<T>(this IDesignStringInterop interop, T val)
         {
@@ -48,7 +48,7 @@ namespace Ao.ObjectDesign.Abstract.Store
                 throw new ArgumentNullException(nameof(interop));
             }
 
-            return (T)interop.DeserializeByStream(stream,typeof(T));
+            return (T)interop.DeserializeByStream(stream, typeof(T));
         }
         public static T DeserializeByString<T>(this IDesignStringInterop interop, string str)
         {

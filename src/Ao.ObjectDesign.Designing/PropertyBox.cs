@@ -19,20 +19,20 @@ namespace Ao.ObjectDesign.Designing
         public object GetValue(object instance)
         {
             EnsureBuild();
-            if (Getter==null)
+            if (Getter == null)
             {
                 throw new InvalidOperationException($"Type {Property.DeclaringType}.{Property.Name} has no get method");
             }
             return Getter(instance);
         }
-        public void SetValue(object instance,object value)
+        public void SetValue(object instance, object value)
         {
             EnsureBuild();
             if (Setter == null)
             {
                 throw new InvalidOperationException($"Type {Property.DeclaringType}.{Property.Name} has no set method");
             }
-            Setter(instance,value);
+            Setter(instance, value);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

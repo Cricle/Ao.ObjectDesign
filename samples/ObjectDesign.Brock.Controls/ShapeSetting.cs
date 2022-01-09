@@ -1,12 +1,10 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 namespace ObjectDesign.Brock.Controls
 {
-        
+
     public abstract class ShapeSetting : FrameworkElementSetting
     {
         private BrushDesigner stroke;
@@ -28,7 +26,7 @@ namespace ObjectDesign.Brock.Controls
             get => strokeDashArray;
             set
             {
-                Set(ref strokeDashArray,value);
+                Set(ref strokeDashArray, value);
             }
         }
 
@@ -63,7 +61,7 @@ namespace ObjectDesign.Brock.Controls
                 }
             };
             Stroke.SolidColorBrushDesigner.Color.SetColor(Colors.Black);
-            Fill = new BrushDesigner ();
+            Fill = new BrushDesigner();
             Fill.SetBrush(Brushes.Transparent);
         }
     }

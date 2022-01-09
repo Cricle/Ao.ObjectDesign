@@ -1,5 +1,4 @@
 ﻿using Ao.Lang.Runtime;
-using Ao.Lang.Wpf;
 using Ao.ObjectDesign;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session;
@@ -68,7 +67,7 @@ namespace ObjectDesign.Brock
             ToLangJPCommand = new RelayCommand(() => langMgr.SetCulture("ja"));
         }
         private readonly SceneEngine<Scene, UIElementSetting> engine;
-        private readonly SceneMakerStartup<Scene,UIElementSetting> startup;
+        private readonly SceneMakerStartup<Scene, UIElementSetting> startup;
         private readonly DesignPanel designPanel;
         private readonly LanguageManager langMgr;
         private readonly ActionSettingService actionSettingService;

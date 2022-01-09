@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing
@@ -15,11 +13,11 @@ namespace Ao.ObjectDesign.Designing
         private IReadOnlyDictionary<string, PropertyBox> propertyTable;
         private string[] propertyNames;
 
-        internal string[] PropertyNames
+        protected IReadOnlyCollection<string> PropertyNames
         {
             get
             {
-                if (propertyNames==null)
+                if (propertyNames == null)
                 {
                     propertyNames = DynamicTypePropertyHelper.GetPropertyNames(GetType());
                 }
@@ -79,6 +77,7 @@ namespace Ao.ObjectDesign.Designing
         {
             return PropertyNames;
         }
+
         public override bool TryGetMember(GetMemberBinder binder, out object result)
         {
             var ok = base.TryGetMember(binder, out result);

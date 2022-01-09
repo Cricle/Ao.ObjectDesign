@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign
         {
             Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<int>((IEnumerable<int>)null));
             Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<int>((HashSet<int>)null));
-            Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<string>(null,StringComparer.OrdinalIgnoreCase));
+            Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<string>(null, StringComparer.OrdinalIgnoreCase));
             Assert.ThrowsException<ArgumentNullException>(() => new ReadOnlyHashSet<string>(new string[0], null));
         }
         private ReadOnlyHashSet<T> CreateReadOnlyHashSet<T>(T[] datas, bool useHashSet)

@@ -4,8 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -17,7 +15,7 @@ namespace Ao.ObjectDesign.Test.Data
             public MyExternalReadOnlyDictionary(IEqualityComparer<string> comparer) : base(comparer)
             {
             }
-            public void Add(string key,string value)
+            public void Add(string key, string value)
             {
                 if (originMap.ContainsKey(key))
                 {
@@ -39,8 +37,8 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual(1, res.Count);
             Assert.AreEqual("a", res.Keys.Single());
             Assert.AreEqual("2", res.Values.Single());
-            new ExternalReadOnlyDictionary<string, string>(100,10);
-            var res1=new ExternalReadOnlyDictionary<string, string>(new Dictionary<string, string> { ["a"]="1"});
+            new ExternalReadOnlyDictionary<string, string>(100, 10);
+            var res1 = new ExternalReadOnlyDictionary<string, string>(new Dictionary<string, string> { ["a"] = "1" });
             Assert.AreEqual(1, res1.Count);
             Assert.AreEqual("a", res1.Keys.Single());
             Assert.AreEqual("1", res1.Values.Single());

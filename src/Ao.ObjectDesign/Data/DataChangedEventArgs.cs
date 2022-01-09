@@ -2,9 +2,9 @@
 
 namespace Ao.ObjectDesign.Data
 {
-    public class DataChangedEventArgs<TKey,TData> : EventArgs
+    public class DataChangedEventArgs<TKey, TData> : EventArgs
     {
-        public DataChangedEventArgs(TKey key, TData old, TData @new,ChangeModes mode)
+        public DataChangedEventArgs(TKey key, TData old, TData @new, ChangeModes mode)
         {
             Key = key;
             Old = old;

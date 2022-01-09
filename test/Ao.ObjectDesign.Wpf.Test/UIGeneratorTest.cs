@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.ForView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf.Test
@@ -37,7 +33,7 @@ namespace Ao.ObjectDesign.Wpf.Test
             Assert.IsNotNull(gen.Designer);
             Assert.AreEqual(builder, gen.Builder);
 
-            gen = new UIGenerator(designer,builder);
+            gen = new UIGenerator(designer, builder);
             Assert.IsNotNull(gen.Builder);
             Assert.IsNotNull(gen.Designer);
             Assert.AreEqual(builder, gen.Builder);

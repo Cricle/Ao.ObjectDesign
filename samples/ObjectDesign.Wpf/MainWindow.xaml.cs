@@ -11,27 +11,19 @@ using Ao.ObjectDesign.Wpf.Xaml;
 using Ao.ObjectDesign.Wpf.Yaml;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using ObjectDesign.Wpf.Controls;
 using ObjectDesign.Wpf.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Markup;
-using System.Xaml;
-using System.Xml;
 
 namespace ObjectDesign.Wpf
 {
@@ -183,7 +175,7 @@ namespace ObjectDesign.Wpf
                     var res = wpfObjectDesigner.BuildUI(obj);
                     disposable = res.Subjected;
                     var gids = new List<Grid>();
-                    foreach (IWpfUISpirit ctx in res.Contexts.Where(x=>x.View!=null))
+                    foreach (IWpfUISpirit ctx in res.Contexts.Where(x => x.View != null))
                     {
                         Grid grid = new Grid();
                         grid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });

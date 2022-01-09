@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Wpf.Designing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;

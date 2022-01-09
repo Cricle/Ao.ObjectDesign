@@ -1,29 +1,29 @@
 ﻿using Ao.ObjectDesign;
+using Ao.ObjectDesign.Abstract.Store;
 using Ao.ObjectDesign.Designing.Level;
+using Ao.ObjectDesign.Session;
+using Ao.ObjectDesign.Session.BuildIn;
+using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Designing;
 using Ao.ObjectDesign.Wpf.Json;
+using Ao.ObjectDesign.WpfDesign;
+using ObjectDesign.Brock.Components;
+using ObjectDesign.Brock.Controls;
+using ObjectDesign.Brock.Level;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Windows;
-using Ao.ObjectDesign.Abstract.Store;
-using ObjectDesign.Brock.Components;
-using ObjectDesign.Brock.Level;
-using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.BuildIn;
-using ObjectDesign.Brock.Controls;
-using Ao.ObjectDesign.WpfDesign;
 
 namespace ObjectDesign.Brock.Services
 {
     internal class ActionSettingService
     {
         private readonly MySceneMakerRuntime runtime;
-        private readonly SceneEngine<Scene,UIElementSetting> engine;
+        private readonly SceneEngine<Scene, UIElementSetting> engine;
         private readonly SceneMakerStartup<Scene, UIElementSetting> startup;
         private readonly DesignPanel designPanel;
 
@@ -274,7 +274,7 @@ namespace ObjectDesign.Brock.Services
                 session.LazyBinding = false;
             }
         }
-        public void SetSession(IDesignSession<Scene,UIElementSetting> session)
+        public void SetSession(IDesignSession<Scene, UIElementSetting> session)
         {
             runtime.CurrentSession = session;
             runtime.ForViewDataTemplateSelector = session.ObjectDesigner.CreateTemplateSelector();

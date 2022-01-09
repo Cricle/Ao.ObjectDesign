@@ -1,20 +1,9 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
-using ObjectDesign.Brock.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ObjectDesign.Brock.Components;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace ObjectDesign.Brock.Controls
 {
-    
-    
     public class MediaElementSetting : FrameworkElementSetting
     {
         private string source;

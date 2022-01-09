@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace ObjectDesign.Brock.InputBindings
 {
-    internal class TransferFocusInputBinding: PreviewMouseInputBase
+    internal class TransferFocusInputBinding : PreviewMouseInputBase
     {
         public override void OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {

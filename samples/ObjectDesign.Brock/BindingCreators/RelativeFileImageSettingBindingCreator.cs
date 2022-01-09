@@ -1,25 +1,21 @@
-﻿using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign;
+﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Designing.Level;
+using Ao.ObjectDesign.Session.Annotations;
+using Ao.ObjectDesign.Wpf.Data;
 using Microsoft.Extensions.DependencyInjection;
+using ObjectDesign.Brock.Components;
+using ObjectDesign.Brock.Controls;
+using ObjectDesign.Brock.Controls.BindingCreators;
+using ObjectDesign.Brock.Converters;
+using ObjectDesign.Brock.Services;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media.Animation;
-using System;
-using System.ComponentModel;
 using WpfAnimatedGif;
-using ObjectDesign.Brock.Components;
-using Ao.ObjectDesign.Session.Annotations;
-using ObjectDesign.Brock.Controls.BindingCreators;
-using Ao.ObjectDesign.Bindings;
-using ObjectDesign.Brock.Controls;
-using ObjectDesign.Brock.Converters;
-using ObjectDesign.Brock.Services;
 
 namespace ObjectDesign.Brock.BindingCreators
 {
@@ -108,24 +104,9 @@ namespace ObjectDesign.Brock.BindingCreators
 
         protected override IEnumerable<IWithSourceBindingScope> GenerateBindings()
         {
-            foreach (var item in base.GenerateBindings().Concat(RelativeFileImageSettingTwoWayScopes
+            return base.GenerateBindings().Concat(RelativeFileImageSettingTwoWayScopes
                         .Where(BindingCondition)
-                        .Select(x => x.ToWithSource(DesignUnit.DesigningObject))))
-            {
-                yield return item;
-            }
-            //var imgMgr = State.GetRequiredService<ImageManager>();
-            //yield return Image.SourceProperty.Creator(nameof(RelativeFileImageSetting.ResourceIdentity))
-            //    .AddSetConfig(BindingMode.TwoWay, UpdateSourceTrigger.Default)
-            //    .Add(x => 
-            //    {
-            //        x.Converter = new ResourceIdentityImageConverter { ImageManager = imgMgr };
-            //        x.Delay = 30;
-            //    })
-            //    .Build()
-            //    .ToWithSource(DesignUnit.DesigningObject);
-
-
+                        .Select(x => x.ToWithSource(DesignUnit.DesigningObject)));
         }
     }
 }

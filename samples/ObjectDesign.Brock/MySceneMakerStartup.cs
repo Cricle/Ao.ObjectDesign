@@ -1,28 +1,28 @@
-﻿using Ao.ObjectDesign.Session.BuildIn;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Session;
+using Ao.ObjectDesign.Session.BuildIn;
 using Ao.ObjectDesign.Session.Desiging;
+using Ao.ObjectDesign.Session.DesignHelpers;
+using Ao.ObjectDesign.Session.Environment;
+using Microsoft.Extensions.DependencyInjection;
 using ObjectDesign.Brock.BindingCreators;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Controls;
 using ObjectDesign.Brock.Controls.BindingCreators;
+using ObjectDesign.Brock.InMemory;
+using ObjectDesign.Brock.InputBindings;
 using ObjectDesign.Brock.Level;
+using ObjectDesign.Brock.Services;
 using ObjectDesign.Brock.Views;
 using System;
+using System.IO.Abstractions;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Session;
-using Microsoft.Extensions.DependencyInjection;
-using Ao.ObjectDesign.Session.DesignHelpers;
-using ObjectDesign.Brock.Services;
-using ObjectDesign.Brock.InputBindings;
-using Ao.ObjectDesign.Session.Environment;
-using System.IO.Abstractions;
-using ObjectDesign.Brock.InMemory;
-using System.Windows;
 
 namespace ObjectDesign.Brock
 {
-    internal class MySceneMakerStartup : EnvironmentSceneMakerStartup<Scene,UIElementSetting>
+    internal class MySceneMakerStartup : EnvironmentSceneMakerStartup<Scene, UIElementSetting>
     {
         private readonly IServiceProvider serviceProvider;
 
@@ -68,7 +68,6 @@ namespace ObjectDesign.Brock
                 .AddMap<ProgressBar, ProgressBarSetting>()
                 .AddMap<Image, RelativeFileImageSetting>()
                 .AddMap<MediaElement, MediaElementSetting>()
-                //.AddMap<ItemsControl,ItemsControlSetting>()//NOTE: 设计有缺陷
                 .AddBindingCreatorFactory(new RectangleSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new CanvasSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new TextBlockSettingBindingCreatorFactory())
@@ -76,7 +75,6 @@ namespace ObjectDesign.Brock
                 .AddBindingCreatorFactory(new ItemsControlSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new LineSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new ProgressBarSettingBindingCreatorFactory())
-                //.AddBindingCreatorFactory(new ImageSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new RelativeFileImageSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new MediaElementSettingBindingCreatorFactory())
                 .AddTemplateForViewCondition(new PositionSizeCondition())
@@ -105,8 +103,8 @@ namespace ObjectDesign.Brock
                 .Add<ShapeSetting>(x => x.Fill)
                 .Add<TextBlock>(x => x.TextWrapping)
                 .Add<TextBlock>(x => x.TextTrimming);
-            Engine.TemplateContextsDecoraters.Add(new PropertyContextOrderDecoratere<Scene,UIElementSetting>(Engine.DesignOrderManager));
-            Engine.TemplateContextsDecoraters.Add(new DesignStatePropertyContextsDecorater<Scene,UIElementSetting>(Engine));
+            Engine.TemplateContextsDecoraters.Add(new PropertyContextOrderDecoratere<Scene, UIElementSetting>(Engine.DesignOrderManager));
+            Engine.TemplateContextsDecoraters.Add(new DesignStatePropertyContextsDecorater<Scene, UIElementSetting>(Engine));
 
             var runtime = serviceProvider.GetRequiredService<MySceneMakerRuntime>();
             runtime.AutoSwithDesignPanel = true;
@@ -155,10 +153,10 @@ namespace ObjectDesign.Brock
             session.LazyBinding = true;
         }
 
-        protected override IEngineEnvironment<Scene, UIElementSetting> CreateEnvironment(IFileSystem fileSystem, 
+        protected override IEngineEnvironment<Scene, UIElementSetting> CreateEnvironment(IFileSystem fileSystem,
             ISceneFetcher<Scene> fetcher, IBindingCreatorStateCreator<UIElementSetting> stateCreator)
         {
-            return new MemoryEngineEnvironment(fileSystem, fetcher, stateCreator,GetServiceProvider());
+            return new MemoryEngineEnvironment(fileSystem, fetcher, stateCreator, GetServiceProvider());
         }
 
         protected override ISceneFetcher<Scene> GetSceneFetcher(IFileSystem fileSystem)

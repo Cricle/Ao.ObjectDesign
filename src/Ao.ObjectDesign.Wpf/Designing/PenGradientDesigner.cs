@@ -65,7 +65,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             get => opacity;
             set
             {
-                Set(ref opacity, value); 
+                Set(ref opacity, value);
                 RaiseGradientStopsChanged();
             }
         }

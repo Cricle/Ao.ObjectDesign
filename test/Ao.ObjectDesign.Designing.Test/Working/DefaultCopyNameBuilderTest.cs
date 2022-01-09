@@ -1,10 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing.Working;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test.Working
 {
@@ -40,7 +37,7 @@ namespace Ao.ObjectDesign.Designing.Test.Working
         [DataRow("aaa（9）", "aaa（10）")]
         [DataRow("aaa（22）", "aaa（23）")]
         [DataRow("aaa（1）", "aaa（2）")]
-        public void CNBrackets_Create(string input,string output)
+        public void CNBrackets_Create(string input, string output)
         {
             var res = DefaultCopyNameBuilder.CENBrackets.GenerateCopyName(input, new string[] { input });
             Assert.AreEqual(output, res);
@@ -85,7 +82,7 @@ namespace Ao.ObjectDesign.Designing.Test.Working
         [DataRow("《《", "》》")]
         [DataRow("左括号", "右括号")]
         [DataRow("  ", "  ")]
-        public void GenerateWithEmpty(string left,string right)
+        public void GenerateWithEmpty(string left, string right)
         {
             var val = "sdagwika123";
             var exp = val + left + "1" + right;
@@ -94,7 +91,7 @@ namespace Ao.ObjectDesign.Designing.Test.Working
 
             var reuslt = builder.GenerateCopyName(val, Enumerable.Empty<string>());
 
-            Assert.AreEqual(exp,reuslt);
+            Assert.AreEqual(exp, reuslt);
         }
         [TestMethod]
         [DataRow("[", "]", "aa[1]", 1)]
@@ -106,7 +103,7 @@ namespace Ao.ObjectDesign.Designing.Test.Working
         [DataRow("[{", "}]", "aa[{}]", null)]
         [DataRow("[{", "}]", "aa[{200}]", 200)]
         [DataRow("[{", "]", "aa[{1]", 1)]
-        public void GetIndex(string left,string right,string value,int? index)
+        public void GetIndex(string left, string right, string value, int? index)
         {
             var builder = new DefaultCopyNameBuilder(left, right);
 

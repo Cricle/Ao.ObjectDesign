@@ -9,7 +9,7 @@ namespace Ao.ObjectDesign
         public SelfPropertyVisitor(object declaringInstance, PropertyInfo propertyInfo)
             : base(declaringInstance, propertyInfo)
         {
-            Identity = new PropertyIdentity(PropertyInfo.DeclaringType, PropertyInfo.Name);
+            Identity = new PropertyIdentity(PropertyInfo);
         }
 
         private PropertyGetter getter;

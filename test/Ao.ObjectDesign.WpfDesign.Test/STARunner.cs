@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Security.Permissions;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.WpfDesign.Test
 {
@@ -13,8 +9,8 @@ namespace Ao.ObjectDesign.WpfDesign.Test
     {
         public static Thread STA(Action action)
         {
-            Exception ex=null;
-            var thread = new Thread(_ => 
+            Exception ex = null;
+            var thread = new Thread(_ =>
             {
                 try
                 {

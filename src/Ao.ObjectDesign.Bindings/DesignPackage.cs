@@ -2,11 +2,10 @@
 using Ao.ObjectDesign.Designing.Level;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public abstract class DesignPackage<TUI,TDesignObject,TBindingScope> : IDesignPackage<TUI, TDesignObject, TBindingScope>
+    public abstract class DesignPackage<TUI, TDesignObject, TBindingScope> : IDesignPackage<TUI, TDesignObject, TBindingScope>
     {
         protected DesignPackage(BindingCreatorFactoryCollection<TUI, TDesignObject, TBindingScope> bindingCreators, UIDesignMap uIDesinMap)
         {
@@ -32,7 +31,7 @@ namespace Ao.ObjectDesign.Bindings
         public virtual IEnumerable<IBindingCreator<TUI, TDesignObject, TBindingScope>> GetBindingCreators(IDesignPair<TUI, TDesignObject> unit, IBindingCreatorState state)
         {
             return GetBindingCreatorFactorys(unit, state)
-                .SelectMany(x => x.Create(unit,state));
+                .SelectMany(x => x.Create(unit, state));
         }
 
         public abstract IBindingCreatorState CreateBindingCreatorState(IDesignPair<TUI, TDesignObject> unit);

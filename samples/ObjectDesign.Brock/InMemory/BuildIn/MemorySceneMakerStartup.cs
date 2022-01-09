@@ -7,7 +7,7 @@ namespace ObjectDesign.Brock.InMemory.BuildIn
 {
     public abstract class MemorySceneMakerStartup : SceneMakerStartup<Scene, UIElementSetting>
     {
-        protected override IEngineEnvironment<Scene,UIElementSetting> GetEnvironment()
+        protected override IEngineEnvironment<Scene, UIElementSetting> GetEnvironment()
         {
             var provider = GetServiceProvider();
             return MemoryEngineEnvironment.FromMock(provider);

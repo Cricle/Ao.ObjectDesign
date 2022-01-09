@@ -1,6 +1,5 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System;
 using System.ComponentModel;
@@ -135,14 +134,14 @@ namespace Ao.ObjectDesign.Controls
                 Opacity = value.Opacity;
                 if (opacityMask is null)
                 {
-                    opacityMask = new BrushDesigner ();
+                    opacityMask = new BrushDesigner();
                 }
-                    opacityMask.SetBrush(value.OpacityMask);
+                opacityMask.SetBrush(value.OpacityMask);
                 if (renderTransformOrigin is null)
                 {
                     RenderTransformOrigin = new PointDesigner();
                 }
-                    renderTransformOrigin.SetPoint(value.RenderTransformOrigin);
+                renderTransformOrigin.SetPoint(value.RenderTransformOrigin);
             }
         }
         protected void CheckType(object value)

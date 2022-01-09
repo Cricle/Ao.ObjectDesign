@@ -1,7 +1,6 @@
 ﻿using Ao.ObjectDesign.Session;
 using ObjectDesign.Brock.Level;
 using System.Collections.Generic;
-using System.IO;
 using System.IO.Abstractions;
 
 namespace ObjectDesign.Brock.InMemory
@@ -10,7 +9,7 @@ namespace ObjectDesign.Brock.InMemory
     {
         public MemorySceneFetcher()
         {
-            
+
             Datas = new Dictionary<string, Scene>();
         }
 

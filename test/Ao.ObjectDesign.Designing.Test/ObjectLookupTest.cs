@@ -1,17 +1,13 @@
-﻿using Ao.ObjectDesign.Designing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
     [TestClass]
     public class ObjectLookupTest
     {
-        class Class:NotifyableObject
+        class Class : NotifyableObject
         {
             public string Group { get; set; }
 

@@ -1,13 +1,8 @@
-﻿using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Designing.Level;
-using System;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 
 namespace ObjectDesign.Brock.Components
 {
-    
+
     public class FrameworkElementSetting : UIElementSetting
     {
         private bool useLayoutRounding;
@@ -16,25 +11,25 @@ namespace ObjectDesign.Brock.Components
         private VerticalAlignment verticalAlignment;
         private string name;
 
-        
+
         public string Name
         {
             get => name;
             set => Set(ref name, value);
         }
-        
+
         public VerticalAlignment VerticalAlignment
         {
             get => verticalAlignment;
             set => Set(ref verticalAlignment, value);
         }
-        
+
         public HorizontalAlignment HorizontalAlignment
         {
             get => horizontalAlignment;
             set => Set(ref horizontalAlignment, value);
         }
-        
+
         public bool UseLayoutRounding
         {
             get => useLayoutRounding;

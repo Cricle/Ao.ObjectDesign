@@ -97,7 +97,7 @@ namespace Ao.ObjectDesign.Designing.Level
             {
                 designUnits.Move(e.OldStartingIndex, e.NewStartingIndex);
             }
-            else if (e.Action== NotifyCollectionChangedAction.Replace)
+            else if (e.Action == NotifyCollectionChangedAction.Replace)
             {
                 RemoveUnits(e.OldItems.OfType<TDesignObject>());
                 for (int i = 0; i < e.NewItems.Count; i++)
@@ -118,12 +118,12 @@ namespace Ao.ObjectDesign.Designing.Level
                 designObjectUnitMap.Remove(item.DesigningObject);
                 RemoveUIElement(item);
 
-                if (nexts.TryGetValue(item,out var controller))
+                if (nexts.TryGetValue(item, out var controller))
                 {
                     nexts.Remove(item);
                     designUnitNextMap.Remove(item.UI);
                     designObjectUnitNextMap.Remove(item.DesigningObject);
-                    if (controller is DesignSceneController<TUI,TDesignObject> dsc)
+                    if (controller is DesignSceneController<TUI, TDesignObject> dsc)
                     {
                         dsc.parent = null;
                     }
@@ -149,7 +149,7 @@ namespace Ao.ObjectDesign.Designing.Level
 
         }
 
-        private void CoreAddUnit(TDesignObject item,int? position)
+        private void CoreAddUnit(TDesignObject item, int? position)
         {
             var ui = CreateUI(item);
             var unit = CreatetDesignUnit(ui, item);
@@ -194,7 +194,7 @@ namespace Ao.ObjectDesign.Designing.Level
         {
             throw new NotImplementedException();
         }
-        protected virtual bool CanBuildNext(IDesignPair<TUI,TDesignObject> pair)
+        protected virtual bool CanBuildNext(IDesignPair<TUI, TDesignObject> pair)
         {
             return false;
         }

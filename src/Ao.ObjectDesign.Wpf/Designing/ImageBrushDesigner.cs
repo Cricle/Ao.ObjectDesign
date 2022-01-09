@@ -55,7 +55,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
             else
             {
-                Source = new ImageSourceDesigner ();
+                Source = new ImageSourceDesigner();
                 Source.SetImageSource(value.ImageSource);
             }
             WriteTo(value);

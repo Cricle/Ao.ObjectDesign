@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace ObjectDesign.Brock.InputBindings
 {
-    internal class DeleteInputBinding: PreviewKeyboardInputBase
+    internal class DeleteInputBinding : PreviewKeyboardInputBase
     {
         public DeleteInputBinding(IDesignSession<Scene, UIElementSetting> session)
         {
@@ -22,7 +22,7 @@ namespace ObjectDesign.Brock.InputBindings
 
         public override void OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key== Key.Delete)
+            if (e.Key == Key.Delete)
             {
                 UIElement[] obj = Session.Suface.DesigningObjects;
                 if (obj != null)

@@ -58,7 +58,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 }
                 else
                 {
-                    Color = new ColorDesigner ();
+                    Color = new ColorDesigner();
                     color.SetColor(value.Color);
                 }
             }

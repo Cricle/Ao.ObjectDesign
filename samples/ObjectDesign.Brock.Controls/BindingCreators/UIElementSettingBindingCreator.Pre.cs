@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Collections.Generic;
 using System.Linq;

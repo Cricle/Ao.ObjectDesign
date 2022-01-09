@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -90,7 +86,7 @@ namespace Ao.ObjectDesign.Designing.Test
             ways.Undo();
             for (int i = 0; i < fb.Length; i++)
             {
-                Assert.IsTrue(fb[i].IsFallback, "Fail to true fallback {0}",i);
+                Assert.IsTrue(fb[i].IsFallback, "Fail to true fallback {0}", i);
             }
         }
         [TestMethod]

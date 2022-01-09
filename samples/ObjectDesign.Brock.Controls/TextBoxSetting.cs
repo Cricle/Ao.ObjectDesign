@@ -1,13 +1,9 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace ObjectDesign.Brock.Controls
 {
-    
-    
+
+
     public class TextBoxSetting : TextBoxBaseSetting
     {
         private string text;

@@ -37,6 +37,6 @@ namespace Ao.ObjectDesign.Benchmark
                 }
             }
             return brushes;
-            }
+        }
     }
 }

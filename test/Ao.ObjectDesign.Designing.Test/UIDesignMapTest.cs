@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -43,7 +41,7 @@ namespace Ao.ObjectDesign.Designing.Test
             var map = new UIDesignMap();
             var uiType = typeof(UIElement);
             var designType = typeof(object);
-            
+
             map.RegistDesignType(uiType, designType);
 
             object sender = null;

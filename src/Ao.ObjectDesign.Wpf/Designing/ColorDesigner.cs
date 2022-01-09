@@ -12,7 +12,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
         private byte g;
         private byte b;
         private byte a;
-        
+
         [DefaultValue((byte)0)]
         public virtual byte A
         {

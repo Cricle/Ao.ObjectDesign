@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing
 {
@@ -16,7 +14,7 @@ namespace Ao.ObjectDesign.Designing
 
         public static IReadOnlyList<TDesignObject> GetFromCopied<TDesignObject>(this DesignClipboardManager<TDesignObject> manager)
         {
-            return GetFromCopied(manager,true, true);
+            return GetFromCopied(manager, true, true);
         }
         public static IReadOnlyList<TDesignObject> GetFromCopied<TDesignObject>(this DesignClipboardManager<TDesignObject> manager,
             Func<TDesignObject, TDesignObject> copyFactory,

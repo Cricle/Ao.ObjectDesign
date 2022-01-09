@@ -5,7 +5,7 @@ using System.Windows.Data;
 namespace Ao.ObjectDesign.Wpf.Data
 {
     public abstract class BindingScopeBase<T> : IBindingScope
-        where T:BindingBase
+        where T : BindingBase
     {
         public BindingScopeBase(IBindingMaker<T> creator, Action<T> bindingAction)
         {

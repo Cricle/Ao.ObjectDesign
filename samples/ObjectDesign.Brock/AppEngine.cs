@@ -13,11 +13,7 @@ using ObjectDesign.Brock.Level;
 using ObjectDesign.Brock.Models;
 using ObjectDesign.Brock.Services;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ObjectDesign.Brock
@@ -69,12 +65,12 @@ namespace ObjectDesign.Brock
 
         private void Init(IServiceProvider provider)
         {
-            var eng = provider.GetRequiredService<SceneEngine<Scene,UIElementSetting>>();
-            var startup = provider.GetRequiredService<SceneMakerStartup<Scene,UIElementSetting>>();
+            var eng = provider.GetRequiredService<SceneEngine<Scene, UIElementSetting>>();
+            var startup = provider.GetRequiredService<SceneMakerStartup<Scene, UIElementSetting>>();
             var runtime = provider.GetRequiredService<MySceneMakerRuntime>();
             var ass = provider.GetRequiredService<ActionSettingService>();
 
-            eng.BindingCreatorStateCreator.AsImpl<Scene,UIElementSetting>()
+            eng.BindingCreatorStateCreator.AsImpl<Scene, UIElementSetting>()
                 .RuntimeType = DesignRuntimeTypes.Designing;
 
             var session = startup.NewSession(new Scene());

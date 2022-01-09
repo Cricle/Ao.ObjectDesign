@@ -37,7 +37,7 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.AreEqual(detail.PropertyName, revDetail.PropertyName);
 
             revDetail = (IModifyDetail)((IFallbackable)detail).Reverse();
-            
+
 
             Assert.AreNotEqual(detail, revDetail);
             Assert.AreEqual(detail.From, revDetail.To);

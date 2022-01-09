@@ -1,11 +1,8 @@
-﻿using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Designing.Annotations;
+﻿using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Ao.ObjectDesign.Designing;
 
 namespace Ao.ObjectDesign.Controls
 {
@@ -14,7 +11,7 @@ namespace Ao.ObjectDesign.Controls
     {
         private Stretch stretch;
         private StretchDirection stretchDirection;
-        
+
         [DefaultValue(StretchDirection.Both)]
         public virtual StretchDirection StretchDirection
         {
@@ -31,7 +28,7 @@ namespace Ao.ObjectDesign.Controls
 
         public override void SetDefault()
         {
-            ReflectionHelper.SetDefault(this, SetDefaultOptions.IgnoreNotNull| SetDefaultOptions.Deep| SetDefaultOptions.ClassGenerateNew);
+            ReflectionHelper.SetDefault(this, SetDefaultOptions.IgnoreNotNull | SetDefaultOptions.Deep | SetDefaultOptions.ClassGenerateNew);
         }
 
         public void Apply(Viewbox value)
@@ -53,7 +50,7 @@ namespace Ao.ObjectDesign.Controls
         {
             if (value != null)
             {
-                FlatReflectionHelper.SpecularMapping(this,value);
+                FlatReflectionHelper.SpecularMapping(this, value);
                 //WriteTo((FrameworkElement)value);
                 //value.Stretch = Stretch;
                 //value.StretchDirection = StretchDirection;

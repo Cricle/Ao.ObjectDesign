@@ -1,11 +1,4 @@
-﻿using Ao.ObjectDesign.Designing.Level;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Ao.ObjectDesign.Designing.Test.Level
 {
@@ -45,7 +38,7 @@ namespace Ao.ObjectDesign.Designing.Test.Level
         public void Reset()
         {
             var controller = new ValueDesignSceneController();
-            
+
             controller.Initialize();
             Assert.IsTrue(controller.IsInitialized);
             controller.Initialize();

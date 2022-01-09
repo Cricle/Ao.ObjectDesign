@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Ao.ObjectDesign.Designing.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Ao.ObjectDesign.Designing.Test.Annotations
 {
@@ -30,8 +27,8 @@ namespace Ao.ObjectDesign.Designing.Test.Annotations
             Assert.IsNull(attr.DependencyObjectType);
             Assert.AreEqual(name, attr.DependencyPropertyName);
 
-            attr = new BindForAdditionalAttribute(type,name);
-            Assert.AreEqual(type,attr.DependencyObjectType);
+            attr = new BindForAdditionalAttribute(type, name);
+            Assert.AreEqual(type, attr.DependencyObjectType);
             Assert.AreEqual(name, attr.DependencyPropertyName);
         }
     }

@@ -1,13 +1,8 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Bindings.Designers;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.WpfDesign.Designers;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -72,7 +67,7 @@ namespace Ao.ObjectDesign.WpfDesign
                 for (int i = 0; i < len; i++)
                 {
                     var child = children[i];
-                    if (child is IDesignHelper<UIElement,IWpfDesignContext> helper)
+                    if (child is IDesignHelper<UIElement, IWpfDesignContext> helper)
                     {
                         helper.AttackObject(oldEle, newEle);
                     }

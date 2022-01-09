@@ -1,15 +1,13 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls
 {
-        
+
     public abstract class PanelSetting : FrameworkElementSetting, IObservableDesignScene<UIElementSetting>
     {
         public PanelSetting()
@@ -28,7 +26,7 @@ namespace ObjectDesign.Brock.Controls
         public override void SetDefault()
         {
             base.SetDefault();
-            Background = new BrushDesigner { Type= PenBrushTypes.None};
+            Background = new BrushDesigner { Type = PenBrushTypes.None };
         }
         private SilentObservableCollection<UIElementSetting> designingObjects;
 

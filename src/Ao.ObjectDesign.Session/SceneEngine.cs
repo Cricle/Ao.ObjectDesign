@@ -6,7 +6,6 @@ using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Session.Environment;
 using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;

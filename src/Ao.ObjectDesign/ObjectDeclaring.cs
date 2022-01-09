@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign
 {
-    public class ObjectDeclaring : IObjectDeclaring,IEquatable<ObjectDeclaring>
+    public class ObjectDeclaring : IObjectDeclaring, IEquatable<ObjectDeclaring>
     {
         protected ObjectDeclaring()
         {

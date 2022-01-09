@@ -54,7 +54,7 @@ namespace Ao.ObjectDesign.Wpf
 
             return dependencyProperties.GetOrAdd(type, GetDependencyPropertyDescriptorMap);
         }
-        private static IReadOnlyDictionary<string,DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
+        private static IReadOnlyDictionary<string, DependencyPropertyDescriptor> GetDependencyPropertyDescriptorMap(Type type)
         {
             var query = GetPropertyDescriptors(type)
                 .Select(t => DependencyPropertyDescriptor.FromProperty(t))

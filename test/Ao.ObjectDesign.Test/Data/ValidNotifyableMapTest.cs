@@ -2,9 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -195,7 +192,7 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsNull(v);
 
             Assert.IsFalse(map.ValidateData("b", VarValue.Byte0Value, out v));
-            Assert.AreEqual(valid,v);
+            Assert.AreEqual(valid, v);
 
         }
     }

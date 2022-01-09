@@ -24,7 +24,7 @@ namespace ObjectDesign.Brock.Services
                 {
                     x.Scene.DesigningObjects.Move(index, 0);
                 }
-            },objs, true);
+            }, objs, true);
         }
         public void MoveUp()
         {
@@ -55,7 +55,7 @@ namespace ObjectDesign.Brock.Services
                 {
                     x.Scene.DesigningObjects.Move(index, index + 1);
                 }
-            },objs, true);
+            }, objs, true);
         }
         public void MoveBottom()
         {
@@ -63,15 +63,15 @@ namespace ObjectDesign.Brock.Services
         }
         public void MoveBottom(IReadOnlyList<UIElement> objs)
         {
-            ActionInScene.ActionInDesigins(runtime,(x, y) =>
-            {
-                var index = x.Scene.DesigningObjects.IndexOf(y.DesigningObject);
-                var count = x.Scene.DesigningObjects.Count;
-                if (index != count - 1)
-                {
-                    x.Scene.DesigningObjects.Move(index, count - 1);
-                }
-            },objs, true);
+            ActionInScene.ActionInDesigins(runtime, (x, y) =>
+             {
+                 var index = x.Scene.DesigningObjects.IndexOf(y.DesigningObject);
+                 var count = x.Scene.DesigningObjects.Count;
+                 if (index != count - 1)
+                 {
+                     x.Scene.DesigningObjects.Move(index, count - 1);
+                 }
+             }, objs, true);
         }
 
     }

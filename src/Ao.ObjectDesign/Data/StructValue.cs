@@ -4,9 +4,9 @@ using System.Diagnostics;
 namespace Ao.ObjectDesign.Data
 {
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public class StructValue : VarValue,IVarValue<ValueType>
+    public class StructValue : VarValue, IVarValue<ValueType>
     {
-        public StructValue(ValueType value) 
+        public StructValue(ValueType value)
             : base(value)
         {
             Value = value;

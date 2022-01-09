@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace ObjectDesign.Brock.Controls
+﻿namespace ObjectDesign.Brock.Controls
 {
-    
+
     public enum ResourceTypes
     {
         Unknow = 0,

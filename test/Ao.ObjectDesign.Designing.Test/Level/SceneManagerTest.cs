@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test.Level
 {
@@ -24,7 +19,7 @@ namespace Ao.ObjectDesign.Designing.Test.Level
             var mgr = new ValueSceneManager();
             var scene = new ValueScene<int>();
 
-            object sender1=null;
+            object sender1 = null;
             CurrentSceneChangedEventArgs<int> args1 = null;
             mgr.CurrentSceneChanged += (o1, e1) =>
             {

@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign
 {
-    public class PropertyDeclare : ObjectDeclaring, IPropertyDeclare,IEquatable<PropertyDeclare>
+    public class PropertyDeclare : ObjectDeclaring, IPropertyDeclare, IEquatable<PropertyDeclare>
     {
         public PropertyDeclare(PropertyInfo propertyInfo)
         {

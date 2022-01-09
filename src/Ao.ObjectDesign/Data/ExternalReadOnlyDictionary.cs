@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Data
@@ -12,7 +11,7 @@ namespace Ao.ObjectDesign.Data
         }
         public ExternalReadOnlyDictionary(int concurrencyLevel, int capacity)
         {
-            originMap = CreateMap(concurrencyLevel,capacity);
+            originMap = CreateMap(concurrencyLevel, capacity);
         }
         public ExternalReadOnlyDictionary(IDictionary<TKey, TValue> map)
         {
@@ -33,7 +32,7 @@ namespace Ao.ObjectDesign.Data
 
         public int Count => originMap.Count;
 
-        protected virtual IDictionary<TKey,TValue> CreateMap()
+        protected virtual IDictionary<TKey, TValue> CreateMap()
         {
             return new Dictionary<TKey, TValue>();
         }

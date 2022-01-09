@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
@@ -67,7 +68,8 @@ namespace Ao.ObjectDesign
             {
                 try
                 {
-                    result = Convert.ChangeType(value, type);
+                    var convert = TypeDescriptor.GetConverter(type);
+                    result = convert.ConvertTo(value, type);
                     return true;
                 }
                 catch (Exception e)

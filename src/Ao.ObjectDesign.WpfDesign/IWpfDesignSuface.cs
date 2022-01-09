@@ -1,10 +1,9 @@
 ﻿using Ao.ObjectDesign.Designing;
-using System;
 using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public interface IWpfDesignSuface: IDesignSuface<UIElement,IWpfDesignContext>
+    public interface IWpfDesignSuface : IDesignSuface<UIElement, IWpfDesignContext>
     {
     }
 }

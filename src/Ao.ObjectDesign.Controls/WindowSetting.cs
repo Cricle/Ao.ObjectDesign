@@ -144,7 +144,7 @@ namespace Ao.ObjectDesign.Controls
                 SizeToContent = value.SizeToContent;
                 AllowsTransparency = value.AllowsTransparency;
                 Left = value.Left;
-                Icon = new ImageSourceDesigner ();
+                Icon = new ImageSourceDesigner();
                 Icon.SetImageSource(value.Icon);
                 WindowStyle = value.WindowStyle;
                 WindowState = value.WindowState;

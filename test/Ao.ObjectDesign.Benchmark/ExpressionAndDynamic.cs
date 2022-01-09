@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using BenchmarkDotNet.Attributes;
-using System.Reflection.Emit;
-using System.Reflection;
+﻿using BenchmarkDotNet.Attributes;
 using FastExpressionCompiler;
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace Ao.ObjectDesign.Benchmark
 {
@@ -34,7 +29,7 @@ namespace Ao.ObjectDesign.Benchmark
 
             _ = exp();
             _ = dync();
-            _= fastExp();
+            _ = fastExp();
         }
         [Benchmark]
         public void GenExp()
@@ -67,14 +62,14 @@ namespace Ao.ObjectDesign.Benchmark
             _ = dync();
         }
 
-        private ObjectCreator GenFastExpression() 
+        private ObjectCreator GenFastExpression()
         {
             return Expression.Lambda<ObjectCreator>(Expression.Convert(Expression.New(info), typeof(object))).CompileFast();
         }
 
         private ObjectCreator GenDyncmic()
         {
-            var dn = new DynamicMethod("create_student", typeof(object), Type.EmptyTypes,true);
+            var dn = new DynamicMethod("create_student", typeof(object), Type.EmptyTypes, true);
             var il = dn.GetILGenerator();
             il.Emit(OpCodes.Newobj, info);
             il.Emit(OpCodes.Ret);

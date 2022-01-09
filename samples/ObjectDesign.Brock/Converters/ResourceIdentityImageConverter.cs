@@ -1,4 +1,5 @@
-﻿using ObjectDesign.Brock.Services;
+﻿using ObjectDesign.Brock.Controls;
+using ObjectDesign.Brock.Services;
 using System;
 using System.Globalization;
 using System.IO;
@@ -9,7 +10,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using WpfAnimatedGif;
-using ObjectDesign.Brock.Controls;
 
 namespace ObjectDesign.Brock.Converters
 {
@@ -43,7 +43,7 @@ namespace ObjectDesign.Brock.Converters
                 {
                     image = Create(ri, Workplace);
                 }
-                if (image==null)
+                if (image == null)
                 {
                     image = ImageManager.TranslateImage;
                 }

@@ -1,11 +1,6 @@
 ﻿using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Conditions;
 using ObjectDesign.Brock.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ObjectDesign.Brock.Views
 {

@@ -34,7 +34,7 @@ namespace Ao.ObjectDesign.Designing
         }
 
         public int Count => ways.Count;
-        
+
         public T First
         {
             get

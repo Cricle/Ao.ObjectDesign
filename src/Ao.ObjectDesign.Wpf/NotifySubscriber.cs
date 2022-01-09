@@ -24,8 +24,8 @@ namespace Ao.ObjectDesign.Wpf
         {
             return proxy.Type.GetInterface(INotifyPropertyChangeToTypeName) != null;
         }
-        public static IDisposable Subscribe(IEnumerable<WpfForViewBuildContextBase> ctxs, 
-            INotifyObjectManager mgr, 
+        public static IDisposable Subscribe(IEnumerable<WpfForViewBuildContextBase> ctxs,
+            INotifyObjectManager mgr,
             AttackModes attackMode)
         {
             SubscribeCallback cb = new SubscribeCallback { Disposed = EmptyAction };
@@ -44,7 +44,7 @@ namespace Ao.ObjectDesign.Wpf
                 {
                     mgr.Attack(decChangeTo);
                 }
-                if ((attackMode & AttackModes.NativeProperty) != 0&&
+                if ((attackMode & AttackModes.NativeProperty) != 0 &&
                     item.PropertyVisitor.Value is INotifyPropertyChangeTo propChangeTo)
                 {
                     mgr.Attack(propChangeTo);

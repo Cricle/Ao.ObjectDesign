@@ -1,11 +1,7 @@
 ﻿using FastExpressionCompiler;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Reflection.Emit;
 
 namespace Ao.ObjectDesign
 {
@@ -14,7 +10,7 @@ namespace Ao.ObjectDesign
     public delegate object TypeCreator();
 
     public static class CompiledPropertyInfo
-    {        
+    {
         private static readonly Func<PropertyIdentity, PropertySetter> setterFunc = CreateSetter;
         private static readonly Func<PropertyIdentity, PropertyGetter> getterFunc = CreateGetter;
 
@@ -46,7 +42,7 @@ namespace Ao.ObjectDesign
 
             var exp = Expression.Convert(
                 Expression.Call(
-                    Expression.Convert(par1, x.Type), x.PropertyInfo.GetMethod),typeof(object));
+                    Expression.Convert(par1, x.Type), x.PropertyInfo.GetMethod), typeof(object));
 
             return Expression.Lambda<PropertyGetter>(exp, par1).CompileSys();
         }

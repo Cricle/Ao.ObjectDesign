@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -19,13 +15,13 @@ namespace Ao.ObjectDesign.Designing.Test
             group = new FallbackableGroup(FallbackModes.Forward);
             Assert.AreEqual(FallbackModes.Forward, group.Mode);
 
-            group = new FallbackableGroup(FallbackModes.Forward,10);
+            group = new FallbackableGroup(FallbackModes.Forward, 10);
             Assert.AreEqual(FallbackModes.Forward, group.Mode);
             Assert.AreEqual(10, group.Capacity);
 
             var val = new NullFallbackable();
 
-            group = new FallbackableGroup(FallbackModes.Forward, new IFallbackable[] { val});
+            group = new FallbackableGroup(FallbackModes.Forward, new IFallbackable[] { val });
             Assert.AreEqual(FallbackModes.Forward, group.Mode);
             Assert.AreEqual(1, group.Count);
         }
@@ -70,7 +66,7 @@ namespace Ao.ObjectDesign.Designing.Test
 
             for (int i = 0; i < fallbacks.Length; i++)
             {
-                Assert.IsTrue(((ValueFallback)fallbacks[i]).CallFallback,i.ToString());
+                Assert.IsTrue(((ValueFallback)fallbacks[i]).CallFallback, i.ToString());
             }
         }
         [TestMethod]
@@ -142,7 +138,7 @@ namespace Ao.ObjectDesign.Designing.Test
 
             var groups = new FallbackableGroup(FallbackModes.Forward, fallbacks);
 
-            var revGroup=groups.Reverse();
+            var revGroup = groups.Reverse();
 
             Assert.AreEqual(FallbackModes.Reverse, revGroup.Mode);
 
@@ -167,7 +163,7 @@ namespace Ao.ObjectDesign.Designing.Test
         }
 
         [TestMethod]
-        [DataRow(0,1)]
+        [DataRow(0, 1)]
         [DataRow(1, 2)]
         [DataRow(2, 0)]
         [DataRow(2, 3)]
@@ -179,7 +175,7 @@ namespace Ao.ObjectDesign.Designing.Test
             {
                 fg.Add(new NullFallbackable());
             }
-            FallbackableGroup fallback = new FallbackableGroup( FallbackModes.Reverse);
+            FallbackableGroup fallback = new FallbackableGroup(FallbackModes.Reverse);
             for (int i = 0; i < rightCount; i++)
             {
                 fallback.Add(new NullFallbackable());

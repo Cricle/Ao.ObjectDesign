@@ -1,5 +1,4 @@
-﻿using Ao.ObjectDesign.Designing;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
 

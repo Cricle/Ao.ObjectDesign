@@ -1,15 +1,12 @@
 ﻿using Ao.Lang.Runtime;
-using Ao.Lang.Wpf;
 using Ao.ObjectDesign.Designing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
-using System.Windows.Markup;
 
 namespace ObjectDesign.Brock.Converters
 {
@@ -56,7 +53,7 @@ namespace ObjectDesign.Brock.Converters
             {
                 var val = (T)arr.GetValue(i);
                 var key = GetLangKey(val);
-                var box = new LangBox(key,val, LangMgr);
+                var box = new LangBox(key, val, LangMgr);
                 box.UpdateValue();
                 ret[i] = box;
             }
@@ -67,7 +64,7 @@ namespace ObjectDesign.Brock.Converters
         {
             if (value is T kt)
             {
-                var box= LangBoxs.FirstOrDefault(x => x.Value.Equals(kt));
+                var box = LangBoxs.FirstOrDefault(x => x.Value.Equals(kt));
                 return box;
             }
             return Binding.DoNothing;
@@ -88,10 +85,10 @@ namespace ObjectDesign.Brock.Converters
             private static readonly PropertyChangedEventArgs textChangedEventArgs = new PropertyChangedEventArgs(nameof(Text));
             private string text;
 
-            public LangBox(string key,T value, LanguageManager languageManager)
+            public LangBox(string key, T value, LanguageManager languageManager)
             {
                 Key = key;
-                Value= value;
+                Value = value;
                 LanguageManager = languageManager;
                 languageManager.CultureInfoChanged += LanguageManager_CultureInfoChanged;
             }

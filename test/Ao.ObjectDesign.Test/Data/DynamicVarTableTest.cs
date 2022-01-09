@@ -1,11 +1,8 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -77,7 +74,7 @@ namespace Ao.ObjectDesign.Test.Data
             {
                 if (!map.ContainsKey(item))
                 {
-                    Assert.Fail("{0} is not return",item);
+                    Assert.Fail("{0} is not return", item);
                 }
             }
             var set = new ReadOnlyHashSet<string>(new string[]
@@ -143,10 +140,10 @@ namespace Ao.ObjectDesign.Test.Data
 
             var val = new RefValue("bbb");
 
-            tb.SetValue("a",val);
+            tb.SetValue("a", val);
 
             Assert.AreEqual("a", map.Keys.Single());
-            Assert.AreEqual(val,map.Values.Single());
+            Assert.AreEqual(val, map.Values.Single());
 
             var map1 = new NotifyableMap<int, IVarValue>();
             var tb1 = new IntDynamicVarTable(map1);

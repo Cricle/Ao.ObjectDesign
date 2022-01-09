@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign
 {
-    public readonly struct TypeProperty:IEquatable<TypeProperty>
+    public readonly struct TypeProperty : IEquatable<TypeProperty>
     {
         public readonly PropertyInfo PropertyInfo;
 

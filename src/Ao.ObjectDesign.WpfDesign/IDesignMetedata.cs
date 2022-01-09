@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public interface IWpfDesignMetedata : IDesignMetedata<UIElement,IWpfDesignContext>
+    public interface IWpfDesignMetedata : IDesignMetedata<UIElement, IWpfDesignContext>
     {
     }
 }

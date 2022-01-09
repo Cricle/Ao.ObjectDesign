@@ -177,12 +177,12 @@ namespace Ao.ObjectDesign.Wpf.Designing
             else if (value is RadialGradientBrush rgb)
             {
                 Type = PenBrushTypes.Radial;
-                RadialGradientBrushDesigner.SetRadialGradientBrush (rgb);
+                RadialGradientBrushDesigner.SetRadialGradientBrush(rgb);
             }
             else if (value is ImageBrush ib)
             {
                 Type = PenBrushTypes.Image;
-                ImageBrushDesigner.SetImageBrush (ib);
+                ImageBrushDesigner.SetImageBrush(ib);
             }
             else
             {

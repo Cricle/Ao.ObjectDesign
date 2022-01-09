@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Data;
-using LExpressions = System.Linq.Expressions;
 
 namespace Ao.ObjectDesign.Wpf.Data
 {

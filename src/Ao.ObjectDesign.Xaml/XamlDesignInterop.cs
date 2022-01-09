@@ -3,7 +3,6 @@ using Portable.Xaml;
 using System;
 using System.IO;
 using System.Text;
-using System.Xml;
 
 namespace Ao.ObjectDesign.Wpf.Xaml
 {
@@ -30,7 +29,7 @@ namespace Ao.ObjectDesign.Wpf.Xaml
 
         public object DeserializeByByte(byte[] data, Type type)
         {
-            using (var ms=new MemoryStream(data))
+            using (var ms = new MemoryStream(data))
             {
                 return XamlServices.Load(new XamlXmlReader(ms));
             }

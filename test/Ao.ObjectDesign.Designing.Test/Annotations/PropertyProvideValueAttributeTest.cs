@@ -1,11 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Designing.Test.Annotations
 {
@@ -20,7 +15,7 @@ namespace Ao.ObjectDesign.Designing.Test.Annotations
             var type = typeof(object);
             Assert.ThrowsException<ArgumentException>(() => new PropertyProvideValueAttribute(null));
             Assert.ThrowsException<ArgumentException>(() => new PropertyProvideValueAttribute(null, type));
-            Assert.ThrowsException<ArgumentNullException>(() => new PropertyProvideValueAttribute(name,null));
+            Assert.ThrowsException<ArgumentNullException>(() => new PropertyProvideValueAttribute(name, null));
         }
         [TestMethod]
         public void GivenValueInit_PropertyMustEqualInput()
@@ -31,7 +26,7 @@ namespace Ao.ObjectDesign.Designing.Test.Annotations
             Assert.IsNull(attr.ProvideType);
             Assert.AreEqual(name, attr.PropertyName);
 
-            attr = new PropertyProvideValueAttribute(name,t);
+            attr = new PropertyProvideValueAttribute(name, t);
             Assert.AreEqual(t, attr.ProvideType);
             Assert.AreEqual(name, attr.PropertyName);
         }

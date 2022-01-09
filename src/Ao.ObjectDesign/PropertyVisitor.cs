@@ -12,6 +12,11 @@ namespace Ao.ObjectDesign
         private static readonly ConcurrentDictionary<Type, TypeConverter> typeConverterMap = new ConcurrentDictionary<Type, TypeConverter>();
         private static readonly PropertyChangedEventArgs valueHandledEventArgs = new PropertyChangedEventArgs(nameof(Value));
 
+        private static TypeConverter CreateConvert(Type type)
+        {
+            return (TypeConverter)Activator.CreateInstance(type);
+        }
+
         public PropertyVisitor(object declaringInstance, PropertyInfo propertyInfo)
         {
             PropertyInfo = propertyInfo ?? throw new ArgumentNullException(nameof(propertyInfo));
@@ -27,7 +32,7 @@ namespace Ao.ObjectDesign
             if (typeDescAttr != null)
             {
                 Type type = Type.GetType(typeDescAttr.ConverterTypeName, true);
-                typeConverter = typeConverterMap.GetOrAdd(type, t => (TypeConverter)Activator.CreateInstance(t));
+                typeConverter = typeConverterMap.GetOrAdd(type, CreateConvert);
             }
             else
             {

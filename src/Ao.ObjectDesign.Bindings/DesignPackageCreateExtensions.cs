@@ -4,18 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Bindings
 {
     public static class DesignPackageCreateExtensions
     {
-        public static bool HasCreateAttributes<TUI,TDesignObject>(this IDesignPair<TUI, TDesignObject> unit)
+        public static bool HasCreateAttributes<TUI, TDesignObject>(this IDesignPair<TUI, TDesignObject> unit)
         {
             return unit.DesigningObject.GetType().IsDefined(typeof(BindingCreatorFactoryAttribute));
         }
-        public static IEnumerable<TBindingScope> CreateFromAttribute<TUI,TDesignObject,TBindingScope>(this IDesignPair<TUI, TDesignObject> unit,
+        public static IEnumerable<TBindingScope> CreateFromAttribute<TUI, TDesignObject, TBindingScope>(this IDesignPair<TUI, TDesignObject> unit,
             IBindingCreatorState state)
         {
             return CreateFromAttribute(unit, state, x => (IBindingCreator<TUI, TDesignObject, TBindingScope>)Activator.CreateInstance(x));

@@ -7,7 +7,7 @@ namespace ObjectDesign.Brock.Views
 {
     public class StrokeThicknessCondition : TemplateCondition
     {
-        public static readonly IReadOnlyCollection<double> GivenFontStrokeThicknesses= GetFontStrokeThicknesses();
+        public static readonly IReadOnlyCollection<double> GivenFontStrokeThicknesses = GetFontStrokeThicknesses();
 
         private static double[] GetFontStrokeThicknesses()
         {

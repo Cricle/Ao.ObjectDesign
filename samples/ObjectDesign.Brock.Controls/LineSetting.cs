@@ -1,14 +1,5 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
-using Ao.ObjectDesign.Bindings;
-using System.Windows.Shapes;
-
-namespace ObjectDesign.Brock.Controls
+﻿namespace ObjectDesign.Brock.Controls
 {
-    
-        
-    
     public class LineSetting : ShapeSetting
     {
         private double x1;

@@ -64,7 +64,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             }
         }
         [PlatformTargetGetMethod]
-        [return:ProvideMulityValues]
+        [return: ProvideMulityValues]
         [return: PropertyProvideValue(nameof(SkewTransform), typeof(SkewTransform))]
         [return: PropertyProvideValue(nameof(ScaleTransform), typeof(ScaleTransform))]
         [return: PropertyProvideValue(nameof(RotateTransform), typeof(RotateTransform))]
@@ -111,19 +111,19 @@ namespace Ao.ObjectDesign.Wpf.Designing
                 {
                     if (item is TranslateTransform translate)
                     {
-                        TranslateTransform = new TranslateTransformDesigner ();
+                        TranslateTransform = new TranslateTransformDesigner();
                         TranslateTransform.SetTranslateTransform(translate);
                         return TransformTypes.Translate;
                     }
                     else if (item is RotateTransform rotate)
                     {
-                        RotateTransform = new RotateTransformDesigner ();
+                        RotateTransform = new RotateTransformDesigner();
                         RotateTransform.SetRotateTransform(rotate);
                         return TransformTypes.Rotate;
                     }
                     else if (item is SkewTransform skew)
                     {
-                        SkewTransform = new SkewTransformDesigner ();
+                        SkewTransform = new SkewTransformDesigner();
                         SkewTransform.SetSkewTransform(skew);
                         return TransformTypes.Skew;
                     }

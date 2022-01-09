@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -13,7 +9,7 @@ namespace Ao.ObjectDesign.Designing.Test
     {
         [TestMethod]
         public void GivenNullCall_MustReturnDefault()
-        { 
+        {
             var mgr = new ValueDesignClipboardManager<object>();
             Assert.IsNull(mgr.Clone(null));
         }
@@ -33,7 +29,7 @@ namespace Ao.ObjectDesign.Designing.Test
 
             var values = new List<int> { 1, 23, 4 };
 
-            mgr.SetCopiedObject(values,false);
+            mgr.SetCopiedObject(values, false);
 
             Assert.AreEqual(mgr, sender);
             Assert.IsNull(args.OldOriginObjects);
@@ -50,7 +46,7 @@ namespace Ao.ObjectDesign.Designing.Test
             mgr.SetCopiedObject(otherValues, false);
 
             Assert.AreEqual(mgr, sender);
-            Assert.AreEqual(values,args.OldOriginObjects);
+            Assert.AreEqual(values, args.OldOriginObjects);
             Assert.AreEqual(values, args.OldCopiedObjects);
 
             Assert.AreEqual(otherValues, args.NewOriginObjects);
@@ -107,7 +103,7 @@ namespace Ao.ObjectDesign.Designing.Test
         {
             var mgr = new ValueDesignClipboardManager<object>();
             var v = new object();
-            var val=mgr.Clone(v);
+            var val = mgr.Clone(v);
             Assert.AreNotEqual(v, val);
             Assert.IsInstanceOfType(val, typeof(object));
         }

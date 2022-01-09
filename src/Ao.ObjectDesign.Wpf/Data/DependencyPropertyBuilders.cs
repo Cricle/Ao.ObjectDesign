@@ -20,12 +20,12 @@ namespace Ao.ObjectDesign.Wpf.Data
             T source,
             LExpression.Expression<Func<T, object>> nameExp)
         {
-            string name=null;
+            string name = null;
             if (nameExp.Body is LExpression.MemberExpression me)
             {
                 name = me.Member.Name;
             }
-            else if (nameExp.Body is LExpression.UnaryExpression ue&&
+            else if (nameExp.Body is LExpression.UnaryExpression ue &&
                 ue.Operand is LExpression.MemberExpression ueme)
             {
                 name = ueme.Member.Name;
@@ -40,7 +40,7 @@ namespace Ao.ObjectDesign.Wpf.Data
         {
             return Scope(property, name).Bind(@object, source);
         }
-        public static IWithSourceBindingScope WithSourceScope(this DependencyProperty property, string name,object source)
+        public static IWithSourceBindingScope WithSourceScope(this DependencyProperty property, string name, object source)
         {
             return Creator(property, name).Build().ToWithSource(source);
         }

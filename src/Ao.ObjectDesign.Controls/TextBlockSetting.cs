@@ -169,21 +169,21 @@ namespace Ao.ObjectDesign.Controls
             else
             {
                 Apply((FrameworkElement)value);
-                FontWeight = new FontWeightDesigner ();
+                FontWeight = new FontWeightDesigner();
                 FontWeight.SetFontWeight(value.FontWeight);
-                FontStyle = new FontStyleDesigner ();
+                FontStyle = new FontStyleDesigner();
                 FontStyle.SetFontStyle(value.FontStyle);
-                FontFamily = new FontFamilyDesigner ();
+                FontFamily = new FontFamilyDesigner();
                 FontFamily.SetFontFamily(value.FontFamily);
                 Text = value.Text;
-                FontStretch = new FontStretchDesigner ();
+                FontStretch = new FontStretchDesigner();
                 FontStretch.SetFontStretch(value.FontStretch);
                 BaselineOffset = value.BaselineOffset;
                 FontSize = value.FontSize;
                 TextWrapping = value.TextWrapping;
-                Background = new BrushDesigner ();
+                Background = new BrushDesigner();
                 Background.SetBrush(value.Background);
-                TextDecorations = new TextDecorationCollectionDesigner ();
+                TextDecorations = new TextDecorationCollectionDesigner();
                 TextDecorations.SetTextDecorationCollection(value.TextDecorations);
                 LineHeight = value.LineHeight;
                 LineStackingStrategy = value.LineStackingStrategy;
@@ -192,7 +192,7 @@ namespace Ao.ObjectDesign.Controls
                 TextAlignment = value.TextAlignment;
                 TextTrimming = value.TextTrimming;
                 IsHyphenationEnabled = value.IsHyphenationEnabled;
-                Foreground = new BrushDesigner ();
+                Foreground = new BrushDesigner();
                 Foreground.SetBrush(value.Foreground);
             }
         }

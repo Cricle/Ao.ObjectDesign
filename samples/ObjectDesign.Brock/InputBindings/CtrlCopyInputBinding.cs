@@ -1,16 +1,10 @@
-﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Session.Desiging;
+﻿using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.WpfDesign.Input;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;
 using ObjectDesign.Brock.Services;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -18,7 +12,7 @@ namespace ObjectDesign.Brock.InputBindings
 {
     internal class CtrlCopyInputBinding : PreviewMouseInputBase
     {
-        public CtrlCopyInputBinding(IDesignSession<Scene,UIElementSetting> session,
+        public CtrlCopyInputBinding(IDesignSession<Scene, UIElementSetting> session,
             ActionSettingService actionSettingService)
         {
             Debug.Assert(session != null);

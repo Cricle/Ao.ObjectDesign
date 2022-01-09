@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Designing.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

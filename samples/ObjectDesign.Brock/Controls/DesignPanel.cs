@@ -9,7 +9,7 @@ namespace ObjectDesign.Brock.Controls
 {
     public class DesignPanel : UserControl
     {
-        public IDesignSession<Scene,UIElementSetting> DesignSession
+        public IDesignSession<Scene, UIElementSetting> DesignSession
         {
             get { return (IDesignSession<Scene, UIElementSetting>)GetValue(DesignSessionProperty); }
             set { SetValue(DesignSessionProperty, value); }

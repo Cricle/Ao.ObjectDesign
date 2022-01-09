@@ -16,7 +16,7 @@ namespace ObjectDesign.Brock.Services
             Action<IDesignSceneController<UIElement, UIElementSetting>, IDesignPair<UIElement, UIElementSetting>> action,
             bool reverse = false)
         {
-            ActionInDesigins(runtime, action, runtime.CurrentSession.Suface.DesigningObjects,reverse);
+            ActionInDesigins(runtime, action, runtime.CurrentSession.Suface.DesigningObjects, reverse);
         }
         internal static void ActionInDesigins(MySceneMakerRuntime runtime,
             Action<IDesignSceneController<UIElement, UIElementSetting>, IDesignPair<UIElement, UIElementSetting>> action,

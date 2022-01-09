@@ -7,7 +7,7 @@ namespace Ao.ObjectDesign.Data
         public NotifyUnSubscribedEventArgs(TKey key, DataViewChannels<TKey> channels, IDataNotifyer<TKey> notifyer)
         {
             Key = key;
-            Channels=channels;
+            Channels = channels;
             Notifyer = notifyer;
         }
 

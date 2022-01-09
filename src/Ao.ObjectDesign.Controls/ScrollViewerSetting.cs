@@ -37,7 +37,7 @@ namespace Ao.ObjectDesign.Controls
             set => Set(ref isDeferredScrollingEnabled, value);
         }
 
-        [DefaultValue(1/96d)]
+        [DefaultValue(1 / 96d)]
         public virtual double PanningDeceleration
         {
             get => panningDeceleration;

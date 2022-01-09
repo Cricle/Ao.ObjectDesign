@@ -1,13 +1,9 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public abstract class BindingCreator<TUI,TDesignObject,TBindingScope> : IBindingCreator<TUI,TDesignObject, TBindingScope>
+    public abstract class BindingCreator<TUI, TDesignObject, TBindingScope> : IBindingCreator<TUI, TDesignObject, TBindingScope>
     {
         protected BindingCreator(IDesignPair<TUI, TDesignObject> designUnit, IBindingCreatorState state)
         {

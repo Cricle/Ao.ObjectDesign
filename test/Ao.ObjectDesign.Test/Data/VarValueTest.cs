@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -23,7 +19,7 @@ namespace Ao.ObjectDesign.Test.Data
 
             public override VarValue Clone()
             {
-                return new NullVarValue(Value,TypeCode);
+                return new NullVarValue(Value, TypeCode);
             }
         }
         [TestMethod]
@@ -85,7 +81,7 @@ namespace Ao.ObjectDesign.Test.Data
         [DataRow(typeof(double?), "a")]
         [DataRow(typeof(float?), "a")]
         [DataRow(typeof(decimal?), "a")]
-        public void ToNullable_Fail(Type type,string input)
+        public void ToNullable_Fail(Type type, string input)
         {
             var obj = new RefValue(input, TypeCode.String);
             var val = obj.To(type);

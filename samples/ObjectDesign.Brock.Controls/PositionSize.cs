@@ -1,7 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using System;
-using System.ComponentModel;
 using System.Windows;
 
 namespace ObjectDesign.Brock.Components
@@ -15,7 +14,7 @@ namespace ObjectDesign.Brock.Components
         private double y;
 
 
-        
+
         public double Width
         {
             get => width;
@@ -26,7 +25,7 @@ namespace ObjectDesign.Brock.Components
                 Set(ref width, value);
             }
         }
-        
+
         public double Height
         {
             get => height;
@@ -37,7 +36,7 @@ namespace ObjectDesign.Brock.Components
                 Set(ref height, value);
             }
         }
-        
+
         public double X
         {
             get => x;
@@ -47,7 +46,7 @@ namespace ObjectDesign.Brock.Components
                 Set(ref x, value);
             }
         }
-        
+
         public double Y
         {
             get => y;

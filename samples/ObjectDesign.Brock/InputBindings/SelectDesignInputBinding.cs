@@ -34,7 +34,7 @@ namespace ObjectDesign.Brock.InputBindings
                 if (CanSelect(endPoint, startPoint))
                 {
                     session.ThrowIfNoInitialized();
-                    
+
                     TopMostHitResult result = new TopMostHitResult();
                     result.designMap = designMap;
 

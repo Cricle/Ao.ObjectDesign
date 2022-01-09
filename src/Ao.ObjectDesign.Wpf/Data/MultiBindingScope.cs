@@ -5,7 +5,7 @@ namespace Ao.ObjectDesign.Wpf.Data
 {
     public class MultiBindingScope : BindingScopeBase<MultiBinding>
     {
-        public MultiBindingScope(IBindingMaker<MultiBinding> creator, Action<MultiBinding> bindingAction) 
+        public MultiBindingScope(IBindingMaker<MultiBinding> creator, Action<MultiBinding> bindingAction)
             : base(creator, bindingAction)
         {
         }

@@ -1,16 +1,10 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
+﻿using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Controls
 {
-        
-    
     public class ControlSetting : FrameworkElementSetting
     {
         private VerticalAlignment verticalContentAlignment;
@@ -102,7 +96,7 @@ namespace ObjectDesign.Brock.Controls
             VerticalContentAlignment = VerticalAlignment.Stretch;
             Background = new BrushDesigner();
             Background.SetBrush(Brushes.Transparent);
-            BorderBrush = new BrushDesigner ();
+            BorderBrush = new BrushDesigner();
             BorderBrush.SetBrush(Brushes.Black);
             Foreground = new BrushDesigner();
             Foreground.SetBrush(Brushes.Black);

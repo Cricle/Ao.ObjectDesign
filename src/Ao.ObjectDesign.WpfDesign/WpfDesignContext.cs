@@ -1,17 +1,13 @@
-﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Bindings;
+﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Designing.Level;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public partial class WpfDesignContext : DesignContext<UIElement,IWpfDesignContext>, IWpfDesignContext
+    public partial class WpfDesignContext : DesignContext<UIElement, IWpfDesignContext>, IWpfDesignContext
     {
         public WpfDesignContext(IServiceProvider provider, IEnumerable<UIElement> target, IActionSequencer<IModifyDetail> sequencer, IDesignSuface<UIElement, IWpfDesignContext> designSuface) : base(provider, target, sequencer, designSuface)
         {

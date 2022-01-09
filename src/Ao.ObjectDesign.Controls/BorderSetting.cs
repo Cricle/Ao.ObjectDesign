@@ -85,24 +85,24 @@ namespace Ao.ObjectDesign.Controls
                 Background.SetBrush(value.Background);
                 if (borderBrush is null)
                 {
-                    BorderBrush = new BrushDesigner ();
+                    BorderBrush = new BrushDesigner();
                 }
-                    borderBrush.SetBrush(value.BorderBrush);
+                borderBrush.SetBrush(value.BorderBrush);
                 if (cornerRadius is null)
                 {
-                    CornerRadius = new CornerRadiusDesigner ();
+                    CornerRadius = new CornerRadiusDesigner();
                 }
-                    cornerRadius.SetCornerRadius(value.CornerRadius);
+                cornerRadius.SetCornerRadius(value.CornerRadius);
                 if (padding is null)
                 {
                     Padding = new ThicknessDesigner();
                 }
-                    padding.SetThickness(value.Padding);
+                padding.SetThickness(value.Padding);
                 if (borderThicknes is null)
                 {
-                    BorderThicknes = new ThicknessDesigner ();
+                    BorderThicknes = new ThicknessDesigner();
                 }
-                    borderThicknes.SetThickness(value.BorderThickness);
+                borderThicknes.SetThickness(value.BorderThickness);
             }
         }
 

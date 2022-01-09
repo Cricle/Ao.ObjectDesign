@@ -3,8 +3,6 @@ using ObjectDesign.Brock.Controls.Converters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -40,7 +38,7 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
             ui.SetValue(MediaElement.LoadedBehaviorProperty, obj.LoadedBehavior);
             ui.SetValue(MediaElement.StretchProperty, obj.Stretch);
             ui.SetValue(MediaElement.ScrubbingEnabledProperty, obj.ScrubbingEnabled);
-            if (Uri.TryCreate(obj.Source, UriKind.Absolute,out var uri))
+            if (Uri.TryCreate(obj.Source, UriKind.Absolute, out var uri))
             {
                 ui.SetValue(MediaElement.SourceProperty, uri);
             }

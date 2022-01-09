@@ -1,10 +1,7 @@
-﻿using Ao.ObjectDesign;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 
 namespace Ao.ObjectDesign.Data
 {
@@ -37,7 +34,7 @@ namespace Ao.ObjectDesign.Data
                 throw new ArgumentNullException(nameof(notifyer));
             }
 
-            if (!notifyerMap.TryGetValue(name,out var lst))
+            if (!notifyerMap.TryGetValue(name, out var lst))
             {
                 lst = new ChannelEntity(DataView, name);
                 notifyerMap.Add(name, lst);
@@ -87,7 +84,7 @@ namespace Ao.ObjectDesign.Data
         {
             return notifyerMap.ContainsKey(key);
         }
-        public bool IsSubscribedNotifyer(TKey key,IDataNotifyer<TKey> notifyer)
+        public bool IsSubscribedNotifyer(TKey key, IDataNotifyer<TKey> notifyer)
         {
             if (key == null)
             {
@@ -123,7 +120,7 @@ namespace Ao.ObjectDesign.Data
 
             private void OnDataViewDataChanged(object sender, DataChangedEventArgs<TKey, IVarValue> e)
             {
-                if (e.Key!=null &&e.Key.Equals(Name))
+                if (e.Key != null && e.Key.Equals(Name))
                 {
                     foreach (var item in Subscribers)
                     {
@@ -143,7 +140,7 @@ namespace Ao.ObjectDesign.Data
             public NotifyToken(DataViewChannels<TKey> channels, TKey key, IDataNotifyer<TKey> notifyer)
             {
                 Debug.Assert(channels != null);
-                Debug.Assert(key!=null);
+                Debug.Assert(key != null);
                 Debug.Assert(notifyer != null);
                 Channel = channels;
                 Notifyer = notifyer;
@@ -169,7 +166,7 @@ namespace Ao.ObjectDesign.Data
                     Debug.Assert(Key != null);
                     Debug.Assert(Notifyer != null);
                     Channel.UnRegist(Key, Notifyer);
-                    if (UnSubscribed!=null)
+                    if (UnSubscribed != null)
                     {
                         var e = new NotifyUnSubscribedEventArgs<TKey>(Key, Channel, Notifyer);
                         UnSubscribed?.Invoke(this, e);

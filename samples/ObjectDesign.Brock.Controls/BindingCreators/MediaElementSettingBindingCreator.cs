@@ -1,23 +1,17 @@
-﻿using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
-using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Bindings;
-using Ao.ObjectDesign.Session.BindingCreators;
 using ObjectDesign.Brock.Components;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
-using System.ComponentModel;
 
 namespace ObjectDesign.Brock.Controls.BindingCreators
 {
-    
+
     public partial class MediaElementSettingBindingCreator : FrameworkElementSettingBindingCreator
     {
         public MediaElementSettingBindingCreator(IDesignPair<UIElement, UIElementSetting> designUnit, IBindingCreatorState state)
@@ -41,7 +35,7 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
 
         private void OnSettingPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName==nameof(MediaElementSetting.Source))
+            if (e.PropertyName == nameof(MediaElementSetting.Source))
             {
                 var setting = (MediaElementSetting)DesignUnit.DesigningObject;
                 OnSourceChanged(setting.Source);

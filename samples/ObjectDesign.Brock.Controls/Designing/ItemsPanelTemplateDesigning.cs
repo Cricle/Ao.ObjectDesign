@@ -1,5 +1,4 @@
 ﻿using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Designing.Annotations;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -8,11 +7,11 @@ using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls.Designing
 {
-    
+
     public class ItemsPanelTemplateDesigning : NotifyableObject
     {
         private static readonly string StackPanelOrientationKey = "ObjectDesign.Brock.Controls.Designing.ItemsPanelTemplateDesigning.StackPanelOrientation";
-        private ItemsPanelTemplateTypes type= ItemsPanelTemplateTypes.HorizontalStackPanel;
+        private ItemsPanelTemplateTypes type = ItemsPanelTemplateTypes.HorizontalStackPanel;
 
         public ItemsPanelTemplateTypes Type
         {
@@ -24,7 +23,7 @@ namespace ObjectDesign.Brock.Controls.Designing
             }
         }
 
-        
+
         public ItemsPanelTemplate ItemsPanelTemplate
         {
             get => CreatePanelTemplate(type);

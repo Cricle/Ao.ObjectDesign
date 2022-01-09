@@ -99,9 +99,9 @@ namespace Ao.ObjectDesign.Test
         [TestMethod]
         public void ConvertValue_ValueEqualNull_MustValue()
         {
-            var c=new Class();
+            var c = new Class();
             var prop = typeof(Class).GetProperty("Name");
-            PropertyVisitor pv = new PropertyVisitor(c,prop);
+            PropertyVisitor pv = new PropertyVisitor(c, prop);
 
             c.Name = "asd";
 
@@ -128,8 +128,8 @@ namespace Ao.ObjectDesign.Test
             pv.SetValue("123");
 
             Assert.AreEqual(pv, sender);
-            Assert.AreEqual("Value",args.PropertyName);
-            
+            Assert.AreEqual("Value", args.PropertyName);
+
 
         }
 

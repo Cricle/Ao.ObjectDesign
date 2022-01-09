@@ -1,18 +1,13 @@
 ﻿using Ao.ObjectDesign.Bindings.Annotations;
-using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public class BindingCreatorFactoryCollection<TUI,TDesignObject,TBindingScope> : List<IBindingCreatorFactory<TUI,TDesignObject,TBindingScope>>
+    public class BindingCreatorFactoryCollection<TUI, TDesignObject, TBindingScope> : List<IBindingCreatorFactory<TUI, TDesignObject, TBindingScope>>
     {
         public BindingCreatorFactoryCollection()
         {
@@ -26,7 +21,7 @@ namespace Ao.ObjectDesign.Bindings
         {
         }
 
-        public virtual IEnumerable<IBindingCreatorFactory<TUI, TDesignObject, TBindingScope>> FindBindingCreatorFactorys(IDesignPair<TUI,TDesignObject> unit, IBindingCreatorState state)
+        public virtual IEnumerable<IBindingCreatorFactory<TUI, TDesignObject, TBindingScope>> FindBindingCreatorFactorys(IDesignPair<TUI, TDesignObject> unit, IBindingCreatorState state)
         {
             return this.OrderByDescending(x => x.Order).Where(x => x.IsAccept(unit, state));
         }

@@ -18,7 +18,7 @@ namespace Ao.ObjectDesign.Designing.Level
             set
             {
                 var old = currentScene;
-                if (!EqualityComparer<TScene>.Default.Equals(old ,value))
+                if (!EqualityComparer<TScene>.Default.Equals(old, value))
                 {
                     OnCurrentSceneChanging(old, value);
                     currentScene = value;
@@ -77,7 +77,7 @@ namespace Ao.ObjectDesign.Designing.Level
         }
         private IEnumerable<IDesignPair<TUI, TDesignObject>> HitTestCore(IEnumerable<IDesignSceneController<TUI, TDesignObject>> controllers,
             Func<TDesignObject, IRect> boundGetter,
-            IVector point, 
+            IVector point,
             IVector offset)
         {
             if (boundGetter is null)

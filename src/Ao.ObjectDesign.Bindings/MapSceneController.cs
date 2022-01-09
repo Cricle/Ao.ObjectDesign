@@ -4,12 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public abstract class LazyMapSceneController<TUI, TDesignObject, TBindingScope,TExpression> : MapSceneController<TUI, TDesignObject, TBindingScope, TExpression>
+    public abstract class LazyMapSceneController<TUI, TDesignObject, TBindingScope, TExpression> : MapSceneController<TUI, TDesignObject, TBindingScope, TExpression>
     {
         private readonly Dictionary<TDesignObject, LazyBindingBox<TUI, TDesignObject, TBindingScope, TExpression>> bindingTaskMap;
 
@@ -115,7 +113,7 @@ namespace Ao.ObjectDesign.Bindings
         }
     }
 
-    public abstract class MapSceneController<TUI,TDesignObject,TBindingScope,TExpression> : DesignSceneController<TUI, TDesignObject>
+    public abstract class MapSceneController<TUI, TDesignObject, TBindingScope, TExpression> : DesignSceneController<TUI, TDesignObject>
     {
         private static readonly IBindingCreator<TUI, TDesignObject, TBindingScope>[] emptyCreator = new IBindingCreator<TUI, TDesignObject, TBindingScope>[0];
 
@@ -182,7 +180,7 @@ namespace Ao.ObjectDesign.Bindings
         {
             foreach (var item in scopes)
             {
-                Bind(item,unit);
+                Bind(item, unit);
             }
         }
         protected abstract TExpression Bind(TBindingScope scope, IDesignPair<TUI, TDesignObject> unit);
@@ -190,7 +188,7 @@ namespace Ao.ObjectDesign.Bindings
         {
             if (UseUnitDesignAttribute && unit.HasCreateAttributes())
             {
-                return unit.CreateBindingCreatorFromAttribute<TUI,TDesignObject,TBindingScope>();
+                return unit.CreateBindingCreatorFromAttribute<TUI, TDesignObject, TBindingScope>();
             }
             return DesignPackage.GetBindingCreatorFactorys(unit, state)
                 .SelectMany(x => x.Create(unit, state));

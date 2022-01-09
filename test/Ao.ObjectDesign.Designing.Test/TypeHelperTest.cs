@@ -1,9 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -60,10 +56,10 @@ namespace Ao.ObjectDesign.Designing.Test
         [DataRow((byte)1, typeof(double), 1d)]
         [DataRow((int)1, typeof(double), 1d)]
         [DataRow(1L, typeof(int), 1)]
-        public void GivenValueConvert_MustPass(object origin,Type type,object dest)
+        public void GivenValueConvert_MustPass(object origin, Type type, object dest)
         {
             var val = TypeHelper.SafeChangeType(origin, type);
-            Assert.AreEqual(dest,val);
+            Assert.AreEqual(dest, val);
         }
         [TestMethod]
         [DataRow((byte)1, typeof(int?), 1)]

@@ -1,18 +1,13 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
     [TestClass]
     public class NotifyableMapTest
     {
-        
+
         [TestMethod]
         [DataRow(true)]
         [DataRow(false)]
@@ -81,13 +76,13 @@ namespace Ao.ObjectDesign.Test.Data
                 sender = o;
                 args = e;
             };
-            var val=m.Remove(1);
+            var val = m.Remove(1);
             Assert.IsTrue(val);
             Assert.AreEqual(m, sender);
             Assert.AreEqual(100, args.Old);
             Assert.AreEqual(0, args.New);
             Assert.AreEqual(ChangeModes.Reset, args.Mode);
-            
+
             sender = null;
             args = null;
             val = m.Remove(1);

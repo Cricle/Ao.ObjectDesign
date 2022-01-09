@@ -1,10 +1,6 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -36,9 +32,9 @@ namespace Ao.ObjectDesign.Test.Data
             bd.Bind();
             Assert.ThrowsException<InvalidOperationException>(() => bd.Converter = null);
             Assert.ThrowsException<InvalidOperationException>(() => bd.ConverterParamter = null);
-            Assert.ThrowsException<InvalidOperationException>(() => bd.Mode =  DesignDataBindingModes.Defualt);
-            Assert.ThrowsException<InvalidOperationException>(() => bd.UpdateSourceTrigger= DesignUpdateSourceTrigger.Default);
-            Assert.ThrowsException<InvalidOperationException>(() => bd.Target= null);
+            Assert.ThrowsException<InvalidOperationException>(() => bd.Mode = DesignDataBindingModes.Defualt);
+            Assert.ThrowsException<InvalidOperationException>(() => bd.UpdateSourceTrigger = DesignUpdateSourceTrigger.Default);
+            Assert.ThrowsException<InvalidOperationException>(() => bd.Target = null);
             Assert.ThrowsException<InvalidOperationException>(() => bd.Source = null);
             Assert.ThrowsException<InvalidOperationException>(() => bd.SourcePropertyName = null);
             Assert.ThrowsException<InvalidOperationException>(() => bd.TargetPropertyName = null);

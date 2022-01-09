@@ -18,19 +18,19 @@ namespace ObjectDesign.Brock.InputBindings
 
         public override void OnPreviewKeyUp(object sender, KeyEventArgs e)
         {
-            if ((Keyboard.Modifiers& ModifierKeys.Control)== ModifierKeys.Control)
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
             {
-                if (e.Key== Key.Z)
+                if (e.Key == Key.Z)
                 {
                     Session.Sequencer.Undo(true);
                     Session.Suface.UpdateInRender();
                 }
-                else if (e.Key== Key.U)
+                else if (e.Key == Key.U)
                 {
                     Session.Sequencer.Redo(true);
                     Session.Suface.UpdateInRender();
                 }
-                else if (e.Key== Key.W)
+                else if (e.Key == Key.W)
                 {
                     Session.Sequencer.CleanAllRecords();
                 }

@@ -1,17 +1,11 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
+﻿using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Controls
 {
-        
-    
-    public class TextBlockSetting: FrameworkElementSetting
+    public class TextBlockSetting : FrameworkElementSetting
     {
         private string text;
         private BrushDesigner background;
@@ -61,7 +55,7 @@ namespace ObjectDesign.Brock.Controls
             Text = null;
             FontSize = 12;
             TextTrimming = TextTrimming.None;
-            Background = new BrushDesigner ();
+            Background = new BrushDesigner();
             Background.SetBrush(Brushes.Transparent);
             Foreground = new BrushDesigner();
             Foreground.SetBrush(Brushes.Transparent);

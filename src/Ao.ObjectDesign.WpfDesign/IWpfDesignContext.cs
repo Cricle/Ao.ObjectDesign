@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.WpfDesign
 {
-    public interface IWpfDesignContext: IDesignContext<UIElement,IWpfDesignContext>
+    public interface IWpfDesignContext : IDesignContext<UIElement, IWpfDesignContext>
     {
 
     }

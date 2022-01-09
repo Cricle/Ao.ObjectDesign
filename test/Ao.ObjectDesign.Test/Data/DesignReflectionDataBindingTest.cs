@@ -1,10 +1,5 @@
 ﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -42,7 +37,7 @@ namespace Ao.ObjectDesign.Test.Data
         public void TwoWayBind()
         {
             var bd = CreateBinding();
-            bd.Mode =  DesignDataBindingModes.TwoWay;
+            bd.Mode = DesignDataBindingModes.TwoWay;
             var source = (Student)bd.Source;
             var target = (Student)bd.Target;
 

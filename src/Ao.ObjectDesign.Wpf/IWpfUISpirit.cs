@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Designing;
+using System.Windows;
 
 namespace Ao.ObjectDesign.Wpf
 {

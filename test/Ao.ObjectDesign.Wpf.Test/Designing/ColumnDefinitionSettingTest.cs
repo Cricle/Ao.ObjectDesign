@@ -13,7 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Designing
         {
             ColumnDefinitionDesigner design = new ColumnDefinitionDesigner
             {
-                
+
             };
             design.SetColumnDefinition(new ColumnDefinition
             {

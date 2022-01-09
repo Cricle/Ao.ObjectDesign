@@ -1,6 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
-using System;
 using System.ComponentModel;
 using System.Windows;
 

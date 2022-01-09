@@ -60,14 +60,14 @@ namespace Ao.ObjectDesign.Designing
                 {
                     return false;
                 }
-                if (detail.From is null&&To is null&&
-                    detail.To is null&&From is null)
+                if (detail.From is null && To is null &&
+                    detail.To is null && From is null)
                 {
                     return true;
                 }
                 var a = detail.From?.Equals(To);
                 var b = detail.To?.Equals(From);
-                if (a is null|| b is null)
+                if (a is null || b is null)
                 {
                     return true;
                 }

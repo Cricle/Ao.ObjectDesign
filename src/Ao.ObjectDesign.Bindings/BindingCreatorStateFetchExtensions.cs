@@ -4,7 +4,7 @@ namespace Ao.ObjectDesign.Bindings
 {
     public static class BindingCreatorStateFetchExtensions
     {
-        public static T GetFeature<T>(this IBindingCreatorState state,object key)
+        public static T GetFeature<T>(this IBindingCreatorState state, object key)
         {
             var feature = state.Features;
             if (feature is null)

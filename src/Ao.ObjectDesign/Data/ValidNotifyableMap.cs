@@ -117,8 +117,8 @@ namespace Ao.ObjectDesign.Data
                 throw new ArgumentNullException(nameof(validater));
             }
 
-            if (IsWithKeyRulesCreated&&
-                WithKeyRules.TryGetValue(key,out var lst))
+            if (IsWithKeyRulesCreated &&
+                WithKeyRules.TryGetValue(key, out var lst))
             {
                 return lst.Remove(validater);
             }

@@ -39,7 +39,7 @@ namespace Ao.ObjectDesign.Data
             set
             {
                 ThrowIfBind();
-                sourcePropertyName = value;   
+                sourcePropertyName = value;
             }
         }
 

@@ -1,24 +1,24 @@
 ﻿using Ao.ObjectDesign;
 using Ao.ObjectDesign.Session.Desiging;
+using Ao.ObjectDesign.WpfDesign;
 using Ao.ObjectDesign.WpfDesign.Input;
-using ObjectDesign.Brock.Level;
 using ObjectDesign.Brock.Components;
+using ObjectDesign.Brock.Level;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Ao.ObjectDesign.WpfDesign;
 
 namespace ObjectDesign.Brock.InputBindings
 {
-    internal class TextInputBinding: PreviewMouseInputBase
+    internal class TextInputBinding : PreviewMouseInputBase
     {
-        private static readonly IReadOnlyHashSet<Type> hiddenPanelTypes = new ReadOnlyHashSet<Type>(new Type[] 
+        private static readonly IReadOnlyHashSet<Type> hiddenPanelTypes = new ReadOnlyHashSet<Type>(new Type[]
         {
             typeof(TextBox)
         });
 
-        public TextInputBinding(IDesignSession<Scene,UIElementSetting> session)
+        public TextInputBinding(IDesignSession<Scene, UIElementSetting> session)
         {
             Session = session;
         }
@@ -36,8 +36,8 @@ namespace ObjectDesign.Brock.InputBindings
         public override void OnPreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var p = e.GetPosition(sender as UIElement);
-            if (DateTime.Now - time < TimeSpan.FromMilliseconds(500)&&
-                CanSelect(p1,p))
+            if (DateTime.Now - time < TimeSpan.FromMilliseconds(500) &&
+                CanSelect(p1, p))
             {
                 var ds = Session.Suface.DesigningObjects;
                 if (ds != null && ds.Length == 1 && hiddenPanelTypes.Contains(ds[0].GetType()))

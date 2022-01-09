@@ -1,4 +1,3 @@
-using System.Windows;
 using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("https://github.com/Cricle/Ao.ObjectDesign", "Ao.ObjectDesign.WpfDesign")]

@@ -25,8 +25,8 @@ namespace Ao.ObjectDesign.Designing.Level
         {
             unchecked
             {
-                var h=17*31+X.GetHashCode();
-                h=31*h+Y.GetHashCode();
+                var h = 17 * 31 + X.GetHashCode();
+                h = 31 * h + Y.GetHashCode();
                 return h;
             }
         }

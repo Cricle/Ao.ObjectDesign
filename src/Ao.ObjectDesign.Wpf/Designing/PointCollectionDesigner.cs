@@ -62,7 +62,7 @@ namespace Ao.ObjectDesign.Wpf.Designing
             Clear();
             if (value != null)
             {
-                AddRange(value.Select(x => 
+                AddRange(value.Select(x =>
                 {
                     var p = new PointDesigner();
                     p.SetPoint(x);

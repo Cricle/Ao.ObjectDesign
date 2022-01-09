@@ -24,9 +24,9 @@ namespace Ao.ObjectDesign.Wpf.Data
         }
 
         public static PropertyWithSourceBindingScope FromExpression<T>(T source,
-            LExpressions.Expression<Func<T,object>> visitor,
+            LExpressions.Expression<Func<T, object>> visitor,
             IBindingScope scope)
-            where T:class
+            where T : class
         {
             if (source is null)
             {
@@ -53,7 +53,7 @@ namespace Ao.ObjectDesign.Wpf.Data
             {
                 throw new NotSupportedException($"The visitor {visitor} is not support");
             }
-            
+
             Debug.Assert(prop != null);
 
             return new PropertyWithSourceBindingScope(source, prop, scope);

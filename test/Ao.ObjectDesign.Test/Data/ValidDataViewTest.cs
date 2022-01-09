@@ -2,9 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Test.Data
 {
@@ -15,7 +12,7 @@ namespace Ao.ObjectDesign.Test.Data
         public void New()
         {
             new ValidDataView<string>();
-            new ValidDataView<string>(100,10);
+            new ValidDataView<string>(100, 10);
             new ValidDataView<string>(StringComparer.OrdinalIgnoreCase);
             var map = new ValidDataView<string>(new Dictionary<string, IVarValue>
             {

@@ -1,5 +1,4 @@
-﻿using Ao.ObjectDesign;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Reflection;
 
 namespace Ao.ObjectDesign.Data
@@ -47,7 +46,7 @@ namespace Ao.ObjectDesign.Data
             if (sourceProp == SourcePropertyInfo)
             {
                 Debug.Assert(sourcePropertySetter != null);
-                sourcePropertySetter(instance,value);
+                sourcePropertySetter(instance, value);
             }
             else
             {

@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -27,7 +22,7 @@ namespace Ao.ObjectDesign.Designing.Test
             Assert.AreEqual(detail.To, copied.To);
             Assert.AreEqual(detail.Mode, copied.Mode);
 
-            copied = detail.Copy( FallbackModes.Forward);
+            copied = detail.Copy(FallbackModes.Forward);
 
             Assert.AreEqual(detail.Instance, copied.Instance);
             Assert.AreEqual(detail.PropertyName, copied.PropertyName);

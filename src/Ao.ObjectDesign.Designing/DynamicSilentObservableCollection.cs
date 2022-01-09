@@ -4,7 +4,7 @@ using System.Collections.Specialized;
 
 namespace System.Collections.ObjectModel
 {
-    public class DynamicSilentObservableCollection<T>:NotifyableObject, ISilentObservableCollection<T>,INotifyCollectionChanged, IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IList, ICollection, IReadOnlyList<T>, IReadOnlyCollection<T>
+    public class DynamicSilentObservableCollection<T> : NotifyableObject, ISilentObservableCollection<T>, INotifyCollectionChanged, IList<T>, ICollection<T>, IEnumerable<T>, IEnumerable, IList, ICollection, IReadOnlyList<T>, IReadOnlyCollection<T>
     {
         public DynamicSilentObservableCollection()
         {
@@ -13,18 +13,18 @@ namespace System.Collections.ObjectModel
 
         public DynamicSilentObservableCollection(IEnumerable<T> collection)
         {
-            this.collection=new SilentObservableCollection<T>(collection);
+            this.collection = new SilentObservableCollection<T>(collection);
         }
 
         public DynamicSilentObservableCollection(List<T> list)
         {
-            collection=new SilentObservableCollection<T>(list);
+            collection = new SilentObservableCollection<T>(list);
         }
 
         protected readonly SilentObservableCollection<T> collection;
 
         public T this[int index] { get => ((IList<T>)collection)[index]; set => ((IList<T>)collection)[index] = value; }
-        
+
         object IList.this[int index] { get => ((IList)collection)[index]; set => ((IList)collection)[index] = value; }
 
         public int Count => ((ICollection<T>)collection).Count;

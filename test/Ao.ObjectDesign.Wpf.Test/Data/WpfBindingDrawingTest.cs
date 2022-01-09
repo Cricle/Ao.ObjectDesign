@@ -5,11 +5,7 @@ using Ao.ObjectDesign.Wpf.Data;
 using Ao.ObjectDesign.Wpf.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Ao.ObjectDesign.Wpf.Test.Data
@@ -17,7 +13,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
     [TestClass]
     public class WpfBindingDrawingTest
     {
-        class Pkg: NotifyableObject
+        class Pkg : NotifyableObject
         {
             private BrushDesigner foreground;
             private bool isDefault;
@@ -28,7 +24,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
                 set => Set(ref isDefault, value);
             }
 
-            [BindFor("Foreground",VisitPath ="Foreground.Brush")]
+            [BindFor("Foreground", VisitPath = "Foreground.Brush")]
             public BrushDesigner Foreground
             {
                 get => foreground;
@@ -42,7 +38,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
             private string name;
             private double myWidth;
 
-            [BindFor("Width",VisitPath ="Width")]
+            [BindFor("Width", VisitPath = "Width")]
             public double MyWidth
             {
                 get => myWidth;
@@ -70,8 +66,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
             var bindForGetter = AttributeBindForGetter.Instance;
 
             Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(null));
-            Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(clrType,null));
-            Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(null,bindForGetter));
+            Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(clrType, null));
+            Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(null, bindForGetter));
             Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(null, dependencyObjectType, bindForGetter));
             Assert.ThrowsException<ArgumentNullException>(() => new WpfBindingDrawing(clrType, dependencyObjectType, null));
             Assert.ThrowsException<ArgumentException>(() => new WpfBindingDrawing(typeof(object)));
@@ -93,7 +89,7 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
             Assert.AreEqual(typeof(ButtonElement), widthItem.ClrType);
             Assert.IsTrue(widthItem.HasPropertyBind);
 
-            var nameItem= items.Single(x => x.PropertyInfo.Name == nameof(ButtonElement.Name));
+            var nameItem = items.Single(x => x.PropertyInfo.Name == nameof(ButtonElement.Name));
 
             Assert.AreEqual("Name", nameItem.Path);
             Assert.AreEqual(Button.NameProperty, nameItem.DependencyProperty);

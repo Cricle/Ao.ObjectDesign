@@ -6,7 +6,7 @@ namespace Ao.ObjectDesign.Wpf.Conditions
 {
     public class DelegateWpfForViewCondition : WpfForViewCondition
     {
-        public DelegateWpfForViewCondition(Func<WpfForViewBuildContext, bool> canBuildDelegate, 
+        public DelegateWpfForViewCondition(Func<WpfForViewBuildContext, bool> canBuildDelegate,
             Action<WpfForViewBuildContext, FrameworkElement, Binding> bindDelegate,
             Func<WpfForViewBuildContext, FrameworkElement> createViewDelegate)
         {
@@ -15,9 +15,9 @@ namespace Ao.ObjectDesign.Wpf.Conditions
             CreateViewDelegate = createViewDelegate ?? throw new ArgumentNullException(nameof(createViewDelegate));
         }
 
-        public Func<WpfForViewBuildContext,bool> CanBuildDelegate { get; }
+        public Func<WpfForViewBuildContext, bool> CanBuildDelegate { get; }
 
-        public Action<WpfForViewBuildContext, FrameworkElement,Binding> BindDelegate { get; }
+        public Action<WpfForViewBuildContext, FrameworkElement, Binding> BindDelegate { get; }
 
         public Func<WpfForViewBuildContext, FrameworkElement> CreateViewDelegate { get; }
 

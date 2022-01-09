@@ -21,7 +21,7 @@ namespace Ao.ObjectDesign
         }
         private static IReadOnlyList<TypeProperty> CreateTypeProperties(Type type)
         {
-            var prop = type.GetProperties( BindingFlags.Instance| BindingFlags.Public);
+            var prop = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
             var len = prop.Length;
             var res = new TypeProperty[len];
             for (int i = 0; i < len; i++)
@@ -29,7 +29,7 @@ namespace Ao.ObjectDesign
                 var op = prop[i];
                 var identity = new PropertyIdentity(type, op.Name);
                 PropertyGetter getter = null;
-                PropertySetter setter = null; 
+                PropertySetter setter = null;
                 if (op.CanWrite)
                 {
                     setter = CompiledPropertyInfo.GetSetter(identity);
@@ -41,11 +41,11 @@ namespace Ao.ObjectDesign
                 var p = new TypeProperty(op,
                     setter,
                     getter,
-                    op.Name, 
+                    op.Name,
                     op.CanRead,
-                    op.CanWrite, 
+                    op.CanWrite,
                     identity);
-               
+
                 res[i] = p;
             }
             return res;

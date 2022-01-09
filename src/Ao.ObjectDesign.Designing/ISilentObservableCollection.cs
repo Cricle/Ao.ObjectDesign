@@ -2,7 +2,7 @@
 
 namespace System.Collections.ObjectModel
 {
-    public interface ISilentObservableCollection<T>:IList<T>
+    public interface ISilentObservableCollection<T> : IList<T>
     {
         void AddRange(IEnumerable<T> items);
         void AddRangeNotifyReset(IEnumerable<T> items);

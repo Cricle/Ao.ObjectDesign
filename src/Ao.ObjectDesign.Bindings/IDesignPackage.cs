@@ -1,11 +1,10 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using System.Collections.Generic;
-using System.Windows;
 
 namespace Ao.ObjectDesign.Bindings
 {
-    public interface IDesignPackage<TUI,TDesignObject,TBindingScope>
+    public interface IDesignPackage<TUI, TDesignObject, TBindingScope>
     {
         UIDesignMap UIDesinMap { get; }
 

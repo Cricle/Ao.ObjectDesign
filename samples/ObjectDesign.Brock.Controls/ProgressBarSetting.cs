@@ -1,12 +1,9 @@
-﻿using Ao.ObjectDesign.Designing.Annotations;
-
-using ObjectDesign.Brock.Controls.BindingCreators;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls
 {
-    
-    
+
+
     public class ProgressBarSetting : RangeBaseSetting
     {
         private bool isIndeterminate;

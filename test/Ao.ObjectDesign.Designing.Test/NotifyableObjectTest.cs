@@ -1,6 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace Ao.ObjectDesign.Designing.Test
 {
@@ -80,7 +79,7 @@ namespace Ao.ObjectDesign.Designing.Test
 
             d.Name = "hello";
 
-            Assert.AreEqual("hello",d.Name);
+            Assert.AreEqual("hello", d.Name);
         }
     }
 }

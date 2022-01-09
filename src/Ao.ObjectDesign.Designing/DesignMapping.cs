@@ -32,16 +32,12 @@ namespace Ao.ObjectDesign.Designing
         {
             Debug.Assert(ClrType != null);
             Debug.Assert(UIType != null);
-#if NET5_0
-            return HashCode.Combine(ClrType, UIType);
-#else
             unchecked
             {
                 var h = 31 * 17 + ClrType.GetHashCode();
                 h = h * 31 + UIType.GetHashCode();
                 return h;
             }
-#endif
         }
         public override bool Equals(object obj)
         {
