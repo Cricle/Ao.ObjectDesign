@@ -86,6 +86,101 @@ namespace Ao.ObjectDesign.Test
             ReflectionHelper.SetValue(stu, "world", stu.GetType().GetProperty(nameof(Student.Name)));
             Assert.AreEqual("world", stu.Name);
         }
+        class Item
+        {
+            public int Id { get; set; }
+        }
+        class ArrayBox
+        {
+            public List<int> Ints { get; set; }
+
+            public List<Item> Items { get; set; }
+        }
+        class DictonaryBox
+        {
+            public Dictionary<int,int> Ints { get; set; }
+
+            public Dictionary<int,Item> Items { get; set; }
+        }
+        [TestMethod]
+        public void CanDirectClone()
+        {
+            var lst = new List<int> { 1, 3, 4, 5 };
+
+            var next=ReflectionHelper.Clone(lst);
+
+            Assert.AreNotSame(lst,next);
+            Assert.AreEqual(4, next.Count);
+            Assert.AreEqual(1, next[0]);
+            Assert.AreEqual(3, next[1]);
+            Assert.AreEqual(4, next[2]);
+            Assert.AreEqual(5, next[3]);
+
+            var map=new Dictionary<int, Item>
+            {
+                [1]=new Item { Id=3},
+                [4]=new Item { Id=4}
+            };
+            var nextm = ReflectionHelper.Clone(map);
+
+            Assert.AreNotSame(map, nextm);
+            Assert.AreEqual(2, nextm.Count);
+            Assert.AreNotSame(map[1], nextm[1]);
+            Assert.AreNotSame(map[4], nextm[4]);
+            Assert.AreNotSame(map[1].Id, nextm[1].Id);
+            Assert.AreNotSame(map[4].Id, nextm[4].Id);
+        }
+        [TestMethod]
+        public void CanCloneDictionary()
+        {
+            var box = new DictonaryBox
+            {
+                 Ints=new Dictionary<int, int>
+                 {
+                     [1]=2,
+                     [2]=3,
+                 },
+                 Items=new Dictionary<int, Item> 
+                 {
+                     [1]=new Item { Id=2},
+                     [2]=new Item { Id=3},
+                 }
+            };
+
+            var next = ReflectionHelper.Clone(box);
+
+            Assert.AreNotSame(box.Ints, next.Ints);
+            Assert.AreEqual(2, next.Ints.Count);
+            Assert.AreEqual(2, next.Ints[1]);
+            Assert.AreEqual(3, next.Ints[2]);
+
+            Assert.AreNotSame(box.Items, next.Items);
+            Assert.AreEqual(2, next.Items.Count);
+            Assert.AreEqual(2, next.Items[1].Id);
+            Assert.AreEqual(3, next.Items[2].Id);
+        }
+        [TestMethod]
+        public void CanCloneArray()
+        {
+            var box = new ArrayBox
+            {
+                Ints = new List<int> { 1, 2 },
+                Items = new List<Item> { new Item { Id = 1 }, new Item { Id = 2 } }
+            };
+
+            var next = ReflectionHelper.Clone(box);
+
+            Assert.AreNotSame(box.Ints, next.Ints);
+            Assert.AreEqual(2,next.Ints.Count);
+            Assert.AreEqual(1, next.Ints[0]);
+            Assert.AreEqual(2, next.Ints[1]);
+
+            Assert.AreNotSame(box.Items, next.Items);
+            Assert.AreEqual(2, next.Items.Count);
+            Assert.AreEqual(1, next.Items[0].Id);
+            Assert.AreEqual(2, next.Items[1].Id);
+
+        }
         [TestMethod]
         public void Clone_MustEqual()
         {

@@ -8,6 +8,8 @@ namespace Ao.ObjectDesign
     public static partial class ReflectionHelper
     {
         private static readonly Type StringType = typeof(string);
+        private static readonly string IListTypeName=typeof(IList).FullName;
+        private static readonly string IDictionaryName = typeof(IDictionary).FullName;
 
         public static object Create(Type type)
         {
@@ -109,6 +111,11 @@ namespace Ao.ObjectDesign
             {
                 throw new InvalidOperationException("Dest and source type must equals or base on!");
             }
+            if (source is IList || source is IDictionary)
+            {
+                CloneValue(sourceType, dest, source, ignoreTypes);
+                return;
+            }
             var tps = TypeMappings.GetTypeProperties(destType);
             var len = tps.Count;
             for (int i = 0; i < len; i++)
@@ -125,15 +132,32 @@ namespace Ao.ObjectDesign
                 {
                     continue;
                 }
+                object itemValue = null;
                 if (type.IsClass &&
                     type != StringType)
                 {
-                    object itemValue = Create(type);
-
-                    if (itemValue is IList destEnu)
+                    itemValue = Create(type);
+                    var value = CloneValue(type, itemValue, sourceValue, ignoreTypes);
+                    item.Setter(dest, value);
+                }
+                else
+                {
+                    item.Setter(dest, sourceValue);
+                }
+            }
+        }
+        private static object CloneValue(Type type,object itemValue, object sourceValue, IReadOnlyHashSet<Type> ignoreTypes)
+        {
+            if (type.IsClass &&
+                type != StringType)
+            {
+                if (itemValue is IList destEnu)
+                {
+                    IList enu = (IList)sourceValue;
+                    var eleType = type.GetGenericArguments()[0];
+                    var enuCount = enu.Count;
+                    if (eleType.IsValueType || eleType == StringType)
                     {
-                        IList enu = (IList)sourceValue;
-                        var enuCount = enu.Count;
                         for (int j = 0; j < enuCount; j++)
                         {
                             destEnu.Add(enu[j]);
@@ -141,15 +165,43 @@ namespace Ao.ObjectDesign
                     }
                     else
                     {
-                        Clone(itemValue, sourceValue, ignoreTypes);
-                        item.Setter(dest, itemValue);
+                        for (int j = 0; j < enuCount; j++)
+                        {
+                            destEnu.Add(Clone(eleType, enu[j]));
+                        }
+                    }
+                }
+                else if (itemValue is IDictionary destMap)
+                {
+                    IDictionary map = (IDictionary)sourceValue;
+                    var argTypes = type.GetGenericArguments();
+                    var keyType = argTypes[0];
+                    var valueType = argTypes[1];
+                    var keyIsValueType = keyType.IsValueType;
+                    var valueIsValueType = valueType.IsValueType;
+                    var enu = map.GetEnumerator();
+                    while (enu.MoveNext())
+                    {
+                        object key = enu.Key;
+                        object value = enu.Value;
+                        if (!keyIsValueType)
+                        {
+                            key = Clone(keyType, key);
+                        }
+                        if (!valueIsValueType)
+                        {
+                            value = Clone(valueType, value);
+                        }
+                        destMap.Add(key, value);
                     }
                 }
                 else
                 {
-                    item.Setter(dest, sourceValue);
+                    Clone(itemValue, sourceValue, ignoreTypes);
                 }
+                return itemValue;
             }
+            return sourceValue;
         }
     }
 }
