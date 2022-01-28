@@ -1,9 +1,11 @@
-﻿using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.AutoBind;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Session;
 using Ao.ObjectDesign.Session.BuildIn;
 using Ao.ObjectDesign.Session.Desiging;
 using Ao.ObjectDesign.Session.DesignHelpers;
 using Ao.ObjectDesign.Session.Environment;
+using Ao.ObjectDesign.Wpf.Data;
 using Microsoft.Extensions.DependencyInjection;
 using ObjectDesign.Brock.BindingCreators;
 using ObjectDesign.Brock.Components;
@@ -68,6 +70,7 @@ namespace ObjectDesign.Brock
                 .AddMap<ProgressBar, ProgressBarSetting>()
                 .AddMap<Image, RelativeFileImageSetting>()
                 .AddMap<MediaElement, MediaElementSetting>()
+                .AddBindingCreatorFactory(new TextBlockSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new RectangleSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new CanvasSettingBindingCreatorFactory())
                 .AddBindingCreatorFactory(new TextBlockSettingBindingCreatorFactory())

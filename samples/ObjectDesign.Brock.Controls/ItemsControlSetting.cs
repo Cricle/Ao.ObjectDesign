@@ -1,14 +1,14 @@
-﻿using Ao.ObjectDesign.Designing.Level;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using Ao.ObjectDesign.Designing.Level;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Controls.Designing;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls
 {
-
-
-
+    [MappingFor(typeof(ItemsControl))]
     public class ItemsControlSetting : ControlSetting, IObservableDesignScene<UIElementSetting>
     {
         public ItemsControlSetting()

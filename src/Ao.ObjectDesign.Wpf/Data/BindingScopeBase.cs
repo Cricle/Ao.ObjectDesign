@@ -22,6 +22,8 @@ namespace Ao.ObjectDesign.Wpf.Data
 
         public Action<T> Actions { get; }
 
+        public DependencyProperty DependencyProperty => Creator.DependencyProperty;
+
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {
             var bd = CreateBinding(source);

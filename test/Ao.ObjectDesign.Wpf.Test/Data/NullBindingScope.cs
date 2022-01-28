@@ -6,6 +6,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
 {
     class NullBindingScope : IBindingScope
     {
+        public DependencyProperty DependencyProperty => null;
+
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {
             return null;
@@ -19,6 +21,9 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
     class ValueBindingScope : IBindingScope
     {
         public bool IsBind { get; set; }
+
+        public DependencyProperty DependencyProperty => null;
+
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {
             IsBind = true;

@@ -1,10 +1,10 @@
-﻿using System.Windows.Media;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Controls
 {
-
-
-
+    [MappingFor(typeof(Canvas))]
     public class CanvasSetting : PanelSetting
     {
         private BitmapScalingMode bitmapScalingMode;

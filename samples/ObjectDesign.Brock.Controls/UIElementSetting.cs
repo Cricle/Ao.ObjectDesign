@@ -1,10 +1,11 @@
 ﻿using Ao.ObjectDesign.Designing;
+using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System.Windows;
 
 namespace ObjectDesign.Brock.Components
 {
-
+    [MappingFor(typeof(UIElement))]
     public class UIElementSetting : NotifyableObject
     {
         private Visibility visibility;

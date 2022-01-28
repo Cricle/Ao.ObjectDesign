@@ -1,12 +1,12 @@
-﻿using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Controls
 {
-
-
+    [MappingFor(typeof(Image))]
     public class ImageSetting : FrameworkElementSetting
     {
         private ImageSourceDesigner source;

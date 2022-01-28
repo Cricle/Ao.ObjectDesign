@@ -10,11 +10,14 @@ namespace Ao.ObjectDesign.Wpf.Data
         {
             Source = source ?? throw new ArgumentNullException(nameof(source));
             Scope = scope ?? throw new ArgumentNullException(nameof(scope));
+            DependencyProperty = scope.DependencyProperty;
         }
 
         public object Source { get; }
 
         public IBindingScope Scope { get; }
+
+        public DependencyProperty DependencyProperty { get; }
 
         public BindingExpressionBase Bind(DependencyObject @object)
         {

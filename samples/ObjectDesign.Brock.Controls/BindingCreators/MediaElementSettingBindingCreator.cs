@@ -11,17 +11,11 @@ using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls.BindingCreators
 {
-
-    public partial class MediaElementSettingBindingCreator : FrameworkElementSettingBindingCreator
+    public partial class MediaElementSettingBindingCreator :  BrockAutoBindingCreator<MediaElement, MediaElementSetting>
     {
         public MediaElementSettingBindingCreator(IDesignPair<UIElement, UIElementSetting> designUnit, IBindingCreatorState state)
             : base(designUnit, state)
         {
-        }
-        protected override void SetToUI()
-        {
-            base.SetToUI();
-            SetMediaElementSettingToUI((MediaElementSetting)DesignUnit.DesigningObject, DesignUnit.UI);
         }
         public override void Attack()
         {
@@ -71,12 +65,6 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
             media.MediaFailed -= OnMediaMediaFailed;
             setting.PropertyChanged -= OnSettingPropertyChanged;
             media.Close();
-        }
-        protected override IEnumerable<IWithSourceBindingScope> GenerateBindings()
-        {
-            return base.GenerateBindings().Concat(MediaElementSettingTwoWayScopes
-                        .Where(BindingCondition)
-                        .Select(x => x.ToWithSource(DesignUnit.DesigningObject)));
         }
     }
 }

@@ -20,17 +20,11 @@ using WpfAnimatedGif;
 namespace ObjectDesign.Brock.BindingCreators
 {
     [BindingCreatorFor(typeof(RelativeFileImageSetting), typeof(Image))]
-    public partial class RelativeFileImageSettingBindingCreator : FrameworkElementSettingBindingCreator
+    public partial class RelativeFileImageSettingBindingCreator : BrockAutoBindingCreator<Image, RelativeFileImageSetting>
     {
         public RelativeFileImageSettingBindingCreator(IDesignPair<UIElement, UIElementSetting> designUnit, IBindingCreatorState state)
             : base(designUnit, state)
         {
-        }
-        protected override void SetToUI()
-        {
-            base.SetToUI();
-            var setting = (RelativeFileImageSetting)DesignUnit.DesigningObject;
-            SetRelativeFileImageSettingToUI(setting, DesignUnit.UI);
         }
         public override void Attack()
         {
@@ -102,11 +96,5 @@ namespace ObjectDesign.Brock.BindingCreators
             }
         }
 
-        protected override IEnumerable<IWithSourceBindingScope> GenerateBindings()
-        {
-            return base.GenerateBindings().Concat(RelativeFileImageSettingTwoWayScopes
-                        .Where(BindingCondition)
-                        .Select(x => x.ToWithSource(DesignUnit.DesigningObject)));
-        }
     }
 }

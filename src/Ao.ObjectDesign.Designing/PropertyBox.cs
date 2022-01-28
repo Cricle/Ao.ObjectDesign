@@ -4,53 +4,67 @@ using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Designing
 {
-    internal class PropertyBox
+    internal class PropertyBox: IPropertyBox
     {
-        public PropertyInfo Property;
+        internal PropertyInfo property;
 
-        public PropertyGetter Getter;
+        internal PropertyGetter getter;
 
-        public PropertySetter Setter;
+        internal PropertySetter setter;
 
-        public bool IsBuilt;
+        internal bool isBuilt;
 
-        public bool IsVirtualPropery;
+        internal bool isVirtualPropery;
+
+        internal string name;
+
+        public string Name => name;
+
+        public PropertyInfo Property => property;
+
+        public PropertyGetter Getter => getter;
+
+        public PropertySetter Setter => setter;
+
+        public bool IsBuilt => isBuilt;
+
+        public bool IsVirtualPropery => isVirtualPropery;
 
         public object GetValue(object instance)
         {
             EnsureBuild();
-            if (Getter == null)
+            if (getter == null)
             {
-                throw new InvalidOperationException($"Type {Property.DeclaringType}.{Property.Name} has no get method");
+                throw new InvalidOperationException($"Type {property.DeclaringType}.{property.Name} has no get method");
             }
-            return Getter(instance);
+            return getter(instance);
         }
         public void SetValue(object instance, object value)
         {
             EnsureBuild();
-            if (Setter == null)
+            if (setter == null)
             {
-                throw new InvalidOperationException($"Type {Property.DeclaringType}.{Property.Name} has no set method");
+                throw new InvalidOperationException($"Type {property.DeclaringType}.{property.Name} has no set method");
             }
-            Setter(instance, value);
+            setter(instance, value);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public void EnsureBuild()
         {
-            if (!IsBuilt)
+            if (!isBuilt)
             {
-                var identity = new PropertyIdentity(Property);
+                var identity = new PropertyIdentity(property);
 
-                if (Property.CanWrite)
+                if (property.CanWrite && property.SetMethod.GetParameters().Length == 1)
                 {
-                    Setter = CompiledPropertyInfo.GetSetter(identity);
+                    setter = CompiledPropertyInfo.GetSetter(identity);
                 }
-                if (Property.CanRead)
+                if (property.CanRead && property.GetMethod.GetParameters().Length == 0)
                 {
-                    Getter = CompiledPropertyInfo.GetGetter(identity);
+                    getter = CompiledPropertyInfo.GetGetter(identity);
                 }
-                IsBuilt = true;
+                isBuilt = true;
             }
         }
     }

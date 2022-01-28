@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign.Designing
 {
-    internal static class DynamicTypePropertyHelper
+    public static class DynamicTypePropertyHelper
     {
         public static readonly IReadOnlyList<string> knowStartWiths = new string[]
         {
@@ -15,14 +15,53 @@ namespace Ao.ObjectDesign.Designing
 
         private static readonly Dictionary<Type, string[]> propertyNames = new Dictionary<Type, string[]>();
 
-        private static readonly Dictionary<Type, Dictionary<string, PropertyBox>> propertyInfos = new Dictionary<Type, Dictionary<string, PropertyBox>>();
+        private static readonly Dictionary<Type, TypePropertyBoxInfo> propertyInfos = new Dictionary<Type, TypePropertyBoxInfo>();
 
-        public static IReadOnlyDictionary<string, PropertyBox> GetPropertyMap(Type type)
+        public static IEnumerable<IPropertyBox> EnumerablePropertyBoxs(Type type)
+        {
+            if (!propertyInfos.TryGetValue(type, out var propertyBoxInfo))
+            {
+                propertyBoxInfo = GetPropertyMap(type);
+            }
+            foreach (var item in propertyBoxInfo.Box.Values)
+            {
+                yield return item;
+            }
+        }
+        public static IPropertyBox FindFirstVirtualProperty(Type type)
+        {
+            if (!propertyInfos.TryGetValue(type, out var propertyBoxInfo))
+            {
+                propertyBoxInfo = GetPropertyMap(type);
+            }
+            return propertyBoxInfo.FirstVirtual;
+        }
+        public static IPropertyBox FindPropertyBox(Type type,string name)
+        {
+            if(!propertyInfos.TryGetValue(type, out var propertyBoxInfo))
+            {
+                propertyBoxInfo = GetPropertyMap(type);
+            }
+            propertyBoxInfo.Box.TryGetValue(name, out var box);
+            return box;
+        }
+
+        internal static TypePropertyBoxInfo GetPropertyMap(Type type)
         {
             if (!propertyInfos.TryGetValue(type, out var map))
             {
-                map = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                    .ToDictionary(x => x.Name, x => new PropertyBox { Property = x });
+                var propertyBoxs = type.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                    .ToDictionary(x => x.Name, x =>
+                    {
+                        var box = new PropertyBox { property = x, name = x.Name };
+                        box.EnsureBuild();
+                        return box;
+                    });
+                map = new TypePropertyBoxInfo
+                {
+                    Box = propertyBoxs,
+                    VirtualBox = new Dictionary<string, PropertyBox>()
+                };
                 //查看特性的
                 var virtualProperies = new Dictionary<string, PropertyBox>();
                 foreach (var item in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
@@ -34,14 +73,14 @@ namespace Ao.ObjectDesign.Designing
                         ThrowIfContainsKey(name);
                         if (!virtualProperies.TryGetValue(name, out var box))
                         {
-                            box = new PropertyBox { IsBuilt = true, IsVirtualPropery = true };
+                            box = new PropertyBox { isBuilt = true, isVirtualPropery = true, name = name };
                             virtualProperies[name] = box;
                         }
-                        if (box.Getter != null)
+                        if (box.getter != null)
                         {
                             throw new ArgumentException($"Virtual property {name} in type {type} has same getter method");
                         }
-                        box.Getter = VirtualPropertyCompiler.BuildGetter(item);
+                        box.getter = VirtualPropertyCompiler.BuildGetter(item);
                     }
                     var attrSet = item.GetCustomAttribute<PlatformTargetSetMethodAttribute>();
                     if (attrSet != null)
@@ -50,27 +89,29 @@ namespace Ao.ObjectDesign.Designing
                         ThrowIfContainsKey(name);
                         if (!virtualProperies.TryGetValue(name, out var box))
                         {
-                            box = new PropertyBox { IsBuilt = true, IsVirtualPropery = true };
+                            box = new PropertyBox { isBuilt = true, isVirtualPropery = true ,name=name};
                             virtualProperies[name] = box;
                         }
-                        if (box.Setter != null)
+                        if (box.setter != null)
                         {
                             throw new ArgumentException($"Virtual property {name} in type {type} has same setter method");
                         }
-                        box.Setter = VirtualPropertyCompiler.BuildSetter(item);
+                        box.setter = VirtualPropertyCompiler.BuildSetter(item);
                     }
                 }
                 foreach (var item in virtualProperies)
                 {
-                    map.Add(item.Key, item.Value);
+                    map.VirtualBox.Add(item.Key, item.Value);
+                    map.Box.Add(item.Key, item.Value);
                 }
+                map.FirstVirtual = map.VirtualBox.Values.FirstOrDefault();
                 propertyInfos[type] = map;
             }
             return map;
 
             void ThrowIfContainsKey(string name)
             {
-                if (map.ContainsKey(name))
+                if (map.Box.ContainsKey(name))
                 {
                     throw new ArgumentException($"Property {name} is alread contains truly properties!");
                 }

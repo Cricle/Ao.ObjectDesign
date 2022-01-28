@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls
 {
-
-
+    [MappingFor(typeof(TextBox))]
     public class TextBoxSetting : TextBoxBaseSetting
     {
         private string text;

@@ -1,7 +1,9 @@
-﻿namespace ObjectDesign.Brock.Controls
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows.Controls.Primitives;
+
+namespace ObjectDesign.Brock.Controls
 {
-
-
+    [MappingFor(typeof(TextBoxBase))]
     public class TextBoxBaseSetting : ControlSetting
     {
         private bool acceptsReturn;

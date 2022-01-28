@@ -1,8 +1,9 @@
-﻿using System.Windows;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows;
 
 namespace ObjectDesign.Brock.Components
 {
-
+    [MappingFor(typeof(FrameworkElement))]
     public class FrameworkElementSetting : UIElementSetting
     {
         private bool useLayoutRounding;

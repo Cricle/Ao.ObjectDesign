@@ -1,10 +1,13 @@
-﻿using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using Ao.ObjectDesign.Wpf.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace ObjectDesign.Brock.Controls
 {
 
+    [MappingFor(typeof(Shape))]
     public abstract class ShapeSetting : FrameworkElementSetting
     {
         private BrushDesigner stroke;

@@ -15,11 +15,14 @@ namespace Ao.ObjectDesign.Wpf.Data
         {
             Scope = scope ?? throw new ArgumentNullException(nameof(scope));
             Source = source;
+            DependencyProperty=scope.DependencyProperty;
         }
 
         public object Source { get; }
 
         public IBindingScope Scope { get; }
+
+        public DependencyProperty DependencyProperty { get; }
 
         public BindingExpressionBase Bind(DependencyObject @object)
         {

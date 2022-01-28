@@ -1,5 +1,9 @@
-﻿namespace ObjectDesign.Brock.Controls
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows.Shapes;
+
+namespace ObjectDesign.Brock.Controls
 {
+    [MappingFor(typeof(Line))]
     public class LineSetting : ShapeSetting
     {
         private double x1;

@@ -36,5 +36,6 @@ namespace Ao.ObjectDesign.Designing.Annotations
 
         public string PropertyName { get; }
 
+        public bool IsAdditionProperty { get; set; }
     }
 }

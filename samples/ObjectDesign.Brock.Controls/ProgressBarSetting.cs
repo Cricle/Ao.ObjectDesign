@@ -1,9 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows.Controls;
 
 namespace ObjectDesign.Brock.Controls
 {
-
-
+    [MappingFor(typeof(ProgressBar))]
     public class ProgressBarSetting : RangeBaseSetting
     {
         private bool isIndeterminate;

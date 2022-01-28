@@ -137,12 +137,11 @@ namespace Ao.ObjectDesign.Designing.Data
                 if (targetProperty is null)
                 {
                     var dynMap = DynamicTypePropertyHelper.GetPropertyMap(info.PropertyType);
-                    var virtualPropery = dynMap.FirstOrDefault(x => x.Value.IsVirtualPropery);
-                    if (virtualPropery.Value == null)
+                    if (dynMap.FirstVirtual is null)
                     {
                         return CreateDrawingItem(drawingItem);
                     }
-                    propertyName = virtualPropery.Key;
+                    propertyName = dynMap.FirstVirtual.name;
                 }
                 drawingItem.Path = string.Concat(info.Name, ".", propertyName);
                 if (descriptorMap != map)

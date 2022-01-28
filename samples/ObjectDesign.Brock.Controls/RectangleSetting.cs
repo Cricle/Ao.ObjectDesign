@@ -1,7 +1,9 @@
-﻿namespace ObjectDesign.Brock.Controls
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using System.Windows.Shapes;
+
+namespace ObjectDesign.Brock.Controls
 {
-
-
+    [MappingFor(typeof(Rectangle))]
     public class RectangleSetting : ShapeSetting
     {
         private double radiusX;

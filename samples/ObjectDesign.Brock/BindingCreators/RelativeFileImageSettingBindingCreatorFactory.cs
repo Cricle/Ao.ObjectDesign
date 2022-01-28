@@ -3,6 +3,7 @@ using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.BindingCreators;
 using Ao.ObjectDesign.WpfDesign;
 using ObjectDesign.Brock.Components;
+using ObjectDesign.Brock.Controls.BindingCreators;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -12,6 +13,7 @@ namespace ObjectDesign.Brock.BindingCreators
     {
         protected override IEnumerable<IWpfBindingCreator<UIElementSetting>> CreateWpfCreators(IDesignPair<UIElement, UIElementSetting> unit, IBindingCreatorState state)
         {
+            yield return new FrameworkElementSettingBindingCreator(unit, state);
             yield return new RelativeFileImageSettingBindingCreator(unit, state);
         }
 

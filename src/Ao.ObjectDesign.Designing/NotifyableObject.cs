@@ -31,7 +31,7 @@ namespace Ao.ObjectDesign.Designing
             {
                 if (propertyTable == null)
                 {
-                    propertyTable = DynamicTypePropertyHelper.GetPropertyMap(GetType());
+                    propertyTable = DynamicTypePropertyHelper.GetPropertyMap(GetType()).Box;
                 }
                 return propertyTable;
             }

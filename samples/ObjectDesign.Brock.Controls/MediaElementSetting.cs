@@ -1,9 +1,11 @@
-﻿using ObjectDesign.Brock.Components;
+﻿using Ao.ObjectDesign.Designing.Annotations;
+using ObjectDesign.Brock.Components;
 using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Controls
 {
+    [MappingFor(typeof(MediaElement))]
     public class MediaElementSetting : FrameworkElementSetting
     {
         private string source;

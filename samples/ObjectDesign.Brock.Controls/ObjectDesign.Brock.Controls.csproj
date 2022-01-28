@@ -1,4 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\eng\pkg.props" />
 
   <PropertyGroup>
     <TargetFrameworks>net461;net5.0-windows</TargetFrameworks>
@@ -6,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.AutoBind\Ao.ObjectDesign.AutoBind.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Bindings\Ao.ObjectDesign.Bindings.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Session\Ao.ObjectDesign.Session.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj" />

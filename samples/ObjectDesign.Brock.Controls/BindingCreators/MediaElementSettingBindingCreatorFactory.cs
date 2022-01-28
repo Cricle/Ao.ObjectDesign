@@ -13,6 +13,7 @@ namespace ObjectDesign.Brock.Controls.BindingCreators
     {
         protected override IEnumerable<IWpfBindingCreator<UIElementSetting>> CreateWpfCreators(IDesignPair<UIElement, UIElementSetting> unit, IBindingCreatorState state)
         {
+            yield return new FrameworkElementSettingBindingCreator(unit, state);
             yield return new MediaElementSettingBindingCreator(unit, state);
         }
         public override bool IsAccept(IDesignPair<UIElement, UIElementSetting> unit, IBindingCreatorState state)
