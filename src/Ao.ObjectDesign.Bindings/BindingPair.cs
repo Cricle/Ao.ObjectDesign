@@ -1,13 +1,12 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Data;
 using System.Reflection;
 
-namespace Ao.ObjectDesign.AutoBind
+namespace Ao.ObjectDesign.Bindings
 {
-    public class BindingPair
+    public class BindingPair<TBindingMaker>
     {
-        internal BindingPair(IBindingMaker maker, IPropertyBox box)
+        public BindingPair(TBindingMaker maker, IPropertyBox box)
         {
             Maker = maker;
             Box = box;
@@ -17,7 +16,7 @@ namespace Ao.ObjectDesign.AutoBind
             }
         }
 
-        public IBindingMaker Maker { get; }
+        public TBindingMaker Maker { get; }
 
         public IPropertyBox Box { get; }
 

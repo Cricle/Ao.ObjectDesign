@@ -15,7 +15,7 @@ namespace Ao.ObjectDesign.AutoBind
 
         protected virtual string GetVisitPath(PropertyInfo property, BindForAttribute bindFor)
         {
-            return bindFor.VisitPath;
+            return GetAttributeOrDefaultName(property,bindFor);
         }
         protected override IBindingMaker CreateScope(PropertyInfo property, BindForAttribute bindFor)
         {

@@ -8,8 +8,8 @@ using System.Windows;
 
 namespace Ao.ObjectDesign.AutoBind
 {
-    public partial class AutoBindingCreator<TUI,TSetting,TDesignObject> : WpfBindingCreator<TSetting>
-        where TUI:DependencyObject
+    public partial class AutoBindingCreator<TUI, TSetting, TDesignObject> : WpfBindingCreator<TSetting>
+        where TUI : DependencyObject
     {
         public AutoBindingCreator(IDesignPair<UIElement, TSetting> designUnit, IBindingCreatorState state) : base(designUnit, state)
         {
@@ -23,7 +23,7 @@ namespace Ao.ObjectDesign.AutoBind
             {
                 SetToUI();
             }
-            if (Parent!=null)
+            if (Parent != null)
             {
                 foreach (var item in Parent.BindingScopes)
                 {

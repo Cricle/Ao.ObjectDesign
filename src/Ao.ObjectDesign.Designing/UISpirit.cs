@@ -2,6 +2,7 @@
 
 namespace Ao.ObjectDesign.Designing
 {
+
     public class UISpirit<TView, TContext> : IUISpirit<TView, TContext>, IEquatable<UISpirit<TView, TContext>>
         where TView : class
         where TContext : class

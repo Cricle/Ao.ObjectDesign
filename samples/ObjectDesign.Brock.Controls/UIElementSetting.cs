@@ -1,4 +1,5 @@
-﻿using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Bindings.Annotations;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
 using System.Windows;
@@ -6,6 +7,7 @@ using System.Windows;
 namespace ObjectDesign.Brock.Components
 {
     [MappingFor(typeof(UIElement))]
+    [BindingCreator(typeof(UIElement),typeof(UIElementSetting))]
     public class UIElementSetting : NotifyableObject
     {
         private Visibility visibility;

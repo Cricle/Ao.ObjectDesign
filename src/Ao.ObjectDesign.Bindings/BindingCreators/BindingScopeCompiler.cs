@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using System;
 using System.Collections.Generic;
@@ -44,17 +45,17 @@ namespace Ao.ObjectDesign.Bindings.BindingCreators
             var bindFor = property.GetCustomAttribute<BindForAttribute>();
             if (bindFor == null && DefaultIsBind)
             {
-                bindFor = new BindForAttribute(UIType, property.Name) { VisitPath=property.Name};
+                bindFor = new BindForAttribute(UIType, property.Name) { VisitPath = property.Name };
             }
             if (bindFor == null)
             {
                 return default;
             }
 
-            return CreateScope(property,bindFor);
+            return CreateScope(property, bindFor);
         }
 
-        protected abstract TBindingMaker CreateScope(PropertyInfo property,BindForAttribute bindFor);
+        protected abstract TBindingMaker CreateScope(PropertyInfo property, BindForAttribute bindFor);
 
         protected virtual IEnumerable<PropertyInfo> GetProperties()
         {
@@ -62,5 +63,24 @@ namespace Ao.ObjectDesign.Bindings.BindingCreators
                 .Where(x => x.CanWrite && x.GetCustomAttribute<NotMappingPropertyAttribute>() == null);
             return query;
         }
+
+        public static string GetAttributeOrDefaultName(PropertyInfo property, BindForAttribute bindFor)
+        {
+            var pathAttr = property.GetCustomAttribute<BindVisitPathAttribute>();
+            if (pathAttr != null)
+            {
+                return pathAttr.VisiPath;
+            }
+            if (property.PropertyType.GetCustomAttribute<DesignForAttribute>() != null)
+            {
+                var box = DynamicTypePropertyHelper.FindFirstVirtualProperty(property.PropertyType);
+                if (box != null)
+                {
+                    return string.Concat(property.Name, ".", box.Name);
+                }
+            }
+            return bindFor.VisitPath;
+        }
+
     }
 }

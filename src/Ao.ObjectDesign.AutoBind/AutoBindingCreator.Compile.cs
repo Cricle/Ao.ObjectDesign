@@ -1,4 +1,5 @@
-﻿using Ao.ObjectDesign.Designing;
+﻿using Ao.ObjectDesign.Bindings;
+using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Data;
 using Ao.ObjectDesign.Wpf.Data;
 using System;
@@ -13,11 +14,11 @@ namespace Ao.ObjectDesign.AutoBind
 {
     public partial class AutoBindingCreator<TUI,TSetting, TDesignObject>
     {
-        public static SharedBindingInfo BindingInfo { get; } = GetBindingInfo();
+        public static WpfSharedBindingInfo BindingInfo { get; } = GetBindingInfo();
 
-        private static SharedBindingInfo GetBindingInfo()
+        private static WpfSharedBindingInfo GetBindingInfo()
         {
-            return SharedBindingInfo.GetBindingInfo(typeof(TDesignObject),typeof(TUI));
+            return WpfSharedBindingInfo.GetBindingInfo(typeof(TUI),typeof(TDesignObject));
         }
 
         public static readonly IReadOnlyList<IBindingScope> TwoWayScopes =
@@ -40,7 +41,7 @@ namespace Ao.ObjectDesign.AutoBind
                 SetValue(obj, ui, item);
             }
         }
-        protected virtual void SetValue(TSetting obj, DependencyObject ui, BindingPair pair)
+        protected virtual void SetValue(TSetting obj, DependencyObject ui, BindingPair<IBindingMaker> pair)
         {
             if (pair.Maker != null && pair.Box.Getter != null)
             {
