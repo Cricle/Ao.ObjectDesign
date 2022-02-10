@@ -8,6 +8,8 @@ namespace Ao.ObjectDesign.WpfDesign.Test
     {
         public object Source => null;
 
+        public DependencyProperty DependencyProperty => null;
+
         public BindingExpressionBase Bind(DependencyObject @object)
         {
             return null;
