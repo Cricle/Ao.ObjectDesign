@@ -1,6 +1,7 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Data;
+using Ao.ObjectDesign.Wpf;
 using Ao.ObjectDesign.Wpf.Data;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,19 @@ namespace Ao.ObjectDesign.AutoBind
                     ui.SetValue(pair.Maker.DependencyProperty, pair.Box.Getter(obj));
                 }
             }
-
+            else
+            {
+                var prop = GetProperty(ui.GetType(), pair.Box.Name);
+                if (prop != null)
+                {
+                    ui.SetValue(pair.Maker.DependencyProperty, pair.Box.Getter(obj));
+                }
+            }
+        }
+        protected DependencyProperty GetProperty(Type uiType,string propertyName)
+        {
+            return DependencyObjectHelper.GetDependencyProperties(uiType)
+                .FirstOrDefault(x => x.Name == propertyName);
         }
     }
 }

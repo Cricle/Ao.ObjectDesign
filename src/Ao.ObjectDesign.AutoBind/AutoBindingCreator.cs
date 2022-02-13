@@ -27,16 +27,20 @@ namespace Ao.ObjectDesign.AutoBind
             {
                 foreach (var item in Parent.BindingScopes)
                 {
-                    yield return item.ToWithSource(DesignUnit.DesigningObject);
+                    yield return MakeScope(item);
                 }
             }
             if (CanGenerateBindings())
             {
                 foreach (var item in GenerateBindings())
                 {
-                    yield return item.ToWithSource(DesignUnit.DesigningObject);
+                    yield return MakeScope(item);
                 }
             }
+        }
+        protected virtual IWithSourceBindingScope MakeScope(IBindingScope scope)
+        {
+            return scope.ToWithSource(DesignUnit.DesigningObject);
         }
         public override void Attack()
         {

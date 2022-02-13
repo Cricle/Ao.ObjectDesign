@@ -12,8 +12,6 @@ namespace ObjectDesign.Brock.Components
     [BindingCreatorFactory(typeof(RelativeFileImageSettingBindingCreatorFactory))]
     public class RelativeFileImageSetting : FrameworkElementSetting
     {
-        private static readonly PropertyChangedEventArgs resourceIdentityEventArgs = new PropertyChangedEventArgs(nameof(ResourceIdentity));
-
         private ResourceIdentity resourceIdentity;
         private Stretch stretch;
         private StretchDirection stretchDirection;
