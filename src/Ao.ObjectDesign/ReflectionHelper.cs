@@ -146,25 +146,6 @@ namespace Ao.ObjectDesign
                 }
             }
         }
-        private static readonly string listTypeName = typeof(IList).FullName;
-
-        private static Type GetDefineType(Type target)
-        {
-            var t = target;
-            while (t != null)
-            {
-                if (t.IsGenericType)
-                {
-                    var genType=t.GetGenericArguments();
-                    if (genType.Length == 1 && t.GetInterface(listTypeName) != null)
-                    {
-                        return genType[0];
-                    }
-                }
-                t = t.BaseType;
-            }
-            return t;
-        }
         private static object CloneValue(Type type,object itemValue, object sourceValue, IReadOnlyHashSet<Type> ignoreTypes)
         {
             if (type.IsClass &&
@@ -173,30 +154,18 @@ namespace Ao.ObjectDesign
                 if (itemValue is IList destEnu)
                 {
                     IList enu = (IList)sourceValue;
-                    var argTypes = type.GetGenericArguments();
-                    Type eleType;
-                    if (argTypes.Length==0)
-                    {
-                        eleType = GetDefineType(type);
-                    }
-                    else
-                    {
-                        eleType = argTypes[0];
-                    }
                     var enuCount = enu.Count;
-                    if (eleType.IsValueType || eleType == StringType)
+                    for (int j = 0; j < enuCount; j++)
                     {
-                        for (int j = 0; j < enuCount; j++)
+                        var val = enu[j];
+                        var valType = val.GetType();
+                        if (valType.IsValueType || valType == StringType)
                         {
                             destEnu.Add(enu[j]);
                         }
-                    }
-                    else
-                    {
-                        for (int j = 0; j < enuCount; j++)
+                        else
                         {
-                            var val=enu[j];
-                            destEnu.Add(Clone(val.GetType(), val));
+                            destEnu.Add(Clone(valType, val));
                         }
                     }
                 }
