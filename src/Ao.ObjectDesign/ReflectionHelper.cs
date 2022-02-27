@@ -175,18 +175,18 @@ namespace Ao.ObjectDesign
                     var argTypes = type.GetGenericArguments();
                     var keyType = argTypes[0];
                     var valueType = argTypes[1];
-                    var keyIsValueType = keyType.IsValueType;
-                    var valueIsValueType = valueType.IsValueType;
+                    var keyIsValueTypeOrString = keyType.IsValueType||keyType==typeof(string);
+                    var valueIsValueTypeOrString = valueType.IsValueType || valueType == typeof(string);
                     var enu = map.GetEnumerator();
                     while (enu.MoveNext())
                     {
                         object key = enu.Key;
                         object value = enu.Value;
-                        if (!keyIsValueType)
+                        if (!keyIsValueTypeOrString)
                         {
                             key = Clone(keyType, key);
                         }
-                        if (!valueIsValueType)
+                        if (!valueIsValueTypeOrString)
                         {
                             value = Clone(valueType, value);
                         }

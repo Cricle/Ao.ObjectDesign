@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ao.ObjectDesign
+namespace Ao.ObjectDesign.Test
 {
     [TestClass]
     public class ReadOnlyHashSetTest
