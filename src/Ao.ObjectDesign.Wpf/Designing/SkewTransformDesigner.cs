@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(SkewTransform))]
-    public class SkewTransformDesigner : NotifyableObject
+    public class SkewTransformDesigner : TransformDesigner
     {
         private double angleX;
         private double angleY;

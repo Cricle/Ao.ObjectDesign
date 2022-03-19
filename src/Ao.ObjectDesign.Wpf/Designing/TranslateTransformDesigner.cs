@@ -5,7 +5,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(TranslateTransform))]
-    public class TranslateTransformDesigner : NotifyableObject
+    public class TranslateTransformDesigner : TransformDesigner
     {
         private double x;
         private double y;

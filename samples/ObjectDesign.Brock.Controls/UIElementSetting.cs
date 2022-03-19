@@ -2,6 +2,8 @@
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 
 namespace ObjectDesign.Brock.Components
@@ -14,8 +16,18 @@ namespace ObjectDesign.Brock.Components
         private bool clipToBounds;
         private bool isEnabled;
         private double opacity;
-        private RotateTransformDesigner rotateTransform;
+        //private TransformGroupDesigner renderTransform;
         private PointDesigner renderTransformOrigin;
+        private RotateTransformDesigner rotateTransformDesigner;
+
+        public RotateTransformDesigner RotateTransformDesigner
+        {
+            get => rotateTransformDesigner;
+            set
+            {
+                Set(ref rotateTransformDesigner, value);
+            }
+        }
 
         public PointDesigner RenderTransformOrigin
         {
@@ -23,11 +35,14 @@ namespace ObjectDesign.Brock.Components
             set => Set(ref renderTransformOrigin, value);
         }
 
-        public RotateTransformDesigner RotateTransform
-        {
-            get => rotateTransform;
-            set => Set(ref rotateTransform, value);
-        }
+        //public TransformGroupDesigner RenderTransform
+        //{
+        //    get => renderTransform;
+        //    set
+        //    {
+        //        Set(ref renderTransform, value);
+        //    }
+        //}
 
         public double Opacity
         {
@@ -76,7 +91,7 @@ namespace ObjectDesign.Brock.Components
                 X = 0.5,
                 Y = 0.5
             };
-            RotateTransform = new RotateTransformDesigner();
+            RotateTransformDesigner = new RotateTransformDesigner();
         }
     }
 }

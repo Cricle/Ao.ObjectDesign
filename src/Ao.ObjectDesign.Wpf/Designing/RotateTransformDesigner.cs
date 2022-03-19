@@ -6,7 +6,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(RotateTransform))]
-    public class RotateTransformDesigner : NotifyableObject
+    public class RotateTransformDesigner : TransformDesigner
     {
         private double angle;
         private double centerX;

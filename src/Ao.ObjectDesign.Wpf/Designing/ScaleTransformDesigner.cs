@@ -5,7 +5,7 @@ using System.Windows.Media;
 namespace Ao.ObjectDesign.Wpf.Designing
 {
     [DesignFor(typeof(ScaleTransform))]
-    public class ScaleTransformDesigner : NotifyableObject
+    public class ScaleTransformDesigner : TransformDesigner
     {
         private double centerX;
         private double centerY;

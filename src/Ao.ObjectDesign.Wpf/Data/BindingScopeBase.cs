@@ -24,18 +24,21 @@ namespace Ao.ObjectDesign.Wpf.Data
 
         public DependencyProperty DependencyProperty => Creator.DependencyProperty;
 
+        public Func<DependencyObject> TargetFactory { get; set; }
+
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {
             var bd = CreateBinding(source);
-            if (@object is FrameworkElement fe)
+            var target = TargetFactory?.Invoke() ?? @object;
+            if (target is FrameworkElement fe)
             {
                 return fe.SetBinding(Creator.DependencyProperty, bd);
             }
-            else if (@object is FrameworkContentElement fce)
+            else if (target is FrameworkContentElement fce)
             {
                 return fce.SetBinding(Creator.DependencyProperty, bd);
             }
-            return BindingOperations.SetBinding(@object, Creator.DependencyProperty, bd);
+            return BindingOperations.SetBinding(target, Creator.DependencyProperty, bd);
         }
 
         public BindingBase CreateBinding(object source)

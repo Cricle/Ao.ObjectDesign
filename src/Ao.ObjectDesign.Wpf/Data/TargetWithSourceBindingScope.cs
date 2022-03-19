@@ -19,15 +19,17 @@ namespace Ao.ObjectDesign.Wpf.Data
 
         public DependencyProperty DependencyProperty { get; }
 
+        public Func<DependencyObject> TargetFactory { get; set; }
+
         public BindingExpressionBase Bind(DependencyObject @object)
         {
             var target = GetTargetValue();
-            return Bind(@object, target);
+            return Bind(TargetFactory?.Invoke()??@object, target);
         }
 
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {
-            return Scope.Bind(@object, source);
+            return Scope.Bind(TargetFactory?.Invoke() ?? @object, source);
         }
 
         public BindingBase CreateBinding(object source)

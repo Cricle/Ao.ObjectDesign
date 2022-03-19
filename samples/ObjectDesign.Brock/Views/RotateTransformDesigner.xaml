@@ -1,16 +1,26 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:w="https://github.com/Cricle/Ao.ObjectDesign"
-                    xmlns:l="https://github.com/Cricle/Ao.Lang">
+                    xmlns:l="https://github.com/Cricle/Ao.Lang"
+                    xmlns:local="clr-namespace:ObjectDesign.Brock.Views"
+                    xmlns:e="http://schemas.microsoft.com/expression/2010/interactivity">
     <DataTemplate x:Key="ObjectDesign.RotateTransformDesigner"
                   DataType="{x:Type w:WpfTemplateForViewBuildContext}">
         <StackPanel Orientation="Vertical">
             <TextBlock Text="旋转"/>
-            <StackPanel DataContext="{Binding PropertyVisitor}"
-                        HorizontalAlignment="Left"
+            <StackPanel HorizontalAlignment="Stretch"
                         Orientation="Vertical">
-                <Border DataContext="{Binding Value}">
-                    <TextBox Text="{Binding Angle,Mode=TwoWay}"/>
+                <Border>
+                    <Slider Minimum="0"
+                            Maximum="365"
+                            Value="{Binding PropertyVisitor.Value.Angle,Mode=TwoWay}">
+                        <e:Interaction.Triggers>
+                            <e:EventTrigger EventName="ValueChanged">
+                                <e:InvokeCommandAction Command="{x:Static local:RotateSection.SelectFileCommand}"
+                                                       CommandParameter="{Binding}"/>
+                            </e:EventTrigger>
+                        </e:Interaction.Triggers>
+                    </Slider>
                 </Border>
             </StackPanel>
         </StackPanel>
