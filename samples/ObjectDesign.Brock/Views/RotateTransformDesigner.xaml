@@ -12,7 +12,7 @@
                         Orientation="Vertical">
                 <Border>
                     <Slider Minimum="0"
-                            Maximum="365"
+                            Maximum="360"
                             Value="{Binding PropertyVisitor.Value.Angle,Mode=TwoWay}">
                         <e:Interaction.Triggers>
                             <e:EventTrigger EventName="ValueChanged">

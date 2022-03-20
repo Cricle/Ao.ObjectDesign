@@ -30,6 +30,10 @@ namespace Ao.ObjectDesign.Session.Controllers
         {
             return pair.DesigningObject is IObservableDesignScene<TSetting>;
         }
+        protected virtual IDesignSceneController<UIElement, TSetting> LostCreateController(IDesignPair<UIElement, TSetting> pair)
+        {
+            throw new NotSupportedException(pair.UI?.ToString());
+        }
         protected override IDesignSceneController<UIElement, TSetting> CreateController(IDesignPair<UIElement, TSetting> pair)
         {
             var sc = (IObservableDesignScene<TSetting>)pair.DesigningObject;
@@ -56,10 +60,7 @@ namespace Ao.ObjectDesign.Session.Controllers
                 controller.Initialize();
                 return controller;
             }
-            else
-            {
-                throw new NotSupportedException(pair.UI?.ToString());
-            }
+            return LostCreateController(pair);
         }
         protected override void OnDispose()
         {
