@@ -1,4 +1,6 @@
-﻿namespace Ao.ObjectDesign.Data
+﻿using System;
+
+namespace Ao.ObjectDesign.Data
 {
     public interface IDataNotifyer<TKey>
     {

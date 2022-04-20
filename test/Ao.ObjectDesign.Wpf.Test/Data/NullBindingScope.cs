@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
+using System;
 using System.Windows;
 using System.Windows.Data;
 
@@ -7,6 +8,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
     class NullBindingScope : IBindingScope
     {
         public DependencyProperty DependencyProperty => null;
+
+        public Func<DependencyObject> TargetFactory {get; set;}
 
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {
@@ -23,6 +26,8 @@ namespace Ao.ObjectDesign.Wpf.Test.Data
         public bool IsBind { get; set; }
 
         public DependencyProperty DependencyProperty => null;
+
+        public Func<DependencyObject> TargetFactory { get; set; }
 
         public BindingExpressionBase Bind(DependencyObject @object, object source)
         {

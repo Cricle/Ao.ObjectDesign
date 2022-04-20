@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Ao.ObjectDesign.Data
 {
@@ -81,17 +82,35 @@ namespace Ao.ObjectDesign.Data
                  }, (x, old) =>
                   {
                       var val = updateFactory(x, old);
+                      if (val == null && old == null)
+                      {
+                          return val;
+                      }
+                      if (val != null && old != null && val.Equals(old))
+                      {
+                          return val;
+                      }
                       args = new DataChangedEventArgs<TKey, TValue>(x, old, val, ChangeModes.Change);
                       OnWritingData(args);
                       return val;
                   });
             }
             Debug.Assert(args != null);
-            DataChanged?.Invoke(this, args);
+            if (args != null)
+            {
+                DataChanged?.Invoke(this, args);
+            }
             OnWritedData(args);
             return newValue;
         }
-
+        public KeyValuePair<TKey, TValue>[] ToArray()
+        {
+            if (innerMap!=null)
+            {
+                return innerMap.ToArray();
+            }
+            return originMap.ToArray();
+        }
         protected virtual void OnWritingData(DataChangedEventArgs<TKey, TValue> e)
         {
 

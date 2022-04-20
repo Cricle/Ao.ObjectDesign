@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Data
 {
@@ -10,16 +13,18 @@ namespace Ao.ObjectDesign.Data
         public DataViewChannels(DataView<TKey> dataView)
         {
             DataView = dataView ?? throw new ArgumentNullException(nameof(dataView));
-            notifyerMap = new Dictionary<TKey, ChannelEntity>();
+            notifyerMap = new ConcurrentDictionary<TKey, ChannelEntity>();
         }
 
-        private readonly Dictionary<TKey, ChannelEntity> notifyerMap;
+        private readonly ConcurrentDictionary<TKey, ChannelEntity> notifyerMap;
 
         public DataView<TKey> DataView { get; }
 
         public IEnumerable<TKey> SubscribeNames => notifyerMap.Keys;
 
-        public IReadOnlyDictionary<TKey, IReadOnlyHashSet<IDataNotifyer<TKey>>> NotifyerMap =>
+        public bool AsyncRaise { get; set; }
+
+        public IReadOnlyDictionary<TKey, IReadOnlyList<IDataNotifyer<TKey>>> NotifyerMap =>
             notifyerMap.ToDictionary(x => x.Key, x => x.Value.ReadOnlySubscribers);
 
         public INotifyToken<TKey> Regist(TKey name, IDataNotifyer<TKey> notifyer)
@@ -36,10 +41,13 @@ namespace Ao.ObjectDesign.Data
 
             if (!notifyerMap.TryGetValue(name, out var lst))
             {
-                lst = new ChannelEntity(DataView, name);
-                notifyerMap.Add(name, lst);
+                lst = new ChannelEntity(DataView,this, name);
+                notifyerMap.AddOrUpdate(name, lst, (_, __) => lst);
             }
-            lst.Subscribers.Add(notifyer);
+            lock (lst.SyncRoot)
+            {
+                lst.Subscribers.Add(notifyer);
+            }
             return new NotifyToken(this, name, notifyer);
         }
 
@@ -57,11 +65,15 @@ namespace Ao.ObjectDesign.Data
 
             if (notifyerMap.TryGetValue(key, out var notifyers))
             {
-                var ok = notifyers.Subscribers.Remove(notifyer);
+                bool ok;
+                lock (notifyers.SyncRoot)
+                {
+                    ok = notifyers.Subscribers.Remove(notifyer);
+                }
                 if (notifyers.Subscribers.Count == 0)
                 {
                     notifyers.Dispose();
-                    notifyerMap.Remove(key);
+                    notifyerMap.TryRemove(key, out _);
                 }
                 return ok;
             }
@@ -94,27 +106,38 @@ namespace Ao.ObjectDesign.Data
             {
                 throw new ArgumentNullException(nameof(notifyer));
             }
-
-            return notifyerMap.TryGetValue(key, out var notifyers) &&
-                notifyers.Subscribers.Contains(notifyer);
+            if (notifyerMap.TryGetValue(key, out var notifyers))
+            {
+                lock (notifyers.SyncRoot)
+                {
+                    return notifyers.Subscribers.Contains(notifyer);
+                }
+            }
+            return false;
         }
         class ChannelEntity : IDisposable
         {
-            public readonly HashSet<IDataNotifyer<TKey>> Subscribers;
+            public readonly object SyncRoot=new object();
 
-            public IReadOnlyHashSet<IDataNotifyer<TKey>> ReadOnlySubscribers => new ReadOnlyHashSet<IDataNotifyer<TKey>>(Subscribers);
+            public readonly List<IDataNotifyer<TKey>> Subscribers;
+
+            public IReadOnlyList<IDataNotifyer<TKey>> ReadOnlySubscribers => Subscribers;
 
             public readonly DataView<TKey> DataView;
 
             public readonly TKey Name;
 
-            public ChannelEntity(DataView<TKey> dataView, TKey key)
+            public readonly DataViewChannels<TKey> Channels;
+
+            public ChannelEntity(DataView<TKey> dataView, DataViewChannels<TKey> channels, TKey key)
             {
                 Debug.Assert(dataView != null);
                 Debug.Assert(key != null);
-                Subscribers = new HashSet<IDataNotifyer<TKey>>();
+                Debug.Assert(channels != null);
+                Subscribers = new List<IDataNotifyer<TKey>>();
                 DataView = dataView;
                 Name = key;
+                Channels = channels;
                 DataView.DataChanged += OnDataViewDataChanged;
             }
 
@@ -122,10 +145,26 @@ namespace Ao.ObjectDesign.Data
             {
                 if (e.Key != null && e.Key.Equals(Name))
                 {
-                    foreach (var item in Subscribers)
+                    if (Channels.AsyncRaise)
                     {
-                        item.OnDataChanged(sender, e);
+                        Task.Factory.StartNew((state) =>
+                        {
+                            var s = (List<IDataNotifyer<TKey>>)state;
+                            RunNotify(s, sender, e);
+                        }, Subscribers);
                     }
+                    else
+                    {
+                        RunNotify(Subscribers, sender, e);
+                    }
+                }
+            }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            private void RunNotify(List<IDataNotifyer<TKey>> s,object sender,DataChangedEventArgs<TKey, IVarValue> e)
+            {
+                for (int i = 0; i < s.Count; i++)
+                {
+                    s[i].OnDataChanged(sender, e);
                 }
             }
 

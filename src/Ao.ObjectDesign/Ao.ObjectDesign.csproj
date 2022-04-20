@@ -2,15 +2,20 @@
 	<Import Project="..\..\eng\pkg.props" />
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net461;net452</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0;net461;net45</TargetFrameworks>
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FastExpressionCompiler" Version="3.2.1" />
+	  <None Remove="Data\NotifyableMap.cs~RF19194591.TMP" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="FastExpressionCompiler" Version="3.2.2" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
 	</ItemGroup>
+
 </Project>

@@ -33,6 +33,29 @@ namespace Ao.ObjectDesign.Test
             Assert.ThrowsException<NotSupportedException>(() => CompiledPropertyInfo.GetCreator(typeof(NoEmptyConstuct)));
         }
         [TestMethod]
+        public void GivenNullPropertyCall_MustThrowException()
+        {
+            var prop = default(PropertyIdentity);
+            Assert.ThrowsException<ArgumentException>(() => CompiledPropertyInfo.CheckPropertyIdentity(ref prop));
+        }
+        [TestMethod]
+        public void CreateWithStruct()
+        {
+            var creator = CompiledPropertyInfo.GetCreator(typeof(PropertyIdentity));
+            Assert.IsNotNull(creator);
+            var val = creator();
+            Assert.IsInstanceOfType(val, typeof(PropertyIdentity));
+        }
+        public class NoEmptyConstruct
+        {
+            public NoEmptyConstruct(int a) { }
+        }
+        [TestMethod]
+        public void GivenClassNoEmptyConstruct_MustThrowExcpeiton()
+        {
+            Assert.ThrowsException<NotSupportedException>(()=>CompiledPropertyInfo.GetCreator(typeof(NoEmptyConstruct)));
+        }
+        [TestMethod]
         public void GivenType_MustGotCreator()
         {
             var type = typeof(Student);

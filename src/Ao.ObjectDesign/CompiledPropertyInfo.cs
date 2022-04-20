@@ -46,7 +46,7 @@ namespace Ao.ObjectDesign
 
             return Expression.Lambda<PropertyGetter>(exp, par1).CompileSys();
         }
-        private static void CheckPropertyIdentity(ref PropertyIdentity x)
+        internal static void CheckPropertyIdentity(ref PropertyIdentity x)
         {
             if (x.PropertyInfo is null)
             {

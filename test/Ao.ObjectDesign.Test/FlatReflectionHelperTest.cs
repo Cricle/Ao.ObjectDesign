@@ -17,6 +17,7 @@ namespace Ao.ObjectDesign.Test
             public string Bx { get; set; }
 
             public long Error { get; set; }
+
         }
         class B
         {
@@ -36,6 +37,14 @@ namespace Ao.ObjectDesign.Test
             Assert.AreEqual(a.Bx, b.Bx);
             Assert.IsNull(b.Error);
             Assert.AreEqual(3,res.Count );
+        }
+        [TestMethod]
+        public void GivenNullCall_MustThrowException()
+        {
+            var a = new A { Ax = 1, Bx = "22", Error = 33 };
+            var b = new B();
+            Assert.ThrowsException<ArgumentNullException>(() => FlatReflectionHelper.SpecularMapping(a, null));
+            Assert.ThrowsException<ArgumentNullException>(() => FlatReflectionHelper.SpecularMapping(null, b));
         }
     }
 }

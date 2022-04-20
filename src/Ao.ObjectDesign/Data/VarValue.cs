@@ -38,6 +38,8 @@ namespace Ao.ObjectDesign.Data
 
         public object Value { get; }
 
+        public virtual object ConvertedValue => ForValueHelper.ForValue(Value, TypeCode);
+
         public TypeCode TypeCode { get; }
 
         public bool Equals(VarValue other)

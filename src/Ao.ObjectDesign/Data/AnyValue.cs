@@ -16,6 +16,8 @@ namespace Ao.ObjectDesign.Data
 
         public TypeCode TypeCode { get; }
 
+        public object ConvertedValue => ForValueHelper.ForValue(Value, TypeCode);
+
         public AnyValue Clone()
         {
             return new AnyValue(Value, TypeCode);

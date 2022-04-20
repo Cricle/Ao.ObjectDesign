@@ -47,6 +47,20 @@ namespace Ao.ObjectDesign.Test
             Assert.IsTrue(q.All(x => x.PropertyInfo.Name != nameof(Student.Address)));
         }
         [TestMethod]
+        public void HashCodeAndEquals()
+        {
+            var a = new ObjectDeclaring(typeof(Student));
+            var b = new ObjectDeclaring(typeof(int));
+            var c = new ObjectDeclaring(typeof(Student));
+
+            Assert.AreEqual(c.GetHashCode(), a.GetHashCode());
+            Assert.AreNotEqual(b.GetHashCode(), a.GetHashCode());
+            Assert.IsTrue(a.Equals(c));
+            Assert.IsFalse(b.Equals(c));
+            Assert.IsTrue(a.Equals((object)c));
+            Assert.IsFalse(b.Equals((object)c));
+        }
+        [TestMethod]
         public void GivenNullCallAsProperties_MustThrowException()
         {
             Assert.ThrowsException<ArgumentNullException>(() => new NullObjectDeclaring().Throw());

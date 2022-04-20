@@ -19,6 +19,8 @@ namespace Ao.ObjectDesign.Data
 
         public new ValueType Value { get; }
 
+        public new ValueType ConvertedValue => (ValueType)ForValueHelper.ForValue(Value, TypeCode);
+
         public override VarValue Clone()
         {
             return new StructValue(Value, TypeCode);

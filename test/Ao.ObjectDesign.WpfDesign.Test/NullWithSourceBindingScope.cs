@@ -1,4 +1,5 @@
 ﻿using Ao.ObjectDesign.Wpf.Data;
+using System;
 using System.Windows;
 using System.Windows.Data;
 
@@ -9,6 +10,8 @@ namespace Ao.ObjectDesign.WpfDesign.Test
         public object Source => null;
 
         public DependencyProperty DependencyProperty => null;
+
+        public Func<DependencyObject> TargetFactory { get; set; }
 
         public BindingExpressionBase Bind(DependencyObject @object)
         {
