@@ -2,9 +2,9 @@
 
 namespace Ao.ObjectDesign.Data
 {
-    public class NotifyUnSubscribedEventArgs<TKey> : EventArgs
+    public class NotifyUnSubscribedEventArgs<TKey,TValue> : EventArgs
     {
-        public NotifyUnSubscribedEventArgs(TKey key, DataViewChannels<TKey> channels, IDataNotifyer<TKey> notifyer)
+        public NotifyUnSubscribedEventArgs(TKey key, DataViewChannels<TKey, TValue> channels, IDataNotifyer<TKey, TValue> notifyer)
         {
             Key = key;
             Channels = channels;
@@ -13,8 +13,8 @@ namespace Ao.ObjectDesign.Data
 
         public TKey Key { get; }
 
-        public DataViewChannels<TKey> Channels { get; }
+        public DataViewChannels<TKey, TValue> Channels { get; }
 
-        public IDataNotifyer<TKey> Notifyer { get; }
+        public IDataNotifyer<TKey, TValue> Notifyer { get; }
     }
 }

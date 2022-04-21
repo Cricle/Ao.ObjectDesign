@@ -4,13 +4,13 @@ using System.Diagnostics;
 namespace Ao.ObjectDesign.Data
 {
     [DebuggerDisplay("{" + nameof(ToString) + "(),nq}")]
-    public class ValidDataView<TKey> : ValidNotifyableMap<TKey, IVarValue>
+    public class ValidDataView<TKey, TValue> : ValidNotifyableMap<TKey, TValue>
     {
         public ValidDataView()
         {
         }
 
-        public ValidDataView(IDictionary<TKey, IVarValue> map) : base(map)
+        public ValidDataView(IDictionary<TKey, TValue> map) : base(map)
         {
         }
 

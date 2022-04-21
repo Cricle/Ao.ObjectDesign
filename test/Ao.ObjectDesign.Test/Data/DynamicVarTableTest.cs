@@ -9,9 +9,9 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class DynamicVarTableTest
     {
-        class IntDynamicVarTable : DynamicVarTable<int>
+        class IntDynamicVarTable : DynamicVarTable<int,object>
         {
-            public IntDynamicVarTable(NotifyableMap<int, IVarValue> dataMap) : base(dataMap)
+            public IntDynamicVarTable(NotifyableMap<int, object> dataMap) : base(dataMap)
             {
             }
 
@@ -24,7 +24,7 @@ namespace Ao.ObjectDesign.Test.Data
             {
                 return key.ToString();
             }
-            protected override object VisitValue(IVarValue value)
+            protected override object VisitValue(object value)
             {
                 return value;
             }
@@ -32,7 +32,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GivenNullInit_MustThrowException()
         {
-            var map = new NotifyableMap<string, IVarValue>();
+            var map = new NotifyableMap<string, object>();
             var set = ReadOnlyHashSet<string>.Empty;
 
             Assert.ThrowsException<ArgumentNullException>(() => new DynamicVarTable(null));
@@ -42,7 +42,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void ListenOrUnListenTwice_NothingTodo()
         {
-            var map = new NotifyableMap<string, IVarValue>();
+            var map = new NotifyableMap<string, object>();
             var tb = new DynamicVarTable(map);
 
             tb.Listen();
@@ -58,14 +58,14 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GetDynamicMemberNames_AllAcceptWasReturnAll_NotReturlInputs()
         {
-            var map = new NotifyableMap<string, IVarValue>();
-            map.AddOrUpdate("a", VarValue.Byte0Value);
-            map.AddOrUpdate("b", VarValue.Byte0Value);
-            map.AddOrUpdate("c", VarValue.Byte0Value);
-            map.AddOrUpdate("d", VarValue.Byte0Value);
-            map.AddOrUpdate("e", VarValue.Byte0Value);
-            map.AddOrUpdate("f", VarValue.Byte0Value);
-            map.AddOrUpdate("g", VarValue.Byte0Value);
+            var map = new NotifyableMap<string, object>();
+            map.AddOrUpdate("a", (byte)0);
+            map.AddOrUpdate("b", (byte)0);
+            map.AddOrUpdate("c", (byte)0);
+            map.AddOrUpdate("d", (byte)0);
+            map.AddOrUpdate("e", (byte)0);
+            map.AddOrUpdate("f", (byte)0);
+            map.AddOrUpdate("g", (byte)0);
             var tb = new DynamicVarTable(map);
 
             var vals = tb.GetDynamicMemberNames();
@@ -96,7 +96,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void ListenChange()
         {
-            var map = new NotifyableMap<string, IVarValue>();
+            var map = new NotifyableMap<string, object>();
             var tb = new DynamicVarTable(map);
 
             Assert.AreEqual(map, tb.DataMap);
@@ -111,7 +111,7 @@ namespace Ao.ObjectDesign.Test.Data
             };
             Assert.IsTrue(tb.IsListening);
 
-            map.AddOrUpdate("a", VarValue.Float0Value);
+            map.AddOrUpdate("a", 0f);
 
             Assert.AreEqual(tb, sender);
             Assert.AreEqual("a", args.PropertyName);
@@ -126,40 +126,36 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void SetValue()
         {
-            var map = new NotifyableMap<string, IVarValue>();
+            var map = new NotifyableMap<string, object>();
             var tb = new DynamicVarTable(map);
             dynamic dtb = tb;
 
             tb.SetValue("a", "aaa");
 
             Assert.AreEqual("a", map.Keys.Single());
-            Assert.AreEqual("aaa", map.Values.Single().Value);
+            Assert.AreEqual("aaa", map.Values.Single());
 
             dtb.a = 123;
             Assert.AreEqual(123, dtb.a);
 
-            var val = new RefValue("bbb");
-
-            tb.SetValue("a", val);
+            tb.SetValue("a", "bbb");
 
             Assert.AreEqual("a", map.Keys.Single());
-            Assert.AreEqual(val, map.Values.Single());
+            Assert.AreEqual("bbb", map.Values.Single());
 
-            var map1 = new NotifyableMap<int, IVarValue>();
+            var map1 = new NotifyableMap<int, object>();
             var tb1 = new IntDynamicVarTable(map1);
             dynamic dtb1 = tb1;
 
-            tb1.SetValue(1, VarValue.Char0Value);
+            tb1.SetValue(1, 1);
 
-            Assert.AreEqual(VarValue.Char0Value, dtb1[1]);
-            Assert.AreEqual(VarValue.Char0Value, dtb1["1"]);
-            Assert.AreEqual(VarValue.Char0Value, dtb1["1"]);
+            Assert.AreEqual(1, dtb1[1]);
 
         }
         [TestMethod]
         public void UseageTest()
         {
-            var map = new NotifyableMap<string, IVarValue>();
+            var map = new NotifyableMap<string, object>();
             var tb = new DynamicVarTable(map);
 
             tb.Listen();

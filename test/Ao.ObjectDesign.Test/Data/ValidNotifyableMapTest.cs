@@ -8,16 +8,16 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class ValidNotifyableMapTest
     {
-        class ValueNotifyableSetValidater : INotifyableSetValidater<string, AnyValue>
+        class ValueNotifyableSetValidater : INotifyableSetValidater<string, object>
         {
             public bool IsStopValidate { get; set; }
             public bool IsSkipGlobalValidate { get; set; }
             public bool IsSkipWithKeyValidate { get; set; }
 
 
-            public Func<DataChangedEventArgs<string, AnyValue>, bool> Func { get; set; }
+            public Func<DataChangedEventArgs<string, object>, bool> Func { get; set; }
 
-            public bool Validate(DataChangedEventArgs<string, AnyValue> e, ref NotifyableSetValidaterContext context)
+            public bool Validate(DataChangedEventArgs<string, object> e, ref NotifyableSetValidaterContext context)
             {
                 if (IsStopValidate)
                 {
@@ -42,20 +42,20 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void NewWithArguments()
         {
-            new ValidNotifyableMap<string, AnyValue>();
-            new ValidNotifyableMap<string, AnyValue>(10, 100);
-            new ValidNotifyableMap<string, AnyValue>(StringComparer.OrdinalIgnoreCase);
-            var map = new ValidNotifyableMap<string, AnyValue>(new Dictionary<string, AnyValue>
+            new ValidNotifyableMap<string, object>();
+            new ValidNotifyableMap<string, object>(10, 100);
+            new ValidNotifyableMap<string, object>(StringComparer.OrdinalIgnoreCase);
+            var map = new ValidNotifyableMap<string, object>(new Dictionary<string, object>
             {
-                ["a"] = VarValue.Byte0Value
+                ["a"] = (byte)0
             });
             var v = map["a"];
-            Assert.AreEqual(VarValue.Byte0Value, v);
+            Assert.AreEqual((byte)0, v);
         }
         [TestMethod]
         public void GivenNullCall_MustThrowException()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             Assert.ThrowsException<ArgumentNullException>(() => map.IsRegistdWithKeyRule("1", null));
             Assert.ThrowsException<ArgumentNullException>(() => map.IsRegistGlobal(null));
             Assert.ThrowsException<ArgumentNullException>(() => map.RegistGlobalRule(null));
@@ -66,7 +66,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void RegistValidate()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             Assert.IsFalse(map.IsGlobalRulesCreated);
             Assert.IsFalse(map.IsWithKeyRulesCreated);
@@ -80,7 +80,7 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void Regist_UnRegist_Contains_Validate()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             Assert.IsFalse(map.IsRegistdWithKeyRule("a", valid));
             Assert.IsFalse(map.IsRegistGlobal(valid));
@@ -105,14 +105,14 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void NoneRules_ValidatePass()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
-            map.AddOrUpdate("a", VarValue.Char0Value);
-            Assert.AreEqual(VarValue.Char0Value, map["a"]);
+            var map = new ValidNotifyableMap<string, object>();
+            map.AddOrUpdate("a", (char)0);
+            Assert.AreEqual((char)0, map["a"]);
         }
         [TestMethod]
         public void GlobalRule_SkipKeyRules()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             valid.IsSkipWithKeyValidate = true;
             map.RegistGlobalRule(valid);
@@ -122,14 +122,14 @@ namespace Ao.ObjectDesign.Test.Data
             };
             map.RegistWithKeyRule("a", keyValid);
 
-            map.AddOrUpdate("a", VarValue.Char0Value);
+            map.AddOrUpdate("a", (char)0);
 
-            Assert.AreEqual(VarValue.Char0Value, map["a"]);
+            Assert.AreEqual((char)0, map["a"]);
         }
         [TestMethod]
         public void GlobalRule_StopRules()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             valid.IsStopValidate = true;
 
@@ -140,13 +140,13 @@ namespace Ao.ObjectDesign.Test.Data
             map.RegistGlobalRule(valid);
             map.RegistGlobalRule(valid2);
 
-            map.AddOrUpdate("a", VarValue.Byte0Value);
-            Assert.AreEqual(VarValue.Byte0Value, map["a"]);
+            map.AddOrUpdate("a", (byte)0);
+            Assert.AreEqual((byte)0, map["a"]);
         }
         [TestMethod]
         public void GlobalRule_SkipGlobalRules()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             valid.IsSkipGlobalValidate = true;
 
@@ -157,41 +157,41 @@ namespace Ao.ObjectDesign.Test.Data
             map.RegistGlobalRule(valid);
             map.RegistGlobalRule(valid2);
 
-            map.AddOrUpdate("a", VarValue.Byte0Value);
-            Assert.AreEqual(VarValue.Byte0Value, map["a"]);
+            map.AddOrUpdate("a", (byte)0);
+            Assert.AreEqual((byte)0, map["a"]);
         }
         [TestMethod]
         public void Global_OnlyACanWrite()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             valid.Func = a => a.Key == "a";
 
             map.RegistGlobalRule(valid);
 
-            map.AddOrUpdate("a", VarValue.Byte0Value);
+            map.AddOrUpdate("a", (byte)0);
 
-            Assert.ThrowsException<InvalidOperationException>(() => map.AddOrUpdate("b", VarValue.Byte0Value));
+            Assert.ThrowsException<InvalidOperationException>(() => map.AddOrUpdate("b", (byte)0));
         }
         [TestMethod]
         public void ValidData()
         {
-            var map = new ValidNotifyableMap<string, AnyValue>();
+            var map = new ValidNotifyableMap<string, object>();
             var valid = new ValueNotifyableSetValidater();
             valid.Func = a => a.Key == "a";
 
             map.RegistGlobalRule(valid);
 
-            var e = new DataChangedEventArgs<string, AnyValue>("a", default, default, ChangeModes.Change);
+            var e = new DataChangedEventArgs<string, object>("a", default, default, ChangeModes.Change);
             Assert.IsTrue(map.ValidateData(e, out _));
-            var e1 = new DataChangedEventArgs<string, AnyValue>("b", default, default, ChangeModes.Change);
+            var e1 = new DataChangedEventArgs<string, object>("b", default, default, ChangeModes.Change);
             Assert.IsFalse(map.ValidateData(e1, out var v));
             Assert.AreEqual(valid, v);
 
-            Assert.IsTrue(map.ValidateData("a", VarValue.Byte0Value, out v));
+            Assert.IsTrue(map.ValidateData("a", (byte)0, out v));
             Assert.IsNull(v);
 
-            Assert.IsFalse(map.ValidateData("b", VarValue.Byte0Value, out v));
+            Assert.IsFalse(map.ValidateData("b", (byte)0, out v));
             Assert.AreEqual(valid, v);
 
         }

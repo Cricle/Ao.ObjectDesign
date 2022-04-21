@@ -105,11 +105,7 @@ namespace Ao.ObjectDesign.Data
         }
         public KeyValuePair<TKey, TValue>[] ToArray()
         {
-            if (innerMap!=null)
-            {
-                return innerMap.ToArray();
-            }
-            return originMap.ToArray();
+            return (innerMap ?? originMap).ToArray();
         }
         protected virtual void OnWritingData(DataChangedEventArgs<TKey, TValue> e)
         {

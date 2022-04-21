@@ -11,14 +11,14 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void New()
         {
-            new ValidDataView<string>();
-            new ValidDataView<string>(100, 10);
-            new ValidDataView<string>(StringComparer.OrdinalIgnoreCase);
-            var map = new ValidDataView<string>(new Dictionary<string, IVarValue>
+            new ValidDataView<string,object>();
+            new ValidDataView<string, object>(100, 10);
+            new ValidDataView<string, object>(StringComparer.OrdinalIgnoreCase);
+            var map = new ValidDataView<string, object>(new Dictionary<string, object>
             {
-                ["a"] = VarValue.Byte0Value
+                ["a"] = (byte)0
             });
-            Assert.AreEqual(VarValue.Byte0Value, map["a"]);
+            Assert.AreEqual((byte)0, map["a"]);
         }
     }
 }

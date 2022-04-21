@@ -7,14 +7,14 @@ using System.Runtime.CompilerServices;
 
 namespace Ao.ObjectDesign.Data
 {
-    public class DynamicVarTable : DynamicVarTable<string>
+    public class DynamicVarTable : DynamicVarTable<string,object>
     {
-        public DynamicVarTable(NotifyableMap<string, IVarValue> dataMap)
+        public DynamicVarTable(NotifyableMap<string, object> dataMap)
             : base(dataMap)
         {
         }
 
-        public DynamicVarTable(NotifyableMap<string, IVarValue> dataMap, IReadOnlyHashSet<string> acceptKeys)
+        public DynamicVarTable(NotifyableMap<string, object> dataMap, IReadOnlyHashSet<string> acceptKeys)
             : base(dataMap, acceptKeys)
         {
         }
@@ -30,19 +30,19 @@ namespace Ao.ObjectDesign.Data
         }
     }
 
-    public abstract class DynamicVarTable<TKey> : DynamicObject, INotifyPropertyChanged, IDisposable
+    public abstract class DynamicVarTable<TKey,TValue> : DynamicObject, INotifyPropertyChanged, IDisposable
     {
-        protected DynamicVarTable(NotifyableMap<TKey, IVarValue> dataMap)
+        protected DynamicVarTable(NotifyableMap<TKey, TValue> dataMap)
             : this(dataMap, ReadOnlyHashSet<TKey>.Empty)
         {
             AllAccept = true;
         }
-        protected DynamicVarTable(NotifyableMap<TKey, IVarValue> dataMap, IReadOnlyHashSet<TKey> acceptKeys)
+        protected DynamicVarTable(NotifyableMap<TKey, TValue> dataMap, IReadOnlyHashSet<TKey> acceptKeys)
         {
             DataMap = dataMap ?? throw new ArgumentNullException(nameof(dataMap));
             AcceptKeys = acceptKeys ?? throw new ArgumentNullException(nameof(acceptKeys));
 
-            NoneValue = VarValue.NullValue;
+            NoneValue = default(TValue);
         }
         private bool isListening;
 
@@ -52,9 +52,9 @@ namespace Ao.ObjectDesign.Data
 
         public IReadOnlyHashSet<TKey> AcceptKeys { get; }
 
-        public NotifyableMap<TKey, IVarValue> DataMap { get; }
+        public NotifyableMap<TKey, TValue> DataMap { get; }
 
-        public IVarValue NoneValue { get; set; }
+        public TValue NoneValue { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -105,7 +105,7 @@ namespace Ao.ObjectDesign.Data
             var var = ToVarValue(value);
             return SetValue(name, var);
         }
-        public bool SetValue(string name, IVarValue value)
+        public bool SetValue(string name, TValue value)
         {
             var key = ToKey(name);
             return SetValue(key, value);
@@ -115,7 +115,7 @@ namespace Ao.ObjectDesign.Data
             var var = ToVarValue(value);
             return SetValue(key, var);
         }
-        public bool SetValue(TKey key, IVarValue value)
+        public bool SetValue(TKey key, TValue value)
         {
             if (IsAccept(key))
             {
@@ -132,14 +132,14 @@ namespace Ao.ObjectDesign.Data
         {
             return SetValue(binder.Name, value);
         }
-        public bool TryGetValue(string name, out IVarValue result)
+        public bool TryGetValue(string name, out TValue result)
         {
             var key = ToKey(name);
             return TryGetValue(key, out result);
         }
-        public bool TryGetValue(TKey key, out IVarValue result)
+        public bool TryGetValue(TKey key, out TValue result)
         {
-            result = null;
+            result = default;
             if (IsAccept(key))
             {
                 DataMap.TryGetValue(key, out result);
@@ -157,9 +157,9 @@ namespace Ao.ObjectDesign.Data
             }
             return false;
         }
-        protected virtual object VisitValue(IVarValue value)
+        protected virtual object VisitValue(TValue value)
         {
-            return value?.Value ?? NoneValue;
+            return value ?? NoneValue;
         }
 
         public override bool TrySetIndex(SetIndexBinder binder, object[] indexes, object value)
@@ -201,7 +201,7 @@ namespace Ao.ObjectDesign.Data
             }
             return base.TryGetIndex(binder, indexes, out result);
         }
-        protected void OnDataChanged(object sender, DataChangedEventArgs<TKey, IVarValue> e)
+        protected void OnDataChanged(object sender, DataChangedEventArgs<TKey, TValue> e)
         {
             if (IsAccept(e.Key))
             {
@@ -222,9 +222,9 @@ namespace Ao.ObjectDesign.Data
         protected abstract string ToName(TKey key);
         protected abstract TKey ToKey(string name);
 
-        protected virtual IVarValue ToVarValue(object value)
+        protected virtual TValue ToVarValue(object value)
         {
-            return VarValue.FromObject(value);
+            return (TValue)value;
         }
 
         public void Dispose()

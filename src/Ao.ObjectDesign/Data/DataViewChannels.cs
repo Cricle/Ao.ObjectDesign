@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Data
 {
-    public class DataViewChannels<TKey>
+    public class DataViewChannels<TKey,TValue>
     {
-        public DataViewChannels(DataView<TKey> dataView)
+        public DataViewChannels(NotifyableMap<TKey, TValue> dataView)
         {
             DataView = dataView ?? throw new ArgumentNullException(nameof(dataView));
             notifyerMap = new ConcurrentDictionary<TKey, ChannelEntity>();
@@ -18,16 +18,16 @@ namespace Ao.ObjectDesign.Data
 
         private readonly ConcurrentDictionary<TKey, ChannelEntity> notifyerMap;
 
-        public DataView<TKey> DataView { get; }
+        public NotifyableMap<TKey,TValue> DataView { get; }
 
         public IEnumerable<TKey> SubscribeNames => notifyerMap.Keys;
 
         public bool AsyncRaise { get; set; }
 
-        public IReadOnlyDictionary<TKey, IReadOnlyList<IDataNotifyer<TKey>>> NotifyerMap =>
+        public IReadOnlyDictionary<TKey, IReadOnlyList<IDataNotifyer<TKey, TValue>>> NotifyerMap =>
             notifyerMap.ToDictionary(x => x.Key, x => x.Value.ReadOnlySubscribers);
 
-        public INotifyToken<TKey> Regist(TKey name, IDataNotifyer<TKey> notifyer)
+        public INotifyToken<TKey, TValue> Regist(TKey name, IDataNotifyer<TKey, TValue> notifyer)
         {
             if (name == null)
             {
@@ -51,7 +51,7 @@ namespace Ao.ObjectDesign.Data
             return new NotifyToken(this, name, notifyer);
         }
 
-        public bool UnRegist(TKey key, IDataNotifyer<TKey> notifyer)
+        public bool UnRegist(TKey key, IDataNotifyer<TKey, TValue> notifyer)
         {
             if (key == null)
             {
@@ -96,7 +96,7 @@ namespace Ao.ObjectDesign.Data
         {
             return notifyerMap.ContainsKey(key);
         }
-        public bool IsSubscribedNotifyer(TKey key, IDataNotifyer<TKey> notifyer)
+        public bool IsSubscribedNotifyer(TKey key, IDataNotifyer<TKey, TValue> notifyer)
         {
             if (key == null)
             {
@@ -119,29 +119,29 @@ namespace Ao.ObjectDesign.Data
         {
             public readonly object SyncRoot=new object();
 
-            public readonly List<IDataNotifyer<TKey>> Subscribers;
+            public readonly List<IDataNotifyer<TKey, TValue>> Subscribers;
 
-            public IReadOnlyList<IDataNotifyer<TKey>> ReadOnlySubscribers => Subscribers;
+            public IReadOnlyList<IDataNotifyer<TKey, TValue>> ReadOnlySubscribers => Subscribers;
 
-            public readonly DataView<TKey> DataView;
+            public readonly NotifyableMap<TKey, TValue> DataView;
 
             public readonly TKey Name;
 
-            public readonly DataViewChannels<TKey> Channels;
+            public readonly DataViewChannels<TKey, TValue> Channels;
 
-            public ChannelEntity(DataView<TKey> dataView, DataViewChannels<TKey> channels, TKey key)
+            public ChannelEntity(NotifyableMap<TKey,TValue> dataView, DataViewChannels<TKey, TValue> channels, TKey key)
             {
                 Debug.Assert(dataView != null);
                 Debug.Assert(key != null);
                 Debug.Assert(channels != null);
-                Subscribers = new List<IDataNotifyer<TKey>>();
+                Subscribers = new List<IDataNotifyer<TKey, TValue>>();
                 DataView = dataView;
                 Name = key;
                 Channels = channels;
                 DataView.DataChanged += OnDataViewDataChanged;
             }
 
-            private void OnDataViewDataChanged(object sender, DataChangedEventArgs<TKey, IVarValue> e)
+            private void OnDataViewDataChanged(object sender, DataChangedEventArgs<TKey, TValue> e)
             {
                 if (e.Key != null && e.Key.Equals(Name))
                 {
@@ -149,7 +149,7 @@ namespace Ao.ObjectDesign.Data
                     {
                         Task.Factory.StartNew((state) =>
                         {
-                            var s = (List<IDataNotifyer<TKey>>)state;
+                            var s = (List<IDataNotifyer<TKey, TValue>>)state;
                             RunNotify(s, sender, e);
                         }, Subscribers);
                     }
@@ -160,7 +160,7 @@ namespace Ao.ObjectDesign.Data
                 }
             }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private void RunNotify(List<IDataNotifyer<TKey>> s,object sender,DataChangedEventArgs<TKey, IVarValue> e)
+            private void RunNotify(List<IDataNotifyer<TKey, TValue>> s,object sender,DataChangedEventArgs<TKey, TValue> e)
             {
                 for (int i = 0; i < s.Count; i++)
                 {
@@ -174,9 +174,9 @@ namespace Ao.ObjectDesign.Data
             }
         }
 
-        class NotifyToken : INotifyToken<TKey>
+        class NotifyToken : INotifyToken<TKey,TValue>
         {
-            public NotifyToken(DataViewChannels<TKey> channels, TKey key, IDataNotifyer<TKey> notifyer)
+            public NotifyToken(DataViewChannels<TKey,TValue> channels, TKey key, IDataNotifyer<TKey, TValue> notifyer)
             {
                 Debug.Assert(channels != null);
                 Debug.Assert(key != null);
@@ -187,15 +187,15 @@ namespace Ao.ObjectDesign.Data
             }
 
 
-            public DataViewChannels<TKey> Channel { get; }
+            public DataViewChannels<TKey,TValue> Channel { get; }
 
-            public IDataNotifyer<TKey> Notifyer { get; }
+            public IDataNotifyer<TKey, TValue> Notifyer { get; }
 
             public TKey Key { get; }
 
             public bool IsSubscribed => Channel.IsSubscribedNotifyer(Key, Notifyer);
 
-            public event EventHandler<NotifyUnSubscribedEventArgs<TKey>> UnSubscribed;
+            public event EventHandler<NotifyUnSubscribedEventArgs<TKey,TValue>> UnSubscribed;
 
             public void Dispose()
             {
@@ -207,7 +207,7 @@ namespace Ao.ObjectDesign.Data
                     Channel.UnRegist(Key, Notifyer);
                     if (UnSubscribed != null)
                     {
-                        var e = new NotifyUnSubscribedEventArgs<TKey>(Key, Channel, Notifyer);
+                        var e = new NotifyUnSubscribedEventArgs<TKey,TValue>(Key, Channel, Notifyer);
                         UnSubscribed?.Invoke(this, e);
                     }
                 }

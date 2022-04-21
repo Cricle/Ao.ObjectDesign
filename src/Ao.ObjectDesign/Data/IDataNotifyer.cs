@@ -2,8 +2,8 @@
 
 namespace Ao.ObjectDesign.Data
 {
-    public interface IDataNotifyer<TKey>
+    public interface IDataNotifyer<TKey, TValue>
     {
-        void OnDataChanged(object sender, DataChangedEventArgs<TKey, IVarValue> e);
+        void OnDataChanged(object sender, DataChangedEventArgs<TKey, TValue> e);
     }
 }

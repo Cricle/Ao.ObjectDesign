@@ -8,19 +8,19 @@ namespace Ao.ObjectDesign.Test.Data
     [TestClass]
     public class DataViewChannelsTest
     {
-        class NullDataNotifyer : IDataNotifyer<string>
+        class NullDataNotifyer : IDataNotifyer<string, object>
         {
-            public void OnDataChanged(object sender, DataChangedEventArgs<string, IVarValue> e)
+            public void OnDataChanged(object sender, DataChangedEventArgs<string, object> e)
             {
             }
         }
-        class ValueDataNotifyer : IDataNotifyer<string>
+        class ValueDataNotifyer : IDataNotifyer<string,object>
         {
             public object Sender { get; set; }
 
-            public DataChangedEventArgs<string, IVarValue> Args { get; set; }
+            public DataChangedEventArgs<string, object> Args { get; set; }
 
-            public void OnDataChanged(object sender, DataChangedEventArgs<string, IVarValue> e)
+            public void OnDataChanged(object sender, DataChangedEventArgs<string, object> e)
             {
                 Sender = sender;
                 Args = e;
@@ -29,12 +29,12 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GivenNullInitOrCall_MustThrowException()
         {
-            var dv = new DataView<string>();
-            var channel = new DataViewChannels<string>(dv);
+            var dv = new NotifyableMap<string,object>();
+            var channel = new DataViewChannels<string, object>(dv);
             var notifyer = new NullDataNotifyer();
             var name = "duadghsa";
 
-            Assert.ThrowsException<ArgumentNullException>(() => new DataViewChannels<string>(null));
+            Assert.ThrowsException<ArgumentNullException>(() => new DataViewChannels<string, object>(null));
             Assert.ThrowsException<ArgumentNullException>(() => channel.GetSubscribeCount(null));
             Assert.ThrowsException<ArgumentNullException>(() => channel.Regist(null, notifyer));
             Assert.ThrowsException<ArgumentNullException>(() => channel.Regist(name, null));
@@ -47,8 +47,8 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void IsSubscribe()
         {
-            var dv = new DataView<string>();
-            var channel = new DataViewChannels<string>(dv);
+            var dv = new NotifyableMap<string, object>();
+            var channel = new DataViewChannels<string, object>(dv);
             var notifyer = new NullDataNotifyer();
             var name = "duadghsa";
 
@@ -69,22 +69,22 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void Regist_UnRegist_Notify()
         {
-            var dv = new DataView<string>();
-            var channel = new DataViewChannels<string>(dv);
+            var dv = new NotifyableMap<string, object>();
+            var channel = new DataViewChannels<string, object>(dv);
             var notifyer = new ValueDataNotifyer();
             var name = "duadghsa";
 
             var res = channel.Regist(name, notifyer);
             Assert.IsNotNull(res);
-            var val = VarValue.FalseValue;
-            dv.AddOrUpdate(name, val);
+
+            dv.AddOrUpdate(name, false);
             Assert.AreEqual(dv, notifyer.Sender);
             Assert.IsNotNull(notifyer.Args);
 
             channel.UnRegist(name, notifyer);
             notifyer.Args = null;
             notifyer.Sender = null;
-            dv.AddOrUpdate(name, VarValue.Decimal0Value);
+            dv.AddOrUpdate(name, 0m);
 
             Assert.IsNull(notifyer.Args);
             Assert.IsNull(notifyer.Sender);
@@ -92,8 +92,8 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void GetSubscribeCount()
         {
-            var dv = new DataView<string>();
-            var channel = new DataViewChannels<string>(dv);
+            var dv = new NotifyableMap<string, object>();
+            var channel = new DataViewChannels<string, object>(dv);
             var name = "duadghsa";
             var val = channel.GetSubscribeCount(name);
             Assert.IsNull(val);
@@ -112,8 +112,8 @@ namespace Ao.ObjectDesign.Test.Data
         [TestMethod]
         public void Subscribe_Raise()
         {
-            var dv = new DataView<string>();
-            var channel = new DataViewChannels<string>(dv);
+            var dv = new NotifyableMap<string, object>();
+            var channel = new DataViewChannels<string, object>(dv);
             var name = "duadghsa";
             var notifyer = new ValueDataNotifyer();
             var token = channel.Regist(name, notifyer);
@@ -123,14 +123,14 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.AreEqual(channel, token.Channel);
 
             object sender = null;
-            NotifyUnSubscribedEventArgs<string> args = null;
+            NotifyUnSubscribedEventArgs<string,object> args = null;
 
             token.UnSubscribed += (o, e) =>
             {
                 sender = o;
                 args = e;
             };
-            var value = VarValue.Long0Value;
+            var value = 0L;
             dv.AddOrUpdate(name, value);
 
             Assert.AreEqual(dv, notifyer.Sender);
@@ -139,15 +139,13 @@ namespace Ao.ObjectDesign.Test.Data
             Assert.IsNull(notifyer.Args.Old);
             Assert.AreEqual(value, notifyer.Args.New);
 
-            var value1 = new StructValue(123);
-
-            dv.AddOrUpdate(name, value1);
+            dv.AddOrUpdate(name, 123L);
 
             Assert.AreEqual(dv, notifyer.Sender);
             Assert.AreEqual(name, notifyer.Args.Key);
             Assert.AreEqual(ChangeModes.Change, notifyer.Args.Mode);
             Assert.AreEqual(value, notifyer.Args.Old);
-            Assert.AreEqual(value1, notifyer.Args.New);
+            Assert.AreEqual(123L, notifyer.Args.New);
 
             token.Dispose();
 
