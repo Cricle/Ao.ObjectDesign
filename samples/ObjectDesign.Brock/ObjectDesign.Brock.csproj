@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ao.Lang" Version="4.2.0" />
-    <PackageReference Include="Ao.Lang.Wpf" Version="4.2.0" />
+    <PackageReference Include="Ao.Lang" Version="4.2.1" />
+    <PackageReference Include="Ao.Lang.Wpf" Version="4.2.1" />
     <PackageReference Include="Expression.Blend.Sdk.WPF" Version="1.0.1" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

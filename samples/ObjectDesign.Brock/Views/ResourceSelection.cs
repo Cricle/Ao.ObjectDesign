@@ -58,10 +58,8 @@ namespace ObjectDesign.Brock.Views
                     {
                         if (Uri.TryCreate(str, UriKind.Absolute, out _))
                         {
-                            value.ResourceName = null;
+                            value.Uri = str;
                             value.Type = ResourceTypes.Uri;
-                            value.ResourceGroupName = null;
-                            value.ResourceName = str;
                         }
                         else
                         {
