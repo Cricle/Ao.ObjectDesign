@@ -7,10 +7,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Data\NotifyableMap.cs~RF19194591.TMP" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="FastExpressionCompiler" Version="3.3.0" />
 	</ItemGroup>
 
