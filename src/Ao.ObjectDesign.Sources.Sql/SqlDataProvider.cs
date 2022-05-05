@@ -2,21 +2,23 @@
 using SqlKata;
 using SqlKata.Compilers;
 using SqlKata.Execution;
+using System;
 using System.Data;
 using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Sources.Sql
 {
-    public abstract class SqlDataProvider : IDataProvider, IAsyncDataProvider
+    public abstract class SqlDataProvider : IDataProvider, IAsyncDataProvider,IDisposable
     {
-        private static readonly Query EmptyQuery = new Query();
-
         protected SqlDataProvider(Query query, Compiler compiler, IDbConnection dbConnection)
         {
-            Query = query ?? EmptyQuery.Clone();
-            Compiler = compiler ?? throw new System.ArgumentNullException(nameof(compiler));
-            DbConnection = dbConnection ?? throw new System.ArgumentNullException(nameof(dbConnection));
+            Query = query ?? new Query();
+            Compiler = compiler ?? throw new ArgumentNullException(nameof(compiler));
+            DbConnection = dbConnection ?? throw new ArgumentNullException(nameof(dbConnection));
+            factory = new Lazy<QueryFactory>(CreateQueryFactory);
         }
+
+        private Lazy<QueryFactory> factory;
 
         public Query Query { get; }
 
@@ -26,20 +28,18 @@ namespace Ao.ObjectDesign.Sources.Sql
 
         public int Timeout { get; set; } = 30;
 
+        public QueryFactory Factory => factory.Value;
+        
+        public bool IsFactoryCreated => factory.IsValueCreated;
+
         public object GetData()
         {
-            using (var fc = CreateQueryFactory())
-            {
-                return CoreGetData(fc.FromQuery(Query));
-            }
+            return CoreGetData(factory.Value.FromQuery(Query));
         }
 
-        public async Task<object> GetDataAsync()
+        public Task<object> GetDataAsync()
         {
-            using (var fc = CreateQueryFactory())
-            {
-                return await CoreGetDataAsync(fc.FromQuery(Query));
-            }
+            return CoreGetDataAsync(factory.Value.FromQuery(Query));
         }
 
         protected abstract object CoreGetData(Query query);
@@ -55,6 +55,15 @@ namespace Ao.ObjectDesign.Sources.Sql
         protected virtual void OnCreatedQueryFactory(QueryFactory factory)
         {
 
+        }
+
+        public void Dispose()
+        {
+            if (factory.IsValueCreated)
+            {
+                factory.Value.Dispose();
+                factory = null;
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31613.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign", "src\Ao.ObjectDesign\Ao.ObjectDesign.csproj", "{E146D366-9C0E-4D8B-BC2C-8C18D8959209}"
 EndProject
@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.DependencyI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.AutoBind", "src\Ao.ObjectDesign.AutoBind\Ao.ObjectDesign.AutoBind.csproj", "{F7E3EF22-689A-4E90-A751-FF8DD7A50A6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Sources.Sql", "src\Ao.ObjectDesign.Sources.Sql\Ao.ObjectDesign.Sources.Sql.csproj", "{6962B81B-FD45-428D-8405-C74CF8E5AFD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Sources.Sql", "src\Ao.ObjectDesign.Sources.Sql\Ao.ObjectDesign.Sources.Sql.csproj", "{6962B81B-FD45-428D-8405-C74CF8E5AFD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
