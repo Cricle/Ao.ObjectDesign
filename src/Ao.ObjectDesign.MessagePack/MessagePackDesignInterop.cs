@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Abstract.Store;
+﻿using Ao.ObjectDesign.Store;
 using MessagePack;
 using MessagePack.Resolvers;
 using System;

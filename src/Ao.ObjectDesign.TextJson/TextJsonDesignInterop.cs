@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Abstract.Store;
+﻿using Ao.ObjectDesign.Store;
 using Dahomey.Json;
 using Dahomey.Json.Attributes;
 using System;

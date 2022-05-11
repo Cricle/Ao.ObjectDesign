@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Ao.ObjectDesign.Abstract.Store
+namespace Ao.ObjectDesign.Store
 {
     public static class DesignInteropActionExtensions
     {

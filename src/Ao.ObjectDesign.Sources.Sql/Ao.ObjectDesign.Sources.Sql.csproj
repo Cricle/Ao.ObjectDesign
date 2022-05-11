@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Sources\Ao.ObjectDesign.Sources.csproj" />
   </ItemGroup>
 
 </Project>

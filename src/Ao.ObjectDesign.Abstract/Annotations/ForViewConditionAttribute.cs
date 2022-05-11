@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Abstract.Annotations
+namespace Ao.ObjectDesign.Annotations
 {
     [AttributeUsage(AttributeTargets.Property, Inherited = false, AllowMultiple = false)]
     public sealed class ForViewConditionAttribute : Attribute

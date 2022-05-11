@@ -57,6 +57,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.AutoBind", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ao.ObjectDesign.Sources.Sql", "src\Ao.ObjectDesign.Sources.Sql\Ao.ObjectDesign.Sources.Sql.csproj", "{6962B81B-FD45-428D-8405-C74CF8E5AFD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ao.ObjectDesign.Sources", "src\Ao.ObjectDesign.Sources\Ao.ObjectDesign.Sources.csproj", "{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -367,6 +369,18 @@ Global
 		{6962B81B-FD45-428D-8405-C74CF8E5AFD0}.Release|x64.Build.0 = Release|Any CPU
 		{6962B81B-FD45-428D-8405-C74CF8E5AFD0}.Release|x86.ActiveCfg = Release|Any CPU
 		{6962B81B-FD45-428D-8405-C74CF8E5AFD0}.Release|x86.Build.0 = Release|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Debug|x64.Build.0 = Debug|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Debug|x86.Build.0 = Debug|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Release|x64.ActiveCfg = Release|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Release|x64.Build.0 = Release|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Release|x86.ActiveCfg = Release|Any CPU
+		{827ECD02-F1F8-4B28-B5F5-5B37E5C56C44}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

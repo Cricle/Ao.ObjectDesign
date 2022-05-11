@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Abstract.Store;
+﻿using Ao.ObjectDesign.Store;
 using Portable.Xaml;
 using System;
 using System.IO;

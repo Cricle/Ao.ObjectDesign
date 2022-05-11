@@ -26,6 +26,8 @@ namespace Ao.ObjectDesign.Sources.Sql
 
         public IDbConnection DbConnection { get; }
 
+        public IDbTransaction Transaction { get; set; }
+
         public int Timeout { get; set; } = 30;
 
         public QueryFactory Factory => factory.Value;
@@ -63,6 +65,7 @@ namespace Ao.ObjectDesign.Sources.Sql
             {
                 factory.Value.Dispose();
                 factory = null;
+                GC.SuppressFinalize(this);
             }
         }
     }

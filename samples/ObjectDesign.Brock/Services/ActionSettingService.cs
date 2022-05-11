@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign;
-using Ao.ObjectDesign.Abstract.Store;
+using Ao.ObjectDesign.Store;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session;
 using Ao.ObjectDesign.Session.BuildIn;

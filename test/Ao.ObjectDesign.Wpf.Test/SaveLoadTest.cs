@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Abstract.Store;
+﻿using Ao.ObjectDesign.Store;
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Wpf.Json;

@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Abstract.Annotations;
+﻿using Ao.ObjectDesign.Annotations;
 using Ao.ObjectDesign.ForView;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

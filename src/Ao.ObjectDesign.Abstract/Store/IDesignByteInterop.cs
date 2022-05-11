@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Abstract.Store
+namespace Ao.ObjectDesign.Store
 {
     public interface IDesignByteInterop
     {

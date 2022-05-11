@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Abstract.Store;
+﻿using Ao.ObjectDesign.Store;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;
