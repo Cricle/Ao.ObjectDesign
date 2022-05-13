@@ -1,7 +1,7 @@
 ﻿namespace Ao.ObjectDesign.Sources
 {
-    public interface IProviderFactoryCondition
+    public interface IProviderFactoryCondition<TContext>
     {
-        bool Condition(ProviderFactorySelectContext context);
+        bool Condition(TContext context);
     }
 }

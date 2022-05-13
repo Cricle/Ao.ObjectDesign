@@ -3,11 +3,42 @@ using SqlKata;
 using SqlKata.Compilers;
 using SqlKata.Execution;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Sources.Sql
 {
+    public class SqlDataProvider<T> : SqlDataProvider, IAsyncDataProvider<List<T>>, IDataProvider<List<T>>
+    {
+        public SqlDataProvider(Query query, Compiler compiler, IDbConnection dbConnection)
+            : base(query, compiler, dbConnection)
+        {
+        }
+
+        public List<T> GetAsData()
+        {
+            return (List<T>)GetData();
+        }
+
+        public async Task<List<T>> GetAsDataAsync()
+        {
+            var r=await GetDataAsync();
+            return (List<T>)r;
+        }
+
+        protected override object CoreGetData(Query query)
+        {
+            return query.Get<T>(Transaction, Timeout);
+        }
+
+        protected override async Task<object> CoreGetDataAsync(Query query)
+        {
+            var r = await query.GetAsync<T>(Transaction, Timeout);
+            return r.ToList();
+        }
+    }
     public abstract class SqlDataProvider : IDataProvider, IAsyncDataProvider,IDisposable
     {
         protected SqlDataProvider(Query query, Compiler compiler, IDbConnection dbConnection)

@@ -5,18 +5,18 @@ namespace Ao.ObjectDesign.Sources
 {
     public static class AnalysisManagerExtensions
     {
-        public static IProviderFactory Get(this AnalysisManager manager, ProviderFactorySelectContext context)
+        public static IProviderFactory<TContext> Get<TContext>(this AnalysisManager<TContext> manager, TContext context)
         {
             return CoreGet(manager.ProviderFactories, context).FirstOrDefault();
         }
 
-        public static IAsyncProviderFactory AsyncGet(this AnalysisManager manager, ProviderFactorySelectContext context)
+        public static IAsyncProviderFactory<TContext> AsyncGet<TContext>(this AnalysisManager<TContext> manager, TContext context)
         {
             return CoreGet(manager.AsyncDataProviderFactories, context).FirstOrDefault();
         }
 
-        private static IEnumerable<T> CoreGet<T>(List<T> datas, ProviderFactorySelectContext context)
-            where T :IProviderFactoryCondition
+        private static IEnumerable<T> CoreGet<T,TContext>(List<T> datas, TContext context)
+            where T :IProviderFactoryCondition<TContext>
         {
             for (int i = 0; i < datas.Count; i++)
             {

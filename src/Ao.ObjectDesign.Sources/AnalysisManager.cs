@@ -6,11 +6,22 @@ using System.Reflection;
 
 namespace Ao.ObjectDesign.Sources
 {
-    public class AnalysisManager
+    public class AnalysisManager<TContext>
     {
-        public List<IProviderFactory> ProviderFactories { get; }
+        public AnalysisManager()
+            :this(new List<IProviderFactory<TContext>>(),new List<IAsyncProviderFactory<TContext>>())
+        {
 
-        public List<IAsyncProviderFactory> AsyncDataProviderFactories { get; }
+        }
+        public AnalysisManager(List<IProviderFactory<TContext>> providerFactories, List<IAsyncProviderFactory<TContext>> asyncDataProviderFactories)
+        {
+            ProviderFactories = providerFactories ?? throw new ArgumentNullException(nameof(providerFactories));
+            AsyncDataProviderFactories = asyncDataProviderFactories ?? throw new ArgumentNullException(nameof(asyncDataProviderFactories));
+        }
+
+        public List<IProviderFactory<TContext>> ProviderFactories { get; }
+
+        public List<IAsyncProviderFactory<TContext>> AsyncDataProviderFactories { get; }
 
     }
 }

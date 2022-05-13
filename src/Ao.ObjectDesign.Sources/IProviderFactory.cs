@@ -2,8 +2,8 @@
 
 namespace Ao.ObjectDesign.Sources
 {
-    public interface IProviderFactory: IProviderFactoryCondition
+    public interface IProviderFactory<TContext>: IProviderFactoryCondition<TContext>
     {
-        IDataProvider GetDataProvider();
+        IDataProvider GetDataProvider(TContext context);
     }
 }

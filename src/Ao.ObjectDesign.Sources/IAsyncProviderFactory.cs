@@ -2,8 +2,8 @@
 
 namespace Ao.ObjectDesign.Sources
 {
-    public interface IAsyncProviderFactory : IProviderFactoryCondition
+    public interface IAsyncProviderFactory<TContext> : IProviderFactoryCondition<TContext>
     {
-        IAsyncDataProvider GetAsyncDataProvider();
+        IAsyncDataProvider GetAsyncDataProvider(TContext context);
     }
 }
