@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Json\Ao.ObjectDesign.Json.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.MessagePack\Ao.ObjectDesign.MessagePack.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />

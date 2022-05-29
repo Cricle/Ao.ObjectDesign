@@ -94,7 +94,8 @@
             </ListView>
             <TreeView x:Name="Scenes" 
                       Grid.Row="2"
-                      Background="Transparent">
+                      Background="Transparent"
+                      ItemsSource="{Binding ProjectSceneDirecotry}">
                 <TreeView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{l:Lang Cdev.Scene.Actions.New}" />
@@ -103,9 +104,9 @@
                     </ContextMenu>
                 </TreeView.ContextMenu>
                 <TreeView.ItemTemplate>
-                    <DataTemplate DataType="{x:Type sys:String}">
-                        <TextBlock Text="{Binding}"/>
-                    </DataTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Nexts}">
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
             </TreeView>
         </Grid>

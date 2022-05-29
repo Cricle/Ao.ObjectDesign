@@ -29,8 +29,8 @@ namespace Ao.ObjectDesign
             set => EnsureLoadVisitor().Value = value;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private ExpressionPropertyVisitor EnsureLoadVisitor()
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public ExpressionPropertyVisitor EnsureLoadVisitor()
         {
             return propertyVisitor ??
                (propertyVisitor = new ExpressionPropertyVisitor(DeclaringInstance, PropertyInfo));

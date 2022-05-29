@@ -14,6 +14,7 @@ using ObjectDesign.Brock.Controls;
 using ObjectDesign.Brock.Level;
 using ObjectDesign.Brock.Models;
 using ObjectDesign.Brock.Services;
+using ObjectDesign.Projecting;
 using System;
 using System.ComponentModel;
 using System.IO;
@@ -22,10 +23,12 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Ao.Project;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ObjectDesign.Brock
 {
-
     internal class MainWindowModel : ObservableObject
     {
         public MainWindowModel(SceneEngine<Scene, UIElementSetting> engine,
@@ -35,7 +38,8 @@ namespace ObjectDesign.Brock
             LanguageManager langMgr,
             ActionSettingService actionSettingService,
             MoveWayService moveWayService,
-            MetroWindow window)
+            MetroWindow window,
+            ProjectManager projectManager)
         {
             this.window = window;
             this.engine = engine;
@@ -45,6 +49,7 @@ namespace ObjectDesign.Brock
             this.langMgr = langMgr;
             this.actionSettingService = actionSettingService;
             this.moveWayService = moveWayService;
+            this.projectManager = projectManager;
 
             TipsVisibility = Visibility.Visible;
             CopyCommand = new RelayCommand(Copy);
@@ -73,11 +78,22 @@ namespace ObjectDesign.Brock
         private readonly ActionSettingService actionSettingService;
         private readonly MoveWayService moveWayService;
         private readonly MetroWindow window;
-
+        private readonly ProjectManager projectManager;
 
         private Visibility tipsVisibility;
 
         public MySceneMakerRuntime Runtime { get; }
+
+        public ObservableCollection<FileEntryInfo> ProjectSceneDirecotry
+        {
+            get
+            {
+                var sc = projectManager.Project.EnsureGetMetadata<FileEntryRoot>(JsonSceneItem.SceneInfoKey);
+                return sc.Root.Nexts;
+            }
+        }
+
+        public ProjectManager ProjectManager => projectManager;
 
         public DropBox CurrentDropBox
         {

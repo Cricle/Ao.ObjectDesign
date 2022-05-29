@@ -1,6 +1,7 @@
 ﻿using MahApps.Metro.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using ObjectDesign.Brock.Controls;
+using ObjectDesign.Projecting;
 
 namespace ObjectDesign.Brock
 {

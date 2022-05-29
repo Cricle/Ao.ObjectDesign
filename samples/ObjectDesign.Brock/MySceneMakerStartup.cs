@@ -108,7 +108,7 @@ namespace ObjectDesign.Brock
                 .Add<TextBlock>(x => x.TextTrimming);
             Engine.TemplateContextsDecoraters.Add(new PropertyContextOrderDecoratere<Scene, UIElementSetting>(Engine.DesignOrderManager));
             Engine.TemplateContextsDecoraters.Add(new DesignStatePropertyContextsDecorater<Scene, UIElementSetting>(Engine));
-
+           
             var runtime = serviceProvider.GetRequiredService<MySceneMakerRuntime>();
             runtime.AutoSwithDesignPanel = true;
 

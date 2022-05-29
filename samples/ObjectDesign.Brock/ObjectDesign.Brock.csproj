@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net472;net6.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\..\src\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
     <ProjectReference Include="..\ObjectDesign.Brock.Controls\ObjectDesign.Brock.Controls.csproj" />
+    <ProjectReference Include="..\ObjectDesign.Projecting\ObjectDesign.Projecting.csproj" />
   </ItemGroup>
 
 </Project>

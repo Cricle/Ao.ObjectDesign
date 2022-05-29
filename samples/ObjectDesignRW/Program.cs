@@ -1,6 +1,8 @@
 ﻿using Ao.ObjectDesign;
+using Ao.ObjectDesign.Data;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -18,6 +20,7 @@ namespace ObjectDesignRW
             typeof(MethodBase),
 
         };
+
         [STAThread]
         static void Main(string[] args)
         {

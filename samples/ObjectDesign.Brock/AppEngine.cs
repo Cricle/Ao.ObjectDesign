@@ -4,16 +4,22 @@ using Ao.Lang.Runtime;
 using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Session;
 using Ao.ObjectDesign.Session.BuildIn;
+using Ao.ObjectDesign.Sources;
+using Ao.Project;
 using MahApps.Metro.Controls;
 using Microsoft.Extensions.Configuration.Resources;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Controls;
 using ObjectDesign.Brock.Level;
 using ObjectDesign.Brock.Models;
 using ObjectDesign.Brock.Services;
+using ObjectDesign.Projecting;
 using System;
 using System.Globalization;
+using System.IO;
+using System.IO.Abstractions;
 using System.Windows;
 
 namespace ObjectDesign.Brock
@@ -54,12 +60,46 @@ namespace ObjectDesign.Brock
             {
                 return new ImageManager(null);
             });
+            Services.AddSingleton<ProjectManager, JsonProjectManager>(x =>
+            {
+                var m= new JsonProjectManager(new FileSystem());
+                var proj = new Project();
+                proj.PropertyGroups.Add(new JsonDataProvider
+                {
+                    Name="Base data",
+                    Descript="Provider base data",
+                    Value=JsonConvert.SerializeObject(new
+                    {
+                        name="aaa",
+                        age=22,
+                        a="dsads"
+                    })
+                });
+                proj.ItemGroups.Add(new JsonSceneItem());
+                var dir = m.FileSystem.DirectoryInfo
+                    .FromDirectoryName(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"test"));
+                if (!dir.Exists)
+                {
+                    dir.Create();
+                }
+                var fi = m.FileSystem.FileInfo.FromFileName(Path.Combine(dir.FullName, "proj.jsonproject"));
+                m.SaveProject(proj.ToSkeleton(), fi);
+                m.SetProject(dir, fi);
+                return m;
+            });
+            Services.AddSingleton<DataProviderGroup>();
+            Services.AddSingleton<FileEntryRoot>();
+            Services.AddSingleton<DataManager>();
         }
 
         public virtual IServiceProvider Build()
         {
             var provider = Services.BuildServiceProvider();
             Init(provider);
+            var projMgr = provider.GetRequiredService<ProjectManager>();
+            projMgr.Project.Initialize(provider);
+            projMgr.Project.Decorate();
+            projMgr.Project.ConductAsync().GetAwaiter().GetResult();
             return provider;
         }
 
