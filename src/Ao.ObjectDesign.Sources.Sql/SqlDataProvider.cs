@@ -10,36 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Sources.Sql
 {
-    public class SqlDataProvider<T> : SqlDataProvider, IAsyncDataProvider<List<T>>, IDataProvider<List<T>>
-    {
-        public SqlDataProvider(Query query, Compiler compiler, IDbConnection dbConnection)
-            : base(query, compiler, dbConnection)
-        {
-        }
-
-        public List<T> GetAsData()
-        {
-            return (List<T>)GetData();
-        }
-
-        public async Task<List<T>> GetAsDataAsync()
-        {
-            var r=await GetDataAsync();
-            return (List<T>)r;
-        }
-
-        protected override object CoreGetData(Query query)
-        {
-            return query.Get<T>(Transaction, Timeout);
-        }
-
-        protected override async Task<object> CoreGetDataAsync(Query query)
-        {
-            var r = await query.GetAsync<T>(Transaction, Timeout);
-            return r.ToList();
-        }
-    }
-    public abstract class SqlDataProvider : IDataProvider, IAsyncDataProvider,IDisposable
+    public abstract class SqlDataProvider<T> : DataAnyProviderBase<T>,IDisposable
     {
         protected SqlDataProvider(Query query, Compiler compiler, IDbConnection dbConnection)
         {
@@ -65,18 +36,18 @@ namespace Ao.ObjectDesign.Sources.Sql
         
         public bool IsFactoryCreated => factory.IsValueCreated;
 
-        public object GetData()
+        public override T Get()
         {
             return CoreGetData(factory.Value.FromQuery(Query));
         }
 
-        public Task<object> GetDataAsync()
+        public override Task<T> GetAsync()
         {
             return CoreGetDataAsync(factory.Value.FromQuery(Query));
         }
 
-        protected abstract object CoreGetData(Query query);
-        protected abstract Task<object> CoreGetDataAsync(Query query);
+        protected abstract T CoreGetData(Query query);
+        protected abstract Task<T> CoreGetDataAsync(Query query);
 
         private QueryFactory CreateQueryFactory()
         {

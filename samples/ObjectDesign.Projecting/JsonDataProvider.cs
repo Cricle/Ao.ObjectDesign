@@ -10,7 +10,7 @@ namespace ObjectDesign.Projecting
         protected override void DoWithString(string value)
         {
             GetDataProviderGroup()
-                .Add(new InMemoryDataProvider { Value = JObject.Parse(value) });
+                .Add(new InMemoryDataProvider { Value = JObject.Parse(value), Name = Name });
         }
     }
 }

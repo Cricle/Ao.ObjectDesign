@@ -2,12 +2,11 @@
 
 namespace Ao.ObjectDesign.Data
 {
-    public interface IAsyncDataProvider<T>
+    public interface IAsyncDataProvider<T>: IDataProviderIdentity<T>
     {
-        Task<T> GetAsDataAsync();
+        Task<T> GetAsync();
     }
-    public interface IAsyncDataProvider
+    public interface IAsyncDataProvider: IAsyncDataProvider<object>
     {
-        Task<object> GetDataAsync();
     }
 }

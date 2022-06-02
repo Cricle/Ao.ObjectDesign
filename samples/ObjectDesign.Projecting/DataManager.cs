@@ -11,6 +11,6 @@ namespace ObjectDesign.Projecting
 
         public DataProviderGroup Group { get; }
 
-        public object DataObject => Group.GetData();
+        public object DataObject => Group.Get();
     }
 }

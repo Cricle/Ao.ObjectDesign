@@ -1,23 +1,51 @@
 ﻿using Ao.ObjectDesign.Data;
-using System.Collections.Generic;
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Sources
 {
-    public class DataProviderGroup : List<IDataProvider>, IDataProvider
+    public class DataProviderGroup : ObservableCollection<IDataAnyProvider<object>>, IDataAnyProvider<object>
     {
+        public string Name { get; set; }
+
+        public bool SupportRaiseDataChanged => true;
+
+        public event EventHandler<DataProviderDataChangedEventArgs<object>> DataChanged;
+
         public DataProviderGroup()
         {
+            CollectionChanged += OnCollectionChanged;
         }
 
-        public DataProviderGroup(IEnumerable<IDataProvider> collection) : base(collection)
+        private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (IDataProvider<object> item in e.NewItems)
+                {
+                    if (item.SupportRaiseDataChanged)
+                    {
+                        item.DataChanged += OnDataChanged;
+                    }
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (IDataProvider<object> item in e.NewItems)
+                {
+                    item.DataChanged -= OnDataChanged;
+                }
+            }
         }
 
-        public DataProviderGroup(int capacity) : base(capacity)
+        private void OnDataChanged(object sender, DataProviderDataChangedEventArgs<object> e)
         {
+            DataChanged?.Invoke(sender, e);
         }
 
-        public object GetData()
+        public object Get()
         {
             var dyn = new DynamicCombineObject();
             foreach (var item in this)
@@ -26,5 +54,11 @@ namespace Ao.ObjectDesign.Sources
             }
             return dyn;
         }
+
+        public Task<object> GetAsync()
+        {
+            return Task.FromResult(Get());
+        }
+
     }
 }

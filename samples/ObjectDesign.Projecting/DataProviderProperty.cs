@@ -22,7 +22,7 @@ namespace ObjectDesign.Projecting
 
         public override void Decorate(IProject project)
         {
-            if (string.IsNullOrEmpty(FileName))
+            if (!string.IsNullOrEmpty(FileName))
             {
                 var path = FileName;
                 if (!Path.IsPathRooted(path))

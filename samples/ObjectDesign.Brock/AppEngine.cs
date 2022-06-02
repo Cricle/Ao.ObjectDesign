@@ -17,6 +17,7 @@ using ObjectDesign.Brock.Models;
 using ObjectDesign.Brock.Services;
 using ObjectDesign.Projecting;
 using System;
+using System.Dynamic;
 using System.Globalization;
 using System.IO;
 using System.IO.Abstractions;
@@ -100,6 +101,9 @@ namespace ObjectDesign.Brock
             projMgr.Project.Initialize(provider);
             projMgr.Project.Decorate();
             projMgr.Project.ConductAsync().GetAwaiter().GetResult();
+            var dm = provider.GetRequiredService<DataManager>();
+            var prop = (DynamicObject) dm.DataObject;
+            var names = prop.GetDynamicMemberNames();
             return provider;
         }
 
