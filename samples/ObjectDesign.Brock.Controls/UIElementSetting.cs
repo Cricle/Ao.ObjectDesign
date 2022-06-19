@@ -2,12 +2,28 @@
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Wpf.Designing;
+using System;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Windows;
 
 namespace ObjectDesign.Brock.Components
 {
+    public class ScriptCode
+    {
+        public string Code { get; set; }
+
+        public string TriggerProperty { get; set; }
+
+        public ScriptCodeRunTypes RunTypes { get; set; }
+
+        public TimeSpan? Interval { get; set; }
+    }
+    public enum ScriptCodeRunTypes
+    {
+        Interval = 0,
+        DataChanged = 1,
+    }
     [MappingFor(typeof(UIElement))]
     [BindingCreator(typeof(UIElement),typeof(UIElementSetting))]
     public class UIElementSetting : NotifyableObject

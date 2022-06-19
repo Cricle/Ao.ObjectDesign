@@ -101,9 +101,6 @@ namespace ObjectDesign.Brock
             projMgr.Project.Initialize(provider);
             projMgr.Project.Decorate();
             projMgr.Project.ConductAsync().GetAwaiter().GetResult();
-            var dm = provider.GetRequiredService<DataManager>();
-            var prop = (DynamicObject) dm.DataObject;
-            var names = prop.GetDynamicMemberNames();
             return provider;
         }
 

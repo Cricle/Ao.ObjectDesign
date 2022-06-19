@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ao.ObjectDesign.Sources.Abstract\Ao.ObjectDesign.Sources.Abstract.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
   </ItemGroup>
 

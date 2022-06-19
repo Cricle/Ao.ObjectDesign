@@ -1,7 +1,5 @@
 ﻿using Ao.ObjectDesign.Data;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace Ao.ObjectDesign.Sources
 {
@@ -18,10 +16,10 @@ namespace Ao.ObjectDesign.Sources
             get => value;
             set
             {
-                var old = value;
+                var old = this.value;
                 if (!EqualityComparer<T>.Default.Equals(old,value))
                 {
-                    this.value = old;
+                    this.value = value;
                     RaiseDataChanged(old, value);
                 }
             }

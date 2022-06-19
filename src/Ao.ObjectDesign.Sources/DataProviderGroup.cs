@@ -50,14 +50,27 @@ namespace Ao.ObjectDesign.Sources
             var dyn = new DynamicCombineObject();
             foreach (var item in this)
             {
-                dyn.Combiner.Add(item);
+                var val = item.Get();
+                if (val != null)
+                {
+                    dyn.Combiner.Add(val);
+                }
             }
             return dyn;
         }
 
-        public Task<object> GetAsync()
+        public async Task<object> GetAsync()
         {
-            return Task.FromResult(Get());
+            var dyn = new DynamicCombineObject();
+            foreach (var item in this)
+            {
+                var val = await item.GetAsync();
+                if (val!=null)
+                {
+                    dyn.Combiner.Add(val);
+                }
+            }
+            return dyn;
         }
 
     }

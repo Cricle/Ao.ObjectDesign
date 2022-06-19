@@ -22,7 +22,7 @@ namespace Ao.ObjectDesign
                     .GetPropertyDeclares()
                     .ToDictionary(x => x.PropertyInfo.Name);
             }
-                return entity;
+            return entity;
         }
 
         public DefaultObjectAccesstor(object instance) : base(instance)

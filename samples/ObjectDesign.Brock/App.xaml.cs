@@ -1,9 +1,12 @@
 ﻿using Ao.Lang.Runtime;
+using Ao.ObjectDesign;
+using Ao.ObjectDesign.Sources;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 using ObjectDesign.Brock.Controls;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
@@ -18,6 +21,7 @@ namespace ObjectDesign.Brock
 
         public App()
         {
+            
             DispatcherUnhandledException += OnAppDispatcherUnhandledException;
             TaskScheduler.UnobservedTaskException += OnTaskSchedulerUnobservedTaskException;
             AppDomain.CurrentDomain.UnhandledException += OnCurrentDomainUnhandledException;

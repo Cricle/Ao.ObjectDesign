@@ -38,7 +38,6 @@ namespace Ao.ObjectDesign.Data
             }
         }
 
-
         public int Count => properties.Count;
 
         public bool TryGetProxy(string name,out ICombineItem combineItem)

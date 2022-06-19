@@ -14,7 +14,7 @@ namespace Ao.ObjectDesign.Sources.Types
                 throw new ArgumentNullException(nameof(type));
             }
 
-            if (!type.IsClass)
+            if (!type.GetTypeInfo().IsClass)
             {
                 throw new ArgumentException($"{type} is not class");
             }
@@ -28,7 +28,7 @@ namespace Ao.ObjectDesign.Sources.Types
                 {
                     var nameAttr = item.GetCustomAttribute<SourceNameAttribute>();
                     var primaryAttr = item.GetCustomAttribute<SourcePrimaryAttribute>();
-
+                    
                     var code = Type.GetTypeCode(item.PropertyType);
 
                     var column = new SourceColumn(nameAttr?.Name ?? item.Name, item.Name, code);

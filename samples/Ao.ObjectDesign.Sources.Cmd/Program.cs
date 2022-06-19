@@ -16,9 +16,9 @@ namespace Ao.ObjectDesign.Sources.Cmd
             var ds = new SqliteConnectionStringBuilder();
             ds.DataSource = "students.db";
             var sqlite = new SqliteConnection(ds.ConnectionString);
-            var p = new SqlDataProvider<Student>(q, new SqliteCompiler(), sqlite);
+            var p = new DynamicDataProvider(q, new SqliteCompiler(), sqlite);
             var dt = p.Get();
-            Console.WriteLine(dt.Count);
+            Console.WriteLine(dt.Count());
         }
     }
     public class Student

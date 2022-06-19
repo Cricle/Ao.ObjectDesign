@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.MessagePack\Ao.ObjectDesign.MessagePack.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
     <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
