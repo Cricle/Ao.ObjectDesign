@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.WpfDesign.Input;
+﻿using Ao.ObjectDesign.Wpf.Input;
 
 namespace Ao.ObjectDesign.Session.Wpf.Desiging
 {

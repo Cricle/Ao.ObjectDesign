@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Wpf.Desiging;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;

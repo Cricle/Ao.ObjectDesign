@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Ao.ObjectDesign.WpfDesign\Ao.ObjectDesign.WpfDesign.csproj" />
+    <ProjectReference Include="..\..\src\Ao.ObjectDesign.Wpf\Ao.ObjectDesign.Wpf.csproj" />
   </ItemGroup>
 
 </Project>

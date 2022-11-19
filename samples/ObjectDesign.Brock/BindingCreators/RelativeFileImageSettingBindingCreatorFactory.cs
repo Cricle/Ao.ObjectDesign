@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Wpf.BindingCreators;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Controls.BindingCreators;
 using System.Collections.Generic;

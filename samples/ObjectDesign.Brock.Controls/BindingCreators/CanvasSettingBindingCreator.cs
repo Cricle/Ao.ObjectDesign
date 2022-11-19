@@ -3,7 +3,7 @@ using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Data;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using ObjectDesign.Brock.Components;
 using System;
 using System.Collections.Generic;

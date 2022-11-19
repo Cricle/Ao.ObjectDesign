@@ -1,6 +1,6 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using System;
 using System.Collections;
 using System.Collections.Generic;

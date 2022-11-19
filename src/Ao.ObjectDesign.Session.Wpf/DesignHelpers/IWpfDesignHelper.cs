@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign.Bindings.Designers;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using System.Windows;
 
 namespace Ao.ObjectDesign.Session.Wpf.DesignHelpers

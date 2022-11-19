@@ -2,8 +2,8 @@
 using Ao.ObjectDesign.Designing.Desiging;
 using Ao.ObjectDesign.Designing.Level;
 
-using Ao.ObjectDesign.WpfDesign;
-using Ao.ObjectDesign.WpfDesign.Input;
+using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Input;
 using System;
 using System.Collections;
 using System.Diagnostics;

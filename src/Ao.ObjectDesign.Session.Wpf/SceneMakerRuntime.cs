@@ -2,7 +2,7 @@
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Wpf.Desiging;
 
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;

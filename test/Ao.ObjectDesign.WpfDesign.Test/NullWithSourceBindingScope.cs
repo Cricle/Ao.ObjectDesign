@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.WpfDesign.Test
+namespace Ao.ObjectDesign.Wpf.Test
 {
     class NullWithSourceBindingScope : IWithSourceBindingScope
     {

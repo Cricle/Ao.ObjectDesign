@@ -1,8 +1,8 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
 using Ao.ObjectDesign.Session.Wpf.Desiging;
-using Ao.ObjectDesign.WpfDesign;
-using Ao.ObjectDesign.WpfDesign.Input;
+using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Input;
 using System;
 using System.Linq;
 using System.Windows;

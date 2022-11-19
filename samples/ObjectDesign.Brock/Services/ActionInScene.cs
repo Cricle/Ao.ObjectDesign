@@ -1,6 +1,6 @@
 ﻿using Ao.ObjectDesign;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Wpf;
 using ObjectDesign.Brock.Components;
 using System;
 using System.Collections.Generic;
