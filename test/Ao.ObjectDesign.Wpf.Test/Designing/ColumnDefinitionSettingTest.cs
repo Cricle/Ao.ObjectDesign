@@ -1,9 +1,9 @@
-﻿using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Ao.ObjectDesign.Wpf.Test.Designing
+namespace Ao.ObjectDesign.Test.Designing
 {
     [TestClass]
     public class ColumnDefinitionSettingTest

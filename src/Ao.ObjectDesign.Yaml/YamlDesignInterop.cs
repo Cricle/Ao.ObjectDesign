@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using YamlDotNet.Serialization;
 
-namespace Ao.ObjectDesign.Wpf.Yaml
+namespace Ao.ObjectDesign.Yaml
 {
     public class YamlDesignInterop : IDesignInterop
     {

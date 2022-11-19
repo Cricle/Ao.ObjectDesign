@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Bindings.Annotations;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Designing;
 using System;
 using System.Collections.Specialized;
 using System.Linq;

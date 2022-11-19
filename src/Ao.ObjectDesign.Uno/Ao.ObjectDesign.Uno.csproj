@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstnadard2.0</TargetFramework>
+  </PropertyGroup>
+
+  
+  <ItemGroup>
+    <PackageReference Include="Uno.UI" Version="4.6.19" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Abstract\Ao.ObjectDesign.Abstract.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign.Designing\Ao.ObjectDesign.Designing.csproj" />
+    <ProjectReference Include="..\Ao.ObjectDesign\Ao.ObjectDesign.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../Ao.ObjectDesign.Wpf/**/*.cs"/>
+    <Compile Remove="../Ao.ObjectDesign.Wpf/obj/**/*.*"></Compile>
+  </ItemGroup>
+</Project>

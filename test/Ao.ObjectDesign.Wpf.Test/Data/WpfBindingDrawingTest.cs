@@ -1,14 +1,14 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Annotations;
 using Ao.ObjectDesign.Designing.Data;
-using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Data;
+using Ao.ObjectDesign.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace Ao.ObjectDesign.Wpf.Test.Data
+namespace Ao.ObjectDesign.Test.Data
 {
     [TestClass]
     public class WpfBindingDrawingTest

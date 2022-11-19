@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
-namespace Ao.ObjectDesign.Wpf.TextJson
+namespace Ao.ObjectDesign.TextJson
 {
     public class TypeDiscriminatorConvention : IDiscriminatorConvention
     {

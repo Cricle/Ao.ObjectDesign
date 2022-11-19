@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Bindings.BindingCreators;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

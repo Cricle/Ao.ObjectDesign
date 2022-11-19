@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using LExpressions = System.Linq.Expressions;
 
-namespace Ao.ObjectDesign.Wpf.Data
+namespace Ao.ObjectDesign.Data
 {
     [DebuggerDisplay("Source: {Source}, Property:{PropertyInfo}")]
     public class PropertyWithSourceBindingScope : TargetWithSourceBindingScope

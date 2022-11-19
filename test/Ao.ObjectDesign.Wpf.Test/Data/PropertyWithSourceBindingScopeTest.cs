@@ -1,8 +1,8 @@
-﻿using Ao.ObjectDesign.Wpf.Data;
+﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Ao.ObjectDesign.Wpf.Test.Data
+namespace Ao.ObjectDesign.Test.Data
 {
     [TestClass]
     public class PropertyWithSourceBindingScopeTest

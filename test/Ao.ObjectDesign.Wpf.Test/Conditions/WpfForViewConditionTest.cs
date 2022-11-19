@@ -1,5 +1,6 @@
-﻿using Ao.ObjectDesign.ForView;
-using Ao.ObjectDesign.Wpf.Conditions;
+﻿using Ao.ObjectDesign.Conditions;
+using Ao.ObjectDesign.ForView;
+using Ao.ObjectDesign.Conditions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using System.Threading;
@@ -7,7 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Test.Conditions
+namespace Ao.ObjectDesign.Test.Conditions
 {
     [TestClass]
     public class WpfForViewConditionTest

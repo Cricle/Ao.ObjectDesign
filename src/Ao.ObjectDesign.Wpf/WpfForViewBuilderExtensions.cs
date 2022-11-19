@@ -1,9 +1,9 @@
 ﻿using Ao.ObjectDesign.ForView;
-using Ao.ObjectDesign.Wpf.Conditions;
+using Ao.ObjectDesign.Conditions;
 using System;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public static class WpfForViewBuilderExtensions
     {

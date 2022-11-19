@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign.ForView;
-using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign;
 using System.Windows;
 
 namespace ObjectDesign.Wpf.Views

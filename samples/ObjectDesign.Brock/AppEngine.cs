@@ -2,8 +2,8 @@
 using Ao.Lang.Lookup;
 using Ao.Lang.Runtime;
 using Ao.ObjectDesign.Bindings;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.BuildIn;
+using Ao.ObjectDesign.Session.Wpf;
+using Ao.ObjectDesign.Session.Wpf.BuildIn;
 using Ao.ObjectDesign.Sources;
 using Ao.Project;
 using MahApps.Metro.Controls;

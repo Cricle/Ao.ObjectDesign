@@ -1,6 +1,6 @@
 ﻿using Ao.Lang.Runtime;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Session.Wpf;
+
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +14,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Ao.ObjectDesign;
 
 namespace ObjectDesign.Brock.Views
 {

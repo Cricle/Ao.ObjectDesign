@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [MappingFor(typeof(PointCollection))]
     public class PointCollectionDesigner : DynamicSilentObservableCollection<PointDesigner>

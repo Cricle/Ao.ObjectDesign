@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(Binding))]
     public class BindingDesigner : BindingBaseDesigner, IDefaulted

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public class UIGenerator : IWpfUIGenerator, IUIGenerator<FrameworkElement, WpfForViewBuildContext>
     {

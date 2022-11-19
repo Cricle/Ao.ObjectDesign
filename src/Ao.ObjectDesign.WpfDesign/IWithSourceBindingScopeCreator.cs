@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Wpf.Data;
+﻿using Ao.ObjectDesign.Data;
 using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.WpfDesign

@@ -1,4 +1,4 @@
-﻿namespace Ao.ObjectDesign.Wpf.Designing
+﻿namespace Ao.ObjectDesign.Designing
 {
     public interface IDefaulted
     {

@@ -1,12 +1,12 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Designing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-namespace Ao.ObjectDesign.Wpf.Test.Designing
+namespace Ao.ObjectDesign.Test.Designing
 {
     [TestClass]
     public class DefaultValue

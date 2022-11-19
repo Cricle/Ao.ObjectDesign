@@ -1,6 +1,6 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.Data;
 using System.Windows;
 using System.Windows.Data;
 

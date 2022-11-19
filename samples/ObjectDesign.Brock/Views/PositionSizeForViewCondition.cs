@@ -1,6 +1,7 @@
-﻿using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Conditions;
+﻿
+using Ao.ObjectDesign.Conditions;
 using ObjectDesign.Brock.Components;
+using Ao.ObjectDesign;
 
 namespace ObjectDesign.Brock.Views
 {

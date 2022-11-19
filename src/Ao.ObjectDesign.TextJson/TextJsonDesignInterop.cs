@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Ao.ObjectDesign.Wpf.TextJson
+namespace Ao.ObjectDesign.TextJson
 {
     public class TextJsonDesignInterop : IDesignInterop
     {

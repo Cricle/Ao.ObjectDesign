@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     internal class WpfDesignBuildUIResult : WpfDesignBuildResult, IWpfDesignBuildUIResult
     {

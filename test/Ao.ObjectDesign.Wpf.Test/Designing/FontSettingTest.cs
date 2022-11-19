@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Ao.ObjectDesign.Wpf.Test.Designing
+namespace Ao.ObjectDesign.Test.Designing
 {
     [TestClass]
     public class FontSettingTest

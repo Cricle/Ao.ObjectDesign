@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(Size))]
     public class SizeDesigner : NotifyableObject

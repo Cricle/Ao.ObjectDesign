@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing;
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public interface IWpfObjectDesigner
     {

@@ -2,7 +2,7 @@
 using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
 using System.Windows.Media;
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(TranslateTransform))]
     public class TranslateTransformDesigner : TransformDesigner

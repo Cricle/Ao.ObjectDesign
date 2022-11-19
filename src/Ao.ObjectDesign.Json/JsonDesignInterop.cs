@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Ao.ObjectDesign.Wpf.Json
+namespace Ao.ObjectDesign.Json
 {
     public class JsonDesignInterop : IDesignInterop
     {

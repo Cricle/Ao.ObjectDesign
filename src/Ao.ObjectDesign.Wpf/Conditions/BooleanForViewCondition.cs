@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Conditions
+namespace Ao.ObjectDesign.Conditions
 {
     public class BooleanForViewCondition : WpfForViewCondition
     {

@@ -1,8 +1,8 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Data;
-using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Data;
+
+using Ao.ObjectDesign.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,5 +1,5 @@
-﻿using Ao.ObjectDesign.Session.BuildIn;
-using Ao.ObjectDesign.Session.Environment;
+﻿using Ao.ObjectDesign.Session.Wpf.BuildIn;
+using Ao.ObjectDesign.Session.Wpf.Environment;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;
 

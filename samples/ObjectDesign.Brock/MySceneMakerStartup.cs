@@ -1,11 +1,11 @@
 ﻿using Ao.ObjectDesign.AutoBind;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.BuildIn;
-using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Session.DesignHelpers;
-using Ao.ObjectDesign.Session.Environment;
-using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.Session.Wpf;
+using Ao.ObjectDesign.Session.Wpf.BuildIn;
+using Ao.ObjectDesign.Session.Wpf.Desiging;
+using Ao.ObjectDesign.Session.Wpf.DesignHelpers;
+using Ao.ObjectDesign.Session.Wpf.Environment;
+using Ao.ObjectDesign.Data;
 using Microsoft.Extensions.DependencyInjection;
 using ObjectDesign.Brock.BindingCreators;
 using ObjectDesign.Brock.Components;

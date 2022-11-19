@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Ao.ObjectDesign.Wpf.Xaml
+namespace Ao.ObjectDesign.Xaml
 {
     public class XamlDesignInterop : IDesignInterop
     {

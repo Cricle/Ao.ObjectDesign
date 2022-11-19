@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Designing;
 using ObjectDesign.Brock.Components;
 using System.Windows;
 using System.Windows.Controls;

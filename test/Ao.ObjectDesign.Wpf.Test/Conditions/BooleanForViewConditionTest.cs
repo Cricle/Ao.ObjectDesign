@@ -1,10 +1,10 @@
-﻿using Ao.ObjectDesign.Wpf.Conditions;
+﻿using Ao.ObjectDesign.Conditions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Ao.ObjectDesign.Wpf.Test.Conditions
+namespace Ao.ObjectDesign.Test.Conditions
 {
     [TestClass]
     public class BooleanForViewConditionTest

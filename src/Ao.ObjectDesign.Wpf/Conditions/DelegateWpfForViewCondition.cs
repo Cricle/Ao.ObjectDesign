@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Conditions
+namespace Ao.ObjectDesign.Conditions
 {
     public class DelegateWpfForViewCondition : WpfForViewCondition
     {

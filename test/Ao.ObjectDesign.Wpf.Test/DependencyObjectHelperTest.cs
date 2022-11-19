@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Test
+namespace Ao.ObjectDesign.Test
 {
 
     [TestClass]

@@ -1,8 +1,8 @@
 ﻿using Ao.Lang.Runtime;
 using Ao.ObjectDesign;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.BuildIn;
+using Ao.ObjectDesign.Session.Wpf;
+using Ao.ObjectDesign.Session.Wpf.BuildIn;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Toolkit.Mvvm.ComponentModel;

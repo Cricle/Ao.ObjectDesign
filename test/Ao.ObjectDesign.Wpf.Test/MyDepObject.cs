@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Test
+namespace Ao.ObjectDesign.Test
 {
     class MyDepObject : DependencyObject
     {
