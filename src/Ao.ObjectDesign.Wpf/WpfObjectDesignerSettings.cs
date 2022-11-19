@@ -3,7 +3,7 @@ using Ao.ObjectDesign.ForView;
 using System;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public class WpfObjectDesignerSettings : IWpfObjectDesignerSettings
     {

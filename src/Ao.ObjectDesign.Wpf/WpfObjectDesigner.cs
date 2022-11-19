@@ -1,6 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.ForView;
-using Ao.ObjectDesign.Wpf.Annotations;
+using Ao.ObjectDesign.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public class WpfObjectDesigner : IWpfObjectDesignerSettings, IWpfObjectDesigner
     {

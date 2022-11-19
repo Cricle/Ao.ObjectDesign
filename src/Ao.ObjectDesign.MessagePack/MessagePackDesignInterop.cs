@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 
-namespace Ao.ObjectDesign.Wpf.MessagePack
+namespace Ao.ObjectDesign.MessagePack
 {
     public class MessagePackDesignInterop : IDesignByteInterop, IDesignStreamInterop
     {

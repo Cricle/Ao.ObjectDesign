@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     [Flags]
     public enum AttackModes

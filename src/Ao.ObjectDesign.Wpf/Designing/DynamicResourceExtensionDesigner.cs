@@ -3,7 +3,7 @@ using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [MappingFor(typeof(DynamicResourceExtension))]
     public class DynamicResourceExtensionDesigner : NotifyableObject

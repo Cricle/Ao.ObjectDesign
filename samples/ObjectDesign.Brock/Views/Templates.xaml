@@ -3,7 +3,7 @@
                     xmlns:sc="https://github.com/Cricle/Ao.ObjectDesign"
                     xmlns:loc="clr-namespace:ObjectDesign.Brock"
                     xmlns:lev="clr-namespace:ObjectDesign.Brock.Level"
-                    xmlns:d="clr-namespace:Ao.ObjectDesign.WpfDesign;assembly=Ao.ObjectDesign.WpfDesign">
+                    xmlns:d="clr-namespace:Ao.ObjectDesign.Wpf;assembly=Ao.ObjectDesign.Wpf">
     <loc:SceneDataTemplateSelector x:Key="SceneMaker.Views.SceneDataTemplateSelector">
         <loc:SceneDataTemplateSelector.SceneTemplate>
             <HierarchicalDataTemplate DataType="{x:Type lev:Scene}"

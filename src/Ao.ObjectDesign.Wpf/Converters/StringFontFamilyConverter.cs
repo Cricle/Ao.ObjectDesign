@@ -1,10 +1,10 @@
-﻿using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Designing;
 using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Ao.ObjectDesign.Wpf.Converters
+namespace Ao.ObjectDesign.Converters
 {
     public class StringFontFamilyConverter : IValueConverter
     {

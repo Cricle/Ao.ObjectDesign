@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     //https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.effects.effect?view=windowsdesktop-5.0
     [Flags]

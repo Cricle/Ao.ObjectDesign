@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(DropShadowEffect))]
     public class DropShadowEffectDesigner : NotifyableObject

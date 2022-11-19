@@ -3,7 +3,7 @@ using MessagePack.Formatters;
 using System;
 using System.Collections.Generic;
 
-namespace Ao.ObjectDesign.Wpf.MessagePack
+namespace Ao.ObjectDesign.MessagePack
 {
     public class TypelessFormatterResolver : IFormatterResolver
     {

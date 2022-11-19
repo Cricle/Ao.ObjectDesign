@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     public static class DesigningHelpers
     {

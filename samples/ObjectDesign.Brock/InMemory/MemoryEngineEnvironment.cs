@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Session.Environment;
+using Ao.ObjectDesign.Session.Wpf;
+using Ao.ObjectDesign.Session.Wpf.Desiging;
+using Ao.ObjectDesign.Session.Wpf.Environment;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;
 using System;

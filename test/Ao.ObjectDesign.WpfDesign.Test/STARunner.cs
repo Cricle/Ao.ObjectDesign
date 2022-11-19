@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Security.Permissions;
 using System.Threading;
 
-namespace Ao.ObjectDesign.WpfDesign.Test
+namespace Ao.ObjectDesign.Wpf.Test
 {
     internal static class ThreadRunner
     {

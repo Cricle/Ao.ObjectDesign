@@ -3,7 +3,7 @@ using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(BindingBase))]
     public abstract class BindingBaseDesigner : NotifyableObject

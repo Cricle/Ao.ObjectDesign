@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.Designing;
 using System;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     internal class WpfDesignBuildResult : IWpfDesignBuildResult
     {

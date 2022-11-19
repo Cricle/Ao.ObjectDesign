@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Designing;
 using System.Collections.Generic;
 
 namespace Ao.ObjectDesign.Benchmark

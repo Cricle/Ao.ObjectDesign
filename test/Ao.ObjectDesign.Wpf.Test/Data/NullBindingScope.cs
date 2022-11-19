@@ -1,9 +1,9 @@
-﻿using Ao.ObjectDesign.Wpf.Data;
+﻿using Ao.ObjectDesign.Data;
 using System;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Test.Data
+namespace Ao.ObjectDesign.Test.Data
 {
     class NullBindingScope : IBindingScope
     {

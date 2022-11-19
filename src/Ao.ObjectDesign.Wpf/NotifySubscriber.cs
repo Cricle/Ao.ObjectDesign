@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public static class NotifySubscriber
     {

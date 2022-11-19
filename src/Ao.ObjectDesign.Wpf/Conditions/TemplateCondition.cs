@@ -2,7 +2,7 @@
 using System;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Conditions
+namespace Ao.ObjectDesign.Conditions
 {
     public abstract class TemplateCondition<T> : TemplateCondition
     {

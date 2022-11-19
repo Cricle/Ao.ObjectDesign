@@ -1,8 +1,8 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Session.Annotations;
-using Ao.ObjectDesign.Wpf.Data;
+using Ao.ObjectDesign.Session.Wpf.Annotations;
+using Ao.ObjectDesign.Data;
 using Microsoft.Extensions.DependencyInjection;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Controls;

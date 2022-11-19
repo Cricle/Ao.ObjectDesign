@@ -3,7 +3,7 @@ using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
 using System.Globalization;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(CultureInfo))]
     public class CultureInfoDesigner : NotifyableObject

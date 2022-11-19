@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Ao.ObjectDesign.Wpf.Json
+namespace Ao.ObjectDesign.Json
 {
     internal static class Json
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Wpf.Data
+namespace Ao.ObjectDesign.Data
 {
     public static class BindingScopeWithSourceExtensions
     {

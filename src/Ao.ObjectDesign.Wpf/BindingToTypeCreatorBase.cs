@@ -1,9 +1,9 @@
-﻿using Ao.ObjectDesign.Wpf.Data;
+﻿using Ao.ObjectDesign.Data;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public abstract class BindingToTypeCreatorBase : IBindingToTypeCreator
     {

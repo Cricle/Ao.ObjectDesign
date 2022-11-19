@@ -6,7 +6,7 @@ using System.Net.Cache;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(ImageSource))]
     public class ImageSourceDesigner : NotifyableObject

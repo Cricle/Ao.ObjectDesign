@@ -4,7 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public abstract class WpfForViewBuildContextBase : DependencyObject, IForViewBuildContext
     {

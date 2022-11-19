@@ -1,10 +1,10 @@
-﻿using Ao.ObjectDesign.Wpf.Data;
+﻿using Ao.ObjectDesign.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ao.ObjectDesign.Wpf.Test
+namespace Ao.ObjectDesign.Test
 {
     [TestClass]
     public class BindingToTypeCreatorBaseTest

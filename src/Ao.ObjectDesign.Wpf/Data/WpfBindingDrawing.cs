@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Data
+namespace Ao.ObjectDesign.Data
 {
     public class WpfBindingDrawing : BindingDrawing<IWpfBindingDrawingItem, DependencyPropertyDescriptor>
     {

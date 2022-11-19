@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf.Data
+namespace Ao.ObjectDesign.Data
 {
     public abstract class BindingMakerBase<T> : ICloneable, IBindingMaker<T>
     {

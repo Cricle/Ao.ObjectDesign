@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Ao.ObjectDesign.Wpf.Test
+namespace Ao.ObjectDesign.Test
 {
     [TestClass]
     public class WpfPropertyVisitorTest

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public static class WpfObjectDesignerSettingsExtensions
     {

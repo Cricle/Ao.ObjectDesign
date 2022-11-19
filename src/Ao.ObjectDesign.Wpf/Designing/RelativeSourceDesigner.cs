@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(RelativeSource))]
     public class RelativeSourceDesigner : NotifyableObject, IDefaulted

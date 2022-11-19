@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Converters
+namespace Ao.ObjectDesign.Converters
 {
     public class PrimitiveConverter : IValueConverter
     {

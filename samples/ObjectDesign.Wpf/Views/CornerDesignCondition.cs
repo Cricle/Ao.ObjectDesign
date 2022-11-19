@@ -1,5 +1,5 @@
-﻿using Ao.ObjectDesign.Wpf.Conditions;
-using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Conditions;
+using Ao.ObjectDesign.Designing;
 
 namespace ObjectDesign.Wpf.Views
 {

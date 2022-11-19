@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Media;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(TileBrush))]
     public abstract class TileBrushDesigner : NotifyableObject, IMiddlewareDesigner<TileBrush>

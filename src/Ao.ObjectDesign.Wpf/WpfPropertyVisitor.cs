@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public class WpfPropertyVisitor : PropertyVisitor, INotifyPropertyChanged, IDisposable, INotifyPropertyChangeTo
     {

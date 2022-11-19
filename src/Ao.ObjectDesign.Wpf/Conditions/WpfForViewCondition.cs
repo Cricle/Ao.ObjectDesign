@@ -3,7 +3,7 @@ using System;
 using System.Windows;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Conditions
+namespace Ao.ObjectDesign.Conditions
 {
     public abstract class WpfForViewCondition : IForViewCondition<FrameworkElement, WpfForViewBuildContext>
     {

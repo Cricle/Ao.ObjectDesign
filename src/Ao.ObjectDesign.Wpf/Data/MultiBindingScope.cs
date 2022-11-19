@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace Ao.ObjectDesign.Wpf.Data
+namespace Ao.ObjectDesign.Data
 {
     public class MultiBindingScope : BindingScopeBase<MultiBinding>
     {

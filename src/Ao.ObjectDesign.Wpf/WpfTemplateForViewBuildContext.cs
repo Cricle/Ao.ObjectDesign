@@ -1,7 +1,7 @@
 ﻿using Ao.ObjectDesign.ForView;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public class WpfTemplateForViewBuildContext : WpfForViewBuildContextBase
     {

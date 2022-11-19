@@ -1,6 +1,6 @@
 ﻿using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.BuildIn;
+using Ao.ObjectDesign.Session.Wpf;
+using Ao.ObjectDesign.Session.Wpf.BuildIn;
 using System;
 using System.Diagnostics;
 

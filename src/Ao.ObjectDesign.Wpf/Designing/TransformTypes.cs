@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [Flags]
     public enum TransformTypes

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(Cursor))]
     public class CursorDesigner : NotifyableObject

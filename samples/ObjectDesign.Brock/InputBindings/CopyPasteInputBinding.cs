@@ -1,11 +1,10 @@
 ﻿using Ao.ObjectDesign;
 using Ao.ObjectDesign.Designing;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Session;
-using Ao.ObjectDesign.Session.Desiging;
-using Ao.ObjectDesign.Wpf.Designing;
-using Ao.ObjectDesign.WpfDesign;
-using Ao.ObjectDesign.WpfDesign.Input;
+using Ao.ObjectDesign.Session.Wpf;
+using Ao.ObjectDesign.Session.Wpf.Desiging;
+using Ao.ObjectDesign.Wpf;
+using Ao.ObjectDesign.Wpf.Input;
 using ObjectDesign.Brock.Components;
 using ObjectDesign.Brock.Level;
 using System.Collections.Generic;

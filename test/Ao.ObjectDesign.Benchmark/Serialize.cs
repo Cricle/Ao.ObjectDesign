@@ -1,8 +1,8 @@
 ﻿using Ao.ObjectDesign.Store;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Wpf.Json;
-using Ao.ObjectDesign.Wpf.MessagePack;
-using Ao.ObjectDesign.Wpf.Yaml;
+using Ao.ObjectDesign.Json;
+using Ao.ObjectDesign.MessagePack;
+using Ao.ObjectDesign.Yaml;
 using BenchmarkDotNet.Attributes;
 using System.Collections.Generic;
 

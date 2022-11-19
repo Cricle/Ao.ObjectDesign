@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
-namespace Ao.ObjectDesign.Wpf
+namespace Ao.ObjectDesign
 {
     public static class DependencyObjectHelper
     {

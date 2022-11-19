@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Wpf.Designing;
+﻿using Ao.ObjectDesign.Designing;
 using System;
 using System.Globalization;
 using System.Windows;

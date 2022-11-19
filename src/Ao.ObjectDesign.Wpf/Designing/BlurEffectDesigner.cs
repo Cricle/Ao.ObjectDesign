@@ -3,7 +3,7 @@ using Ao.ObjectDesign.Designing.Annotations;
 using System.ComponentModel;
 using System.Windows.Media.Effects;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(BlurEffect))]
     public class BlurEffectDesigner : NotifyableObject

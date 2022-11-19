@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
 
-namespace Ao.ObjectDesign.Wpf.Designing
+namespace Ao.ObjectDesign.Designing
 {
     [DesignFor(typeof(IEnumerable<GradientStop>))]
     public abstract class GradientBrushDesigner : NotifyableObject, IMiddlewareDesigner<GradientBrush>

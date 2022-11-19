@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Data;
 using LExpression = System.Linq.Expressions;
 
-namespace Ao.ObjectDesign.Wpf.Data
+namespace Ao.ObjectDesign.Data
 {
     public static class DependencyPropertyBuilders
     {

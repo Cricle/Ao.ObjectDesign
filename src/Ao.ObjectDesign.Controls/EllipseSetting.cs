@@ -1,5 +1,5 @@
 ﻿using Ao.ObjectDesign.Designing.Annotations;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign.Designing;
 using System.Windows.Shapes;
 
 namespace Ao.ObjectDesign.Controls

@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:m="http://metro.mahapps.com/winfx/xaml/controls"
                     xmlns:w="https://github.com/Cricle/Ao.ObjectDesign"
-                    xmlns:loc="clr-namespace:Ao.ObjectDesign.Wpf.Designing;assembly=Ao.ObjectDesign.Wpf"
+                    xmlns:loc="clr-namespace:Ao.ObjectDesign.Designing;assembly=Ao.ObjectDesign.Wpf"
                     xmlns:l="https://github.com/Cricle/Ao.Lang"
                     xmlns:conv="clr-namespace:ObjectDesign.Brock.Converters">
     <DataTemplate x:Key="ObjectDesign.BrushDesigner"

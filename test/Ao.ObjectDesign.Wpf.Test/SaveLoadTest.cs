@@ -1,18 +1,18 @@
 ﻿using Ao.ObjectDesign.Store;
 using Ao.ObjectDesign.Controls;
 using Ao.ObjectDesign.Designing;
-using Ao.ObjectDesign.Wpf.Json;
-using Ao.ObjectDesign.Wpf.Xaml;
-using Ao.ObjectDesign.Wpf.Yaml;
+using Ao.ObjectDesign.Json;
+using Ao.ObjectDesign.Xaml;
+using Ao.ObjectDesign.Yaml;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
 #if !NET452
-using Ao.ObjectDesign.Wpf.MessagePack;
-using Ao.ObjectDesign.Wpf.TextJson;
+using Ao.ObjectDesign.MessagePack;
+using Ao.ObjectDesign.TextJson;
 #endif
 
-namespace Ao.ObjectDesign.Wpf.Test
+namespace Ao.ObjectDesign.Test
 {
     public class Box
     {

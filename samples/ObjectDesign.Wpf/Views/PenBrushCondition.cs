@@ -1,6 +1,6 @@
 ﻿using Ao.ObjectDesign.ForView;
-using Ao.ObjectDesign.Wpf;
-using Ao.ObjectDesign.Wpf.Designing;
+using Ao.ObjectDesign;
+using Ao.ObjectDesign.Designing;
 using System.Windows;
 
 namespace ObjectDesign.Wpf.Views

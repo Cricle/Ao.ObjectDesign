@@ -1,4 +1,4 @@
-﻿using Ao.ObjectDesign.Wpf.Conditions;
+﻿using Ao.ObjectDesign.Conditions;
 using System.Windows.Media;
 
 namespace ObjectDesign.Brock.Views

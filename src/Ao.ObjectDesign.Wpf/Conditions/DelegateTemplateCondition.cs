@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ao.ObjectDesign.Wpf.Conditions
+namespace Ao.ObjectDesign.Conditions
 {
     public class DelegateTemplateCondition<T> : TemplateCondition<T>
     {

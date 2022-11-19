@@ -1,8 +1,8 @@
 ﻿using Ao.ObjectDesign.Bindings;
 using Ao.ObjectDesign.Designing.Level;
-using Ao.ObjectDesign.Session.BindingCreators;
-using Ao.ObjectDesign.Wpf.Data;
-using Ao.ObjectDesign.WpfDesign;
+using Ao.ObjectDesign.Session.Wpf.BindingCreators;
+using Ao.ObjectDesign.Data;
+using Ao.ObjectDesign.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
